@@ -10,7 +10,7 @@ namespace RNAqbase.Models
 		public string Chain { get; set; }
 		public int Number { get; set; }
 		public string Icode { get; set; }
-		public Molecule Molecule { get; set; }
+		public string Molecule { get; set; }
 		public string FullName { get; set; }
 		public string ShortName { get; set; }
 		public GlycosidicBond GlycosidicBond { get; set; }

@@ -1,0 +1,40 @@
+body {
+}
+.container {
+  min-height: 100%
+}
+main {
+  padding-bottom: 100px;
+  height: auto;
+}
+.row {
+  margin-top: 50px;
+}
+
+.photo {
+  width: 350px;
+  height: 350px;
+  text-align: center;
+  margin-top: 10px;
+}
+.picture {
+  width: 320px;
+  height: 300px;
+}
+
+h2 {
+  font-size: 40px;
+  color: #45A29E;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+
+h2:hover {
+  color: darkgreen;
+}
+
+
+

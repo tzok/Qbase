@@ -13,6 +13,12 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TetradsComponent } from './tetrads/tetrads.component';
 import { TestComponent } from './test/test.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { CiteUsComponent } from './citeUs/citeUs.component';
+import { ContactComponent } from './contact/contact.component';
+import { HelpComponent } from './help/help.component';
+import { QuadruplexesComponent } from './quadruplexes/quadruplexes.component';
+import { StructuresComponent } from './structures/structures.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,13 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     CounterComponent,
     FetchDataComponent,
     TetradsComponent,
-    TestComponent
+    TestComponent,
+    AboutComponent,
+    CiteUsComponent,
+    ContactComponent,
+    HelpComponent,
+    QuadruplexesComponent,
+    StructuresComponent
 
   ],
   imports: [
@@ -31,11 +43,18 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     FormsModule,
 
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'tetrads', component: TetradsComponent },
-      { path: 'test', component: TestComponent }
+      { path: 'test', component: TestComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'citeUs', component: CiteUsComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'help', component: HelpComponent },
+      { path: 'quadruplexes', component: QuadruplexesComponent },
+      { path: 'structures', component: StructuresComponent }
     ]),
     MDBBootstrapModule
   ],

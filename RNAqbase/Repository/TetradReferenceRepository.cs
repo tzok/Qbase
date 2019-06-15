@@ -51,17 +51,18 @@ WHERE t.id = @Id;", new {Id = id});
 SELECT t.id, 
 	qt.quadruplex_id as ""QuadruplexId"", 
 	pdb1.id as ""PdbId"", 
-	pdb1.assembly as ""AssemblyId"",
-	n1.molecule,
-	(n1.full_name)||(n2.full_name)||(n3.full_name)||(n4.full_name) as ""sequence"",
-	t.onz
+	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
+	COALESCE(n1.molecule, 'Other') as ""Molecule"",
+	COALESCE((n1.full_name)||(n2.full_name)||(n3.full_name)||(n4.full_name), '') as ""Sequence"",
+	COALESCE(t.onz, 'Op') as ""Onz""
 FROM tetrade t
 	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 	JOIN nucleotide n2 on t.nt2_id = n2.id
 	JOIN nucleotide n3 on t.nt3_id = n3.id
 	JOIN nucleotide n4 on t.nt4_id = n4.id
-	JOIN pdb pdb1 on n1.pdb_id = pdb1.id;");
+	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
+ORDER BY t.id;");
 			}
 		}
 	}

@@ -1,0 +1,14 @@
+body {
+}
+.container {
+  min-height: 100%
+}
+main {
+  padding-bottom: 100px;
+  height: auto;
+}
+button {
+  background-color: #45A29E;
+  color: white;
+  height: 50px;
+}
