@@ -7,13 +7,13 @@ using RNAqbase.Repository;
 namespace RNAqbase.Controllers
 {
 	[Route("api/[controller]")]
-	public class TetradReferenceController : Controller
+	public class TetradController : Controller
 	{
-		private readonly IRepository<TetradReference> repository;
+		private readonly IRepository<Tetrad> repository;
 
-		public TetradReferenceController(IConfiguration configuration)
+		public TetradController(IConfiguration configuration)
 		{
-			repository = new TetradReferenceRepository(configuration);
+			repository = new TetradRepository(configuration);
 		}
 
 		[HttpGet("[action]")]

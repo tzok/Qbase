@@ -9,11 +9,6 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
     </ng-container>
-    <!-- Quadruplex ID Column -->
-    <ng-container matColumnDef="quadruplexId">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex ID</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.quadruplexId}}</mat-cell>
-    </ng-container>
     <!-- PDB ID Column -->
     <ng-container matColumnDef="pdbId">
       <mat-header-cell *matHeaderCellDef mat-sort-header>PDB ID</mat-header-cell>
@@ -29,15 +24,30 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Molecule</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.molecule}}</mat-cell>
     </ng-container>
-    <!-- Name Column -->
+    <!-- Sequence Column -->
     <ng-container matColumnDef="sequence">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Sequence</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.sequence}}</mat-cell>
+    </ng-container>
+    <!-- No. of strands Column -->
+    <ng-container matColumnDef="numberOfStrands">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>No. of strands</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.numberOfStrands}}</mat-cell>
+    </ng-container>
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.type}}</mat-cell>
     </ng-container>
     <!-- ONZ Column -->
     <ng-container matColumnDef="onzClass">
       <mat-header-cell *matHeaderCellDef mat-sort-header>ONZ Class</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.onzClass}}</mat-cell>
+    </ng-container>
+    <!-- No. of tetrads Column -->
+    <ng-container matColumnDef="numberOfTetrads">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>No. of tetrads</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.numberOfTetrads}}</mat-cell>
     </ng-container>
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">

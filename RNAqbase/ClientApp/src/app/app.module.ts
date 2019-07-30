@@ -11,12 +11,12 @@ import { TestComponent } from './test/test.component';
 import { CiteUsComponent } from './citeUs/citeUs.component';
 import { ContactComponent } from './contact/contact.component';
 import { HelpComponent } from './help/help.component';
-import { QuadruplexesComponent } from './quadruplexes/quadruplexes.component';
-import { StructuresComponent } from './structures/structures.component';
 import { AboutComponent } from './about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TetradTabelComponent } from './tetrad-tabel/tetrad-tabel.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
+import { QuadruplexTableComponent } from './quadruplex-table/quadruplex-table.component';
+import { StructureTableComponent } from './structure-table/structure-table.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +28,9 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, 
     CiteUsComponent,
     ContactComponent,
     HelpComponent,
-    QuadruplexesComponent,
-    StructuresComponent,
-    TetradTabelComponent
+    StructureTableComponent,
+    TetradTabelComponent,
+    QuadruplexTableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,8 +45,8 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, 
       { path: 'citeUs', component: CiteUsComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'help', component: HelpComponent },
-      { path: 'quadruplexes', component: QuadruplexesComponent },
-      { path: 'structures', component: StructuresComponent },
+      { path: 'quadruplexes', component: QuadruplexTableComponent },
+      { path: 'structures', component: StructureTableComponent },
       { path: 'tetrads', component: TetradTabelComponent }
     ]),
     BrowserAnimationsModule,
