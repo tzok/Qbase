@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
 
 @Component({
   selector: 'structure-table',
@@ -20,10 +22,10 @@ export class StructureTableComponent implements OnInit {
 
   displayedColumns = [
     'pdbId', 'assemblyId', 'molecule',
-    'experimentalMethod','structure2D', 'quadruplexId', 'numberOfStrands', 'onzClass', 'select'
+    'experimentalMethod', 'structure2D', 'quadruplexId', 'numberOfStrands', 'onzClass', 'select'
   ];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
@@ -45,9 +47,7 @@ export class StructureTableComponent implements OnInit {
   }
 
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+    this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   checkboxLabel(row?: Structure): string {
@@ -57,6 +57,15 @@ export class StructureTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+  showStructure(pdbId: string) {
+    this.http.get<string>(this.baseUrl + 'api/pdb/GetVisualizationById?pdbid=' + pdbId).subscribe(result => {
+
+      let dialogRef = this.dialog.open(VisualizationDialogComponent, {
+          data: { svg: result },
+        });
+    },
+      error => console.error(error));
+  }
 }
 
 interface Structure {
@@ -64,7 +73,6 @@ interface Structure {
   assemblyId: number;
   molecule: string;
   experiment: string;
-  pdbVisualization: string;
   id: number;
   numberOfStrands: number;
   onzClass: string;

@@ -3,3 +3,7 @@ body {
 .container {
   min-height: 100%
 }
+main {
+  margin-top: 10px;
+  height: auto;
+}

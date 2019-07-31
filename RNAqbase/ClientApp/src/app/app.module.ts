@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -15,8 +14,10 @@ import { AboutComponent } from './about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TetradTabelComponent } from './tetrad-tabel/tetrad-tabel.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { QuadruplexTableComponent } from './quadruplex-table/quadruplex-table.component';
 import { StructureTableComponent } from './structure-table/structure-table.component';
+import { VisualizationDialogComponent } from './visualization-dialog/visualization-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { StructureTableComponent } from './structure-table/structure-table.compo
     HelpComponent,
     StructureTableComponent,
     TetradTabelComponent,
-    QuadruplexTableComponent
+    QuadruplexTableComponent,
+    VisualizationDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -55,7 +57,8 @@ import { StructureTableComponent } from './structure-table/structure-table.compo
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
