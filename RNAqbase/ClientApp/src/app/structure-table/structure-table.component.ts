@@ -58,8 +58,10 @@ export class StructureTableComponent implements OnInit {
   }
 
   showStructure(pdbId: string) {
-    this.http.get<string>(this.baseUrl + 'api/pdb/GetVisualizationById?pdbid=' + pdbId).subscribe(result => {
-
+    this.http.get(this.baseUrl + 'api/pdb/GetVisualizationById?pdbid=' + pdbId,
+      { responseType: 'text' })
+      .subscribe(result => {
+        console.log(result);
       let dialogRef = this.dialog.open(VisualizationDialogComponent, {
           data: { svg: result },
         });

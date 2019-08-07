@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using RNAqbase.Repository;
@@ -19,7 +21,8 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetVisualizationById(string pdbId)
 		{
 			if(pdbId == null) return BadRequest();
-			return Ok(await repository.GetVisualizationByPdbId(pdbId));
+			string svg = await repository.GetVisualizationByPdbId(pdbId);
+			return base.Ok(svg);
 		}
 	}
 }

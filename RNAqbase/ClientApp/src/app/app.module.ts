@@ -61,6 +61,7 @@ import { VisualizationDialogComponent } from './visualization-dialog/visualizati
     MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [VisualizationDialogComponent]
 })
 export class AppModule { }

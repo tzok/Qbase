@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RNAqbase.Services
 {
-	public class QuadruplexService
+	public class QuadruplexService : IQuadruplexService
 	{
 		private readonly IRepository<Tetrad> repository;
 

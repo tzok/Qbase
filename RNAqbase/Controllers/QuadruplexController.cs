@@ -8,11 +8,11 @@ namespace RNAqbase.Controllers
 	[Route("api/[controller]")]
 	public class QuadruplexController : Controller
 	{
-		private readonly QuadruplexService quadruplexService;
+		private readonly IQuadruplexService quadruplexService;
 
-		public QuadruplexController(IConfiguration configuration)
+		public QuadruplexController(IQuadruplexService quadruplexService)
 		{
-			quadruplexService = new QuadruplexService(configuration);
+			this.quadruplexService = quadruplexService;
 		}
 
 		[HttpGet("[action]")]
