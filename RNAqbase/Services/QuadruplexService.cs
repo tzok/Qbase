@@ -9,11 +9,11 @@ namespace RNAqbase.Services
 {
 	public class QuadruplexService : IQuadruplexService
 	{
-		private readonly IRepository<Tetrad> repository;
+		private readonly ITetradRepository repository;
 
-		public QuadruplexService(IConfiguration configuration)
+		public QuadruplexService(ITetradRepository repository)
 		{
-			repository = new TetradRepository(configuration);
+			this.repository = repository;
 		}
 
 		public async Task<List<Quadruplex>> GetAllQuadruplexes()

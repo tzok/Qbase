@@ -1,6 +1,10 @@
 <div class="container">
   <main>
+
     <div class="mat-elevation-z8 table">
+      <div class="text-rectangle">
+        <h2>List of tetrads</h2>
+      </div>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
@@ -8,7 +12,11 @@
         <!-- Id Column -->
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+          <mat-cell *matCellDef="let row">
+            <a [routerLink]="['/tetrad', row.id]">
+              {{row.id}}
+            </a>
+          </mat-cell>
         </ng-container>
         <!-- Quadruplex ID Column -->
         <ng-container matColumnDef="quadruplexId">
@@ -18,7 +26,7 @@
         <!-- PDB ID Column -->
         <ng-container matColumnDef="pdbId">
           <mat-header-cell *matHeaderCellDef mat-sort-header>PDB ID</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.pdbId}}</mat-cell>
+          <mat-cell *matCellDef="let row"><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">{{row.pdbId}}</a></mat-cell>
         </ng-container>
         <!-- Assembly ID Column -->
         <ng-container matColumnDef="assemblyId">

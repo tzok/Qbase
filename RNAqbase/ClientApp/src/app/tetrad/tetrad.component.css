@@ -1,16 +1,10 @@
-body {
-}
 .container {
   min-height: 100%
 }
+
 main {
-  padding-bottom: 100px;
+  margin-top: 10px;
   height: auto;
-}
-button {
-  background-color: #45A29E;
-  color: white;
-  height: 50px;
 }
 .text-rectangle {
   text-align: center;
@@ -25,6 +19,10 @@ p {
   line-height: 1.5;
   margin: 5px;
 }
-h3 {
-  margin-top: 5px;
+structure{
+  display:inline-block;
+  margin: 10px;
+}
+h2{
+  text-align: center;
 }

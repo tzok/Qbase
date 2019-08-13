@@ -7,7 +7,7 @@ using RNAqbase.Models;
 
 namespace RNAqbase.Repository
 {
-	public class TetradRepository : RepositoryBase, IRepository<Tetrad>
+	public class TetradRepository : RepositoryBase, ITetradRepository
 	{
 		public TetradRepository(IConfiguration configuration) : base(configuration)
 		{
@@ -23,10 +23,13 @@ namespace RNAqbase.Repository
 SELECT t.id, 
 	qt.quadruplex_id as ""QuadruplexId"", 
 	pdb1.id as ""PdbId"", 
-	pdb1.assembly as ""AssemblyId"",
-	n1.molecule,
-	(n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name) as ""Sequence"",
-	t.onz as ""OnzClass""
+	pdb1.experiment as ""Experiment"",
+	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
+	COALESCE(n1.molecule, 'Other') as ""Molecule"",
+	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
+	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
+	COALESCE(t.onz, 'Op') as ""OnzClass"",
+	t.planarity
 FROM tetrade t
 	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
 	JOIN nucleotide n1 on t.nt1_id = n1.id
@@ -65,6 +68,35 @@ FROM tetrade t
 	JOIN nucleotide n4 on t.nt4_id = n4.id
 	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
 ORDER BY t.id;");
+			}
+		}
+
+		public async Task<IEnumerable<int>> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<int>
+					(@"
+SELECT tetrade_id
+FROM quadruplex_tetrade
+WHERE quadruplex_id = @QuadruplexId 
+	AND tetrade_id <> @TetradId;", new { QuadruplexId = quadruplexId, TetradId = tetradId });
+			}
+		}
+
+		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<int>
+				(@"
+SELECT t.id
+FROM tetrade t
+	JOIN nucleotide n1 on t.nt1_id = n1.id
+WHERE n1.pdb_id = @PdbId 
+	AND t.id <> @TetradId;", new { PdbId = pdbId, TetradId = tetradId });
 			}
 		}
 	}

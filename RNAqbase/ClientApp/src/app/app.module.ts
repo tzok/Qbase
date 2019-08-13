@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { QuadruplexTableComponent } from './quadruplex-table/quadruplex-table.component';
 import { StructureTableComponent } from './structure-table/structure-table.component';
 import { VisualizationDialogComponent } from './visualization-dialog/visualization-dialog.component';
+import { TetradComponent } from './tetrad/tetrad.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { VisualizationDialogComponent } from './visualization-dialog/visualizati
     StructureTableComponent,
     TetradTabelComponent,
     QuadruplexTableComponent,
-    VisualizationDialogComponent
+    VisualizationDialogComponent,
+    TetradComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,7 +51,9 @@ import { VisualizationDialogComponent } from './visualization-dialog/visualizati
       { path: 'help', component: HelpComponent },
       { path: 'quadruplexes', component: QuadruplexTableComponent },
       { path: 'structures', component: StructureTableComponent },
-      { path: 'tetrads', component: TetradTabelComponent }
+      { path: 'tetrads', component: TetradTabelComponent },
+      { path: 'tetrad/:tetradId', component: TetradComponent }
+      
     ]),
     BrowserAnimationsModule,
     MatTableModule,

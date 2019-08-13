@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RNAqbase.Models
@@ -16,5 +17,9 @@ namespace RNAqbase.Models
 		public int NumberOfStrands => Strands.Distinct().Count();
 		public string PdbVisualization { get; set; }
 		public string Experiment { get; set; }
+		public float Planarity { get; set; }
+		public List<int> TetradsInTheSameQuadruplex { get; set; }
+		public List<int> TetradsInTheSamePdb { get; set; }
+
 	}
 }

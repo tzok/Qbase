@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RNAqbase.Repository;
 using RNAqbase.Services;
 
 namespace RNAqbase
@@ -23,6 +24,8 @@ namespace RNAqbase
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddTransient<IEmailService, EmailService>();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
+			services.AddTransient<ITetradRepository, TetradRepository>();
+
 
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>

@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using RNAqbase.Models;
 using RNAqbase.Repository;
 
 namespace RNAqbase.Controllers
@@ -9,11 +7,11 @@ namespace RNAqbase.Controllers
 	[Route("api/[controller]")]
 	public class TetradController : Controller
 	{
-		private readonly IRepository<Tetrad> repository;
+		private readonly ITetradRepository repository;
 
-		public TetradController(IConfiguration configuration)
+		public TetradController(ITetradRepository repository)
 		{
-			repository = new TetradRepository(configuration);
+			this.repository = repository;
 		}
 
 		[HttpGet("[action]")]
@@ -29,5 +27,23 @@ namespace RNAqbase.Controllers
 		{
 			return Ok(await repository.FindAll());
 		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId)
+		{
+			if (tetradId == 0 || quadruplexId == 0) return BadRequest();
+
+			return Ok(await repository.GetOtherTetradsInTheSameQuadruplex(tetradId, quadruplexId));
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
+		{
+			if (tetradId == 0 || string.IsNullOrWhiteSpace(pdbId)) return BadRequest();
+
+			return Ok(await repository.GetOtherTetradsInTheSamePdb(tetradId, pdbId));
+		}
+
+
 	}
 }
