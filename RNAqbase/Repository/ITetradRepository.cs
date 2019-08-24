@@ -10,5 +10,6 @@ namespace RNAqbase.Repository
 		Task<IEnumerable<Tetrad>> FindAll();
 		Task<IEnumerable<int>> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId);
 		Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId);
+		Task<IEnumerable<Tetrad>> FindAllTetradsByQuadruplexId(int id);
 	}
 }

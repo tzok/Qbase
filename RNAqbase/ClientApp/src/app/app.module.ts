@@ -19,6 +19,7 @@ import { QuadruplexTableComponent } from './quadruplex-table/quadruplex-table.co
 import { StructureTableComponent } from './structure-table/structure-table.component';
 import { VisualizationDialogComponent } from './visualization-dialog/visualization-dialog.component';
 import { TetradComponent } from './tetrad/tetrad.component';
+import { QuadruplexComponent } from './quadruplex/quadruplex.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { TetradComponent } from './tetrad/tetrad.component';
     TetradTabelComponent,
     QuadruplexTableComponent,
     VisualizationDialogComponent,
-    TetradComponent
+    TetradComponent,
+    QuadruplexComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +54,8 @@ import { TetradComponent } from './tetrad/tetrad.component';
       { path: 'quadruplexes', component: QuadruplexTableComponent },
       { path: 'structures', component: StructureTableComponent },
       { path: 'tetrads', component: TetradTabelComponent },
-      { path: 'tetrad/:tetradId', component: TetradComponent }
+      { path: 'tetrad/:tetradId', component: TetradComponent },
+      { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent }
       
     ]),
     BrowserAnimationsModule,

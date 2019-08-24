@@ -14,6 +14,8 @@ namespace RNAqbase.Models
 		[JsonIgnore]
 		public string Visualization { get; set; }
 		[JsonIgnore]
+		public string OnzClass => TetradReferences.First().OnzClass;
+		[JsonIgnore]
 		public List<Tetrad> TetradReferences { get; set; }
 
 		public string PdbId => TetradReferences.First().PdbId;
@@ -22,9 +24,11 @@ namespace RNAqbase.Models
 		public string Sequence => TetradReferences.Select(x => x.Sequence).Aggregate((current, next) => current + next);
 		public int NumberOfStrands => TetradReferences.First().NumberOfStrands;
 		public string Type => TetradReferences.Select(x => x.OnzClass).Distinct().Count() == 1 ? "Regular" : "Irregular";
-		public string OnzClass => TetradReferences.First().OnzClass;
 		public int NumberOfTetrads => TetradReferences.Count;
 		public string PdbVisualization => TetradReferences.First().PdbVisualization;
 		public string Experiment => TetradReferences.First().Experiment;
+		public List<int> Tetrads => TetradReferences.Select(x => x.Id).ToList();
+		public float Twist => TetradReferences.First().Twist;
+		public float Rise => TetradReferences.First().Rise;
 	}
 }

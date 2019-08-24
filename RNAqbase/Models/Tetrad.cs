@@ -20,6 +20,9 @@ namespace RNAqbase.Models
 		public float Planarity { get; set; }
 		public List<int> TetradsInTheSameQuadruplex { get; set; }
 		public List<int> TetradsInTheSamePdb { get; set; }
+		public float Twist { get; set; }
+		public float Rise { get; set; }
+
 
 	}
 }

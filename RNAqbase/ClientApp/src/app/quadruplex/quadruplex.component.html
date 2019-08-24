@@ -1,0 +1,55 @@
+<div class="container">
+  <main>
+    <div class="description">
+      <div class="text-rectangle">
+        <h2> Quadruplex description</h2>
+      </div>
+      <p>Quadruplex Id: <b>{{data.id}}</b></p>
+      <p>p>PDB Id: <b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></p>
+      <p>Assembly Id: <b>{{data.assemblyId}}</b></p>
+      <p>Molecule: <b>{{data.molecule}}</b></p>
+      <p>Experimental method: <b>{{data.experiment}}</b></p>
+      <p>Number of strands in the quadruplex: <b>{{data.numberOfStrands}}</b></p>
+      <p>Number of tetrads in the quadruplex: <b>{{data.numberOfTetrads}}</b></p>
+      <p>Quadruplex type: <b>{{data.type}}</b></p>
+      <p>Quadruplex classification in ONZ taxonomy: <b>{{data.onzClass}}</b></p>
+      <p>Sequence of the quadruplex: <b>{{data.sequence}}</b></p>
+      <p>Values of Chi angle: </p>
+      <p>Twist parameter: <b>{{data.twist}}</b></p>
+      <p>Rise parameter: <b>{{data.rise}}</b></p>
+
+    </div>
+    <div class="structures">
+      <div class="text-rectangle">
+        <h2>Structure</h2>
+      </div>
+      <div class="row">
+        <div class="structure col-sm-6">
+          <p>3D structure</p>
+          <div>image</div>
+        </div>
+        <div class="structure col-sm-6">
+          <p>2D structure</p>
+          <div>image</div>
+        </div>
+      </div>
+    </div>
+    <div class="lists">
+      <div class="text-rectangle">
+        <h2>Lists</h2>
+      </div>
+      <div class="list">
+        <p>
+          List of tetrads in the quadruplex:
+          <a *ngFor="let t of data.tetrads" [routerLink]="['/tetrad', t]">{{t}} </a>
+        </p>
+      </div>
+      <div class="list">
+        <p>
+          List of quadruplex in the some PDB structure:
+          <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>

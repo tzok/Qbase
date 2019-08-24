@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using RNAqbase.Services;
 
 namespace RNAqbase.Controllers
@@ -19,6 +18,20 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetQuadruplexes()
 		{
 			return Ok(await quadruplexService.GetAllQuadruplexes());
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetQuadruplexById(int id)
+		{
+			if (id == 0) return BadRequest();
+			return Ok(await quadruplexService.GetQuadruplexById(id));
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetQuadruplexesByPdbId(string pdbId, int quadruplexId)
+		{
+			if (string.IsNullOrWhiteSpace(pdbId) || quadruplexId == 0) return BadRequest();
+			return Ok(await quadruplexService.GetQuadruplexesByPdbId(pdbId, quadruplexId));
 		}
 	}
 }

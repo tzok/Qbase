@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 using RNAqbase.Models;
 using RNAqbase.Repository;
 using System.Linq;
@@ -9,16 +8,18 @@ namespace RNAqbase.Services
 {
 	public class QuadruplexService : IQuadruplexService
 	{
-		private readonly ITetradRepository repository;
+		private readonly ITetradRepository tetradRepository;
+		private readonly IQuadruplexRepository quadruplexRepository;
 
-		public QuadruplexService(ITetradRepository repository)
+		public QuadruplexService(ITetradRepository tetradRepository, IQuadruplexRepository quadruplexRepository)
 		{
-			this.repository = repository;
+			this.tetradRepository = tetradRepository;
+			this.quadruplexRepository = quadruplexRepository;
 		}
 
 		public async Task<List<Quadruplex>> GetAllQuadruplexes()
 		{
-			var tetrads = await repository.FindAll();
+			var tetrads = await tetradRepository.FindAll();
 			var tetradGroups = tetrads.GroupBy(x => x.QuadruplexId).ToList();
 			var quadruplexes = new List<Quadruplex>();
 
@@ -28,6 +29,18 @@ namespace RNAqbase.Services
 			}
 
 			return quadruplexes;
+		}
+
+		public async Task<Quadruplex> GetQuadruplexById(int id)
+		{
+			var tetrads = await tetradRepository.FindAllTetradsByQuadruplexId(id);
+			return new Quadruplex { TetradReferences = tetrads.ToList() };
+		}
+
+		public async Task<List<int>> GetQuadruplexesByPdbId(string pdbId, int quadruplexId)
+		{
+			var quadruplexes = await quadruplexRepository.GetQuadruplexesByPdbId(pdbId, quadruplexId);
+			return quadruplexes.ToList();
 		}
 	}
 }

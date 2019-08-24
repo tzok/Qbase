@@ -1,3 +1,9 @@
 nav {
   background-color: #282828;
 }
+.picture {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+
+}

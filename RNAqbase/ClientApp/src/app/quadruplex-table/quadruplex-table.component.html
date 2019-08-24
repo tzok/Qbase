@@ -11,7 +11,11 @@
         <!-- Id Column -->
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+          <mat-cell *matCellDef="let row">
+            <a [routerLink]="['/quadruplex', row.id]">
+              {{row.id}}
+            </a>
+          </mat-cell>
         </ng-container>
         <!-- PDB ID Column -->
         <ng-container matColumnDef="pdbId">

@@ -7,5 +7,7 @@ namespace RNAqbase.Services
 	public interface IQuadruplexService
 	{
 		Task<List<Quadruplex>> GetAllQuadruplexes();
+		Task<Quadruplex> GetQuadruplexById(int id);
+		Task<List<int>> GetQuadruplexesByPdbId(string pdbId, int quadruplexId);
 	}
 }

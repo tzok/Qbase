@@ -25,6 +25,7 @@ namespace RNAqbase
 			services.AddTransient<IEmailService, EmailService>();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
 			services.AddTransient<ITetradRepository, TetradRepository>();
+			services.AddTransient<IQuadruplexRepository, QuadruplexRepository>();
 
 
 			// In production, the Angular files will be served from this directory

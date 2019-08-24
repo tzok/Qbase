@@ -2,19 +2,17 @@
   <main>
     <div class="description">
       <div class="text-rectangle">
-        <h2>Description</h2>
+        <h2>Tetrad description</h2>
       </div>
       <p>Tetrad Id: <b>{{data.id}}</b></p>
-      <p>Quadruplex Id: <b>{{data.quadruplexId}}</b></p>
-      <p>PDB Id: <b>{{data.pdbId}}</b></p>
+      <p>Quadruplex Id: <b><a [routerLink]="['/quadruplex', quadruplex_id]">{{data.quadruplex_id}} </a></b></p>
+      <p>PDB Id: <b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></p>
       <p>Assembly Id: <b>{{data.assemblyId}}</b></p>
       <p>Molecule: <b>{{data.molecule}}</b></p>
       <p>Experimental method: <b>{{data.experiment}}</b></p>
       <p>Tetrad classification in ONZ taxonomy: <b>{{data.onzClass}}</b></p>
       <p>Sequence of the tetrad: <b>{{data.sequence}}</b></p>
       <p>Values of Chi angle:</p>
-      <p>Dot-bracket representing the quadruplex secondary structure:</p>
-      <p>Arc diagram representing the quadruplex secondary structure:</p>
     </div>
     <div class="structures">
       <div class="text-rectangle">
@@ -26,20 +24,22 @@
           <div>image</div>
         </div>
       </div>
-    </div>
-    <div class="lists">
-      <div class="text-rectangle">
-        <h2>Lists</h2>
-      </div>
-      <div class="list">
-        <p>List of tetrads in the quadruplex:
-          <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">{{t}} </a>
-        </p>
-      </div>
-      <div class="list">
-        <p>List of tetrads in the some PDB structure:
-          <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
-        </p>
+      <div class="lists">
+        <div class="text-rectangle">
+          <h2>Lists</h2>
+        </div>
+        <div class="list">
+          <p>
+            List of tetrads in the quadruplex:
+            <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">{{t}} </a>
+          </p>
+        </div>
+        <div class="list">
+          <p>
+            List of tetrads in the some PDB structure:
+            <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
+          </p>
+        </div>
       </div>
     </div>
   </main>

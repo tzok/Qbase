@@ -1,5 +1,5 @@
 .container {
-  min-height: 540px;
+  min-height: 100%
 }
 
 main {
@@ -7,13 +7,10 @@ main {
   height: auto;
 }
 
-.table {
-  margin-top: 40px;
-  padding: 15px;
-}
 .text-rectangle {
   text-align: center;
-  color: #45A29E;
+  background-color: #45A29E;
+  color: white;
   margin-top: 10px;
   padding: 5px;
 }
@@ -23,6 +20,12 @@ p {
   line-height: 1.5;
   margin: 5px;
 }
-a {
-  color: #45A29E;
+
+structure {
+  display: inline-block;
+  margin: 10px;
+}
+
+h2 {
+  text-align: center;
 }
