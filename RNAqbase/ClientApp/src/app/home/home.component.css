@@ -26,12 +26,12 @@ p {
   text-align: center;
   margin-top: 15px;
 }
-.picture {
-  width: 320px;
-  height: 300px;
+img {
+  width: 250px;
+  height: 270px;
 }
 
-h2 {
+h3 {
   font-size: 40px;
   color: #45A29E;
 }
@@ -41,7 +41,7 @@ a:hover {
 }
 
 
-h2:hover {
+h3:hover {
   color: darkgreen;
 }
 

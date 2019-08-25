@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'quadruplex-table',
@@ -10,9 +11,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class QuadruplexTableComponent implements OnInit {
   selection = new SelectionModel<Quadruplex>(true, []);
-
-  dataSource = new MatTableDataSource<Quadruplex>();
-
+  renderedData: any;
+  dataSource = new MatTableDataSource<any>();
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
   @ViewChild(MatSort)
@@ -27,7 +27,8 @@ export class QuadruplexTableComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
-        this.dataSource = new MatTableDataSource(result);
+      this.dataSource = new MatTableDataSource(result);
+        this.dataSource.connect().subscribe(d => this.renderedData = d);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -57,9 +58,10 @@ export class QuadruplexTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+
 }
 
-interface Quadruplex {
+class Quadruplex {
   id: number;
   pdbId: string;
   assemblyId: number;

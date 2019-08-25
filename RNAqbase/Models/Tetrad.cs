@@ -22,6 +22,7 @@ namespace RNAqbase.Models
 		public List<int> TetradsInTheSamePdb { get; set; }
 		public float Twist { get; set; }
 		public float Rise { get; set; }
+		public string ChiAngle { get; set; }
 
 
 	}

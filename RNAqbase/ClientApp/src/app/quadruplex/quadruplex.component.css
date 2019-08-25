@@ -16,7 +16,7 @@ main {
 }
 
 p {
-  font-size: x-large;
+  font-size: large;
   line-height: 1.5;
   margin: 5px;
 }
@@ -28,4 +28,7 @@ structure {
 
 h2 {
   text-align: center;
+}
+a {
+  color: #45A29E;
 }

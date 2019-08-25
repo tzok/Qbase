@@ -20,6 +20,7 @@ import { StructureTableComponent } from './structure-table/structure-table.compo
 import { VisualizationDialogComponent } from './visualization-dialog/visualization-dialog.component';
 import { TetradComponent } from './tetrad/tetrad.component';
 import { QuadruplexComponent } from './quadruplex/quadruplex.component';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { QuadruplexComponent } from './quadruplex/quadruplex.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    CsvModule
   ],
   providers: [],
   bootstrap: [AppComponent],

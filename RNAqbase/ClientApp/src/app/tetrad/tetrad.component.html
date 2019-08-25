@@ -5,14 +5,13 @@
         <h2>Tetrad description</h2>
       </div>
       <p>Tetrad Id: <b>{{data.id}}</b></p>
-      <p>Quadruplex Id: <b><a [routerLink]="['/quadruplex', quadruplex_id]">{{data.quadruplex_id}} </a></b></p>
+      <p>Quadruplex Id: <b><a [routerLink]="['/quadruplex', data.quadruplexId]">{{data.quadruplexId}} </a></b></p>
       <p>PDB Id: <b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></p>
       <p>Assembly Id: <b>{{data.assemblyId}}</b></p>
       <p>Molecule: <b>{{data.molecule}}</b></p>
       <p>Experimental method: <b>{{data.experiment}}</b></p>
       <p>Tetrad classification in ONZ taxonomy: <b>{{data.onzClass}}</b></p>
       <p>Sequence of the tetrad: <b>{{data.sequence}}</b></p>
-      <p>Values of Chi angle:</p>
     </div>
     <div class="structures">
       <div class="text-rectangle">

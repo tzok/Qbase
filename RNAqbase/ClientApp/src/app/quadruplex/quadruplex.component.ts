@@ -42,6 +42,7 @@ export class QuadruplexComponent implements OnInit {
           this.data.tetrads = result.tetrads;
           this.data.rise = result.rise;
           this.data.twist = result.twist;
+            this.data.chiAngle = result.chiAngle;
 
           this.http.get<number[]>(this.baseUrl +
             '' +
@@ -78,4 +79,5 @@ interface Quadruplex {
   twist: number;
   rise: number;
   quadruplexesInTheSamePdb: number[];
+  chiAngle: string;
 }

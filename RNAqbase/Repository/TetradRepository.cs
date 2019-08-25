@@ -116,6 +116,7 @@ SELECT t.id,
 	COALESCE(n1.molecule, 'Other') as ""Molecule"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
+	n1.glycosidic_bond as ""ChiAngle"",
 	t.onz as ""OnzClass"",
 	ts.rise,
 	ts.twist

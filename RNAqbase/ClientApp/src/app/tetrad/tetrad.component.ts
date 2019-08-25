@@ -43,9 +43,6 @@ export class TetradComponent implements OnInit {
           this.data.tetradsInTheSameQuadruplex = result;
         }, error => console.error(error));
       }, error => console.error(error));
-
-      
-
       
     });
   }
