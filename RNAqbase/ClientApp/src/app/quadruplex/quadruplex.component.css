@@ -1,12 +1,20 @@
+@media screen and (max-width: 600px) {
+  .quadruplextablex {
+    max-width: 100%;
+    overflow-x: scroll;
+  }
+}
+
 .container {
-  min-height: 100%
+  min-height: 100%;
+  text-align:justify;
 }
 
 main {
   margin-top: 10px;
   height: auto;
+  padding-top:20px;
 }
-
 .text-rectangle {
   text-align: center;
   background-color: #45A29E;
@@ -18,7 +26,7 @@ main {
 p {
   font-size: large;
   line-height: 1.5;
-  margin: 5px;
+  margin: 10px;
 }
 
 structure {
@@ -31,4 +39,7 @@ h2 {
 }
 a {
   color: #45A29E;
+}
+.table{
+  margin:5px;
 }

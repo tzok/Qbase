@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'app-quadruplex',

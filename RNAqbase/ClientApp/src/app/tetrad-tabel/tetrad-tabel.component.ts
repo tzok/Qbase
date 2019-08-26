@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'tetrad-tabel',
@@ -13,6 +14,8 @@ export class TetradTabelComponent implements OnInit {
   selection = new SelectionModel<Tetrad>(true, []);
 
   dataSource = new MatTableDataSource<Tetrad>();
+
+  areButtonsHidden: boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -27,6 +30,7 @@ export class TetradTabelComponent implements OnInit {
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.areButtonsHidden = false;
     }, error => console.error(error));
   }
 

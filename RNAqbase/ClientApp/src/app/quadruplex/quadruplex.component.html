@@ -4,53 +4,61 @@
       <div class="text-rectangle">
         <h2> Quadruplex description</h2>
       </div>
-      <p>Quadruplex Id: <b>{{data.id}}</b></p>
-      <p>p>PDB Id: <b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></p>
-      <p>Assembly Id: <b>{{data.assemblyId}}</b></p>
-      <p>Molecule: <b>{{data.molecule}}</b></p>
-      <p>Experimental method: <b>{{data.experiment}}</b></p>
-      <p>Number of strands in the quadruplex: <b>{{data.numberOfStrands}}</b></p>
-      <p>Number of tetrads in the quadruplex: <b>{{data.numberOfTetrads}}</b></p>
-      <p>Quadruplex type: <b>{{data.type}}</b></p>
-      <p>Quadruplex classification in ONZ taxonomy: <b>{{data.onzClass}}</b></p>
-      <p>Sequence of the quadruplex: <b>{{data.sequence}}</b></p>
-      <p>Values of Chi angle: <b>{{data.chiAngle}}</b> </p>
-      <p>Twist parameter: <b>{{data.twist}}
-</b></p>
-      <p>Rise parameter: <b>{{data.rise}}</b></p>
+      <br />
+      <h5>Quadruplex Id: <b>{{data.id}}</b></h5>
 
-    </div>
-    <div class="structures">
-      <div class="text-rectangle">
-        <h2>Structure</h2>
+      <br />
+
+      <div class="col quadruplextablex">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>PDB ID</th>
+              <th>Assembly ID</th>
+              <th>Molecule</th>
+              <th>Experimental method</th>
+              <th>Number of strands</th>
+              <th>Number of tetrads</th>
+              <th>ONZ class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></td>
+              <td><b>{{data.assemblyId}}</b></td>
+              <td><b>{{data.assemblyId}}</b></td>
+              <td><b>{{data.experiment}}</b></td>
+              <td><b>{{data.numberOfStrands}}</b></td>
+              <td><b>{{data.numberOfTetrads}}</b></td>
+              <td> <b>{{data.onzClass}}</b></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="row">
-        <div class="structure col-sm-6">
-          <p>3D structure</p>
-          <div>image</div>
-        </div>
-        <div class="structure col-sm-6">
-          <p>2D structure</p>
-          <div>image</div>
-        </div>
-      </div>
-    </div>
-    <div class="lists">
-      <div class="text-rectangle">
-        <h2>Lists</h2>
-      </div>
+
+      <br />
+      <h5>
+        Sequence: <b>{{data.sequence}}</b>
+      </h5>
+
+      <h5>Secondary structure</h5>
+
+
+      <b><p>3D structure</p></b>
+
+
       <div class="list">
-        <p>
+        <h5>
           List of tetrads in the quadruplex:
           <a *ngFor="let t of data.tetrads" [routerLink]="['/tetrad', t]">{{t}} </a>
-        </p>
+        </h5>
       </div>
       <div class="list">
-        <p>
+        <h5>
           List of quadruplex in the some PDB structure:
           <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
-        </p>
+        </h5>
       </div>
-    </div>
+      </div>
   </main>
 </div>

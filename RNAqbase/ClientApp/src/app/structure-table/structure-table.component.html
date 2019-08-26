@@ -3,6 +3,8 @@
     <div class="mat-elevation-z8 table">
       <div class="text-rectangle">
         <h2>List of structures</h2>
+        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save rows</a>
       </div>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -36,7 +38,11 @@
         <!-- Quadruplex Id Column -->
         <ng-container matColumnDef="quadruplexId">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex Id</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+          <mat-cell *matCellDef="let row">
+            <a [routerLink]="['/quadruplex', row.id]">
+              {{row.id}}
+            </a>
+          </mat-cell>
         </ng-container>
         <!-- No. of strands Column -->
         <ng-container matColumnDef="numberOfStrands">

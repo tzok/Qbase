@@ -3,7 +3,8 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
+import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'structure-table',
@@ -14,6 +15,8 @@ export class StructureTableComponent implements OnInit {
   selection = new SelectionModel<Structure>(true, []);
 
   dataSource = new MatTableDataSource<Structure>();
+
+  areButtonsHidden: boolean = true;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -32,6 +35,7 @@ export class StructureTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.areButtonsHidden = false;
     },
       error => console.error(error));
   }

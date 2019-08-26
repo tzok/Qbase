@@ -1,9 +1,10 @@
 <div class="container">
   <main>
-
     <div class="mat-elevation-z8 table">
       <div class="text-rectangle">
         <h2>List of tetrads</h2>
+        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save rows</a>
       </div>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -23,7 +24,11 @@
           <!-- Quadruplex ID Column -->
           <ng-container matColumnDef="quadruplexId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.quadruplexId}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              <a [routerLink]="['/quadruplex', row.quadruplexId]">
+                {{row.quadruplexId}}
+              </a>
+            </mat-cell>
           </ng-container>
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
@@ -80,6 +85,5 @@
                      [pageSizeOptions]="[10, 25, 50, 100, 250]">
       </mat-paginator>
     </div>
-
   </main>
 </div>

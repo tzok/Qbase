@@ -10,9 +10,11 @@ import { CsvModule } from '@ctrl/ngx-csv';
   styleUrls: ['./quadruplex-table.component.css']
 })
 export class QuadruplexTableComponent implements OnInit {
+
   selection = new SelectionModel<Quadruplex>(true, []);
-  renderedData: any;
-  dataSource = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource<Quadruplex>();
+  areButtonsHidden: boolean = true;
+
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
   @ViewChild(MatSort)
@@ -28,9 +30,9 @@ export class QuadruplexTableComponent implements OnInit {
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
-        this.dataSource.connect().subscribe(d => this.renderedData = d);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
+      this.areButtonsHidden = false;
       },
       error => console.error(error));
   }
@@ -57,11 +59,9 @@ export class QuadruplexTableComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-
-
 }
 
-class Quadruplex {
+interface Quadruplex {
   id: number;
   pdbId: string;
   assemblyId: number;
@@ -71,5 +71,4 @@ class Quadruplex {
   type: string;
   onzClass: string;
   numberOfTetrads: number;
-  select: boolean;
 }
