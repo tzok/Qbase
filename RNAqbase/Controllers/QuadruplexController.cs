@@ -24,6 +24,7 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetQuadruplexById(int id)
 		{
 			if (id == 0) return BadRequest();
+
 			return Ok(await quadruplexService.GetQuadruplexById(id));
 		}
 

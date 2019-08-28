@@ -23,7 +23,7 @@ namespace RNAqbase.Services
 			var tetradGroups = tetrads.GroupBy(x => x.QuadruplexId).ToList();
 			var quadruplexes = new List<Quadruplex>();
 
-			foreach (var tetradGroup in tetradGroups)
+			foreach (var tetradGroup in tetradGroups.Where(tg => tg.Count() > 1))
 			{
 				quadruplexes.Add(new Quadruplex { TetradReferences = tetradGroup.ToList() });
 			}

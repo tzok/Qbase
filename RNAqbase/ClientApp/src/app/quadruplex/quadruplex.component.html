@@ -42,23 +42,36 @@
       </h5>
 
       <h5>Secondary structure</h5>
-
-
-      <b><p>3D structure</p></b>
-
-
-      <div class="list">
-        <h5>
-          List of tetrads in the quadruplex:
-          <a *ngFor="let t of data.tetrads" [routerLink]="['/tetrad', t]">{{t}} </a>
-        </h5>
+      <div class="view row col-12">
+        <b><p>Dot-bracket encoding</p></b>
       </div>
-      <div class="list">
-        <h5>
-          List of quadruplex in the some PDB structure:
-          <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
-        </h5>
+      <div class="view row col-12">
+        <b><p>Arc diagram</p></b>
       </div>
+      <div class="view row col-12">
+        <b><p>VERNA drawing</p></b>
       </div>
+
+      <h5>3D structure</h5>
+      <div class="view row col-12">
+        <b><p>view</p></b>
+      </div>
+
+      <div class="lists">
+        <div class="list">
+          <h5>
+            List of tetrads in the quadruplex:
+            <a *ngFor="let t of data.tetrads" [routerLink]="['/tetrad', t]">{{t}} </a>
+          </h5>
+        </div>
+        <div class="list">
+          <h5>
+            List of quadruplex in the some PDB structure:
+            <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
+          </h5>
+        </div>
+      </div>
+      
+    </div>
   </main>
 </div>

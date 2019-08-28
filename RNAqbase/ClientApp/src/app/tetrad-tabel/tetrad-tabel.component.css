@@ -1,13 +1,53 @@
-@media screen and (max-width: 600px) {
-  .scrolltable {
-    max-width: 100%;
-    overflow-x: scroll;
+.mat-table {
+  overflow: auto;
+  /*max-height: 500px;*/
+}
+
+.mobile-label {
+  display: none;
+}
+
+.cdk-column-select {
+  border: none;
+}
+
+@media(max-width: 600px) {
+  .mat-cell:first-child {
+    /*padding-left: 0;*/
+  }
+
+  .mat-header-row {
+    /*display: none;*/
+  }
+
+  .mat-cell {
+    overflow: scroll;
+  }
+
+  .mat-table {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .mat-row {
+    overflow: auto;
+    min-width: 474.73px;
+    /*flex: 1 0 100%;
+    align-items: start;
+    padding: 8px 10px;*/
+  }
+
+  .mobile-label {
+    /*display: none;
+    font-weight: normal;*/
   }
 }
 
 .container {
   max-width: 100%;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 main {

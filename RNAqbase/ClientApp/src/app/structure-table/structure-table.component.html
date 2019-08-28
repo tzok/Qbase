@@ -4,75 +4,100 @@
       <div class="text-rectangle">
         <h2>List of structures</h2>
         <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
-        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save rows</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
       <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
         <!--Pdb Id Column -->
-        <ng-container matColumnDef="pdbId">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Pdb Id</mat-header-cell>
-          <mat-cell *matCellDef="let row"><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">{{row.pdbId}}</a></mat-cell>
-        </ng-container>
-        <!-- Assembly ID Column -->
-        <ng-container matColumnDef="assemblyId">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Assembly ID</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.assemblyId}}</mat-cell>
-        </ng-container>
-        <!-- Molecule Column -->
-        <ng-container matColumnDef="molecule">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Molecule</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.molecule}}</mat-cell>
-        </ng-container>
-        <!-- Experimental method Column -->
-        <ng-container matColumnDef="experimentalMethod">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Experimental Method</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.experiment}}</mat-cell>
-        </ng-container>
-        <!-- Structure 2D Column -->
-        <ng-container matColumnDef="structure2D">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> 2D structure</mat-header-cell>
-          <mat-cell *matCellDef="let row"><button (click)="showStructure(row.pdbId)">View</button></mat-cell>
-        </ng-container>
-        <!-- Quadruplex Id Column -->
-        <ng-container matColumnDef="quadruplexId">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex Id</mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <a [routerLink]="['/quadruplex', row.id]">
-              {{row.id}}
-            </a>
-          </mat-cell>
-        </ng-container>
-        <!-- No. of strands Column -->
-        <ng-container matColumnDef="numberOfStrands">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>No. of strands</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.numberOfStrands}}</mat-cell>
-        </ng-container>
-        <!-- ONZ Column -->
-        <ng-container matColumnDef="onzClass">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>ONZ Class</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{row.onzClass}}</mat-cell>
-        </ng-container>
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                          [checked]="selection.hasValue() && isAllSelected()"
-                          [indeterminate]="selection.hasValue() && !isAllSelected()"
-                          [aria-label]="checkboxLabel()">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? selection.toggle(row) : null"
-                          [checked]="selection.isSelected(row)"
-                          [aria-label]="checkboxLabel(row)">
-            </mat-checkbox>
-          </td>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <div class="col-sm-8">
+          <ng-container matColumnDef="pdbId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Pdb ID</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Pdb ID</span>
+              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">{{row.pdbId}}</a>
+            </mat-cell>
+          </ng-container>
+          <!-- Assembly ID Column -->
+          <ng-container matColumnDef="assemblyId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Assembly ID</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Assembly ID</span>
+              {{row.assemblyId}}
+            </mat-cell>
+          </ng-container>
+          <!-- Molecule Column -->
+          <ng-container matColumnDef="molecule">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Molecule</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Molecule</span>
+              {{row.molecule}}
+            </mat-cell>
+          </ng-container>
+          <!-- Experimental method Column -->
+          <ng-container matColumnDef="experimentalMethod">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Experimental Method</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Experimental Method</span>
+              {{row.experiment}}
+            </mat-cell>
+          </ng-container>
+          <!-- Structure 2D Column -->
+          <ng-container matColumnDef="structure2D">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> 2D structure</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">2D structure</span>
+              <button (click)="showStructure(row.pdbId)">View</button>
+            </mat-cell>
+          </ng-container>
+          <!-- Quadruplex Id Column -->
+          <ng-container matColumnDef="quadruplexId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex ID</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Quadruplex ID</span>
+              <a [routerLink]="['/quadruplex', row.id]">
+                {{row.id}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <!-- No. of strands Column -->
+          <ng-container matColumnDef="numberOfStrands">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>No. of strands</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">No. of strands</span>
+              {{row.numberOfStrands}}
+            </mat-cell>
+          </ng-container>
+          <!-- ONZ Column -->
+          <ng-container matColumnDef="onzClass">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ONZ Class</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">ONZ Class</span>
+              {{row.onzClass}}
+            </mat-cell>
+          </ng-container>
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <span class="mobile-label">Select:</span>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </div>
       </mat-table>
 
       <mat-paginator #paginator

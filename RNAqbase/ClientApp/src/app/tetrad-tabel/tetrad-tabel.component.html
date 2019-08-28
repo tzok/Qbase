@@ -4,17 +4,16 @@
       <div class="text-rectangle">
         <h2>List of tetrads</h2>
         <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
-        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save rows</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
       <mat-form-field>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </mat-form-field>
-
       <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
         <!-- Id Column -->
-        <div class="scrolltable">
+        <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <a [routerLink]="['/tetrad', row.id]">
                 {{row.id}}
@@ -33,27 +32,37 @@
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>PDB ID</mat-header-cell>
-            <mat-cell *matCellDef="let row"><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">{{row.pdbId}}</a></mat-cell>
+            <mat-cell *matCellDef="let row">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">{{row.pdbId}}</a>
+            </mat-cell>
           </ng-container>
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Assembly ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.assemblyId}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.assemblyId}}
+            </mat-cell>
           </ng-container>
           <!-- Molecule Column -->
           <ng-container matColumnDef="molecule">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Molecule</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.molecule}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.molecule}}
+            </mat-cell>
           </ng-container>
           <!-- Name Column -->
           <ng-container matColumnDef="sequence">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Sequence</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.sequence}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.sequence}}
+            </mat-cell>
           </ng-container>
           <!-- ONZ Column -->
           <ng-container matColumnDef="onzClass">
             <mat-header-cell *matHeaderCellDef mat-sort-header>ONZ Class</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.onzClass}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.onzClass}}
+            </mat-cell>
           </ng-container>
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
@@ -76,7 +85,6 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </div>
       </mat-table>
-
 
       <mat-paginator #paginator
                      [length]="dataSource.data.length"

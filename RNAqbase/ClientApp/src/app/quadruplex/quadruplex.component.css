@@ -43,3 +43,16 @@ a {
 .table{
   margin:5px;
 }
+.view {
+  max-width: 100%;
+  height: 40px;
+  border-style: solid;
+  border-width: 2px;
+  margin: 5px;
+  border-radius: 5px;
+  text-align:center;
+}
+
+.lists{
+  margin-top: 10px;
+}
