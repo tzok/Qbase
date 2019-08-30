@@ -85,7 +85,9 @@ WHERE quadruplex_id = @QuadruplexId
 			}
 		}
 
-		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
+       
+
+        public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
 		{
 			using (var connection = Connection)
 			{
@@ -132,5 +134,31 @@ WHERE qt.quadruplex_id = @QuadruplexId
 ORDER BY t.id;", new { QuadruplexId = id});
 			}
 		}
-	}
+
+        public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameQuadruplex(int id)
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return await connection.QueryAsync<TetradReference>
+                (@"
+SELECT t.id, 
+    qt.quadruplex_id as ""QuadruplexId"",
+	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
+	t.onz as ""OnzClass"",
+    t.planarity,
+	ts.rise,
+	ts.twist
+FROM tetrade t
+	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
+	JOIN nucleotide n1 on t.nt1_id = n1.id
+	JOIN nucleotide n2 on t.nt2_id = n2.id
+	JOIN nucleotide n3 on t.nt3_id = n3.id
+	JOIN nucleotide n4 on t.nt4_id = n4.id
+	JOIN tetrade_stack ts on t.id = ts.tetrade1_id
+WHERE qt.quadruplex_id = @QuadruplexId
+ORDER BY t.id;", new { QuadruplexId = id });
+            }
+        }
+    }
 }

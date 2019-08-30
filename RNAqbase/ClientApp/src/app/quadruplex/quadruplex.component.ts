@@ -1,7 +1,10 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { CsvModule } from '@ctrl/ngx-csv';
+import { VisualizationComponent } from '../visualization/visualization.component';
 
 @Component({
   selector: 'app-quadruplex',
@@ -10,7 +13,8 @@ import { CsvModule } from '@ctrl/ngx-csv';
 })
 export class QuadruplexComponent implements OnInit {
 
-  data: Quadruplex = <Quadruplex>{};
+  data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: []};
+  dataSource: TetradReference[];
 
   quadruplexId: number;
   sub;
@@ -18,7 +22,8 @@ export class QuadruplexComponent implements OnInit {
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -40,10 +45,7 @@ export class QuadruplexComponent implements OnInit {
           this.data.numberOfStrands = result.numberOfStrands;
           this.data.numberOfTetrads = result.numberOfTetrads;
           this.data.type = result.type;
-          this.data.tetrads = result.tetrads;
-          this.data.rise = result.rise;
-          this.data.twist = result.twist;
-            this.data.chiAngle = result.chiAngle;
+          this.data.chiAngle = result.chiAngle;
 
           this.http.get<number[]>(this.baseUrl +
             '' +
@@ -52,16 +54,34 @@ export class QuadruplexComponent implements OnInit {
             '&quadruplexId=' +
             this.data.id)
             .subscribe(result => {
-              this.data.quadruplexesInTheSamePdb = result;
+              if (result) {
+                this.data.quadruplexesInTheSamePdb = result;
+              }
+              else this.data.quadruplexesInTheSamePdb = [];
             }, error => console.error(error));
-        },
-          error => console.error(error));
+
+        }, error => console.error(error));
+
+      this.http.get<TetradReference[]>(this.baseUrl + '' +
+        'api/Tetrad/GetListOfTetrads?id=' + '' +
+        this.quadruplexId)
+        .subscribe(result => {
+          this.dataSource = result;
+        }, error => console.error(error));
+
+
 
     });
   }
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  showStructure() {
+
+    let dialogRef = this.dialog.open(VisualizationComponent, { })
+  }
+
 }
 
 interface Quadruplex {
@@ -76,9 +96,15 @@ interface Quadruplex {
   sequence: string;
   onzClass: string;
   structure3D: string;
-  tetrads: number[];
-  twist: number;
-  rise: number;
   quadruplexesInTheSamePdb: number[];
   chiAngle: string;
+}
+
+interface TetradReference {
+  id: number;
+  sequence: string;
+  onzClass: string;
+  twist: number;
+  rise: number;
+  planarity: number;
 }

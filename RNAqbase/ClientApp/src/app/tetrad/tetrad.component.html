@@ -4,40 +4,84 @@
       <div class="text-rectangle">
         <h2>Tetrad description</h2>
       </div>
-      <p>Tetrad Id: <b>{{data.id}}</b></p>
-      <p>Quadruplex Id: <b><a [routerLink]="['/quadruplex', data.quadruplexId]">{{data.quadruplexId}} </a></b></p>
-      <p>PDB Id: <b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></p>
-      <p>Assembly Id: <b>{{data.assemblyId}}</b></p>
-      <p>Molecule: <b>{{data.molecule}}</b></p>
-      <p>Experimental method: <b>{{data.experiment}}</b></p>
-      <p>Tetrad classification in ONZ taxonomy: <b>{{data.onzClass}}</b></p>
-      <p>Sequence of the tetrad: <b>{{data.sequence}}</b></p>
-    </div>
-    <div class="structures">
-      <div class="text-rectangle">
-        <h2>Structure</h2>
+
+
+      <br />
+      <b><h5>Tetrad Id: {{data.id}}</h5></b>
+
+      <br />
+
+      <div class="col tetradtable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Quadruplex ID</th>
+              <th>PDB ID</th>
+              <th>Assembly ID</th>
+              <th>Molecule</th>
+              <th>Experimental method</th>
+              <th>Planarity</th>
+              <th>ONZ class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{data.quadruplexId}}</td>
+              <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
+              <td>{{data.assemblyId}}</td>
+              <td>{{data.assemblyId}}</td>
+              <td>{{data.experiment}}</td>
+              <td>{{data.planarity}}</td>
+              <td>{{data.onzClass}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
+      <br />
+      <h5>Sequence:</h5>
+      <p>{{data.sequence}}</p>
+
+
+      <h5>Secondary structure</h5>
+
       <div class="row">
-        <div class="structure col-sm-6">
-          <p>3D structure</p>
-          <div>image</div>
-        </div>
+        <button (click)="showStructure()">Dot-bracket encoding</button>
+        <button (click)="showStructure()">Arc diagram</button>
       </div>
+
+      <h5>Secondary structure</h5>
+      <div class="row">
+        <button (click)="showStructure()">View</button>
+      </div>
+
       <div class="lists">
-        <div class="text-rectangle">
-          <h2>Lists</h2>
-        </div>
         <div class="list">
           <p>
-            List of tetrads in the quadruplex:
+            Number of tetrads in quadruplex {{data.quadruplexId}}: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
+          </p>
+        </div>
+
+        <div class="list">
+          <p>
+            Other tetrads in this quadruplex:
             <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">{{t}} </a>
           </p>
         </div>
-        <div class="list">
-          <p>
-            List of tetrads in the some PDB structure:
-            <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
-          </p>
+
+        <div class="lists">
+          <div class="list">
+            <p>
+              Number of tetrads in structure {{data.pdbId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
+            </p>
+          </div>
+
+          <div class="list">
+            <p>
+              Other tetrads in this structure:
+              <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

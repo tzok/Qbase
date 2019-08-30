@@ -5,11 +5,11 @@
         <h2> Quadruplex description</h2>
       </div>
       <br />
-      <h5>Quadruplex Id: <b>{{data.id}}</b></h5>
+      <b><h5>Quadruplex Id: {{data.id}}</h5></b>
 
       <br />
 
-      <div class="col quadruplextablex">
+      <div class="col quadruplextable">
         <table class="table">
           <thead>
             <tr>
@@ -24,54 +24,83 @@
           </thead>
           <tbody>
             <tr>
-              <td><b><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></b></td>
-              <td><b>{{data.assemblyId}}</b></td>
-              <td><b>{{data.assemblyId}}</b></td>
-              <td><b>{{data.experiment}}</b></td>
-              <td><b>{{data.numberOfStrands}}</b></td>
-              <td><b>{{data.numberOfTetrads}}</b></td>
-              <td> <b>{{data.onzClass}}</b></td>
+              <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
+              <td>{{data.assemblyId}}</td>
+              <td>{{data.assemblyId}}</td>
+              <td>{{data.experiment}}</td>
+              <td>{{data.numberOfStrands}}</td>
+              <td>{{data.numberOfTetrads}}</td>
+              <td>{{data.onzClass}}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <br />
-      <h5>
-        Sequence: <b>{{data.sequence}}</b>
-      </h5>
+      <h5>Sequence:</h5>
+      <p>{{data.sequence}}</p>
+
 
       <h5>Secondary structure</h5>
-      <div class="view row col-12">
-        <b><p>Dot-bracket encoding</p></b>
-      </div>
-      <div class="view row col-12">
-        <b><p>Arc diagram</p></b>
-      </div>
-      <div class="view row col-12">
-        <b><p>VERNA drawing</p></b>
+
+      <div class="row">
+        <button (click)="showStructure()">Dot-bracket encoding</button>
+        <button (click)="showStructure()">Arc diagram</button>
+        <button (click)="showStructure()">VARNA drawing</button>
       </div>
 
-      <h5>3D structure</h5>
-      <div class="view row col-12">
-        <b><p>view</p></b>
+      <h5>Secondary structure</h5>
+      <div class="row">
+        <button (click)="showStructure()">View</button>
       </div>
+
+      <h5>Component tetrads:</h5>
+      <div class="col quadruplextable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Sequence</th>
+              <th>ONZ Class</th>
+              <th>Planarity</th>
+              <th>Twist</th>
+              <th>Rise</th>
+              <th>Strand direction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of dataSource">
+              <td>
+                <a [routerLink]="['/tetrad', t.id]">
+                  {{t.id}}
+                </a>
+              </td>
+              <td>{{t.sequence}}</td>
+              <td>{{t.onzClass}}</td>
+              <td>{{t.planarity}}</td>
+              <td>{{t.twist}}</td>
+              <td>{{t.rise}}</td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
 
       <div class="lists">
         <div class="list">
-          <h5>
-            List of tetrads in the quadruplex:
-            <a *ngFor="let t of data.tetrads" [routerLink]="['/tetrad', t]">{{t}} </a>
-          </h5>
+          <p>
+            Number of quadruplexes in structure {{data.pdbId}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
+          </p>
         </div>
         <div class="list">
-          <h5>
-            List of quadruplex in the some PDB structure:
+          <p>
+            Other quadruplexes in this structure:
             <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
-          </h5>
+          </p>
         </div>
       </div>
-      
+
     </div>
   </main>
 </div>

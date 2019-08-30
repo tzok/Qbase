@@ -18,6 +18,10 @@
 
   .mat-header-row {
     /*display: none;*/
+
+  }
+  .mat-header-cell{
+    width:85px;
   }
 
   .mat-cell {
@@ -31,7 +35,7 @@
 
   .mat-row {
     overflow: auto;
-    min-width: 474.73px;
+    min-width: 640px;
     /*flex: 1 0 100%;
     align-items: start;
     padding: 8px 10px;*/

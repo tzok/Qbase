@@ -21,6 +21,7 @@ import { VisualizationDialogComponent } from './visualization-dialog/visualizati
 import { TetradComponent } from './tetrad/tetrad.component';
 import { QuadruplexComponent } from './quadruplex/quadruplex.component';
 import { CsvModule } from '@ctrl/ngx-csv';
+import { VisualizationComponent } from './visualization/visualization.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CsvModule } from '@ctrl/ngx-csv';
     QuadruplexTableComponent,
     VisualizationDialogComponent,
     TetradComponent,
-    QuadruplexComponent
+    QuadruplexComponent,
+    VisualizationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -71,6 +73,6 @@ import { CsvModule } from '@ctrl/ngx-csv';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [VisualizationDialogComponent]
+  entryComponents: [VisualizationDialogComponent, VisualizationComponent]
 })
 export class AppModule { }

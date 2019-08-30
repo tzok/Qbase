@@ -1,5 +1,5 @@
 @media screen and (max-width: 600px) {
-  .quadruplextablex {
+  .quadruplextable {
     max-width: 100%;
     overflow-x: scroll;
   }
@@ -7,7 +7,7 @@
 
 .container {
   min-height: 100%;
-  text-align:justify;
+  text-align:left;
 }
 
 main {
@@ -34,6 +34,24 @@ structure {
   margin: 10px;
 }
 
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: none;
+}
+th{
+  border-style:solid;
+  text-align:center;
+  border-bottom: none;
+}
+tr {
+  border-style: solid;
+}
+
+td {
+  border-style: solid;
+  text-align: center;
+}
+
 h2 {
   text-align: center;
 }
@@ -42,17 +60,16 @@ a {
 }
 .table{
   margin:5px;
+  border-style:solid;
 }
-.view {
-  max-width: 100%;
-  height: 40px;
-  border-style: solid;
-  border-width: 2px;
-  margin: 5px;
-  border-radius: 5px;
-  text-align:center;
+button {
+  margin: 20px;
+  width: 200px;
+  height: 50px;
+  background-color: #45A29E;
+  color: white;
 }
 
-.lists{
-  margin-top: 10px;
+.lists {
+  margin-top: 20px;
 }

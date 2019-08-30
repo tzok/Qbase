@@ -28,8 +28,6 @@ namespace RNAqbase.Models
 		public string PdbVisualization => TetradReferences.First().PdbVisualization;
 		public string Experiment => TetradReferences.First().Experiment;
 		public List<int> Tetrads => TetradReferences.Select(x => x.Id).ToList();
-		public float Twist => TetradReferences.First().Twist;
-		public float Rise => TetradReferences.First().Rise;
 		public string ChiAngle => TetradReferences.First().ChiAngle;
 	}
 }
