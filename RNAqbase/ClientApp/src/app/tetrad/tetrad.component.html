@@ -7,7 +7,7 @@
 
 
       <br />
-      <b><h5>Tetrad Id: {{data.id}}</h5></b>
+      <b><h5>Tetrad ID: {{data.id}}</h5></b>
 
       <br />
 
@@ -26,13 +26,13 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{data.quadruplexId}}</td>
-              <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
-              <td>{{data.assemblyId}}</td>
-              <td>{{data.assemblyId}}</td>
-              <td>{{data.experiment}}</td>
-              <td>{{data.planarity}}</td>
-              <td>{{data.onzClass}}</td>
+                <td><a [routerLink]="['/quadruplex', data.id]">{{data.quadruplexId}}</a></td>
+                <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
+                <td>{{data.assemblyId}}</td>
+                <td>{{data.assemblyId}}</td>
+                <td>{{data.experiment}}</td>
+                <td>{{data.planarity}}</td>
+                <td>{{data.onzClass}}</td>
             </tr>
           </tbody>
         </table>
@@ -43,14 +43,14 @@
       <p>{{data.sequence}}</p>
 
 
-      <h5>Secondary structure</h5>
+      <h5>Secondary structure:</h5>
 
       <div class="row">
         <button (click)="showStructure()">Dot-bracket encoding</button>
         <button (click)="showStructure()">Arc diagram</button>
       </div>
 
-      <h5>Secondary structure</h5>
+      <h5>3D structure:</h5>
       <div class="row">
         <button (click)="showStructure()">View</button>
       </div>
