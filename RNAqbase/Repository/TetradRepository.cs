@@ -51,7 +51,7 @@ WHERE t.id = @Id;", new { Id = id });
 				return await connection.QueryAsync<Tetrad>
 				(@"
 SELECT t.id, 
-	qt.quadruplex_id as ""QuadruplexId"", 
+	qt.quadruplex_id as ""QuadruplexIdAsInt"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
 	--pdb1.visualization as ""PdbVisualization"",
@@ -59,7 +59,8 @@ SELECT t.id,
 	COALESCE(n1.molecule, 'Other') as ""Molecule"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
-	t.onz as ""OnzClass""
+	t.onz as ""OnzClass"",
+	(SELECT count(*) from quadruplex_tetrade qtcount where qtcount.quadruplex_id = qt.quadruplex_id) as ""TetradsInQuadruplex""
 FROM tetrade t
 	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
 	JOIN nucleotide n1 on t.nt1_id = n1.id
@@ -85,9 +86,7 @@ WHERE quadruplex_id = @QuadruplexId
 			}
 		}
 
-       
-
-        public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
+		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
 		{
 			using (var connection = Connection)
 			{
@@ -110,7 +109,7 @@ WHERE n1.pdb_id = @PdbId
 				return await connection.QueryAsync<Tetrad>
 				(@"
 SELECT t.id, 
-	qt.quadruplex_id as ""QuadruplexId"", 
+	qt.quadruplex_id as ""QuadruplexIdAsInt"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
 	--pdb1.visualization as ""PdbVisualization"",
@@ -131,22 +130,21 @@ FROM tetrade t
 	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
 	JOIN tetrade_stack ts on t.id = ts.tetrade1_id
 WHERE qt.quadruplex_id = @QuadruplexId
-ORDER BY t.id;", new { QuadruplexId = id});
+ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}
 
-        public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameQuadruplex(int id)
-        {
-            using (var connection = Connection)
-            {
-                connection.Open();
-                return await connection.QueryAsync<TetradReference>
-                (@"
+		public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameQuadruplex(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<TetradReference>
+				(@"
 SELECT t.id, 
-    qt.quadruplex_id as ""QuadruplexId"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	t.onz as ""OnzClass"",
-    t.planarity,
+	t.planarity,
 	ts.rise,
 	ts.twist
 FROM tetrade t
@@ -158,7 +156,7 @@ FROM tetrade t
 	JOIN tetrade_stack ts on t.id = ts.tetrade1_id
 WHERE qt.quadruplex_id = @QuadruplexId
 ORDER BY t.id;", new { QuadruplexId = id });
-            }
-        }
-    }
+			}
+		}
+	}
 }

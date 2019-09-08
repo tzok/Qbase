@@ -20,7 +20,7 @@ namespace RNAqbase.Services
 		public async Task<List<Quadruplex>> GetAllQuadruplexes()
 		{
 			var tetrads = await tetradRepository.FindAll();
-			var tetradGroups = tetrads.GroupBy(x => x.QuadruplexId).ToList();
+			var tetradGroups = tetrads.Where(x => x.QuadruplexId != "-").GroupBy(x => x.QuadruplexId).ToList();
 			var quadruplexes = new List<Quadruplex>();
 
 			foreach (var tetradGroup in tetradGroups.Where(tg => tg.Count() > 1))

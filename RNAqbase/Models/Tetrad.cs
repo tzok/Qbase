@@ -1,4 +1,4 @@
-﻿
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,7 @@ namespace RNAqbase.Models
 	public class Tetrad : BaseEntity
 	{
 		public int Id { get; set; }
-		public int QuadruplexId { get; set; }
+		public string QuadruplexId => TetradsInQuadruplex > 1 ? QuadruplexIdAsInt.ToString() : "-";
 		public string PdbId { get; set; }
 		public int AssemblyId { get; set; }
 		public string Molecule { get; set; }
@@ -22,8 +22,10 @@ namespace RNAqbase.Models
 		public List<int> TetradsInTheSamePdb { get; set; }
 		public string ChiAngle { get; set; }
 
-       
+		[JsonIgnore]
+		public int QuadruplexIdAsInt { get; set; }
 
-
+		[JsonIgnore]
+		public int TetradsInQuadruplex { get; set; }
 	}
 }

@@ -13,7 +13,7 @@
         <!-- Id Column -->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Tetrad ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <a [routerLink]="['/tetrad', row.id]">
                 {{row.id}}
@@ -24,9 +24,10 @@
           <ng-container matColumnDef="quadruplexId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <a [routerLink]="['/quadruplex', row.quadruplexId]">
+              <a *ngIf="row.quadruplexId!='-'" [routerLink]="['/quadruplex', row.quadruplexId]">
                 {{row.quadruplexId}}
               </a>
+              <a *ngIf="row.quadruplexId==='-'">{{row.quadruplexId}}</a>
             </mat-cell>
           </ng-container>
           <!-- PDB ID Column -->

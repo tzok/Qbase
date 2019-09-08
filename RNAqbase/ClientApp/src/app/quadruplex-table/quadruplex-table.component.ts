@@ -62,7 +62,7 @@ export class QuadruplexTableComponent implements OnInit {
 }
 
 interface Quadruplex {
-  id: number;
+  id: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

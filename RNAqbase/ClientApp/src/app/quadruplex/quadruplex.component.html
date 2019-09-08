@@ -5,8 +5,16 @@
         <h2> Quadruplex description</h2>
       </div>
       <br />
-      <b><h5>Quadruplex Id: {{data.id}}</h5></b>
+      
+      <div class="row ">
+        <div class="col-lg-10 col-sm-6">
+          <b><h5>Quadruplex ID: {{data.id}}</h5></b>
+        </div>
+        <div class=" col-lg-2 col-sm-6 saveDat5aButton">
+          <a class="mat-button">Save data</a>
+        </div>
 
+      </div>
       <br />
 
       <div class="col quadruplextable">
@@ -59,7 +67,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Tetrad ID</th>
               <th>Sequence</th>
               <th>ONZ Class</th>
               <th>Planarity</th>
@@ -97,6 +105,7 @@
           <p>
             Other quadruplexes in this structure:
             <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
+            <a *ngIf="data.quadruplexesInTheSamePdb.length == 0">-</a>
           </p>
         </div>
       </div>

@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
-import { CsvModule } from '@ctrl/ngx-csv';
 import { VisualizationComponent } from '../visualization/visualization.component';
 
 @Component({
@@ -16,7 +15,7 @@ export class QuadruplexComponent implements OnInit {
   data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: []};
   dataSource: TetradReference[];
 
-  quadruplexId: number;
+  quadruplexId: string;
   sub;
 
   constructor(
@@ -29,7 +28,7 @@ export class QuadruplexComponent implements OnInit {
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       console.log(params);
-      this.quadruplexId = +params.get('quadruplexId');
+      this.quadruplexId = params.get('quadruplexId');
 
       this.http.get<Quadruplex>(this.baseUrl + '' +
         'api/Quadruplex/GetQuadruplexById?id=' +
@@ -68,9 +67,6 @@ export class QuadruplexComponent implements OnInit {
         .subscribe(result => {
           this.dataSource = result;
         }, error => console.error(error));
-
-
-
     });
   }
   ngOnDestroy() {
@@ -78,14 +74,13 @@ export class QuadruplexComponent implements OnInit {
   }
 
   showStructure() {
-
     let dialogRef = this.dialog.open(VisualizationComponent, { })
   }
 
 }
 
 interface Quadruplex {
-  id: number;
+  id: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

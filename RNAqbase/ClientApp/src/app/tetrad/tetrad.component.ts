@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizationComponent } from '../visualization/visualization.component';
+import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
 
 
 @Component({
@@ -12,8 +13,8 @@ import { VisualizationComponent } from '../visualization/visualization.component
 })
 export class TetradComponent implements OnInit {
 
-  data: Tetrad = <Tetrad>{ tetradsInTheSamePdb:[],tetradsInTheSameQuadruplex: []};
-
+  data: Tetrad;
+  csvData: Tetrad[];
   tetradId: number;
   sub;
 
@@ -29,47 +30,49 @@ export class TetradComponent implements OnInit {
       this.tetradId = +params.get('tetradId');
 
       this.http.get<Tetrad>(this.baseUrl + 'api/Tetrad/GetTetradById?id=' + this.tetradId).subscribe(result => {
-        this.data.id = result.id;
-        this.data.quadruplexId = result.quadruplexId;
-        this.data.pdbId = result.pdbId;
-        this.data.assemblyId = result.assemblyId;
-        this.data.molecule = result.molecule;
-        this.data.sequence = result.sequence;
-        this.data.onzClass = result.onzClass;
-        this.data.planarity = result.planarity;
-        this.data.experiment = result.experiment;
+        this.data = result;
 
         this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSamePdb?tetradId=' + this.data.id + '&pdbId=' + this.data.pdbId).subscribe(result => {
           if (result) {
             this.data.tetradsInTheSamePdb = result;
           }
           else this.data.tetradsInTheSamePdb = [];
-        }, error => console.error(error));
 
-        this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSameQuadruplex?tetradId=' + this.data.id + '&quadruplexId=' + this.data.quadruplexId).subscribe(result => {
-          if (result) {
-            this.data.tetradsInTheSameQuadruplex = result;
+          if (this.data.quadruplexId != '-') {
+            this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSameQuadruplex?tetradId=' + this.data.id + '&quadruplexId=' + this.data.quadruplexId).subscribe(result => {
+              if (result) {
+                this.data.tetradsInTheSameQuadruplex = result;
+              }
+              else this.data.tetradsInTheSameQuadruplex = [];
+
+              this.csvData = [this.data];
+            }, error => console.error(error));
           }
-          else this.data.tetradsInTheSameQuadruplex = [];
+          else {
+            this.csvData = [this.data];
+            this.data.tetradsInTheSameQuadruplex = [];
+          }
         }, error => console.error(error));
       }, error => console.error(error));
-      
+
     });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
   showStructure() {
-
-    let dialogRef = this.dialog.open(VisualizationComponent, {})
+    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbId } })
   }
-
+  showDialog() {
+    let dialogRef = this.dialog.open(VisualizationComponent)
+  }
 }
 
 interface Tetrad {
   id: number;
-  quadruplexId: number;
+  quadruplexId: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

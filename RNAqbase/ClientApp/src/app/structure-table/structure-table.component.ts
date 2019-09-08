@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
-import { CsvModule } from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'structure-table',

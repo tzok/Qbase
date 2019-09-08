@@ -60,7 +60,7 @@ export class TetradTabelComponent implements OnInit {
 
 interface Tetrad {
   id: number;
-  quadruplexId: number;
+  quadruplexId: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

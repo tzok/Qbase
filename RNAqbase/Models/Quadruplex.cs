@@ -7,7 +7,7 @@ namespace RNAqbase.Models
 {
 	public class Quadruplex : BaseEntity
 	{
-		public int Id => TetradReferences.First().QuadruplexId;
+		public string Id => TetradReferences.First().QuadruplexIdAsInt.ToString();
 
 		[JsonIgnore]
 		public StrandDirection StrandDirection { get; set; }

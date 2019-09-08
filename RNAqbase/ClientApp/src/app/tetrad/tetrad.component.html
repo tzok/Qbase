@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="data && data.tetradsInTheSameQuadruplex">
   <main>
     <div class="description">
       <div class="text-rectangle">
@@ -7,83 +7,93 @@
 
 
       <br />
-      <b><h5>Tetrad ID: {{data.id}}</h5></b>
+      <div class="row ">
+        <div class="col-lg-10 col-sm-6">
+          <b><h5>Tetrad ID: {{data.id}}</h5></b>
+        </div>
+        <div class=" col-lg-2 col-sm-6 saveDat5aButton">
+          <a class="mat-button" csvLink [data]="csvData">Save data</a>
+        </div>
+        
+      </div>
+    <br />
 
-      <br />
+    <div class="col tetradtable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Quadruplex ID</th>
+            <th>PDB ID</th>
+            <th>Assembly ID</th>
+            <th>Molecule</th>
+            <th>Experimental method</th>
+            <th>Planarity</th>
+            <th>ONZ class</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
+            <td *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.id]">{{data.quadruplexId}}</a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
+            <td>{{data.assemblyId}}</td>
+            <td>{{data.assemblyId}}</td>
+            <td>{{data.experiment}}</td>
+            <td>{{data.planarity}}</td>
+            <td>{{data.onzClass}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="col tetradtable">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Quadruplex ID</th>
-              <th>PDB ID</th>
-              <th>Assembly ID</th>
-              <th>Molecule</th>
-              <th>Experimental method</th>
-              <th>Planarity</th>
-              <th>ONZ class</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-                <td><a [routerLink]="['/quadruplex', data.id]">{{data.quadruplexId}}</a></td>
-                <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
-                <td>{{data.assemblyId}}</td>
-                <td>{{data.assemblyId}}</td>
-                <td>{{data.experiment}}</td>
-                <td>{{data.planarity}}</td>
-                <td>{{data.onzClass}}</td>
-            </tr>
-          </tbody>
-        </table>
+    <br />
+    <h5>Sequence:</h5>
+    <p>{{data.sequence}}</p>
+
+
+    <h5>Secondary structure:</h5>
+
+    <div class="row">
+      <button (click)="showDialog()">Dot-bracket encoding</button>
+      <button (click)="showDialog()">Arc diagram</button>
+    </div>
+
+    <h5>3D structure:</h5>
+    <div class="row">
+      <button (click)="showStructure()">View</button>
+    </div>
+
+    <div class="lists">
+      <div class="list">
+        <p>
+          Number of tetrads in quadruplex {{data.quadruplexId}}: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
+        </p>
       </div>
 
-      <br />
-      <h5>Sequence:</h5>
-      <p>{{data.sequence}}</p>
-
-
-      <h5>Secondary structure:</h5>
-
-      <div class="row">
-        <button (click)="showStructure()">Dot-bracket encoding</button>
-        <button (click)="showStructure()">Arc diagram</button>
-      </div>
-
-      <h5>3D structure:</h5>
-      <div class="row">
-        <button (click)="showStructure()">View</button>
+      <div class="list">
+        <p>
+          Other tetrads in this quadruplex:
+          <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">{{t}} </a>
+          <a *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</a>
+        </p>
       </div>
 
       <div class="lists">
         <div class="list">
           <p>
-            Number of tetrads in quadruplex {{data.quadruplexId}}: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
+            Number of tetrads in structure {{data.pdbId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
           </p>
         </div>
 
         <div class="list">
           <p>
-            Other tetrads in this quadruplex:
-            <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">{{t}} </a>
+            Other tetrads in this structure:
+            <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
+            <a *ngIf="data.tetradsInTheSamePdb.length == 0">-</a>
           </p>
-        </div>
-
-        <div class="lists">
-          <div class="list">
-            <p>
-              Number of tetrads in structure {{data.pdbId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
-            </p>
-          </div>
-
-          <div class="list">
-            <p>
-              Other tetrads in this structure:
-              <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>
+</div>
   </main>
 </div>
