@@ -8,10 +8,10 @@
       
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <b><h5>Quadruplex ID: {{data.id}}</h5></b>
+          <h5><b>Quadruplex ID: {{data.id}}</b></h5>
         </div>
-        <div class=" col-lg-2 col-sm-6 saveDat5aButton">
-          <a class="mat-button">Save data</a>
+        <div class=" col-lg-2 col-sm-6 saveDataButton">
+          <a class="mat-button" csvLink [data]="csvData">Save data</a>
         </div>
 
       </div>
@@ -77,7 +77,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let t of dataSource">
+            <tr *ngFor="let t of tetrads">
               <td>
                 <a [routerLink]="['/tetrad', t.id]">
                   {{t.id}}

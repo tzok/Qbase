@@ -12,8 +12,9 @@ import { VisualizationComponent } from '../visualization/visualization.component
 })
 export class QuadruplexComponent implements OnInit {
 
-  data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: []};
-  dataSource: TetradReference[];
+  data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: [] };
+  tetrads: TetradReference[];
+  csvData: Quadruplex[] = [];
 
   quadruplexId: string;
   sub;
@@ -57,15 +58,16 @@ export class QuadruplexComponent implements OnInit {
                 this.data.quadruplexesInTheSamePdb = result;
               }
               else this.data.quadruplexesInTheSamePdb = [];
+
+              this.http.get<TetradReference[]>(this.baseUrl + '' +
+                'api/Tetrad/GetListOfTetrads?id=' + '' +
+                this.quadruplexId)
+                .subscribe(result => {
+                  this.tetrads = result;
+                  this.data.tetrads = this.tetrads.map(({ id }) => id);
+                  this.csvData = [this.data];
+                }, error => console.error(error));
             }, error => console.error(error));
-
-        }, error => console.error(error));
-
-      this.http.get<TetradReference[]>(this.baseUrl + '' +
-        'api/Tetrad/GetListOfTetrads?id=' + '' +
-        this.quadruplexId)
-        .subscribe(result => {
-          this.dataSource = result;
         }, error => console.error(error));
     });
   }
@@ -76,7 +78,6 @@ export class QuadruplexComponent implements OnInit {
   showStructure() {
     let dialogRef = this.dialog.open(VisualizationComponent, { })
   }
-
 }
 
 interface Quadruplex {
@@ -93,6 +94,7 @@ interface Quadruplex {
   structure3D: string;
   quadruplexesInTheSamePdb: number[];
   chiAngle: string;
+  tetrads: number[];
 }
 
 interface TetradReference {
