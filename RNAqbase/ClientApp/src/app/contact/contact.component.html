@@ -4,35 +4,33 @@
       <h2> Contact</h2>
     </div>
     <div class="row">
-      <div class="col-lg-8 mb-4">
-        <h3>Send us a message</h3>
-        <form name="sentMessage" id="contactForm" novalidate>
-          <div class="control-group form-group">
-            <div class="controls">
-              <label>Full Name:</label>
-              <input type="text" class="form-control" name="name" [(ngModel)]="name" required data-validation-required-message="Please enter your name.">
-              <p class="help-block"></p>
+      <div class="col-md-8 offset-md-2">
+        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+          <div class="wrap-input100">
+            <span class="label-input100">Your email:</span>
+            <input type="text" class="input100 form-control" name="email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email placeholder="Enter email addess" />
+            <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+              <div *ngIf="email.errors.required">Email is required</div>
+              <div *ngIf="email.errors.email">Email must be a valid email address</div>
+            </div>
+            <span class="focus-input100"></span>
+          </div>
+          <div class="wrap-input100">
+            <span class="label-input100">Your message:</span>
+            <textarea type="text" class="form-control input100" name="message" [(ngModel)]="model.message" #message="ngModel" [ngClass]="{ 'is-invalid': f.submitted && message.invalid }" required minlength="20" placeholder="Your message..."></textarea>
+            <div *ngIf="f.submitted && message.invalid" class="invalid-feedback">
+              <div *ngIf="message.errors.required">Message is required</div>
+              <div *ngIf="message.errors.minlength">Message must be at least 20 characters</div>
+              <span class="focus-input100"></span>
             </div>
           </div>
-
-          <div class="control-group form-group">
-            <div class="controls">
-              <label>Email Address:</label>
-              <input type="email" class="form-control" name="email" [(ngModel)]="email" required data-validation-required-message="Please enter your email address.">
-            </div>
+          <div class="form-group">
+            <button class="contact100-form-btn">Send</button>
+            <button (click)="reset()" class="contact100-form-btn">Reset</button>
           </div>
-          <div class="control-group form-group">
-            <div class="controls">
-              <label>Message:</label>
-              <textarea rows="10" cols="100" class="form-control" name="message" [(ngModel)]="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize: none"></textarea>
-            </div>
-          </div>
-          <div id="success"></div>
-          <!-- For success/fail messages -->
-          <button (click)="sendMessage()" type="submit" class="btn" name="sendMessageButton">Send</button>
         </form>
       </div>
     </div>
   </main>
 </div>
-<!-- /.row -->
+

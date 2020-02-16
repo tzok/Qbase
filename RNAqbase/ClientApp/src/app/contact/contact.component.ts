@@ -8,15 +8,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
-  name: string;
-  email: string;
-  message: string;
+  model: any = {};
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, ) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, ) {}
 
+  reset() {
+    this.model = {};
   }
-  sendMessage() {
 
+  onSubmit() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -24,14 +24,12 @@ export class ContactComponent {
     };
 
     this.http.post(this.baseUrl + 'api/MailSender/SendEmail', {
-      subject: 'Message from ' + this.email,
-      message: 'Author: ' + this.name + ' ' + this.message
+      subject: 'Message from ' + this.model.email,
+      message: this.model.message
     }, httpOptions)
       .subscribe(result => {
         alert("Your message has been sent. Thank you!");
-        this.name = null;
-        this.email = null;
-        this.message = null;
+        this.model = {};
       }, error => console.error(error));
   }
 }
