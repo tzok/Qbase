@@ -37,9 +37,9 @@ namespace RNAqbase.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
+        public async Task<IActionResult> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId)
         {
-            if (tetradId == 0 || string.IsNullOrWhiteSpace(pdbId)) return BadRequest();
+            if (tetradId == 0 || pdbId == 0) return BadRequest();
 
             return Ok(await repository.GetOtherTetradsInTheSamePdb(tetradId, pdbId));
         }

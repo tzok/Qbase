@@ -63,17 +63,18 @@ export class TetradComponent implements OnInit {
   }
 
   showStructure() {
-    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbId } })
+    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbIdentifier } });
   }
   showDialog() {
-    let dialogRef = this.dialog.open(VisualizationComponent)
+    let dialogRef = this.dialog.open(VisualizationComponent);
   }
 }
 
 interface Tetrad {
   id: number;
   quadruplexId: string;
-  pdbId: string;
+  pdbId: number;
+  pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
   sequence: string;

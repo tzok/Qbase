@@ -5,6 +5,6 @@ namespace RNAqbase.Repository
 {
 	public interface IQuadruplexRepository
 	{
-		Task<IEnumerable<int>> GetQuadruplexesByPdbId(string pdbId, int quadruplexId);
+		Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId);
 	}
 }

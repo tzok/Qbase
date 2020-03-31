@@ -21,7 +21,8 @@ namespace RNAqbase.Repository
 				var result = await connection.QueryAsync<Tetrad>
 				(@"
 SELECT t.id, 
-	qt.quadruplex_id as ""QuadruplexId"", 
+	t.quadruplex_id as ""QuadruplexIdAsInt"", 
+	pdb1.identifier as ""PdbIdentifier"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
 	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
@@ -30,8 +31,7 @@ SELECT t.id,
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 	t.onz as ""OnzClass"",
 	t.planarity
-FROM tetrade t
-	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
+FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 	JOIN nucleotide n2 on t.nt2_id = n2.id
 	JOIN nucleotide n3 on t.nt3_id = n3.id
@@ -51,18 +51,18 @@ WHERE t.id = @Id;", new { Id = id });
 				return await connection.QueryAsync<Tetrad>
 				(@"
 SELECT t.id, 
-	qt.quadruplex_id as ""QuadruplexIdAsInt"", 
+	t.quadruplex_id as ""QuadruplexIdAsInt"", 
+	pdb1.identifier as ""PdbIdentifier"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
-	--pdb1.visualization as ""PdbVisualization"",
 	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
 	COALESCE(n1.molecule, 'Other') as ""Molecule"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 	t.onz as ""OnzClass"",
-	(SELECT count(*) from quadruplex_tetrade qtcount where qtcount.quadruplex_id = qt.quadruplex_id) as ""TetradsInQuadruplex""
-FROM tetrade t
-	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
+	(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = q.id) as ""TetradsInQuadruplex""
+FROM tetrad t
+	JOIN quadruplex q on t.quadruplex_id = q.id
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 	JOIN nucleotide n2 on t.nt2_id = n2.id
 	JOIN nucleotide n3 on t.nt3_id = n3.id
@@ -79,14 +79,14 @@ ORDER BY t.id;");
 				connection.Open();
 				return await connection.QueryAsync<int>
 					(@"
-SELECT tetrade_id
-FROM quadruplex_tetrade
+SELECT id
+FROM tetrad
 WHERE quadruplex_id = @QuadruplexId 
-	AND tetrade_id <> @TetradId;", new { QuadruplexId = quadruplexId, TetradId = tetradId });
+	AND id <> @TetradId;", new { QuadruplexId = quadruplexId, TetradId = tetradId });
 			}
 		}
 
-		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, string pdbId)
+		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId)
 		{
 			using (var connection = Connection)
 			{
@@ -94,7 +94,7 @@ WHERE quadruplex_id = @QuadruplexId
 				return await connection.QueryAsync<int>
 				(@"
 SELECT t.id
-FROM tetrade t
+FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 WHERE n1.pdb_id = @PdbId 
 	AND t.id <> @TetradId;", new { PdbId = pdbId, TetradId = tetradId });
@@ -109,27 +109,26 @@ WHERE n1.pdb_id = @PdbId
 				return await connection.QueryAsync<Tetrad>
 				(@"
 SELECT t.id, 
-	qt.quadruplex_id as ""QuadruplexIdAsInt"", 
+	t.quadruplex_id as ""QuadruplexIdAsInt"", 
+	pdb1.identifier as ""PdbIdentifier"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
-	--pdb1.visualization as ""PdbVisualization"",
 	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
 	COALESCE(n1.molecule, 'Other') as ""Molecule"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 	n1.glycosidic_bond as ""ChiAngle"",
 	t.onz as ""OnzClass"",
-	ts.rise,
-	ts.twist
-FROM tetrade t
-	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
+	tp.rise,
+	tp.twist
+FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 	JOIN nucleotide n2 on t.nt2_id = n2.id
 	JOIN nucleotide n3 on t.nt3_id = n3.id
 	JOIN nucleotide n4 on t.nt4_id = n4.id
 	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
-	JOIN tetrade_stack ts on t.id = ts.tetrade1_id
-WHERE qt.quadruplex_id = @QuadruplexId
+	JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+WHERE t.quadruplex_id = @QuadruplexId
 ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}
@@ -145,16 +144,15 @@ SELECT t.id,
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	t.onz as ""OnzClass"",
 	t.planarity,
-	ts.rise,
-	ts.twist
-FROM tetrade t
-	JOIN quadruplex_tetrade qt on t.id = qt.tetrade_id
+	tp.rise,
+	tp.twist
+FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 	JOIN nucleotide n2 on t.nt2_id = n2.id
 	JOIN nucleotide n3 on t.nt3_id = n3.id
 	JOIN nucleotide n4 on t.nt4_id = n4.id
-	JOIN tetrade_stack ts on t.id = ts.tetrade1_id
-WHERE qt.quadruplex_id = @QuadruplexId
+	JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+WHERE t.quadruplex_id = @QuadruplexId
 ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}

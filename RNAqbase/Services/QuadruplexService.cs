@@ -37,7 +37,7 @@ namespace RNAqbase.Services
 			return new Quadruplex { TetradReferences = tetrads.ToList() };
 		}
 
-		public async Task<List<int>> GetQuadruplexesByPdbId(string pdbId, int quadruplexId)
+		public async Task<List<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
 		{
 			var quadruplexes = await quadruplexRepository.GetQuadruplexesByPdbId(pdbId, quadruplexId);
 			return quadruplexes.ToList();

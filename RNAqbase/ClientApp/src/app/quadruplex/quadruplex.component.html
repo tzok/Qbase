@@ -8,7 +8,7 @@
       
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <h5><b>Quadruplex ID: {{data.id}}</b></h5>
+          <h5><b>Quadruplex ID: Q{{data.id}}</b></h5>
         </div>
         <div class=" col-lg-2 col-sm-6 saveDataButton">
           <a class="mat-button" csvLink [data]="csvData">Save data</a>
@@ -32,7 +32,7 @@
           </thead>
           <tbody>
             <tr>
-              <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
+              <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}</a></td>
               <td>{{data.assemblyId}}</td>
               <td>{{data.assemblyId}}</td>
               <td>{{data.experiment}}</td>
@@ -80,7 +80,7 @@
             <tr *ngFor="let t of tetrads">
               <td>
                 <a [routerLink]="['/tetrad', t.id]">
-                  {{t.id}}
+                  T{{t.id}}
                 </a>
               </td>
               <td>{{t.sequence}}</td>
@@ -98,13 +98,13 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of quadruplexes in structure {{data.pdbId}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
+            Number of quadruplexes in structure {{data.pdbIdentifier}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
           </p>
         </div>
         <div class="list">
           <p>
             Other quadruplexes in this structure:
-            <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">{{q}} </a>
+            <a *ngFor="let q of data.quadruplexesInTheSamePdb" [routerLink]="['/quadruplex', q]">Q{{q}} </a>
             <a *ngIf="data.quadruplexesInTheSamePdb.length == 0">-</a>
           </p>
         </div>

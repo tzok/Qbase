@@ -8,7 +8,8 @@ namespace RNAqbase.Models
 	{
 		public int Id { get; set; }
 		public string QuadruplexId => TetradsInQuadruplex > 1 ? QuadruplexIdAsInt.ToString() : "-";
-		public string PdbId { get; set; }
+		public int PdbId { get; set; }
+		public string PdbIdentifier { get; set; }
 		public int AssemblyId { get; set; }
 		public string Molecule { get; set; }
 		public string Sequence { get; set; }

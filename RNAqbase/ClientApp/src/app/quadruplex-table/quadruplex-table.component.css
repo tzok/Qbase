@@ -93,3 +93,27 @@ a {
   background-color: #45A29E;
   color: white;
 }
+
+.inputtext {
+  display: inline-block;
+  margin-right: 550px;
+  margin-left: 5px;
+}
+
+.statictext {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+@media(max-width: 1024px) {
+  .inputtext {
+    display: inline-block;
+    margin-right: 50px;
+    margin-left: 5px;
+  }
+
+  .statictext {
+    display: inline-block;
+    margin-right: 50px;
+  }
+}

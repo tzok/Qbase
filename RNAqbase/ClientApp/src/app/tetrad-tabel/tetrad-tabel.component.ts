@@ -20,7 +20,7 @@ export class TetradTabelComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['id', 'quadruplexId', 'pdbId', 'assemblyId', 'molecule',
+  displayedColumns = ['id', 'quadruplexId', 'pdbIdentifier', 'assemblyId', 'ndbId', 'molecule',
     'sequence', 'onzClass', 'select'];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
@@ -61,7 +61,7 @@ export class TetradTabelComponent implements OnInit {
 interface Tetrad {
   id: number;
   quadruplexId: string;
-  pdbId: string;
+  pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
   sequence: string;

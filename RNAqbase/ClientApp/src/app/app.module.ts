@@ -23,6 +23,8 @@ import { QuadruplexComponent } from './quadruplex/quadruplex.component';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { VisualizationComponent } from './visualization/visualization.component';
 import { Visualization3DComponent } from './visualization3-d/visualization3-d.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { Visualization3DComponent } from './visualization3-d/visualization3-d.co
     TetradComponent,
     QuadruplexComponent,
     VisualizationComponent,
-    Visualization3DComponent
+    Visualization3DComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -60,7 +63,8 @@ import { Visualization3DComponent } from './visualization3-d/visualization3-d.co
       { path: 'structures', component: StructureTableComponent },
       { path: 'tetrads', component: TetradTabelComponent },
       { path: 'tetrad/:tetradId', component: TetradComponent },
-      { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent }
+      { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
+      { path: 'statistics', component: StatisticsComponent }
       
     ]),
     BrowserAnimationsModule,
@@ -71,7 +75,8 @@ import { Visualization3DComponent } from './visualization3-d/visualization3-d.co
     MatInputModule,
     MatCheckboxModule,
     MatDialogModule,
-    CsvModule
+    CsvModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent],

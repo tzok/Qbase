@@ -1,0 +1,26 @@
+body {
+}
+
+.container {
+  min-height: 100%
+}
+
+main {
+  margin-top: 10px;
+  height: auto;
+  padding-top: 20px;
+}
+
+.text-rectangle {
+  text-align: center;
+  background-color: #45A29E;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+p {
+  font-size: large;
+  line-height: 1.5;
+  margin: 5px;
+}

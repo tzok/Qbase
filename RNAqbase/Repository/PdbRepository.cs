@@ -11,7 +11,7 @@ namespace RNAqbase.Repository
 		{
 		}
 
-		public async Task<string> GetVisualizationByPdbId(string pdbId)
+		public async Task<string> GetVisualizationByPdbId(int pdbId)
 		{
 			using (var connection = Connection)
 			{

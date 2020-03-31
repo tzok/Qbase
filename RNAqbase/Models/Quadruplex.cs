@@ -14,11 +14,11 @@ namespace RNAqbase.Models
 		[JsonIgnore]
 		public string Visualization { get; set; }
 		[JsonIgnore]
-		public string OnzClass => TetradReferences.First().OnzClass;
-		[JsonIgnore]
 		public List<Tetrad> TetradReferences { get; set; }
 
-		public string PdbId => TetradReferences.First().PdbId;
+		public string OnzClass => TetradReferences.First().OnzClass;
+		public string PdbIdentifier => TetradReferences.First().PdbIdentifier;
+		public int PdbId => TetradReferences.First().PdbId;
 		public int AssemblyId => TetradReferences.First().AssemblyId;
 		public string Molecule => TetradReferences.First().Molecule;
 		public string Sequence => TetradReferences.Select(x => x.Sequence).Aggregate((current, next) => current + next);

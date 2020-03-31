@@ -13,8 +13,6 @@ namespace RNAqbase.Models
 		public string Visualization { get; set; }
 		public string Strands { get; set; }
 		public int NumberOfStrands => Strands.Distinct().Count();
-
-		[JsonIgnore]
 		public string OnzClass { get; set; }
 
 	}

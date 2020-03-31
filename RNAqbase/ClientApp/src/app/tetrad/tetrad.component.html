@@ -9,7 +9,7 @@
       <br />
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <h5><b>Tetrad ID: {{data.id}}</b></h5>
+          <h5><b>Tetrad ID: T{{data.id}}</b></h5>
         </div>
         <div class=" col-lg-2 col-sm-6 saveDataButton">
           <a class="mat-button" csvLink [data]="csvData">Save data</a>
@@ -34,8 +34,8 @@
         <tbody>
           <tr>
             <td *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
-            <td *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.id]">{{data.quadruplexId}}</a></td>
-            <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td>
+            <td *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.id]">Q{{data.quadruplexId}}</a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}</a></td>
             <td>{{data.assemblyId}}</td>
             <td>{{data.assemblyId}}</td>
             <td>{{data.experiment}}</td>
@@ -73,7 +73,7 @@
       <div class="list">
         <p>
           Other tetrads in this quadruplex:
-          <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">{{t}} </a>
+          <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">T{{t}} </a>
           <a *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</a>
         </p>
       </div>
@@ -81,14 +81,14 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of tetrads in structure {{data.pdbId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
+            Number of tetrads in structure {{data.IdentifierId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
           </p>
         </div>
 
         <div class="list">
           <p>
             Other tetrads in this structure:
-            <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">{{t}} </a>
+            <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">T{{t}} </a>
             <a *ngIf="data.tetradsInTheSamePdb.length == 0">-</a>
           </p>
         </div>

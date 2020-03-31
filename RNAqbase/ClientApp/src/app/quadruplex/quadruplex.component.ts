@@ -37,6 +37,7 @@ export class QuadruplexComponent implements OnInit {
         .subscribe(result => {
           this.data.id = result.id;
           this.data.pdbId = result.pdbId;
+          this.data.pdbIdentifier = result.pdbIdentifier;
           this.data.assemblyId = result.assemblyId;
           this.data.molecule = result.molecule;
           this.data.sequence = result.sequence;
@@ -82,7 +83,8 @@ export class QuadruplexComponent implements OnInit {
 
 interface Quadruplex {
   id: string;
-  pdbId: string;
+  pdbId: number;
+  pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
   experiment: string;

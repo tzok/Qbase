@@ -29,9 +29,9 @@ namespace RNAqbase.Controllers
 		}
 
 		[HttpGet("[action]")]
-		public async Task<IActionResult> GetQuadruplexesByPdbId(string pdbId, int quadruplexId)
+		public async Task<IActionResult> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
 		{
-			if (string.IsNullOrWhiteSpace(pdbId) || quadruplexId == 0) return BadRequest();
+			if (pdbId == 0 || quadruplexId == 0) return BadRequest();
 			return Ok(await quadruplexService.GetQuadruplexesByPdbId(pdbId, quadruplexId));
 		}
 	}

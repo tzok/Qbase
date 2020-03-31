@@ -8,6 +8,6 @@ namespace RNAqbase.Services
 	{
 		Task<List<Quadruplex>> GetAllQuadruplexes();
 		Task<Quadruplex> GetQuadruplexById(int id);
-		Task<List<int>> GetQuadruplexesByPdbId(string pdbId, int quadruplexId);
+		Task<List<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId);
 	}
 }
