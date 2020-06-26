@@ -2,8 +2,10 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { VisualizationComponent } from '../visualization/visualization.component';
 import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
+import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
+import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
+
 
 
 @Component({
@@ -63,10 +65,13 @@ export class TetradComponent implements OnInit {
   }
 
   showStructure() {
-    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbIdentifier } });
+    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { visualization3D: this.data.visualization3D } });
   }
-  showDialog() {
-    let dialogRef = this.dialog.open(VisualizationComponent);
+  showDiagram() {
+    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram} });
+  }
+  showDotBracket() {
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization } });
   }
 }
 
@@ -84,4 +89,7 @@ interface Tetrad {
   tetradsInTheSameQuadruplex: number[];
   tetradsInTheSamePdb: number[];
   experiment: string;
+  arcDiagram: string;
+  visualization: string;
+  visualization3D: string;
 }

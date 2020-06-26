@@ -54,8 +54,8 @@
     <h5>Secondary structure:</h5>
 
     <div class="row">
-      <button (click)="showDialog()">Dot-bracket encoding</button>
-      <button (click)="showDialog()">Arc diagram</button>
+      <button (click)="showDotBracket()">Dot-bracket encoding</button>
+      <button (click)="showDiagram()">Arc diagram</button>
     </div>
 
     <h5>3D structure:</h5>
@@ -81,7 +81,7 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of tetrads in structure{{data.IdentifierId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
+            Number of tetrads in this structure{{data.IdentifierId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
           </p>
         </div>
 

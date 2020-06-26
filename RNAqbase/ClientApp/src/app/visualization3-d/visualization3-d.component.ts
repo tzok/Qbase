@@ -16,7 +16,7 @@ export class Visualization3DComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
-    this.pdbId = this.data.pdbId;
+    //this.pdbId = this.data.pdbId;
     this.show3DVisualization();
   }
 
@@ -31,7 +31,7 @@ export class Visualization3DComponent implements OnInit {
     this.liteMolPlugin.loadMolecule({
       id: this.pdbId,
       format: 'cif', // or pdb, sdf, binarycif/bcif
-      url: `https://www.ebi.ac.uk/pdbe/static/entry/${this.data.pdbId.toLowerCase()}_updated.cif`,
+      //url: `https://www.ebi.ac.uk/pdbe/static/entry/${this.data.pdbId.toLowerCase()}_updated.cif`,
     }).then(() => {
       console.log('Molecule loaded');
     }).catch(e => {

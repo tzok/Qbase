@@ -17,7 +17,7 @@ namespace RNAqbase.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetTetradById(int id)
         {
-            if (id == 0) return BadRequest();
+	        if (id == 0) return BadRequest();
 
             return Ok(await repository.FindById(id));
         }
@@ -51,5 +51,5 @@ namespace RNAqbase.Controllers
             if(id == 0) return BadRequest();
             return Ok(await repository.FindAllTetradsInTheSameQuadruplex(id));
         }
-	}
+    }
 }

@@ -25,6 +25,7 @@ import { VisualizationComponent } from './visualization/visualization.component'
 import { Visualization3DComponent } from './visualization3-d/visualization3-d.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     QuadruplexComponent,
     VisualizationComponent,
     Visualization3DComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ArcdiagramComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,7 +59,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
       { path: 'test', component: TestComponent },
       { path: 'about', component: AboutComponent },
       { path: 'citeUs', component: CiteUsComponent },
-      { path: 'contact', component: ContactComponent },
+     // { path: 'contact', component: ContactComponent },
       { path: 'help', component: HelpComponent },
       { path: 'quadruplexes', component: QuadruplexTableComponent },
       { path: 'structures', component: StructureTableComponent },
@@ -80,6 +82,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [VisualizationDialogComponent, VisualizationComponent, Visualization3DComponent]
+  entryComponents: [VisualizationDialogComponent, VisualizationComponent, Visualization3DComponent, ArcdiagramComponent]
 })
 export class AppModule { }

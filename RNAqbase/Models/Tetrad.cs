@@ -22,6 +22,9 @@ namespace RNAqbase.Models
 		public List<int> TetradsInTheSameQuadruplex { get; set; }
 		public List<int> TetradsInTheSamePdb { get; set; }
 		public string ChiAngle { get; set; }
+		public string ArcDiagram { get; set; }
+		public string Visualization { get; set; }
+		public string Visualization3D { get; set; }
 
 		[JsonIgnore]
 		public int QuadruplexIdAsInt { get; set; }
