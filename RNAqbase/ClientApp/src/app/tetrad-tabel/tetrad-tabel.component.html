@@ -8,7 +8,7 @@
         </div>
         <div class="inputtext">
           <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Enter any string of characters">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
           </mat-form-field>
         </div>
         <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
@@ -19,7 +19,7 @@
         <!-- Id Column -->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="id">
               Tetrad ID<sup matTooltip="Click ID to see tetrad description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -30,7 +30,7 @@
           </ng-container>
           <!-- Quadruplex ID Column -->
           <ng-container matColumnDef="quadruplexId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >
+            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplexId" >
               Quadruplex ID <sup matTooltip="Click ID to see quadruplex description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -42,7 +42,7 @@
           </ng-container>
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbIdentifier">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier" >
               PDB ID <sup matTooltip="Click ID to visit PDB record">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -51,7 +51,7 @@
           </ng-container>
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >Assembly ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId" >Assembly ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               {{row.assemblyId}}
             </mat-cell>
@@ -66,21 +66,21 @@
           </ng-container>
            <!-- Molecule Column -->
           <ng-container matColumnDef="molecule">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Molecule</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="molecule">Molecule</mat-header-cell>
             <mat-cell *matCellDef="let row">
               {{row.molecule}}
             </mat-cell>
           </ng-container>
           <!-- Name Column -->
           <ng-container matColumnDef="sequence">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Sequence</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence</mat-header-cell>
             <mat-cell *matCellDef="let row">
               {{row.sequence}}
             </mat-cell>
           </ng-container>
           <!-- ONZ Column -->
           <ng-container matColumnDef="onzClass">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ONZ Class</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="onzClass">ONZ Class</mat-header-cell>
             <mat-cell *matCellDef="let row">
               {{row.onzClass}}
             </mat-cell>

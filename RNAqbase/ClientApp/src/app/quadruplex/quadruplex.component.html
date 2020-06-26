@@ -34,7 +34,7 @@
             <tr>
               <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}</a></td>
               <td>{{data.assemblyId}}</td>
-              <td>{{data.assemblyId}}</td>
+              <td>{{data.molecule}}</td>
               <td>{{data.experiment}}</td>
               <td>{{data.numberOfStrands}}</td>
               <td>{{data.numberOfTetrads}}</td>
@@ -98,7 +98,7 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of quadruplexes in structure {{data.pdbIdentifier}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
+            Number of quadruplexes in this {{data.pdbIdentifier}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
           </p>
         </div>
         <div class="list">

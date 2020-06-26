@@ -33,7 +33,8 @@ namespace RNAqbase.Controllers
         {
             if (tetradId == 0 || quadruplexId == 0) return BadRequest();
 
-            return Ok(await repository.GetOtherTetradsInTheSameQuadruplex(tetradId, quadruplexId));
+            return Ok(await repository.
+	            GetOtherTetradsInTheSameQuadruplex(tetradId, quadruplexId));
         }
 
         [HttpGet("[action]")]

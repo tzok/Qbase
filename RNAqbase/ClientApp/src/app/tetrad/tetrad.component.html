@@ -34,10 +34,10 @@
         <tbody>
           <tr>
             <td *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
-            <td *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.id]">Q{{data.quadruplexId}}</a></td>
+            <td *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.quadruplexId]">Q{{data.quadruplexId}}</a></td>
             <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}</a></td>
             <td>{{data.assemblyId}}</td>
-            <td>{{data.assemblyId}}</td>
+            <td>{{data.molecule}}</td>
             <td>{{data.experiment}}</td>
             <td>{{data.planarity}}</td>
             <td>{{data.onzClass}}</td>
@@ -66,7 +66,7 @@
     <div class="lists">
       <div class="list">
         <p>
-          Number of tetrads in quadruplex {{data.quadruplexId}}: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
+          Number of tetrads in this quadruplex Q{{data.quadruplexId}}: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
         </p>
       </div>
 
@@ -81,7 +81,7 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of tetrads in structure {{data.IdentifierId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
+            Number of tetrads in structure{{data.IdentifierId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
           </p>
         </div>
 

@@ -30,7 +30,8 @@ SELECT t.id,
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 	t.onz as ""OnzClass"",
-	t.planarity
+	t.planarity,
+	(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = t.quadruplex_id) as ""TetradsInQuadruplex""
 FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 	JOIN nucleotide n2 on t.nt2_id = n2.id
@@ -151,7 +152,7 @@ FROM tetrad t
 	JOIN nucleotide n2 on t.nt2_id = n2.id
 	JOIN nucleotide n3 on t.nt3_id = n3.id
 	JOIN nucleotide n4 on t.nt4_id = n4.id
-	JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+	LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
 WHERE t.quadruplex_id = @QuadruplexId
 ORDER BY t.id;", new { QuadruplexId = id });
 			}

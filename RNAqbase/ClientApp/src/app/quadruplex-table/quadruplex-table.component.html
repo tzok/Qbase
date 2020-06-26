@@ -8,7 +8,7 @@
         </div>
         <div class="inputtext">
           <mat-form-field>
-            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Enter any string of characters">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
           </mat-form-field>
         </div>
         <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
@@ -19,7 +19,9 @@
         <!-- Id Column -->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Quadruplex ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="id">
+              Quadruplex ID<sup matTooltip="Click ID to see quadruplex description">&#9432;</sup>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
               <a [routerLink]="['/quadruplex', row.id]">
@@ -29,17 +31,19 @@
           </ng-container>
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>PDB ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">
+              PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup>
+            </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Pdb ID</span>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">
-                {{row.pdbId}}
+              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">
+                {{row.pdbIdentifier}}
               </a>
             </mat-cell>
           </ng-container>
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Assembly ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Assembly ID</span>
               {{row.assemblyId}}
@@ -47,7 +51,7 @@
           </ng-container>
           <!-- Molecule Column -->
           <ng-container matColumnDef="molecule">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Molecule</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="molecule">Molecule</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Molecule</span>
               {{row.molecule}}
@@ -55,7 +59,7 @@
           </ng-container>
           <!-- Sequence Column -->
           <ng-container matColumnDef="sequence">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Sequence</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Sequence</span>
               {{row.sequence}}
@@ -63,7 +67,7 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>No. of strands</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">No. of strands</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of Strands</span>
               {{row.numberOfStrands}}
@@ -71,7 +75,7 @@
           </ng-container>
           <!-- Type Column -->
           <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="type">Type</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
               {{row.type}}
@@ -79,7 +83,7 @@
           </ng-container>
           <!-- ONZ Column -->
           <ng-container matColumnDef="onzClass">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>ONZ Class</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="onzClass">ONZ Class</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ONZ Class</span>
               {{row.onzClass}}
@@ -87,7 +91,7 @@
           </ng-container>
           <!-- No. of tetrads Column -->
           <ng-container matColumnDef="numberOfTetrads">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>No. of tetrads</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads">No. of tetrads</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of tetrads</span>
               {{row.numberOfTetrads}}
