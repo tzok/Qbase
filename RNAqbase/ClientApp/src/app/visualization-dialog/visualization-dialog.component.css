@@ -2,3 +2,15 @@
   width: auto;
   height: auto;
 }
+.box {
+  width: 200px;
+  height: 250px;
+}
+
+.zoom {
+  bottom: 190px;
+}
+
+.zoom-out {
+  bottom: 120px;
+}

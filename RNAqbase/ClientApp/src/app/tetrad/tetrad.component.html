@@ -65,13 +65,13 @@
 
     <div class="lists">
       <div class="list">
-        <p>
+        <p *ngIf="data.quadruplexId!='99999999'">
           Number of tetrads in this quadruplex Q{{data.quadruplexId}}: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
         </p>
       </div>
 
       <div class="list">
-        <p>
+        <p *ngIf="data.quadruplexId!='99999999'">
           Other tetrads in this quadruplex:
           <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">T{{t}} </a>
           <a *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</a>

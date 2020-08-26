@@ -34,10 +34,10 @@
               Quadruplex ID <sup matTooltip="Click ID to see quadruplex description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <a *ngIf="row.quadruplexId!='-'" [routerLink]="['/quadruplex', row.quadruplexId]">
+              <a *ngIf="row.quadruplexId!='99999999'" [routerLink]="['/quadruplex', row.quadruplexId]">
                 Q{{row.quadruplexId}}
               </a>
-              <a *ngIf="row.quadruplexId==='-'">n/a</a>
+              <a *ngIf="row.quadruplexId==='99999999'">n/a</a>
             </mat-cell>
           </ng-container>
           <!-- PDB ID Column -->

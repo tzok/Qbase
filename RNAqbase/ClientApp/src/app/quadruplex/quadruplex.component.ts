@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 
 @Component({
@@ -47,6 +48,8 @@ export class QuadruplexComponent implements OnInit {
           this.data.numberOfTetrads = result.numberOfTetrads;
           this.data.type = result.type;
           this.data.chiAngle = result.chiAngle;
+          this.data.visualization = result.visualization;
+          this.data.arcDiagram = result.arcDiagram;
 
           this.http.get<number[]>(this.baseUrl +
             '' +
@@ -77,8 +80,17 @@ export class QuadruplexComponent implements OnInit {
   }
 
   showStructure() {
-    let dialogRef = this.dialog.open(VisualizationComponent, { })
+    let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
+
+  showDotBracket() {
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization } });
+  }
+
+  showDiagram() {
+    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram } });
+  }
+
 }
 
 interface Quadruplex {
@@ -97,6 +109,8 @@ interface Quadruplex {
   quadruplexesInTheSamePdb: number[];
   chiAngle: string;
   tetrads: number[];
+  arcDiagram: string;
+  visualization: string;
 }
 
 interface TetradReference {

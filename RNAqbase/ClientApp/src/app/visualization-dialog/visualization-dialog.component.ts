@@ -11,6 +11,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class VisualizationDialogComponent implements OnInit {
 
   svg: SafeHtml;
+  zoom: number = 1;
+  svgPic: any;
 
   constructor(
     public dialogRef: MatDialogRef<VisualizationDialogComponent>,
@@ -18,7 +20,19 @@ export class VisualizationDialogComponent implements OnInit {
 
   ngOnInit() {
     this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+    this.svgPic = document.getElementById('pic');
   }
+
+  zoomIn() {
+    this.zoom += 0.1;
+    this.svgPic.style.zoom = this.zoom;
+  }
+
+  zoomOut() {
+    this.zoom -= 0.1;
+    this.svgPic.style.zoom = this.zoom;
+  }
+
 
 }
 

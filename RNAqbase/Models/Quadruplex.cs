@@ -7,27 +7,28 @@ namespace RNAqbase.Models
 {
 	public class Quadruplex : BaseEntity
 	{
-		public string Id => TetradReferences.First().QuadruplexIdAsInt.ToString();
 
 		[JsonIgnore]
 		public StrandDirection StrandDirection { get; set; }
-		[JsonIgnore]
-		public string Visualization { get; set; }
-		[JsonIgnore]
-		public List<Tetrad> TetradReferences { get; set; }
 
-		public string OnzClass => TetradReferences.First().OnzClass;
-		public string PdbIdentifier => TetradReferences.First().PdbIdentifier;
-		public int PdbId => TetradReferences.First().PdbId;
-		public int AssemblyId => TetradReferences.First().AssemblyId;
-		public string Molecule => TetradReferences.First().Molecule;
-		public string Sequence => TetradReferences.Select(x => x.Sequence).Aggregate((current, next) => current + next);
-		public int NumberOfStrands => TetradReferences.First().NumberOfStrands;
-		public string Type => TetradReferences.Select(x => x.OnzClass).Distinct().Count() == 1 ? "Regular" : "Irregular";
-		public int NumberOfTetrads => TetradReferences.Count;
-		public string PdbVisualization => TetradReferences.First().PdbVisualization;
-		public string Experiment => TetradReferences.First().Experiment;
-		public List<int> Tetrads => TetradReferences.Select(x => x.Id).ToList();
-		public string ChiAngle => TetradReferences.First().ChiAngle;
+		[JsonIgnore]
+		public int TypeCount { get; set; }
+
+		public string Id { get; set; }
+		public string Visualization { get; set; }
+		public string OnzClass { get; set; }
+		public string PdbIdentifier { get; set; }
+		public int PdbId { get; set; }
+		public int AssemblyId { get; set; }
+		public string Molecule { get; set; }
+		public string Sequence { get; set; }
+		public int NumberOfStrands { get; set; }
+		public string Type => TypeCount == 1 ? "Regular" : "Irregular";
+		public int NumberOfTetrads { get; set; }
+		public string PdbVisualization { get; set; }
+		public string Experiment { get; set; }
+		public List<int> Tetrads { get; set; }
+		public string ChiAngle { get; set; }
+		public string ArcDiagram { get; set; }
 	}
 }

@@ -52,8 +52,8 @@
       <h5>Secondary structure:</h5>
 
       <div class="row">
-        <button (click)="showStructure()">Dot-bracket encoding</button>
-        <button (click)="showStructure()">Arc diagram</button>
+        <button (click)="showDotBracket()">Dot-bracket encoding</button>
+        <button (click)="showDiagram()">Arc diagram</button>
         <button (click)="showStructure()">VARNA drawing</button>
       </div>
 
@@ -86,8 +86,8 @@
               <td>{{t.sequence}}</td>
               <td>{{t.onzClass}}</td>
               <td>{{t.planarity}}</td>
-              <td>{{t.twist}}</td>
-              <td>{{t.rise}}</td>
+              <td>{{t.twist | number: '1.0-2'}}</td>
+              <td>{{t.rise | number: '1.0-2'}}</td>
               <td> </td>
             </tr>
           </tbody>

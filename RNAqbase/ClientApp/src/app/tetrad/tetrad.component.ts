@@ -65,7 +65,7 @@ export class TetradComponent implements OnInit {
   }
 
   showStructure() {
-    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { visualization3D: this.data.visualization3D } });
+    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbIdentifier } });
   }
   showDiagram() {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram} });

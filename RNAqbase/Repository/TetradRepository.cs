@@ -57,12 +57,9 @@ WHERE t.id = @Id;", new { Id = id });
 SELECT t.id, 
 	t.quadruplex_id as ""QuadruplexIdAsInt"", 
 	pdb1.identifier as ""PdbIdentifier"", 
-	pdb1.id as ""PdbId"", 
-	pdb1.experiment as ""Experiment"",
 	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
 	COALESCE(n1.molecule, 'Other') as ""Molecule"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
-	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 	t.onz as ""OnzClass"",
 	(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = q.id) as ""TetradsInQuadruplex""
 FROM tetrad t
@@ -102,38 +99,6 @@ FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
 WHERE n1.pdb_id = @PdbId 
 	AND t.id <> @TetradId;", new { PdbId = pdbId, TetradId = tetradId });
-			}
-		}
-
-		public async Task<IEnumerable<Tetrad>> FindAllTetradsByQuadruplexId(int id)
-		{
-			using (var connection = Connection)
-			{
-				connection.Open();
-				return await connection.QueryAsync<Tetrad>
-				(@"
-SELECT t.id, 
-	t.quadruplex_id as ""QuadruplexIdAsInt"", 
-	pdb1.identifier as ""PdbIdentifier"", 
-	pdb1.id as ""PdbId"", 
-	pdb1.experiment as ""Experiment"",
-	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
-	COALESCE(n1.molecule, 'Other') as ""Molecule"",
-	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
-	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
-	n1.glycosidic_bond as ""ChiAngle"",
-	t.onz as ""OnzClass"",
-	tp.rise,
-	tp.twist
-FROM tetrad t
-	JOIN nucleotide n1 on t.nt1_id = n1.id
-	JOIN nucleotide n2 on t.nt2_id = n2.id
-	JOIN nucleotide n3 on t.nt3_id = n3.id
-	JOIN nucleotide n4 on t.nt4_id = n4.id
-	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
-	JOIN tetrad_pair tp on t.id = tp.tetrad1_id
-WHERE t.quadruplex_id = @QuadruplexId
-ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}
 

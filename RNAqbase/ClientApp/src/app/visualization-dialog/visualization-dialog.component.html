@@ -1,1 +1,7 @@
-<div class="svg" [innerHTML]="svg"></div>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<div class="box">
+  <a class="btn zoom" (click)="zoomIn()"><i class="fas fa-search-plus"></i></a>
+  <a class="btn zoom-out" (click)="zoomOut()"><i class="fas fa-search-minus"></i></a>
+  <div class="svg" [innerHTML]="svg" id="pic"></div>
+</div>
+

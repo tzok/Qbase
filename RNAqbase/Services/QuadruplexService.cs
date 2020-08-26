@@ -8,39 +8,20 @@ namespace RNAqbase.Services
 {
 	public class QuadruplexService : IQuadruplexService
 	{
-		private readonly ITetradRepository tetradRepository;
 		private readonly IQuadruplexRepository quadruplexRepository;
 
-		public QuadruplexService(ITetradRepository tetradRepository, IQuadruplexRepository quadruplexRepository)
+		public QuadruplexService(IQuadruplexRepository quadruplexRepository)
 		{
-			this.tetradRepository = tetradRepository;
 			this.quadruplexRepository = quadruplexRepository;
 		}
 
-		public async Task<List<Quadruplex>> GetAllQuadruplexes()
-		{
-			var tetrads = await tetradRepository.FindAll();
-			var tetradGroups = tetrads.Where(x => x.QuadruplexId != "-").GroupBy(x => x.QuadruplexId).ToList();
-			var quadruplexes = new List<Quadruplex>();
+		public async Task<List<Quadruplex>> GetAllQuadruplexes() =>
+			await quadruplexRepository.GetAllQuadruplexes();
 
-			foreach (var tetradGroup in tetradGroups.Where(tg => tg.Count() > 1))
-			{
-				quadruplexes.Add(new Quadruplex { TetradReferences = tetradGroup.ToList() });
-			}
+		public async Task<Quadruplex> GetQuadruplexById(int id) =>
+			await quadruplexRepository.GetQuadruplexById(id);
 
-			return quadruplexes;
-		}
-
-		public async Task<Quadruplex> GetQuadruplexById(int id)
-		{
-			var tetrads = await tetradRepository.FindAllTetradsByQuadruplexId(id);
-			return new Quadruplex { TetradReferences = tetrads.ToList() };
-		}
-
-		public async Task<List<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
-		{
-			var quadruplexes = await quadruplexRepository.GetQuadruplexesByPdbId(pdbId, quadruplexId);
-			return quadruplexes.ToList();
-		}
+		public async Task<List<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId) =>
+			(await quadruplexRepository.GetQuadruplexesByPdbId(pdbId, quadruplexId)).ToList();
 	}
 }
