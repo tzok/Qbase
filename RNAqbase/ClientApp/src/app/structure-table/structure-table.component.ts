@@ -23,7 +23,7 @@ export class StructureTableComponent implements OnInit {
   sort: MatSort;
 
   displayedColumns = [
-    'pdbIdentifier', 'assemblyId', 'molecule',
+    'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
     'experimentalMethod', 'structure2D', 'quadruplexId', 'numberOfStrands', 'onzClass', 'select'
   ];
 
@@ -83,5 +83,6 @@ interface Structure {
   id: number;
   numberOfStrands: number;
   onzClass: string;
+  pdbDeposition: Date;
   select: boolean;
 }

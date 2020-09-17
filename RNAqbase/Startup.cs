@@ -26,6 +26,8 @@ namespace RNAqbase
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
 			services.AddTransient<ITetradRepository, TetradRepository>();
 			services.AddTransient<IQuadruplexRepository, QuadruplexRepository>();
+			services.AddTransient<IHelixService, HelixService>();
+			services.AddTransient<IHelixRepository, HelixRepository>();
 
 
 			// In production, the Angular files will be served from this directory

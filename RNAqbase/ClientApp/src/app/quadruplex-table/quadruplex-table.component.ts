@@ -21,7 +21,7 @@ export class QuadruplexTableComponent implements OnInit {
   sort: MatSort;
 
   displayedColumns = [
-    'id', 'pdbId', 'assemblyId', 'molecule',
+    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
     'sequence', 'numberOfStrands', 'type', 'onzmClass', 'numberOfTetrads', 'select'
   ];
 
@@ -72,4 +72,5 @@ interface Quadruplex {
   type: string;
   onzmClass: string;
   numberOfTetrads: number;
+  pdbDeposition: Date;
 }

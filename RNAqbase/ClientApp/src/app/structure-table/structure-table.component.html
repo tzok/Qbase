@@ -24,6 +24,13 @@
               <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">{{row.pdbIdentifier}}</a>
             </mat-cell>
           </ng-container>
+          <!-- PDB deposition  Column -->
+          <ng-container matColumnDef="pdbDeposition">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.pdbDeposition}}
+            </mat-cell>
+          </ng-container>
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>

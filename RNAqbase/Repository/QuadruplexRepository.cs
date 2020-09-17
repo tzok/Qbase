@@ -93,6 +93,7 @@ SELECT
 	MAX(q.id) AS Id,
 	MAX(q.onzm) AS OnzmClass,
 	MAX(p.identifier) AS PdbIdentifier,
+	MAX(p.release_date) as PdbDeposition,
 	MAX(n1.pdb_id) AS PdbId,
 	MAX(p.assembly) AS AssemblyId,
 	MAX(n1.molecule) AS Molecule,

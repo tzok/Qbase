@@ -30,7 +30,7 @@
           </ng-container>
           <!-- Quadruplex ID Column -->
           <ng-container matColumnDef="quadruplexId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplexId" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplexId">
               Quadruplex ID <sup matTooltip="Click ID to see quadruplex description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -42,29 +42,36 @@
           </ng-container>
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbIdentifier">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">
               PDB ID <sup matTooltip="Click ID to visit PDB record">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">{{row.pdbIdentifier}}</a>
             </mat-cell>
           </ng-container>
+          <!-- PDB deposition  Column -->
+          <ng-container matColumnDef="pdbDeposition">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.pdbDeposition}}
+            </mat-cell>
+          </ng-container>
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId" >Assembly ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               {{row.assemblyId}}
             </mat-cell>
           </ng-container>
           <!-- NDB ID Column -->
           <ng-container matColumnDef="ndbId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header >
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
               NDB ID <sup matTooltip="Click ID to visit PDB record">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
             </mat-cell>
           </ng-container>
-           <!-- Molecule Column -->
+          <!-- Molecule Column -->
           <ng-container matColumnDef="molecule">
             <mat-header-cell *matHeaderCellDef mat-sort-header="molecule">Molecule</mat-header-cell>
             <mat-cell *matCellDef="let row">

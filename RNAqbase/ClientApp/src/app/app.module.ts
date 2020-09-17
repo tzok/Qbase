@@ -27,6 +27,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
 import { HeliceComponent } from './helice/helice.component';
+import { HelixComponent } from './helix/helix.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { HeliceComponent } from './helice/helice.component';
     Visualization3DComponent,
     StatisticsComponent,
     ArcdiagramComponent,
-    HeliceComponent
+    HeliceComponent,
+    HelixComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,15 +63,16 @@ import { HeliceComponent } from './helice/helice.component';
       { path: 'test', component: TestComponent },
       { path: 'about', component: AboutComponent },
       { path: 'citeUs', component: CiteUsComponent },
-     // { path: 'contact', component: ContactComponent },
+      // { path: 'contact', component: ContactComponent },
       { path: 'help', component: HelpComponent },
       { path: 'quadruplexes', component: QuadruplexTableComponent },
       { path: 'structures', component: StructureTableComponent },
       { path: 'tetrads', component: TetradTabelComponent },
       { path: 'tetrad/:tetradId', component: TetradComponent },
       { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
-      { path: 'statistics', component: StatisticsComponent }
-      
+      { path: 'statistics', component: StatisticsComponent },
+      { path: 'helices', component: HeliceComponent }
+
     ]),
     BrowserAnimationsModule,
     MatTableModule,

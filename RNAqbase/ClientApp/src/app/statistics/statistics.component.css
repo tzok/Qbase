@@ -1,8 +1,13 @@
-body {
+@media screen and (max-width: 600px) {
+  .quadruplextable {
+    max-width: 100%;
+    overflow-x: scroll;
+  }
 }
 
 .container {
-  min-height: 100%
+  min-height: 100%;
+  text-align: left;
 }
 
 main {
@@ -22,5 +27,68 @@ main {
 p {
   font-size: large;
   line-height: 1.5;
+  margin: 15px;
+}
+
+structure {
+  display: inline-block;
+  margin: 10px;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: none;
+}
+
+th {
+  border-style: solid;
+  text-align: center;
+  border-bottom: none;
+}
+
+tr {
+  border-style: solid;
+}
+
+td {
+  border-style: solid;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+a {
+  color: #45A29E;
+}
+
+.table {
   margin: 5px;
+  border-style: solid;
+}
+
+button {
+  margin: 20px;
+  width: 200px;
+  height: 50px;
+  background-color: #45A29E;
+  color: white;
+}
+
+.lists {
+  margin-top: 20px;
+}
+
+.saveDataButton {
+  text-align: right;
+}
+
+a.mat-button {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  background-color: lightgrey;
+  color: black;
+  padding: 3px;
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace RNAqbase.Models
@@ -14,6 +15,7 @@ namespace RNAqbase.Models
 		public string Strands { get; set; }
 		public int NumberOfStrands => Strands.Distinct().Count();
 		public string OnzClass { get; set; }
+		public DateTime PdbDeposition { get; set; }
 
 	}
 }
