@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
 import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
-
+import { VisualizationComponent } from '../visualization/visualization.component';
 
 
 @Component({
@@ -63,15 +63,17 @@ export class TetradComponent implements OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
+  showDotBracket() {
+    let dialogRef = this.dialog.open(VisualizationComponent, {});
+  }
   showStructure() {
     let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbIdentifier } });
   }
   showDiagram() {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram} });
   }
-  showDotBracket() {
-    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization } });
+  showVarna() {
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D } });
   }
 }
 
@@ -90,6 +92,5 @@ interface Tetrad {
   tetradsInTheSamePdb: number[];
   experiment: string;
   arcDiagram: string;
-  visualization: string;
-  visualization3D: string;
+  visualization2D: string;
 }

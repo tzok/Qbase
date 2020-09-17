@@ -43,7 +43,7 @@ WHERE n.pdb_id=@PdbId
 					@"
 SELECT
 	MAX(q.id) AS Id,
-	MAX(t.onz) AS OnzClass,
+	MAX(q.onzm) AS OnzmClass,
 	MAX(p.identifier) AS PdbIdentifier,
 	MAX(n1.pdb_id) AS PdbId,
 	MAX(p.assembly) AS AssemblyId,
@@ -52,9 +52,9 @@ SELECT
 	COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	COUNT(DISTINCT(t.onz)) AS TypeCount,
 	COUNT(t.id) AS NumberOfTetrads,
-	MAX(p.visualization) AS PdbVisualization,
+	MAX(p.visualization_2d) AS PdbVisualization,
 	MAX(p.experiment) AS Experiment,
-	MAX(q.visualization) AS Visualization,
+	MAX(q.visualization_2d) AS Visualization2D,
 	MAX(q.arc_diagram) AS ArcDiagram
 FROM QUADRUPLEX q
 JOIN TETRAD t ON q.id = t.quadruplex_id
@@ -91,7 +91,7 @@ WHERE  q.id = @QuadruplexId",
 					@"
 SELECT
 	MAX(q.id) AS Id,
-	MAX(t.onz) AS OnzClass,
+	MAX(q.onzm) AS OnzmClass,
 	MAX(p.identifier) AS PdbIdentifier,
 	MAX(n1.pdb_id) AS PdbId,
 	MAX(p.assembly) AS AssemblyId,
@@ -100,7 +100,6 @@ SELECT
 	COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	COUNT(DISTINCT(t.onz)) AS TypeCount,
 	COUNT(t.id) AS NumberOfTetrads,
-	MAX(p.visualization) AS PdbVisualization,
 	MAX(p.experiment) AS experiment
 FROM QUADRUPLEX q
 JOIN TETRAD t ON q.id = t.quadruplex_id

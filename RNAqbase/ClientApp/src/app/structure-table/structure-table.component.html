@@ -18,9 +18,9 @@
         <!--Pdb Id Column -->
         <div class="col-sm-8">
           <ng-container matColumnDef="pdbIdentifier">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">Pdb ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">PDB ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Pdb ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
+              <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
               <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">{{row.pdbIdentifier}}</a>
             </mat-cell>
           </ng-container>

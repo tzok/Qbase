@@ -26,6 +26,7 @@ import { Visualization3DComponent } from './visualization3-d/visualization3-d.co
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
+import { HeliceComponent } from './helice/helice.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
     VisualizationComponent,
     Visualization3DComponent,
     StatisticsComponent,
-    ArcdiagramComponent
+    ArcdiagramComponent,
+    HeliceComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

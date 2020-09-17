@@ -42,13 +42,13 @@ export class QuadruplexComponent implements OnInit {
           this.data.assemblyId = result.assemblyId;
           this.data.molecule = result.molecule;
           this.data.sequence = result.sequence;
-          this.data.onzClass = result.onzClass;
+          this.data.onzmClass = result.onzmClass;
           this.data.experiment = result.experiment;
           this.data.numberOfStrands = result.numberOfStrands;
           this.data.numberOfTetrads = result.numberOfTetrads;
           this.data.type = result.type;
           this.data.chiAngle = result.chiAngle;
-          this.data.visualization = result.visualization;
+          this.data.visualization2D = result.visualization2D;
           this.data.arcDiagram = result.arcDiagram;
 
           this.http.get<number[]>(this.baseUrl +
@@ -79,12 +79,16 @@ export class QuadruplexComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
+  showDotBracket() {
+    let dialogRef = this.dialog.open(VisualizationComponent, {});
+  }
+
   showStructure() {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
 
-  showDotBracket() {
-    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization } });
+  showVarna() {
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D} });
   }
 
   showDiagram() {
@@ -104,13 +108,13 @@ interface Quadruplex {
   numberOfTetrads: number;
   type: string;
   sequence: string;
-  onzClass: string;
+  onzmClass: string;
   structure3D: string;
   quadruplexesInTheSamePdb: number[];
   chiAngle: string;
   tetrads: number[];
   arcDiagram: string;
-  visualization: string;
+  visualization2D: string;
 }
 
 interface TetradReference {

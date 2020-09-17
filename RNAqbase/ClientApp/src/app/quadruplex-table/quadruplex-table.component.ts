@@ -22,7 +22,7 @@ export class QuadruplexTableComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'assemblyId', 'molecule',
-    'sequence', 'numberOfStrands', 'type', 'onzClass', 'numberOfTetrads', 'select'
+    'sequence', 'numberOfStrands', 'type', 'onzmClass', 'numberOfTetrads', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
@@ -70,6 +70,6 @@ interface Quadruplex {
   sequence: string;
   numberOfStrands: number;
   type: string;
-  onzClass: string;
+  onzmClass: string;
   numberOfTetrads: number;
 }

@@ -23,7 +23,7 @@ namespace RNAqbase.Repository
 SELECT t.id, 
 	t.quadruplex_id as ""QuadruplexIdAsInt"", 
 	t.arc_diagram as ""ArcDiagram"",
-	t.visualization as ""Visualization"",
+	t.visualization_2d as ""Visualization2D"",
 	pdb1.identifier as ""PdbIdentifier"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
@@ -33,7 +33,7 @@ SELECT t.id,
 	CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 	COALESCE((n1.coordinates)||(n2.coordinates)||(n3.coordinates)||(n4.coordinates), '') as ""Visualization3D"",
 	t.onz as ""OnzClass"",
-	t.planarity,
+	t.planarity_deviation as ""Planarity"",
 	(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = t.quadruplex_id) as ""TetradsInQuadruplex""
 FROM tetrad t
 	JOIN nucleotide n1 on t.nt1_id = n1.id
@@ -112,7 +112,7 @@ WHERE n1.pdb_id = @PdbId
 SELECT t.id, 
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
 	t.onz as ""OnzClass"",
-	t.planarity,
+	t.planarity_deviation as ""Planarity"",
 	tp.rise,
 	tp.twist
 FROM tetrad t

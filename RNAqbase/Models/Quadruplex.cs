@@ -15,8 +15,8 @@ namespace RNAqbase.Models
 		public int TypeCount { get; set; }
 
 		public string Id { get; set; }
-		public string Visualization { get; set; }
-		public string OnzClass { get; set; }
+		public string Visualization2D { get; set; }
+		public string OnzmClass { get; set; }
 		public string PdbIdentifier { get; set; }
 		public int PdbId { get; set; }
 		public int AssemblyId { get; set; }

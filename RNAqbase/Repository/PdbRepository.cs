@@ -18,7 +18,7 @@ namespace RNAqbase.Repository
 				connection.Open();
 				var result = await connection.QueryAsync<string>
 					(@"
-SELECT visualization
+SELECT visualization_2d
 FROM pdb
 WHERE id = @PdbId;", new {PdbId = pdbId});
 

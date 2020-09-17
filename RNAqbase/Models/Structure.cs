@@ -10,7 +10,7 @@ namespace RNAqbase.Models
 		public string Molecule { get; set; }
 		public int QuadruplexId { get; set; }
 		public string Experiment { get; set; }
-		public string Visualization { get; set; }
+		public string Visualization2D { get; set; }
 		public string Strands { get; set; }
 		public int NumberOfStrands => Strands.Distinct().Count();
 		public string OnzClass { get; set; }
