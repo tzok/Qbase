@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RNAqbase.Repository;
 
@@ -50,6 +53,14 @@ namespace RNAqbase.Controllers
         {
             if(id == 0) return BadRequest();
             return Ok(await repository.FindAllTetradsInTheSameQuadruplex(id));
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetCifFile(int tetradId)
+        {
+            var dataStream = await repository.GetTetrad3dVisualization(tetradId);
+	        
+	        return File(dataStream, "application/octet-stream", $"{tetradId}.cif");
         }
     }
 }

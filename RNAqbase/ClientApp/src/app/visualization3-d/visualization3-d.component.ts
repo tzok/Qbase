@@ -10,6 +10,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class Visualization3DComponent implements OnInit {
 
   pdbId: string;
+  url: string;
   liteMolPlugin;
 
   constructor(public dialogRef: MatDialogRef<Visualization3DComponent>,
@@ -17,6 +18,7 @@ export class Visualization3DComponent implements OnInit {
 
   ngOnInit() {
     this.pdbId = this.data.pdbId;
+    this.url = this.data.url;
     this.show3DVisualization();
   }
 
@@ -31,7 +33,7 @@ export class Visualization3DComponent implements OnInit {
     this.liteMolPlugin.loadMolecule({
       id: this.pdbId,
       format: 'cif', // or pdb, sdf, binarycif/bcif
-      url: `https://www.ebi.ac.uk/pdbe/static/entry/${this.data.pdbId.toLowerCase()}_updated.cif`,
+      url: this.url,
     }).then(() => {
       console.log('Molecule loaded');
     }).catch(e => {
@@ -43,4 +45,5 @@ export class Visualization3DComponent implements OnInit {
 
 interface DialogData {
   pdbId: string;
+  url: string;
 }

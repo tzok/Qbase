@@ -29,64 +29,65 @@ import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
 import { HeliceComponent } from './helice/helice.component';
 import { HelixComponent } from './helix/helix.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    TestComponent,
-    AboutComponent,
-    CiteUsComponent,
-    ContactComponent,
-    HelpComponent,
-    StructureTableComponent,
-    TetradTabelComponent,
-    QuadruplexTableComponent,
-    VisualizationDialogComponent,
-    TetradComponent,
-    QuadruplexComponent,
-    VisualizationComponent,
-    Visualization3DComponent,
-    StatisticsComponent,
-    ArcdiagramComponent,
-    HeliceComponent,
-    HelixComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
+@
+  NgModule({
+    declarations: [
+      AppComponent,
+      NavMenuComponent,
+      HomeComponent,
+      TestComponent,
+      AboutComponent,
+      CiteUsComponent,
+      ContactComponent,
+      HelpComponent,
+      StructureTableComponent,
+      TetradTabelComponent,
+      QuadruplexTableComponent,
+      VisualizationDialogComponent,
+      TetradComponent,
+      QuadruplexComponent,
+      VisualizationComponent,
+      Visualization3DComponent,
+      StatisticsComponent,
+      ArcdiagramComponent,
+      HeliceComponent,
+      HelixComponent
+    ],
+    imports: [
+      BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+      HttpClientModule,
+      FormsModule,
+      RouterModule.forRoot([
+        { path: 'home', component: HomeComponent },
+        { path: '', redirectTo: '/home', pathMatch: 'full' },
+        { path: 'test', component: TestComponent },
+        { path: 'about', component: AboutComponent },
+        { path: 'citeUs', component: CiteUsComponent },
+        // { path: 'contact', component: ContactComponent },
+        { path: 'help', component: HelpComponent },
+        { path: 'quadruplexes', component: QuadruplexTableComponent },
+        { path: 'structures', component: StructureTableComponent },
+        { path: 'tetrads', component: TetradTabelComponent },
+        { path: 'tetrad/:tetradId', component: TetradComponent },
+        { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
+        { path: 'statistics', component: StatisticsComponent },
+        { path: 'helices', component: HeliceComponent },
+        { path: 'helix/:helixId', component: HelixComponent }
 
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'test', component: TestComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'citeUs', component: CiteUsComponent },
-      // { path: 'contact', component: ContactComponent },
-      { path: 'help', component: HelpComponent },
-      { path: 'quadruplexes', component: QuadruplexTableComponent },
-      { path: 'structures', component: StructureTableComponent },
-      { path: 'tetrads', component: TetradTabelComponent },
-      { path: 'tetrad/:tetradId', component: TetradComponent },
-      { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
-      { path: 'statistics', component: StatisticsComponent },
-      { path: 'helices', component: HeliceComponent }
-
-    ]),
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    CsvModule,
-    MatTooltipModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [VisualizationDialogComponent, VisualizationComponent, Visualization3DComponent, ArcdiagramComponent]
-})
+      ]),
+      BrowserAnimationsModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatCheckboxModule,
+      MatDialogModule,
+      CsvModule,
+      MatTooltipModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    entryComponents: [VisualizationDialogComponent, VisualizationComponent, Visualization3DComponent, ArcdiagramComponent]
+  })
 export class AppModule { }

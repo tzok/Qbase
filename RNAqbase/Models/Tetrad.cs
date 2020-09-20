@@ -1,7 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RNAqbase.Models
 {
@@ -28,5 +27,7 @@ namespace RNAqbase.Models
 
 		[JsonIgnore]
 		public int TetradsInQuadruplex { get; set; }
+
+		
 	}
 }

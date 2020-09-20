@@ -14,7 +14,7 @@ import { VisualizationComponent } from '../visualization/visualization.component
   styleUrls: ['./tetrad.component.css']
 })
 export class TetradComponent implements OnInit {
-
+ 
   data: Tetrad;
   csvData: Tetrad[];
   tetradId: number;
@@ -67,7 +67,12 @@ export class TetradComponent implements OnInit {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
   showStructure() {
-    let dialogRef = this.dialog.open(Visualization3DComponent, { data: { pdbId: this.data.pdbIdentifier } });
+    let dialogRef = this.dialog.open(Visualization3DComponent, {
+      data: {
+        pdbId: this.data.pdbIdentifier,
+        url: this.baseUrl + 'api/tetrad/GetCifFile?tetradId=' + this.data.id
+      }
+    });
   }
   showDiagram() {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram} });

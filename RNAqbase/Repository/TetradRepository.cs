@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +12,7 @@ namespace RNAqbase.Repository
 {
 	public class TetradRepository : RepositoryBase, ITetradRepository
 	{
+
 		public TetradRepository(IConfiguration configuration) : base(configuration)
 		{
 		}
@@ -124,6 +128,35 @@ FROM tetrad t
 	LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
 WHERE t.quadruplex_id = @QuadruplexId
 ORDER BY t.id;", new { QuadruplexId = id });
+			}
+		}
+
+		public async Task<MemoryStream> GetTetrad3dVisualization(int tetradId)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				var coordinates = await connection.QueryFirstAsync<Coordinates>
+				(@"
+SELECT 
+	n1.coordinates as c1,
+	n2.coordinates as c2,
+	n3.coordinates as c3,
+	n4.coordinates as c4
+FROM tetrad t
+	JOIN nucleotide n1 on t.nt1_id = n1.id
+	JOIN nucleotide n2 on t.nt2_id = n2.id
+	JOIN nucleotide n3 on t.nt3_id = n3.id
+	JOIN nucleotide n4 on t.nt4_id = n4.id
+WHERE t.id = @Id;", new { id = tetradId });
+
+				var stream = new MemoryStream();
+				var writer = new StreamWriter(stream);
+				writer.Write(coordinates.CoordinatesAsString);
+				writer.Flush();
+				stream.Position = 0;
+				return stream;
+
 			}
 		}
 	}
