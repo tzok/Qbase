@@ -17,7 +17,7 @@ namespace RNAqbase.Services
 		public async Task<List<Helix>> GetAllHelices() =>
 			await helixRepository.GetAllHelices();
 
-		public async Task<Helix> GetHelixxById(int id) =>
+		public async Task<Helix> GetHelixById(int id) =>
 			await helixRepository.GetHelixById(id);
 	}
 }

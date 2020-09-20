@@ -15,6 +15,7 @@ export class TetradTabelComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Tetrad>();
 
+
   areButtonsHidden: boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

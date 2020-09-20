@@ -16,7 +16,9 @@
       </div>
 
       <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
-        <!-- Id Column -->
+
+
+        <!-- Id Column a [routerLink]="['/helix', row.id]"-->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header="id">
@@ -24,11 +26,14 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a [routerLink]="['/helix', row.id]">
+              <a [routerLink] ="['/helices', row.id]">
+
                 H{{row.id}}
               </a>
             </mat-cell>
           </ng-container>
+
+
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">

@@ -17,7 +17,7 @@ namespace RNAqbase.Controllers
 		[HttpGet("[action]")]
 		public async Task<IActionResult> GetHelices()
 		{
-			return Ok(await helixService.GetAllHelices());
+            return Ok(await helixService.GetAllHelices());
 		}
 
 		[HttpGet("[action]")]
@@ -25,7 +25,7 @@ namespace RNAqbase.Controllers
 		{
 			if (id == 0) return BadRequest();
 
-			return Ok(await helixService.GetHelixxById(id));
+			return Ok(await helixService.GetHelixById(id));
 		}
 
 

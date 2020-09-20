@@ -9,6 +9,6 @@ namespace RNAqbase.Services
 	public interface IHelixService
 	{
 		Task<List<Helix>> GetAllHelices();
-		Task<Helix> GetHelixxById(int id);
+		Task<Helix> GetHelixById(int id);
 	}
 }

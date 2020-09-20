@@ -1,3 +1,57 @@
-<p>
-  helix works!
-</p>
+<div class="container" *ngIf="data">
+  <main>
+    <div class="description">
+      <div class="text-rectangle">
+        <h2>Helix description</h2>
+      </div>
+
+
+      <br />
+      <div class="row ">
+        <div class="col-lg-10 col-sm-6">
+          <h5><b>Helix ID: H{{data.id}}</b></h5>
+        </div>
+        <!--
+        <div class=" col-lg-2 col-sm-6 saveDataButton">
+          <a class="mat-button" csvLink [data]="csvData">Save data</a>
+        </div>
+        -->
+
+      </div>
+      <br />
+
+      <div class="col tetradtable">
+        <table class="table">
+          <thead>
+            <tr>
+              <!-- <th>PDB</th> -->
+              <th>Assembly ID</th>
+              <th>Molecule</th>
+              <th>Experimental method</th>
+              <th>No. of strands</th>
+              <th>No. of quadruplexes</th>
+              <th>No. of tetrads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td> -->
+              <td>{{data.assemblyId}}</td>
+              <td>{{data.molecule}}</td>
+              <td>{{data.experiment}}</td>
+              <td>{{data.numberOfStrands}}</td>
+              <td>{{data.numberOfQuadruplexes}}</td>
+              <td>{{data.numberOfTetrads}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <br />
+      <h5>Sequence:</h5>
+      <p>{{data.sequence}}</p>
+
+</div>
+  </main>
+</div>

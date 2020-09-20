@@ -34,6 +34,7 @@ export class TetradComponent implements OnInit {
       this.http.get<Tetrad>(this.baseUrl + 'api/Tetrad/GetTetradById?id=' + this.tetradId).subscribe(result => {
         this.data = result;
 
+        
         this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSamePdb?tetradId=' + this.data.id + '&pdbId=' + this.data.pdbId).subscribe(result => {
           if (result) {
             this.data.tetradsInTheSamePdb = result;
