@@ -28,6 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
 import { HeliceComponent } from './helice/helice.component';
 import { HelixComponent } from './helix/helix.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { HelixComponent } from './helix/helix.component';
     StatisticsComponent,
     ArcdiagramComponent,
     HeliceComponent,
-    HelixComponent
+    HelixComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -72,7 +74,8 @@ import { HelixComponent } from './helix/helix.component';
       { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'helices', component: HeliceComponent },
-      { path: 'helices/:helixId', component: HelixComponent }
+      { path: 'helices/:helixId', component: HelixComponent },
+      { path: '**', component: PageNotFoundComponent}
     ]),
     BrowserAnimationsModule,
     MatTableModule,

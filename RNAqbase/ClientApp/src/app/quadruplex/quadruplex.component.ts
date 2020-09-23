@@ -17,6 +17,7 @@ export class QuadruplexComponent implements OnInit {
   tetrads: TetradReference[];
   csvData: Quadruplex[] = [];
 
+
   quadruplexId: string;
   sub;
 

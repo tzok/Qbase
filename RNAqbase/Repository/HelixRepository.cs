@@ -45,7 +45,22 @@ namespace RNAqbase.Repository
                             WHERE h.id = @HelixId
                             GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d"), 
 				new { HelixId = id });
-				return helix;
+               
+                var idsT = await connection.QueryAsync<int>(
+                @"
+                SELECT tetrad.id from tetrad join quadruplex 
+                on tetrad.quadruplex_id = quadruplex.id
+                where quadruplex.helix_id = @HelixId",
+                new { HelixId = id });
+                helix.Tetrads = idsT.ToList();
+
+                var idsQ = await connection.QueryAsync<int>(
+                @"
+                SELECT id from quadruplex where id =  @HelixId",
+                new { HelixId = id });
+                helix.Quadruplexes = idsQ.ToList();
+
+                return helix;
 			}
 		}
 
@@ -82,6 +97,9 @@ namespace RNAqbase.Repository
                     HAVING COUNT(h.id) > 1")).ToList();
 		}
 	}
+
+
+    
 }
 }
 

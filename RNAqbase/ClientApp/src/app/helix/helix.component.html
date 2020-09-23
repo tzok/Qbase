@@ -5,18 +5,16 @@
         <h2>Helix description</h2>
       </div>
 
-
       <br />
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
           <h5><b>Helix ID: H{{data.id}}</b></h5>
         </div>
-        <!--
-        <div class=" col-lg-2 col-sm-6 saveDataButton">
-          <a class="mat-button" csvLink [data]="csvData">Save data</a>
-        </div>
-        -->
-
+        
+    <div class=" col-lg-2 col-sm-6 saveDataButton">
+      <a class="mat-button" csvLink [data]="csvData">Save data</a>
+    </div>
+    
       </div>
       <br />
 
@@ -49,9 +47,63 @@
 
 
       <br />
-      <h5>Sequence:</h5>
-      <p>{{data.sequence}}</p>
+      <h5>Component quadruplexes:</h5>
+      <br />
+      <div class="col quadruplextable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Quadruplex ID</th>
+              <th>Sequence</th>
+              <th>ONZ Class</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let q of quadruplexes">
+              <td>Q{{q.id}}</td>
+              <td>{{q.sequence}}</td>
+              <td>{{q.onzmClass}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-</div>
+      <br />
+      <h5>Component tetrads:</h5>
+      <br />
+      <div class="col quadruplextable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tetrad ID</th>
+              <th>Sequence</th>
+              <th>ONZ Class</th>
+              <th>Planarity</th>
+              <th>Twist</th>
+              <th>Rise</th>
+              <th>Strand direction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of tetrads">
+              <td>
+                <a [routerLink]="['/tetrad', t.id]">
+                  T{{t.id}}
+                </a>
+              </td>
+              <td>{{t.sequence}}</td>
+              <td>{{t.onzClass}}</td>
+              <td>{{t.planarity}}</td>
+              <td>{{t.twist | number: '1.0-2'}}</td>
+              <td>{{t.rise | number: '1.0-2'}}</td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </main>
 </div>
+

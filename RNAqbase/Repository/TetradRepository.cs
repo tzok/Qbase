@@ -114,20 +114,20 @@ WHERE n1.pdb_id = @PdbId
 				connection.Open();
 				return await connection.QueryAsync<TetradReference>
 				(@"
-SELECT t.id, 
-	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
-	t.onz as ""OnzClass"",
-	t.planarity_deviation as ""Planarity"",
-	tp.rise,
-	tp.twist
-FROM tetrad t
-	JOIN nucleotide n1 on t.nt1_id = n1.id
-	JOIN nucleotide n2 on t.nt2_id = n2.id
-	JOIN nucleotide n3 on t.nt3_id = n3.id
-	JOIN nucleotide n4 on t.nt4_id = n4.id
-	LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
-WHERE t.quadruplex_id = @QuadruplexId
-ORDER BY t.id;", new { QuadruplexId = id });
+                SELECT t.id, 
+	                COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
+	                t.onz as ""OnzClass"",
+	                t.planarity_deviation as ""Planarity"",
+	                tp.rise,
+	                tp.twist
+                FROM tetrad t
+	                JOIN nucleotide n1 on t.nt1_id = n1.id
+	                JOIN nucleotide n2 on t.nt2_id = n2.id
+	                JOIN nucleotide n3 on t.nt3_id = n3.id
+	                JOIN nucleotide n4 on t.nt4_id = n4.id
+	                LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+                WHERE t.quadruplex_id = @QuadruplexId
+                ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}
 

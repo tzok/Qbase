@@ -18,6 +18,7 @@ namespace RNAqbase.Models
 		public byte[] Visualization3D { get; set; }
 		public string Experiment { get; set; }
 		public List<int> Tetrads { get; set; }
+        public List<int> Quadruplexes { get; set; }
 		public string ArcDiagram { get; set; }
 	}
 }

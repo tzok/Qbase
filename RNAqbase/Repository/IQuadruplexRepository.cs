@@ -9,5 +9,7 @@ namespace RNAqbase.Repository
 		Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId);
 		Task<Quadruplex> GetQuadruplexById(int id);
 		Task<List<Quadruplex>> GetAllQuadruplexes();
-	}
+        Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id);
+
+    }
 }
