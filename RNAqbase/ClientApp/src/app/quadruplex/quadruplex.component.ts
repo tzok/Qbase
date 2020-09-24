@@ -85,7 +85,7 @@ export class QuadruplexComponent implements OnInit {
   }
 
   showStructure() {
-    let dialogRef = this.dialog.open(VisualizationComponent, {});
+    let dialogRef = this.dialog.open(VisualizationDialogComponent, {});
   }
 
   showVarna() {

@@ -43,24 +43,162 @@
     <div class="col tetradtable">
       <table class="table">
         <thead>
-        <tr>
-          <th>Number of tetrads</th>
-          <th>DNA</th>
-          <th>RNA</th>
-          <th>Other</th>
-          <th>Total</th>
-        </tr>
+          <tr>
+            <th>Number of tetrads</th>
+            <th>DNA</th>
+            <th>RNA</th>
+            <th>Other</th>
+            <th>Total</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let t of topologyBaseTableTwo">
-          <td>{{t.numberOfTetrads}}</td>
-          <td>{{t.dna}}</td>
-          <td>{{t.rna}}</td>
-          <td>{{t.other}}</td>
-          <td>{{t.total}}</td>
-        </tr>
+          <tr *ngFor="let t of topologyBaseTableTwo">
+            <td>{{t.numberOfTetrads}}</td>
+            <td>{{t.dna}}</td>
+            <td>{{t.rna}}</td>
+            <td>{{t.other}}</td>
+            <td>{{t.total}}</td>
+          </tr>
         </tbody>
       </table>
     </div>
+
+    <b>
+      <p> Table 3</p>
+    </b>
+    <div class="col tetradtable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Chains</th>
+            <th>DNA</th>
+            <th>RNA</th>
+            <th>Other</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of topologyBaseTableThere">
+            <td>{{t.chains}}</td>
+            <td>{{t.dna}}</td>
+            <td>{{t.rna}}</td>
+            <td>{{t.other}}</td>
+            <td>{{t.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <b>
+      <p>
+        ElTetrado: a tool for identification and
+        classification of tetrads and quadruplexes
+      </p>
+    </b>
+
+    <b>
+      <p> Table 1</p>
+    </b>
+    <div class="col tetradtable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ONZ</th>
+            <th>Unimolecular</th>
+            <th>Bimolecular</th>
+            <th>Tetramolecular</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of ELTetradoableOne">
+            <td>{{t.onz}}</td>
+            <td>{{t.unimolecular}}</td>
+            <td>{{t.bimolecular}}</td>
+            <td>{{t.tetramolecular}}</td>
+            <td>{{t.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <b>
+      <p> Table 2</p>
+    </b>
+    <div class="col tetradtable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ONZM</th>
+            <th>Plus</th>
+            <th>Minus</th>
+            <th>Star</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of ELTetradoableTwo">
+            <td>{{t.onzm}}</td>
+            <td>{{t.plus}}</td>
+            <td>{{t.minus}}</td>
+            <td>{{t.star}}</td>
+            <td>{{t.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <b>
+      <p> Table 3a</p>
+    </b>
+    <div class="col tetradtable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ONZM</th>
+            <th>Plus</th>
+            <th>Minus</th>
+            <th>Star</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of ELTetradoableThereA">
+            <td>{{t.onzm}}</td>
+            <td>{{t.plus}}</td>
+            <td>{{t.minus}}</td>
+            <td>{{t.star}}</td>
+            <td>{{t.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <b>
+      <p> Table 3b</p>
+    </b>
+    <div class="col tetradtable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ONZM</th>
+            <th>Plus</th>
+            <th>Minus</th>
+            <th>Star</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of ELTetradoableThereB">
+            <td>{{t.onzm}}</td>
+            <td>{{t.plus}}</td>
+            <td>{{t.minus}}</td>
+            <td>{{t.star}}</td>
+            <td>{{t.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </main>
 </div>

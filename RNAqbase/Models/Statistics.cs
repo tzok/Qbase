@@ -16,6 +16,7 @@
 		public int Plus { get; set; }
 		public int Minus { get; set; }
 		public int Star { get; set; }
+		public string Chains { get; set; }
 
 	}
 }

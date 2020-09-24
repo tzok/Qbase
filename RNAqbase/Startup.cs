@@ -22,6 +22,7 @@ namespace RNAqbase
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMemoryCache();
 			services.AddTransient<IEmailService, EmailService>();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
 			services.AddTransient<ITetradRepository, TetradRepository>();

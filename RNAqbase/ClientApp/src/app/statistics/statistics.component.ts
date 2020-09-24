@@ -15,6 +15,11 @@ export class StatisticsComponent implements OnInit {
 
   topologyBaseTableOne: Table[];
   topologyBaseTableTwo: Table[];
+  topologyBaseTableThere: Table[];
+  ELTetradoableOne: Table[];
+  ELTetradoableTwo: Table[];
+  ELTetradoableThereA: Table[];
+  ELTetradoableThereB: Table[];
   sub;
 
   constructor(private http: HttpClient,
@@ -38,6 +43,41 @@ export class StatisticsComponent implements OnInit {
         this.topologyBaseTableTwo = result;
       }, error => console.error(error));
     }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      console.log(params);
+      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableThere').subscribe(result => {
+        this.topologyBaseTableThere = result;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      console.log(params);
+      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableOne').subscribe(result => {
+        this.ELTetradoableOne = result;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      console.log(params);
+      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableTwo').subscribe(result => {
+        this.ELTetradoableTwo = result;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      console.log(params);
+      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableThereA').subscribe(result => {
+        this.ELTetradoableThereA = result;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      console.log(params);
+      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableThereB').subscribe(result => {
+        this.ELTetradoableThereB = result;
+      }, error => console.error(error));
+    }, error => console.error(error));
   }
 
 }
@@ -57,4 +97,5 @@ interface Table{
   plus: number;
   minus: number;
   star: number;
+  chains: string;
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using RNAqbase.Models;
 using RNAqbase.Repository;
 
@@ -9,15 +10,40 @@ namespace RNAqbase.Services
 	public class HelixService : IHelixService
 	{
 		private readonly IHelixRepository helixRepository;
+		private readonly IMemoryCache cache;
+		private static readonly MemoryCacheEntryOptions Cache = new MemoryCacheEntryOptions
+		{
+			AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(12)
+		};
 
-		public HelixService(IHelixRepository helixRepository)
+
+		public HelixService(IHelixRepository helixRepository, IMemoryCache cache)
 		{
 			this.helixRepository = helixRepository;
+			this.cache = cache;
 		}
-		public async Task<List<Helix>> GetAllHelices() =>
-			await helixRepository.GetAllHelices();
+		public async Task<List<Helix>> GetAllHelices()
+		{
+			if (!cache.TryGetValue(nameof(GetAllHelices), out List<Helix> result))
+			{
+				result = await helixRepository.GetAllHelices();
 
-		public async Task<Helix> GetHelixById(int id) =>
-			await helixRepository.GetHelixById(id);
+				cache.Set(nameof(GetAllHelices), result, Cache);
+			}
+
+			return result;
+		}
+
+		public async Task<Helix> GetHelixById(int id)
+		{
+			if (!cache.TryGetValue($"{nameof(GetAllHelices)}_{id}", out Helix result))
+			{
+				result = await helixRepository.GetHelixById(id);
+
+				cache.Set($"{nameof(GetAllHelices)}_{id}", result, Cache);
+			}
+
+			return result;
+		}
 	}
 }

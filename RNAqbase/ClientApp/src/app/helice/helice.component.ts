@@ -22,7 +22,7 @@ export class HeliceComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'assemblyId', 'molecule',
-    'sequence', 'numberOfStrands', 'numberOfQuadruplexes', 'numberOfTetrads', 'select'
+    'sequence', 'numberOfStrands', 'numberOfQudaruplexes', 'numberOfTetrads', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
@@ -71,6 +71,6 @@ interface Helix {
   molecule: string;
   sequence: string;
   numberOfStrands: number;
-  numberOfQuadruplexes: number;
+  numberOfQudaruplexes: number;
   numberOfTetrads: number;
 }

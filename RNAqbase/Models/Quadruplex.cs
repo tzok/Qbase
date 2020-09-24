@@ -17,6 +17,7 @@ namespace RNAqbase.Models
 
 		public string Id { get; set; }
 		public string Visualization2D { get; set; }
+		public byte[] Visualization3D { get; set; }
 		public string OnzmClass { get; set; }
 		public string PdbIdentifier { get; set; }
 		public int PdbId { get; set; }

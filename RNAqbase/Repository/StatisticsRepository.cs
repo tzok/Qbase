@@ -68,29 +68,139 @@ FROM quadruplex_view;")).ToList();
 			}
 		}
 
-		public Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableThere()
+		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableThere()
 		{
-			throw new NotImplementedException();
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"
+SELECT CAST(chains AS text),
+SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+COUNT(*) AS Total
+FROM quadruplex_view
+GROUP BY chains
+UNION ALL
+SELECT 'Total',
+SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+COUNT(*) AS Total
+FROM quadruplex_view;")).ToList();
+			}
 		}
 
-		public Task<List<Statistics>> GetElTetradoTetradViewTableOne()
+		public async Task<List<Statistics>> GetElTetradoTetradViewTableOne()
 		{
-			throw new NotImplementedException();
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"
+SELECT CAST(onz AS text),
+SUM(CASE tv.chains WHEN 1 THEN 1 ELSE 0 END) AS Unimolecular,
+SUM(CASE tv.chains WHEN 2 THEN 1 ELSE 0 END) AS Bimolecular,
+SUM(CASE tv.chains WHEN 4 THEN 1 ELSE 0 END) AS Tetramolecular,
+COUNT(*) AS Total
+FROM tetrad_view tv
+JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
+WHERE qv.count > 1
+GROUP BY onz
+UNION ALL
+SELECT 'Total',
+SUM(CASE tv.chains WHEN 1 THEN 1 ELSE 0 END) AS Unimolecular,
+SUM(CASE tv.chains WHEN 2 THEN 1 ELSE 0 END) AS Bimolecular,
+SUM(CASE tv.chains WHEN 4 THEN 1 ELSE 0 END) AS Tetramolecular,
+COUNT(*) AS Total
+FROM tetrad_view tv
+JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
+WHERE qv.count > 1;")).ToList();
+			}
 		}
 
-		public Task<List<Statistics>> GetElTetradoQuadruplexViewTableTwo()
+		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableTwo()
 		{
-			throw new NotImplementedException();
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"
+SELECT CAST(onzm AS text),
+SUM(CASE subtype WHEN '+' THEN 1 ELSE 0 END) AS Plus,
+SUM(CASE subtype WHEN '-' THEN 1 ELSE 0 END) AS Minus,
+SUM(CASE subtype WHEN '*' THEN 1 ELSE 0 END) AS Star,
+COUNT(*) AS Total
+FROM quadruplex_view
+WHERE chains = 1
+GROUP BY onzm
+UNION ALL
+SELECT 'Total',
+SUM(CASE subtype WHEN '+' THEN 1 ELSE 0 END) AS Plus,
+SUM(CASE subtype WHEN '-' THEN 1 ELSE 0 END) AS Minus,
+SUM(CASE subtype WHEN '*' THEN 1 ELSE 0 END) AS Star,
+COUNT(*) AS Total
+FROM quadruplex_view
+WHERE chains = 1;")).ToList();
+			}
 		}
 
-		public Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereA()
+		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereA()
 		{
-			throw new NotImplementedException();
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"
+SELECT CAST(onzm AS text),
+SUM(CASE subtype WHEN '+' THEN 1 ELSE 0 END) AS Plus,
+SUM(CASE subtype WHEN '-' THEN 1 ELSE 0 END) AS Minus,
+SUM(CASE subtype WHEN '*' THEN 1 ELSE 0 END) AS Star,
+COUNT(*) AS Total
+FROM quadruplex_view
+WHERE chains = 2
+GROUP BY onzm
+UNION ALL
+SELECT 'Total',
+SUM(CASE subtype WHEN '+' THEN 1 ELSE 0 END) AS Plus,
+SUM(CASE subtype WHEN '-' THEN 1 ELSE 0 END) AS Minus,
+SUM(CASE subtype WHEN '*' THEN 1 ELSE 0 END) AS Star,
+COUNT(*) AS Total
+FROM quadruplex_view
+WHERE chains = 2;")).ToList();
+			}
 		}
 
-		public Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereB()
+		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereB()
 		{
-			throw new NotImplementedException();
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"
+SELECT CAST(onzm AS text),
+SUM(CASE subtype WHEN '+' THEN 1 ELSE 0 END) AS Plus,
+SUM(CASE subtype WHEN '-' THEN 1 ELSE 0 END) AS Minus,
+SUM(CASE subtype WHEN '*' THEN 1 ELSE 0 END) AS Star,
+COUNT(*) AS Total
+FROM quadruplex_view
+WHERE chains = 4
+GROUP BY onzm
+UNION ALL
+SELECT 'Total',
+SUM(CASE subtype WHEN '+' THEN 1 ELSE 0 END) AS Plus,
+SUM(CASE subtype WHEN '-' THEN 1 ELSE 0 END) AS Minus,
+SUM(CASE subtype WHEN '*' THEN 1 ELSE 0 END) AS Star,
+COUNT(*) AS Total
+FROM quadruplex_view
+WHERE chains = 4;")).ToList();
+			}
 		}
 	}
 }

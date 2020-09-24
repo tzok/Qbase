@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RNAqbase.Services;
 
@@ -28,6 +25,41 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetTopologyBaseTetradViewTableTwo()
 		{
 			var a = await statisticsService.GetTopologyBaseQuadruplexViewTableTwo();
+			return Ok(a);
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetTopologyBaseTetradViewTableThere()
+		{
+			var a = await statisticsService.GetTopologyBaseQuadruplexViewTableThere();
+			return Ok(a);
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetElTetradoTetradViewTableOne()
+		{
+			var a = await statisticsService.GetElTetradoTetradViewTableOne();
+			return Ok(a);
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetElTetradoTetradViewTableTwo()
+		{
+			var a = await statisticsService.GetElTetradoQuadruplexViewTableTwo();
+			return Ok(a);
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetElTetradoTetradViewTableThereA()
+		{
+			var a = await statisticsService.GetElTetradoQuadruplexViewTableThereA();
+			return Ok(a);
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetElTetradoTetradViewTableThereB()
+		{
+			var a = await statisticsService.GetElTetradoQuadruplexViewTableThereB();
 			return Ok(a);
 		}
 

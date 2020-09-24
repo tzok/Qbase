@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using RNAqbase.Models;
 using RNAqbase.Repository;
 
@@ -10,32 +10,102 @@ namespace RNAqbase.Services
 	public class StatisticsService : IStatisticsService
 	{
 		private readonly IStatisticsRepository statisticsRepository;
+		private readonly IMemoryCache cache;
 
-		public StatisticsService(IStatisticsRepository statisticsRepository)
+		private static readonly MemoryCacheEntryOptions Cache = new MemoryCacheEntryOptions
+		{
+			AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(12)
+		};
+
+		public StatisticsService(IStatisticsRepository statisticsRepository, IMemoryCache cache)
 		{
 			this.statisticsRepository = statisticsRepository;
+			this.cache = cache;
 		}
 
 
-		public async Task<List<Statistics>> GetTopologyBaseTetradViewTableOne() =>
-			await statisticsRepository.GetTopologyBaseTetradViewTableOne();
+		public async Task<List<Statistics>> GetTopologyBaseTetradViewTableOne()
+		{
+			if (!cache.TryGetValue(nameof(GetTopologyBaseTetradViewTableOne), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetTopologyBaseTetradViewTableOne();
 
-		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableTwo() =>
-			await statisticsRepository.GetTopologyBaseQuadruplexViewTableTwo();
+				cache.Set(nameof(GetTopologyBaseTetradViewTableOne), result, Cache);
+			}
 
-		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableThere() =>
-			await statisticsRepository.GetTopologyBaseQuadruplexViewTableThere();
+			return result;
+		}
 
-		public async Task<List<Statistics>> GetElTetradoTetradViewTableOne() =>
-			await statisticsRepository.GetElTetradoTetradViewTableOne();
+		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableTwo()
+		{
+			if (!cache.TryGetValue(nameof(GetTopologyBaseQuadruplexViewTableTwo), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetTopologyBaseQuadruplexViewTableTwo();
 
-		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableTwo() =>
-			await statisticsRepository.GetElTetradoQuadruplexViewTableTwo();
+				cache.Set(nameof(GetTopologyBaseQuadruplexViewTableTwo), result, Cache);
+			}
 
-		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereA() =>
-			await statisticsRepository.GetElTetradoQuadruplexViewTableThereA();
+			return result;
+		}
 
-		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereB() =>
-			await statisticsRepository.GetElTetradoQuadruplexViewTableThereB();
+		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableThere()
+		{
+			if (!cache.TryGetValue(nameof(GetTopologyBaseQuadruplexViewTableThere), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetTopologyBaseQuadruplexViewTableThere();
+
+				cache.Set(nameof(GetTopologyBaseQuadruplexViewTableThere), result, Cache);
+			}
+
+			return result;
+		}
+
+		public async Task<List<Statistics>> GetElTetradoTetradViewTableOne()
+		{
+			if (!cache.TryGetValue(nameof(GetElTetradoTetradViewTableOne), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetElTetradoTetradViewTableOne();
+
+				cache.Set(nameof(GetElTetradoTetradViewTableOne), result, Cache);
+			}
+
+			return result;
+		}
+
+		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableTwo()
+		{
+			if (!cache.TryGetValue(nameof(GetElTetradoQuadruplexViewTableTwo), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetElTetradoQuadruplexViewTableTwo();
+
+				cache.Set(nameof(GetElTetradoQuadruplexViewTableTwo), result, Cache);
+			}
+
+			return result;
+		}
+
+		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereA()
+		{
+			if (!cache.TryGetValue(nameof(GetElTetradoQuadruplexViewTableThereA), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetElTetradoQuadruplexViewTableThereA();
+
+				cache.Set(nameof(GetElTetradoQuadruplexViewTableThereA), result, Cache);
+			}
+
+			return result;
+		}
+
+		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereB()
+		{
+			if (!cache.TryGetValue(nameof(GetElTetradoQuadruplexViewTableThereB), out List<Statistics> result))
+			{
+				result = await statisticsRepository.GetElTetradoQuadruplexViewTableThereB();
+
+				cache.Set(nameof(GetElTetradoQuadruplexViewTableThereB), result, Cache);
+			}
+
+			return result;
+		}
 	}
 }
