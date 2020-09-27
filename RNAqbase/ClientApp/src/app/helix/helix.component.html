@@ -10,11 +10,11 @@
         <div class="col-lg-10 col-sm-6">
           <h5><b>Helix ID: H{{data.id}}</b></h5>
         </div>
-        
-    <div class=" col-lg-2 col-sm-6 saveDataButton">
-      <a class="mat-button" csvLink [data]="csvData">Save data</a>
-    </div>
-    
+
+        <div class=" col-lg-2 col-sm-6 saveDataButton">
+          <a class="mat-button" csvLink [data]="csvData">Save data</a>
+        </div>
+
       </div>
       <br />
 
@@ -56,12 +56,12 @@
               <th>Quadruplex ID</th>
               <th>Sequence</th>
               <th>ONZ Class</th>
-             
+
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let q of quadruplexes">
-              <td>Q{{q.id}}</td>
+              <td><a [routerLink]="['/quadruplex', q.id]">Q{{q.id}}</a></td>
               <td>{{q.sequence}}</td>
               <td>{{q.onzmClass}}</td>
             </tr>
@@ -70,6 +70,8 @@
       </div>
 
       <br />
+
+
       <h5>Component tetrads:</h5>
       <br />
       <div class="col quadruplextable">
@@ -80,9 +82,6 @@
               <th>Sequence</th>
               <th>ONZ Class</th>
               <th>Planarity</th>
-              <th>Twist</th>
-              <th>Rise</th>
-              <th>Strand direction</th>
             </tr>
           </thead>
           <tbody>
@@ -95,14 +94,48 @@
               <td>{{t.sequence}}</td>
               <td>{{t.onzClass}}</td>
               <td>{{t.planarity}}</td>
-              <td>{{t.twist | number: '1.0-2'}}</td>
-              <td>{{t.rise | number: '1.0-2'}}</td>
-              <td> </td>
             </tr>
           </tbody>
         </table>
       </div>
 
+      <br />
+
+
+      <h5>Component tetrads pair:</h5>
+      <br />
+      <div class="col quadruplextable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Tetrad ID</th>
+              <th>Twist</th>
+              <th>Rise</th>
+              <th>Strand direction</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let t of tetrads">
+              <td *ngIf="t.tetrad1_id != 0">
+                <a [routerLink]="['/tetrad', t.id]">
+                  T{{t.id}}
+                </a>
+                -
+                <a [routerLink]="['/tetrad', t.tetrad1_id]">
+                  T{{t.tetrad1_id}}
+                </a>
+              </td>
+              <td *ngIf="t.tetrad1_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
+              <td *ngIf="t.tetrad1_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
+              <td *ngIf="t.tetrad1_id != 0 ">{{t.direction}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br />
+      <br />
     </div>
   </main>
 </div>

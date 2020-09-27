@@ -119,7 +119,9 @@ WHERE n1.pdb_id = @PdbId
 	                t.onz as ""OnzClass"",
 	                t.planarity_deviation as ""Planarity"",
 	                tp.rise,
-	                tp.twist
+	                tp.twist,
+	                tp.tetrad1_id, 
+	                tp.direction
                 FROM tetrad t
 	                JOIN nucleotide n1 on t.nt1_id = n1.id
 	                JOIN nucleotide n2 on t.nt2_id = n2.id

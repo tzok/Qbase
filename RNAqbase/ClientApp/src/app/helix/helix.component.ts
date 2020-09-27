@@ -101,4 +101,7 @@ interface TetradReference {
   twist: number;
   rise: number;
   planarity: number;
+  tetrad1_id: number;
+  direction: string;
 }
+
