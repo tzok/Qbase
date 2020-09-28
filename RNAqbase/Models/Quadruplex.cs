@@ -32,6 +32,6 @@ namespace RNAqbase.Models
 		public List<int> Tetrads { get; set; }
 		public string ChiAngle { get; set; }
 		public string ArcDiagram { get; set; }
-		public DateTime PdbDeposition { get; set; }
+		public string PdbDeposition { get; set; }
 	}
 }

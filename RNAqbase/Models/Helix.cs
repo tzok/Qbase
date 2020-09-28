@@ -9,7 +9,7 @@ namespace RNAqbase.Models
 		public string PdbIdentifier { get; set; }
 		public int PdbId { get; set; }
 		public int AssemblyId { get; set; }
-        public DateTime PdbDeposition { get; set; }
+        public string PdbDeposition { get; set; }
         public string Molecule { get; set; }
 		public string Sequence { get; set; }
 		public int NumberOfStrands { get; set; }

@@ -72,5 +72,5 @@ interface Quadruplex {
   type: string;
   onzmClass: string;
   numberOfTetrads: number;
-  pdbDeposition: Date;
+  pdbDeposition: string;
 }

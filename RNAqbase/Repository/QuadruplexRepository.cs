@@ -89,29 +89,29 @@ WHERE  q.id = @QuadruplexId",
 				connection.Open();
 
 				return (await connection.QueryAsync<Quadruplex>(
-					@"
-SELECT
-	MAX(q.id) AS Id,
-	MAX(q.onzm) AS OnzmClass,
-	MAX(p.identifier) AS PdbIdentifier,
-	MAX(p.release_date) as PdbDeposition,
-	MAX(n1.pdb_id) AS PdbId,
-	MAX(p.assembly) AS AssemblyId,
-	MAX(n1.molecule) AS Molecule,
-	STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
-	COUNT(DISTINCT(t.onz)) AS TypeCount,
-	COUNT(t.id) AS NumberOfTetrads,
-	MAX(p.experiment) AS experiment
-FROM QUADRUPLEX q
-JOIN TETRAD t ON q.id = t.quadruplex_id
-JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-JOIN PDB p ON n1.pdb_id = p.id
-GROUP BY q.id
-HAVING COUNT(t.id) > 1")).ToList();
+                    @"
+                    SELECT
+	                    MAX(q.id) AS Id,
+	                    MAX(q.onzm) AS OnzmClass,
+	                    MAX(p.identifier) AS PdbIdentifier,
+	                    to_char(MAX(p.release_date)::date, 'DD-MM-YYYY') as PdbDeposition,
+	                    MAX(n1.pdb_id) AS PdbId,
+	                    MAX(p.assembly) AS AssemblyId,
+	                    MAX(n1.molecule) AS Molecule,
+	                    STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+	                    COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
+	                    COUNT(DISTINCT(t.onz)) AS TypeCount,
+	                    COUNT(t.id) AS NumberOfTetrads,
+	                    MAX(p.experiment) AS experiment
+                    FROM QUADRUPLEX q
+                    JOIN TETRAD t ON q.id = t.quadruplex_id
+                    JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+                    JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+                    JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+                    JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+                    JOIN PDB p ON n1.pdb_id = p.id
+                    GROUP BY q.id
+                    HAVING COUNT(t.id) > 1")).ToList();
 			}
 		}
 
@@ -122,12 +122,12 @@ HAVING COUNT(t.id) > 1")).ToList();
 				connection.Open();
 
 				return await connection.QueryAsync<Quadruplex>(
-					@"
+                    @"
                  SELECT
 	                MAX(q.id) AS Id,
 	                MAX(q.onzm) AS OnzmClass,
 	                MAX(p.identifier) AS PdbIdentifier, 
-	                MAX(p.release_date) as PdbDeposition,
+	                to_char(MAX(p.release_date)::date, 'DD-MM-YYYY') as PdbDeposition,
 	                MAX(n1.pdb_id) AS PdbId,
 	                MAX(p.assembly) AS AssemblyId,
 	                MAX(n1.molecule) AS Molecule,

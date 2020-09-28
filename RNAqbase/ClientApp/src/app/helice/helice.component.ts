@@ -30,6 +30,7 @@ export class HeliceComponent implements OnInit {
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
+      console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
@@ -61,8 +62,8 @@ export class HeliceComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-
 }
+
 
 interface Helix {
   id: string;
@@ -73,5 +74,5 @@ interface Helix {
   numberOfStrands: number;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
-  pdbDeposition: Date;
+  pdbDeposition: string;
 }
