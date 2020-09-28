@@ -13,7 +13,7 @@ namespace RNAqbase.Models
 		public float Planarity { get; set; }
 		public float Twist { get; set; }
 		public float Rise { get; set; }
-        public int Tetrad1_id { get; set; }
+        public int Tetrad2_id { get; set; }
         public string Direction { get; set; }
     }
 }

@@ -120,7 +120,7 @@ WHERE n1.pdb_id = @PdbId
 	                t.planarity_deviation as ""Planarity"",
 	                tp.rise,
 	                tp.twist,
-	                tp.tetrad1_id, 
+	                tp.tetrad2_id, 
 	                tp.direction
                 FROM tetrad t
 	                JOIN nucleotide n1 on t.nt1_id = n1.id

@@ -106,18 +106,18 @@
           <tbody>
 
             <tr *ngFor="let t of tetrads">
-              <td *ngIf="t.tetrad1_id != 0">
+              <td *ngIf="t.tetrad2_id != 0">
                 <a [routerLink]="['/tetrad', t.id]">
                   T{{t.id}}
                 </a>
                 -
-                <a [routerLink]="['/tetrad', t.tetrad1_id]">
-                  T{{t.tetrad1_id}}
+                <a [routerLink]="['/tetrad', t.tetrad2_id]">
+                  T{{t.tetrad2_id}}
                 </a>
               </td>
-              <td *ngIf="t.tetrad1_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
-              <td *ngIf="t.tetrad1_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
-              <td *ngIf="t.tetrad1_id != 0 ">{{t.direction}}</td>
+              <td *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
+              <td *ngIf="t.tetrad2_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
+              <td *ngIf="t.tetrad2_id != 0 ">{{t.direction}}</td>
             </tr>
           </tbody>
         </table>
