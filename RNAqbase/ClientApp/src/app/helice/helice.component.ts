@@ -21,7 +21,7 @@ export class HeliceComponent implements OnInit {
   sort: MatSort;
 
   displayedColumns = [
-    'id', 'pdbId', 'assemblyId', 'molecule',
+    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
     'sequence', 'numberOfStrands', 'numberOfQudaruplexes', 'numberOfTetrads', 'select'
   ];
 
@@ -73,4 +73,5 @@ interface Helix {
   numberOfStrands: number;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
+  pdbDeposition: Date;
 }

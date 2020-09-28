@@ -71,11 +71,12 @@ namespace RNAqbase.Repository
 			connection.Open();
 
 			return (await connection.QueryAsync<Helix>(
-				@"
+                @"
                     SELECT DISTINCT ON(h.id)
 	                    h.id AS Id,
 	                    p.identifier AS PdbIdentifier,
 	                    n1.pdb_id AS PdbId,
+	                    MAX(p.release_date) as PdbDeposition,
 	                    p.assembly AS AssemblyId,
 	                    n1.molecule AS Molecule,
 	                    STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,

@@ -26,7 +26,7 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a [routerLink] ="['/helices', row.id]">
+              <a [routerLink]="['/helices', row.id]">
 
                 H{{row.id}}
               </a>
@@ -46,6 +46,15 @@
               </a>
             </mat-cell>
           </ng-container>
+
+          <!-- PDB deposition  Column -->
+          <ng-container matColumnDef="pdbDeposition">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.pdbDeposition | date:'mediumDate'}}
+            </mat-cell>
+          </ng-container>
+
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
