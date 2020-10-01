@@ -28,6 +28,14 @@ namespace RNAqbase.Controllers
 			return Ok(await helixService.GetHelixById(id));
 		}
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetHelixReferenceById(int id)
+        {
+            if (id == 0) return BadRequest();
 
-	}
+            return Ok(await helixService.GetHelixReferenceById(id));
+        }
+
+
+    }
 }

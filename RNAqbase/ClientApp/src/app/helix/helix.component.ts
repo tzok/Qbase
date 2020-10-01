@@ -7,7 +7,8 @@ import { Visualization3DComponent } from '../visualization3-d/visualization3-d.c
 import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
-
+import * as JSZip from 'jszip';
+import * as JSZipUtilis from 'C:/Users/natkr/Desktop/Qbase/Qbase/RNAqbase/ClientApp/src/assets/script/jszip-utils.js';
 import * as XLSX from 'C:/Users/natkr/AppData/Roaming/npm/node_modules/xlsx';
 
 
@@ -18,14 +19,14 @@ import * as XLSX from 'C:/Users/natkr/AppData/Roaming/npm/node_modules/xlsx';
 })
 export class HelixComponent implements OnInit {
 
-  data: Helix;
+  data: HelixReference;
   tetrads: TetradReference[];
   quadruplexes: QuadruplexReference[];
   helixId: number;
   sub;
-  csvData: CsvData = <CsvData>{};
-  csvDataTable: CsvData[];
-  dataSource = new MatTableDataSource<CsvData>();
+  csvHelix = new MatTableDataSource<HelixReference>();
+  csvQuadruplex = new MatTableDataSource<QuadruplexReference>();
+  csvTetrad = new MatTableDataSource<TetradReference>();
 
 
   constructor(
@@ -41,29 +42,19 @@ export class HelixComponent implements OnInit {
       console.log(params);
       this.helixId = +params.get('helixId');
 
-      this.http.get<Helix>(this.baseUrl + 'api/Helix/GetHelixById?id=' + this.helixId).subscribe(result => {
+      this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
         this.data = result;
-
-        /*this.csvData.helix_id = this.data.id;
-        this.csvData.helix_molecule = this.data.molecule;
-        this.csvData.helix_experiment = this.data.experiment;
-        this.csvData.helix_numberOfStrands = this.data.numberOfStrands;
-        this.csvData.helix_numberOfQuadruplexes = this.data.numberOfQuadruplexes;
-        this.csvData.helix_numberOfTetrads = this.data.numberOfTetrads;
-        this.csvDataTable.push(this.csvData);
-
-        this.dataSource = new MatTableDataSource(this.csvDataTable);
-        */
-
+        this.csvHelix = new MatTableDataSource([result]);
         
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetrads?id=' + '' + this.helixId).subscribe(result => {
           this.tetrads = result;
-          //this.dataSource = new MatTableDataSource(result);
+          this.csvTetrad = new MatTableDataSource(result);
           }, error => console.error(error));
 
         this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.helixId).subscribe(result => {
           this.quadruplexes = result;
           this.data.numberOfQuadruplexes = this.quadruplexes.length;
+          this.csvQuadruplex = new MatTableDataSource(result);
           }, error => console.error(error));
 
 
@@ -72,27 +63,14 @@ export class HelixComponent implements OnInit {
     });
   }
   
+  
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-  exportexcel(): void {
-    /* pass here the table id */
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, "x");
-
-  }
-
 }
 
-interface Helix {
+interface HelixReference {
   id: string;
   pdbId: string;
   assemblyId: number;
@@ -104,6 +82,9 @@ interface Helix {
   numberOfTetrads: number;
   tetrads: number[];
   quadruplexes: number[];
+  //visualization2D: string;
+  //visualization3D: number[];
+  //arcDiagram: string;
 }
 
 interface QuadruplexReference {

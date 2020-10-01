@@ -12,11 +12,11 @@
         </div>
 
         <div class=" col-lg-2 col-sm-6 saveDataButton">
-          <!-- <a class="mat-button" csvLink [data]="dataSource.data">Save table</a> -->
-          <button (click)="exportexcel()">Export to Excel</button>
-        </div>
 
+          <a class="mat-button" csvLink [data]="csvHelix.data" filename='helix.csv'>Save table</a>
+        </div>
       </div>
+
       <br />
 
       <div class="col tetradtable">
@@ -48,96 +48,111 @@
 
 
       <br />
-      <h5>Component quadruplexes:</h5>
-      <br />
-      <div class="col quadruplextable">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Quadruplex ID</th>
-              <th>Sequence</th>
-              <th>ONZ Class</th>
+      <div class="row ">
+        <div class="col-lg-10 col-sm-6">
+          <h5>Component quadruplexes:</h5>
+        </div>
 
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let q of quadruplexes">
-              <td><a [routerLink]="['/quadruplex', q.id]">Q{{q.id}}</a></td>
-              <td>{{q.sequence}}</td>
-              <td>{{q.onzmClass}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class=" col-lg-2 col-sm-6 saveDataButton">
+
+          <a class="mat-button" csvLink [data]="csvQuadruplex.data" filename='quadruplex.csv'>Save table</a>
+        </div>
       </div>
-
       <br />
 
 
-      <h5>Component tetrads:</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Quadruplex ID</th>
+            <th>Sequence</th>
+            <th>ONZ Class</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let q of quadruplexes">
+            <td><a [routerLink]="['/quadruplex', q.id]">Q{{q.id}}</a></td>
+            <td>{{q.sequence}}</td>
+            <td>{{q.onzmClass}}</td>
+          </tr>
+        </tbody>
+      </table>
+
       <br />
-      <div class="col quadruplextable">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Tetrad ID</th>
-              <th>Sequence</th>
-              <th>ONZ Class</th>
-              <th>Planarity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let t of tetrads">
-              <td>
-                <a [routerLink]="['/tetrad', t.id]">
-                  T{{t.id}}
-                </a>
-              </td>
-              <td>{{t.sequence}}</td>
-              <td>{{t.onzClass}}</td>
-              <td>{{t.planarity}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="row ">
+        <div class="col-lg-10 col-sm-6">
+          <h5>Component tetrads:</h5>
+        </div>
+
+        <div class=" col-lg-2 col-sm-6 saveDataButton">
+
+          <a class="mat-button" csvLink [data]="csvTetrad.data" filename='tetrads.csv'>Save tables</a>
+        </div>
       </div>
-
       <br />
 
 
-      <h5>Component tetrads pair:</h5>
-      <br />
-      <div class="col quadruplextable">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Tetrad ID</th>
-              <th>Twist</th>
-              <th>Rise</th>
-              <th>Strand direction</th>
-            </tr>
-          </thead>
-          <tbody>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tetrad ID</th>
+            <th>Sequence</th>
+            <th>ONZ Class</th>
+            <th>Planarity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of tetrads">
+            <td>
+              <a [routerLink]="['/tetrad', t.id]">
+                T{{t.id}}
+              </a>
+            </td>
+            <td>{{t.sequence}}</td>
+            <td>{{t.onzClass}}</td>
+            <td>{{t.planarity}}</td>
+          </tr>
+        </tbody>
+      </table>
+    <br />
 
-            <tr *ngFor="let t of tetrads">
-              <td *ngIf="t.tetrad2_id != 0">
-                <a [routerLink]="['/tetrad', t.id]">
-                  T{{t.id}}
-                </a>
-                -
-                <a [routerLink]="['/tetrad', t.tetrad2_id]">
-                  T{{t.tetrad2_id}}
-                </a>
-              </td>
-              <td *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
-              <td *ngIf="t.tetrad2_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
-              <td *ngIf="t.tetrad2_id != 0 ">{{t.direction}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
-      <br />
-      <br />
+    <h5>Component tetrads pair:</h5>
+    <br />
+    <div class="col quadruplextable">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tetrad ID</th>
+            <th>Twist</th>
+            <th>Rise</th>
+            <th>Strand direction</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let t of tetrads">
+            <td *ngIf="t.tetrad2_id != 0">
+              <a [routerLink]="['/tetrad', t.id]">
+                T{{t.id}}
+              </a>
+              -
+              <a [routerLink]="['/tetrad', t.tetrad2_id]">
+                T{{t.tetrad2_id}}
+              </a>
+            </td>
+            <td *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
+            <td *ngIf="t.tetrad2_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
+            <td *ngIf="t.tetrad2_id != 0 ">{{t.direction}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <br />
+    <br />
+</div>
   </main>
 </div>
 

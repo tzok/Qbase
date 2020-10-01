@@ -45,5 +45,17 @@ namespace RNAqbase.Services
 
 			return result;
 		}
-	}
+
+        public async Task<HelixReference> GetHelixReferenceById(int id)
+        {
+            if (!cache.TryGetValue($"{nameof(GetAllHelices)}_{id}", out HelixReference result))
+            {
+                result = await helixRepository.GetHelixReferenceById(id);
+
+                cache.Set($"{nameof(GetAllHelices)}_{id}", result, Cache);
+            }
+
+            return result;
+        }
+    }
 }

@@ -8,6 +8,7 @@ namespace RNAqbase.Repository
 	{
 		Task<Helix> GetHelixById(int id);
 		Task<List<Helix>> GetAllHelices();
+        Task<HelixReference> GetHelixReferenceById(int id);
 
     }
 }

@@ -10,5 +10,6 @@ namespace RNAqbase.Services
 	{
 		Task<List<Helix>> GetAllHelices();
 		Task<Helix> GetHelixById(int id);
-	}
+        Task<HelixReference> GetHelixReferenceById(int id);
+    }
 }
