@@ -28,7 +28,7 @@
           <ng-container matColumnDef="pdbDeposition">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{row.pdbDeposition | date:'mediumDate'}}
+              {{row.pdbDeposition}}
             </mat-cell>
           </ng-container>
           <!-- Assembly ID Column -->

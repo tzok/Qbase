@@ -68,6 +68,6 @@ interface Tetrad {
   molecule: string;
   sequence: string;
   onzClass: string;
-  pdbDeposition: Date;
+  pdbDeposition: string;
   select: boolean;
 }

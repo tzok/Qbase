@@ -83,6 +83,6 @@ interface Structure {
   id: number;
   numberOfStrands: number;
   onzClass: string;
-  pdbDeposition: Date;
+  pdbDeposition: string;
   select: boolean;
 }

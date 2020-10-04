@@ -8,8 +8,6 @@ import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
-import * as JSZipUtilis from 'C:/Users/natkr/Desktop/Qbase/Qbase/RNAqbase/ClientApp/src/assets/script/jszip-utils.js';
-import * as XLSX from 'C:/Users/natkr/AppData/Roaming/npm/node_modules/xlsx';
 
 
 @Component({
@@ -45,7 +43,7 @@ export class HelixComponent implements OnInit {
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
         this.data = result;
         this.csvHelix = new MatTableDataSource([result]);
-        
+
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetrads?id=' + '' + this.helixId).subscribe(result => {
           this.tetrads = result;
           this.csvTetrad = new MatTableDataSource(result);
@@ -62,8 +60,8 @@ export class HelixComponent implements OnInit {
 
     });
   }
-  
-  
+
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

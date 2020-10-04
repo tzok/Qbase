@@ -20,7 +20,7 @@ namespace RNAqbase.Models
 		public List<int> TetradsInTheSamePdb { get; set; }
 		public string ArcDiagram { get; set; }
 		public string Visualization2D { get; set; }
-		public DateTime PdbDeposition { get; set; }
+		public string PdbDeposition { get; set; }
 
 		[JsonIgnore]
 		public int QuadruplexIdAsInt { get; set; }
