@@ -8,7 +8,9 @@ import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
-
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-helix',
@@ -18,10 +20,13 @@ import * as JSZip from 'jszip';
 export class HelixComponent implements OnInit {
 
   data: HelixReference;
+
   tetrads: TetradReference[];
   quadruplexes: QuadruplexReference[];
   helixId: number;
   sub;
+
+
   csvHelix = new MatTableDataSource<HelixReference>();
   csvQuadruplex = new MatTableDataSource<QuadruplexReference>();
   csvTetrad = new MatTableDataSource<TetradReference>();
@@ -61,6 +66,16 @@ export class HelixComponent implements OnInit {
     });
   }
 
+  downloadFile(data: any, filename: string) {
+    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    let blob = new Blob([csvArray], {type: 'text/csv' })
+    saveAs(blob, filename + '.csv');
+  }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
