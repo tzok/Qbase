@@ -60,6 +60,9 @@ export class QuadruplexTableComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
+
+
+
 }
 
 interface Quadruplex {
@@ -71,6 +74,6 @@ interface Quadruplex {
   numberOfStrands: number;
   type: string;
   onzmClass: string;
-  numberOfTetrads: number;
+  numberOfTetrads: string;
   pdbDeposition: string;
 }

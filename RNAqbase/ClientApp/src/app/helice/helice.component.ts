@@ -49,6 +49,7 @@ export class HeliceComponent implements OnInit {
     return numSelected === numRows;
   }
 
+
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
@@ -71,7 +72,7 @@ interface Helix {
   assemblyId: number;
   molecule: string;
   sequence: string;
-  numberOfStrands: number;
+  numberOfStrands: string;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
   pdbDeposition: string;

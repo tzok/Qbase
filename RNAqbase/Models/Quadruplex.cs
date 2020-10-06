@@ -24,7 +24,7 @@ namespace RNAqbase.Models
 		public int AssemblyId { get; set; }
 		public string Molecule { get; set; }
 		public string Sequence { get; set; }
-		public int NumberOfStrands { get; set; }
+		public string NumberOfStrands { get; set; }
 		public string Type => TypeCount == 1 ? "Regular" : "Irregular";
 		public int NumberOfTetrads { get; set; }
 		public string PdbVisualization { get; set; }

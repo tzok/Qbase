@@ -49,14 +49,20 @@ SELECT DISTINCT ON (q.id)
 	p.assembly AS AssemblyId,
 	n1.molecule AS Molecule,
 	STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	COUNT(DISTINCT(t.onz)) AS TypeCount,
 	COUNT(t.id) AS NumberOfTetrads,
 	p.visualization_2d AS PdbVisualization,
 	p.experiment AS Experiment,
 	q.visualization_2d AS Visualization2D,
 	q.arc_diagram AS ArcDiagram,
-	q.visualization_3d AS Visualization3D
+	q.visualization_3d AS Visualization3D,
+	CASE
+		WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
+		WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
+	    WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+		ELSE ''
+ END 
+ as NumberOfStrands
 FROM QUADRUPLEX q
 JOIN TETRAD t ON q.id = t.quadruplex_id
 JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
@@ -99,10 +105,16 @@ WHERE  q.id = @QuadruplexId",
 	                    MAX(p.assembly) AS AssemblyId,
 	                    MAX(n1.molecule) AS Molecule,
 	                    STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                    COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
-	                    COUNT(DISTINCT(t.onz)) AS TypeCount,
+						COUNT(DISTINCT(t.onz)) AS TypeCount,
 	                    COUNT(t.id) AS NumberOfTetrads,
-	                    MAX(p.experiment) AS experiment
+	                    MAX(p.experiment) AS experiment,
+						CASE
+								WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
+								WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
+							    WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+								ELSE ''
+					     END 
+						 as NumberOfStrands
                     FROM QUADRUPLEX q
                     JOIN TETRAD t ON q.id = t.quadruplex_id
                     JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
@@ -132,10 +144,16 @@ WHERE  q.id = @QuadruplexId",
 	                MAX(p.assembly) AS AssemblyId,
 	                MAX(n1.molecule) AS Molecule,
 	                STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	                COUNT(DISTINCT(t.onz)) AS TypeCount,
 	                COUNT(t.id) AS NumberOfTetrads,
-	                MAX(p.experiment) AS experiment
+	                MAX(p.experiment) AS experiment,
+	                CASE
+						WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
+						WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
+					    WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+						ELSE ''
+				 END 
+ as NumberOfStrands
                 FROM QUADRUPLEX q
                 JOIN TETRAD t ON q.id = t.quadruplex_id
                 JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id

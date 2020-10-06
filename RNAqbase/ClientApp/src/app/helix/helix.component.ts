@@ -133,6 +133,8 @@ export class HelixComponent implements OnInit {
   }
 */
 
+
+
   downloadFile(data: any, filename: string) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
     const header = Object.keys(data[0]);
@@ -157,13 +159,13 @@ interface HelixReference {
   molecule: string;
   experiment: string
   sequence: string;
-  numberOfStrands: number;
+  numberOfStrands: string;
   numberOfQuadruplexes: number;
   numberOfTetrads: number;
   tetrads: number[];
   quadruplexes: number[];
   tetradsIds: string;
-  quadruplexIds: string;
+  quadruplexIds: string
 }
 
 interface HelixReferenceInformations {
@@ -173,7 +175,7 @@ interface HelixReferenceInformations {
   molecule: string;
   experiment: string
   sequence: string;
-  numberOfStrands: number;
+  numberOfStrands: string;
   numberOfQuadruplexes: number;
   numberOfTetrads: number;
   tetradsIds: string;
@@ -189,7 +191,7 @@ interface QuadruplexReference {
   assemblyId: number;
   molecule: string;
   experiment: string;
-  numberOfStrands: number;
+  numberOfStrands: string;
   numberOfTetrads: number;
   type: string;
   sequence: string;

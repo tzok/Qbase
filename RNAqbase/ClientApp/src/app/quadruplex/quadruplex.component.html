@@ -11,7 +11,9 @@
           <h5><b>Quadruplex ID: Q{{data.id}}</b></h5>
         </div>
         <div class=" col-lg-2 col-sm-6 saveDataButton">
-          <a class="mat-button" csvLink [data]="csvData">Save data</a>
+          <!-- <a class="mat-button" csvLink [data]="csvData">Save data</a> -->
+          <a class="mat-button" (click)=saveImage()>Save data</a>
+
         </div>
 
       </div>

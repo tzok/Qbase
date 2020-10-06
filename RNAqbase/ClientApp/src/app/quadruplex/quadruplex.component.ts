@@ -5,6 +5,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
+import * as JSZip from 'jszip';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import * as $ from 'jquery'
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-quadruplex',
@@ -96,6 +101,13 @@ export class QuadruplexComponent implements OnInit {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram } });
   }
 
+
+  saveImage(){
+    let diagram = { svg: this.data.arcDiagram } ;
+    FileSaver.saveAs(diagram, "image.jpg");
+
+  }
+
 }
 
 interface Quadruplex {
@@ -105,7 +117,7 @@ interface Quadruplex {
   assemblyId: number;
   molecule: string;
   experiment: string;
-  numberOfStrands: number;
+  numberOfStrands: string;
   numberOfTetrads: number;
   type: string;
   sequence: string;

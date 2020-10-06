@@ -28,12 +28,18 @@ namespace RNAqbase.Repository
 	                            p.assembly AS AssemblyId,
 	                            n1.molecule AS Molecule,
 	                            STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                            COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	                            COUNT(t.id) AS NumberOfTetrads,
 	                            p.experiment AS Experiment,
 	                            COUNT(q.id) AS NumberOfQudaruplexes,
 	                            h.visualization_2d AS Visualization2D,
-	                            h.visualization_3d AS Visualization3D
+	                            h.visualization_3d AS Visualization3D,
+	                           CASE
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+									ELSE ''
+							 END 
+							 as NumberOfStrands
                             FROM HELIX h
                             JOIN QUADRUPLEX q on h.id = q.helix_id
                             JOIN TETRAD t ON q.id = t.quadruplex_id
@@ -80,10 +86,16 @@ namespace RNAqbase.Repository
 	                            p.assembly AS AssemblyId,
 	                            n1.molecule AS Molecule,
 	                            STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                            COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	                            COUNT(t.id) AS NumberOfTetrads,
 	                            p.experiment AS Experiment,
-	                            COUNT(q.id) AS NumberOfQudaruplexes
+	                            COUNT(q.id) AS NumberOfQudaruplexes,
+	                            CASE
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+									ELSE ''
+							 END 
+							 as NumberOfStrands
                             FROM HELIX h
                             JOIN QUADRUPLEX q on h.id = q.helix_id
                             JOIN TETRAD t ON q.id = t.quadruplex_id
@@ -130,10 +142,16 @@ namespace RNAqbase.Repository
 	                        p.assembly AS AssemblyId,
 	                        n1.molecule AS Molecule,
 	                        STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                        COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) AS NumberOfStrands,
 	                        COUNT(t.id) AS NumberOfTetrads,
 	                        p.experiment AS Experiment,
-	                        COUNT(q.id) AS NumberOfQudaruplexes
+	                        COUNT(q.id) AS NumberOfQudaruplexes,
+	                        	                        	                            CASE
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+									ELSE ''
+							 END 
+							 as NumberOfStrands
 	                        --h.visualization_2d AS Visualization2D,
 	                        --h.visualization_3d AS Visualization3D
                         FROM HELIX h
