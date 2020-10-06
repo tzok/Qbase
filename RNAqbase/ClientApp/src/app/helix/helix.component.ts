@@ -10,6 +10,7 @@ import { VisualizationComponent } from '../visualization/visualization.component
 import * as JSZip from 'jszip';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import * as $ from 'jquery'
 import { saveAs } from 'file-saver';
 
 @Component({
@@ -20,17 +21,14 @@ import { saveAs } from 'file-saver';
 export class HelixComponent implements OnInit {
 
   data: HelixReference;
-
   tetrads: TetradReference[];
+  tetradsInformation: TetradInformations[] = [];
+  tetradsPairsInformation: TetradPairsInformations[] = [];
   quadruplexes: QuadruplexReference[];
+  quadruplesInformation: QuadruplexReference[] = [];
+  HelixReferenceInformations: HelixReferenceInformations;
   helixId: number;
   sub;
-
-
-  csvHelix = new MatTableDataSource<HelixReference>();
-  csvQuadruplex = new MatTableDataSource<QuadruplexReference>();
-  csvTetrad = new MatTableDataSource<TetradReference>();
-
 
   constructor(
     private route: ActivatedRoute,
@@ -46,18 +44,72 @@ export class HelixComponent implements OnInit {
       this.helixId = +params.get('helixId');
 
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
+
         this.data = result;
-        this.csvHelix = new MatTableDataSource([result]);
+        this.data.tetradsIds = result.tetrads.join(";");
+        this.data.quadruplexIds = result.quadruplexes.join(";")
+
+        this.HelixReferenceInformations = {
+          id: this.data.id,
+          pdbId: this.data.pdbId,
+          assemblyId: this.data.assemblyId,
+          molecule: this.data.molecule,
+          experiment: this.data.experiment,
+          sequence: this.data.sequence,
+          numberOfStrands: this.data.numberOfStrands,
+          numberOfQuadruplexes: this.data.numberOfQuadruplexes,
+          numberOfTetrads: this.data.numberOfTetrads,
+          tetradsIds: this.data.tetradsIds,
+          quadruplexIds: this.data.quadruplexIds
+        }
 
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetrads?id=' + '' + this.helixId).subscribe(result => {
           this.tetrads = result;
-          this.csvTetrad = new MatTableDataSource(result);
-          }, error => console.error(error));
+
+          for (let val of result) {
+            this.tetradsInformation.push({
+              id: val.id,
+              sequence: val.sequence,
+              onzClass: val.onzClass,
+              planarity: val.planarity
+              });
+          }
+
+          for (let val of result) {
+            if(val.tetrad2_id != 0) {
+              this.tetradsPairsInformation.push({
+                TetradId: val.id,
+                TetradPairId: val.tetrad2_id,
+                twist: val.twist,
+                rise: val.rise,
+                direction: val.direction
+              });
+            }
+          }
+
+        }, error => console.error(error));
 
         this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.helixId).subscribe(result => {
           this.quadruplexes = result;
           this.data.numberOfQuadruplexes = this.quadruplexes.length;
-          this.csvQuadruplex = new MatTableDataSource(result);
+
+          for (let val of result) {
+            this.quadruplesInformation.push({
+              id: val.id,
+              pdbId: val.pdbId,
+              pdbIdentifier: val.pdbIdentifier,
+              assemblyId: val.assemblyId,
+              molecule: val.molecule,
+              experiment: val.experiment,
+              numberOfStrands: val.numberOfStrands,
+              numberOfTetrads: val.numberOfTetrads,
+              type: val.type,
+              sequence: val.sequence,
+              onzmClass: val.onzmClass,
+              quadruplexesInTheSamePdb: val.quadruplexesInTheSamePdb,
+              tetrads: val.tetrads // ? val.tetrads : null
+            });
+          }
           }, error => console.error(error));
 
 
@@ -65,6 +117,21 @@ export class HelixComponent implements OnInit {
 
     });
   }
+
+/*
+   saveAsZip(){
+     let zip = new JSZip();
+     zip.file("Hello.txt", "Hello world\n");
+
+     jQuery("#blob").on("click", function () {
+       zip.generateAsync({type:"blob"}).then(function (blob) { // 1) generate the zip file
+         saveAs(blob, "hello.zip");                          // 2) trigger the download
+       }, function (err) {
+         jQuery("#blob").text(err);
+       });
+     });
+  }
+*/
 
   downloadFile(data: any, filename: string) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
@@ -95,10 +162,25 @@ interface HelixReference {
   numberOfTetrads: number;
   tetrads: number[];
   quadruplexes: number[];
-  //visualization2D: string;
-  //visualization3D: number[];
-  //arcDiagram: string;
+  tetradsIds: string;
+  quadruplexIds: string;
 }
+
+interface HelixReferenceInformations {
+  id: string;
+  pdbId: string;
+  assemblyId: number;
+  molecule: string;
+  experiment: string
+  sequence: string;
+  numberOfStrands: number;
+  numberOfQuadruplexes: number;
+  numberOfTetrads: number;
+  tetradsIds: string;
+  quadruplexIds: string;
+}
+
+
 
 interface QuadruplexReference {
   id: string;
@@ -112,12 +194,8 @@ interface QuadruplexReference {
   type: string;
   sequence: string;
   onzmClass: string;
-  structure3D: string;
   quadruplexesInTheSamePdb: number[];
-  chiAngle: string;
   tetrads: number[];
-  arcDiagram: string;
-  visualization2D: string;
 }
 
 interface TetradReference {
@@ -131,18 +209,17 @@ interface TetradReference {
   direction: string;
 }
 
+interface TetradInformations {
+  id: number;
+  sequence: string;
+  onzClass: string;
+  planarity: number;
+}
 
-
-interface CsvData {
-  helix_id: string;
-  helix_pdbId: string;
-  helix_assemblyId: number;
-  helix_molecule: string;
-  helix_experiment: string
-  helix_sequence: string;
-  helix_numberOfStrands: number;
-  helix_numberOfQuadruplexes: number;
-  helix_numberOfTetrads: number;
-  helix_tetrads: number[];
-  helix_quadruplexes: number[];
+interface TetradPairsInformations {
+  TetradId: number;
+  TetradPairId: number;
+  twist: number;
+  rise: number;
+  direction: string;
 }

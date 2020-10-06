@@ -13,13 +13,14 @@
 
         <div class=" col-lg-2 col-sm-6 saveDataButton">
 
-         <!-- <a class="mat-button" csvLink [data]="csvHelix.data" filename='helix.csv'>Save table</a> -->
-
         <a class="mat-button"
-           (click) = "downloadFile([data], 'Helix')"
-           (click) = "downloadFile(tetrads, 'Tetrads')"
-           (click) = "downloadFile(quadruplexes, 'Quadruplex')"
+           (click) = "downloadFile([HelixReferenceInformations], 'Helix')"
+           (click) = "downloadFile(tetradsInformation, 'Tetrads')"
+           (click) = "downloadFile(tetradsPairsInformation, 'TetradsPairs')"
+           (click) = "downloadFile(quadruplesInformation, 'Quadruplex')"
         >Save data</a>
+
+
         </div>
       </div>
 
