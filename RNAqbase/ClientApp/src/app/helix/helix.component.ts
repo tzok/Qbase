@@ -25,7 +25,7 @@ export class HelixComponent implements OnInit {
   tetradsInformation: TetradInformations[] = [];
   tetradsPairsInformation: TetradPairsInformations[] = [];
   quadruplexes: QuadruplexReference[];
-  quadruplesInformation: QuadruplexReference[] = [];
+  quadruplexInformation: QuadruplexReference[] = [];
   HelixReferenceInformations: HelixReferenceInformations;
   helixId: number;
   sub;
@@ -93,7 +93,7 @@ export class HelixComponent implements OnInit {
           this.quadruplexes = result;
 
           for (let val of result) {
-            this.quadruplesInformation.push({
+            this.quadruplexInformation.push({
               id: val.id,
               pdbId: val.pdbId,
               pdbIdentifier: val.pdbIdentifier,
@@ -133,16 +133,32 @@ export class HelixComponent implements OnInit {
 */
 
 
+saveZip(){
+  let helix = this.generateFile([this.HelixReferenceInformations])
+  let tetrads = this.generateFile(this.tetradsInformation)
+  let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
+  let quadruplex = this.generateFile(this.quadruplexInformation)
 
-  downloadFile(data: any, filename: string) {
+  let zip = new JSZip();
+  zip.file("helix" + ".csv", helix);
+  zip.file("tetrads" + ".csv", tetrads);
+  zip.file("tetradsPairs" + ".csv", tetradsPairs)
+  zip.file("quadruplex" + ".csv", quadruplex)
+
+  zip.generateAsync({type: "blob"}).then(function(content) {
+    FileSaver.saveAs(content, "data.zip");
+  });
+
+}
+
+  generateFile(data: any) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
     const header = Object.keys(data[0]);
     let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
     csv.unshift(header.join(','));
     let csvArray = csv.join('\r\n');
 
-    let blob = new Blob([csvArray], {type: 'text/csv' })
-    saveAs(blob, filename + '.csv');
+    return  new Blob([csvArray], {type: 'text/csv' })
   }
 
   ngOnDestroy() {

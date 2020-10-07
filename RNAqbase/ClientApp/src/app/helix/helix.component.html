@@ -13,13 +13,7 @@
 
         <div class=" col-lg-2 col-sm-6 saveDataButton">
 
-        <a class="mat-button"
-           (click) = "downloadFile([HelixReferenceInformations], 'Helix')"
-           (click) = "downloadFile(tetradsInformation, 'Tetrads')"
-           (click) = "downloadFile(tetradsPairsInformation, 'TetradsPairs')"
-           (click) = "downloadFile(quadruplesInformation, 'Quadruplex')"
-        >Save data</a>
-
+        <a class="mat-button" (click) = saveZip()>Save tables</a>
 
         </div>
       </div>
