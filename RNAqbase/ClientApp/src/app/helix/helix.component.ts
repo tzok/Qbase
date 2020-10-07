@@ -57,7 +57,7 @@ export class HelixComponent implements OnInit {
           experiment: this.data.experiment,
           sequence: this.data.sequence,
           numberOfStrands: this.data.numberOfStrands,
-          numberOfQuadruplexes: this.data.numberOfQuadruplexes,
+          numberOfQudaruplexes: this.data.numberOfQudaruplexes,
           numberOfTetrads: this.data.numberOfTetrads,
           tetradsIds: this.data.tetradsIds,
           quadruplexIds: this.data.quadruplexIds
@@ -91,7 +91,6 @@ export class HelixComponent implements OnInit {
 
         this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.helixId).subscribe(result => {
           this.quadruplexes = result;
-          this.data.numberOfQuadruplexes = this.quadruplexes.length;
 
           for (let val of result) {
             this.quadruplesInformation.push({
@@ -160,7 +159,7 @@ interface HelixReference {
   experiment: string
   sequence: string;
   numberOfStrands: string;
-  numberOfQuadruplexes: number;
+  numberOfQudaruplexes: number;
   numberOfTetrads: number;
   tetrads: number[];
   quadruplexes: number[];
@@ -176,7 +175,7 @@ interface HelixReferenceInformations {
   experiment: string
   sequence: string;
   numberOfStrands: string;
-  numberOfQuadruplexes: number;
+  numberOfQudaruplexes: number;
   numberOfTetrads: number;
   tetradsIds: string;
   quadruplexIds: string;
