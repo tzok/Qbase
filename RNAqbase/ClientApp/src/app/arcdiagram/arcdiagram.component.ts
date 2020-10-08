@@ -10,6 +10,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class ArcdiagramComponent implements OnInit {
 
   svg: SafeHtml;
+  zoom: number = 1;
+  svgPic: any;
+
 
   constructor(
     public dialogRef: MatDialogRef<ArcdiagramComponent>,
@@ -17,7 +20,15 @@ export class ArcdiagramComponent implements OnInit {
 
   ngOnInit() {
     this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+    this.svgPic = document.getElementById('pic');
+    this.svgPic.style.zoom += 1.5;
+
   }
+
+
+
+
+
 }
 interface ArcDiagram {
   svg: string;
