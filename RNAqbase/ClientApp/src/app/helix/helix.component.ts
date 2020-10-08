@@ -8,16 +8,16 @@ import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
-import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
-import * as $ from 'jquery'
-import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-helix',
   templateUrl: './helix.component.html',
   styleUrls: ['./helix.component.css']
 })
+
+
 export class HelixComponent implements OnInit {
 
   data: HelixReference;
@@ -48,6 +48,7 @@ export class HelixComponent implements OnInit {
         this.data = result;
         this.data.tetradsIds = result.tetrads.join(";");
         this.data.quadruplexIds = result.quadruplexes.join(";")
+
 
         this.HelixReferenceInformations = {
           id: this.data.id,

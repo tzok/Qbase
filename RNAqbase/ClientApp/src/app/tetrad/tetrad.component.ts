@@ -6,6 +6,8 @@ import { Visualization3DComponent } from '../visualization3-d/visualization3-d.c
 import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
+import * as JSZip from 'jszip';
+import * as FileSaver from 'file-saver';
 
 
 @Component({
@@ -14,10 +16,13 @@ import { VisualizationComponent } from '../visualization/visualization.component
   styleUrls: ['./tetrad.component.css']
 })
 export class TetradComponent implements OnInit {
- 
+
   data: Tetrad;
   csvData: Tetrad[];
+  tetradInformations: TetradInformations;
+
   tetradId: number;
+
   sub;
 
   constructor(
@@ -34,20 +39,42 @@ export class TetradComponent implements OnInit {
       this.http.get<Tetrad>(this.baseUrl + 'api/Tetrad/GetTetradById?id=' + this.tetradId).subscribe(result => {
         this.data = result;
 
-        
+        this.tetradInformations = {
+          id: this.data.id,
+          quadruplexId: this.data.quadruplexId,
+          pdbId: this.data.pdbId,
+          pdbIdentifier: this.data.pdbIdentifier,
+          assemblyId: this.data.assemblyId,
+          molecule: this.data.molecule,
+          sequence: this.data.sequence,
+          onzClass: this.data.onzClass,
+          planarity: this.data.planarity,
+          experiment: this.data.experiment,
+          tetradsInTheSamePdb: '',
+          tetradsInTheSameQuadruplex: ''
+        }
+
+
         this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSamePdb?tetradId=' + this.data.id + '&pdbId=' + this.data.pdbId).subscribe(result => {
           if (result) {
             this.data.tetradsInTheSamePdb = result;
-          }
-          else this.data.tetradsInTheSamePdb = [];
+            this.tetradInformations.tetradsInTheSamePdb = result.join(";");
 
-          if (this.data.quadruplexId != '-') {
+          }
+          else{
+           this.data.tetradsInTheSamePdb = [];
+            this.tetradInformations.tetradsInTheSamePdb = '';
+        }
+           if (this.data.quadruplexId != '-') {
             this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSameQuadruplex?tetradId=' + this.data.id + '&quadruplexId=' + this.data.quadruplexId).subscribe(result => {
               if (result) {
                 this.data.tetradsInTheSameQuadruplex = result;
+                this.tetradInformations.tetradsInTheSameQuadruplex = result.join(";");
               }
-              else this.data.tetradsInTheSameQuadruplex = [];
-
+              else {
+                this.data.tetradsInTheSameQuadruplex = [];
+                this.tetradInformations.tetradsInTheSameQuadruplex = '';
+              }
               this.csvData = [this.data];
             }, error => console.error(error));
           }
@@ -81,6 +108,27 @@ export class TetradComponent implements OnInit {
   showVarna() {
     let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D } });
   }
+
+  saveZip(){
+    let tetrad = this.generateFile([this.tetradInformations])
+    let zip = new JSZip();
+    zip.file("tetrad" + ".csv", tetrad);
+
+    zip.generateAsync({type: "blob"}).then(function(content) {
+      FileSaver.saveAs(content, "data.zip");
+    });
+  }
+
+  generateFile(data: any) {
+    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    return  new Blob([csvArray], {type: 'text/csv' })
+  }
+
 }
 
 interface Tetrad {
@@ -99,4 +147,20 @@ interface Tetrad {
   experiment: string;
   arcDiagram: string;
   visualization2D: string;
+}
+
+
+interface TetradInformations {
+  id: number;
+  quadruplexId: string;
+  pdbId: number;
+  pdbIdentifier: string;
+  assemblyId: number;
+  molecule: string;
+  sequence: string;
+  onzClass: string;
+  planarity: string;
+  tetradsInTheSameQuadruplex: string;
+  tetradsInTheSamePdb: string;
+  experiment: string;
 }
