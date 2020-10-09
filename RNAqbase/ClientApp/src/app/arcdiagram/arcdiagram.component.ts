@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import * as svg from 'save-svg-as-png';
 
 @Component({
   selector: 'app-arcdiagram',
@@ -23,6 +24,10 @@ export class ArcdiagramComponent implements OnInit {
     this.svgPic = document.getElementById('pic');
     this.svgPic.style.zoom += 1.5;
 
+  }
+
+  download(data: any){
+    svg.saveSvgAsPng(document.getElementById(data), 'Arc_diagram.png');
   }
 
 

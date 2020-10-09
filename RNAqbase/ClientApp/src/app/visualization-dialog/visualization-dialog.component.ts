@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import * as svg from 'save-svg-as-png';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class VisualizationDialogComponent implements OnInit {
 
   svg: SafeHtml;
   zoom: number = 1;
-  svgPic: any;
+  public svgPic: any;
 
   constructor(
     public dialogRef: MatDialogRef<VisualizationDialogComponent>,
@@ -32,8 +33,12 @@ export class VisualizationDialogComponent implements OnInit {
   zoomOut() {
     this.zoom -= 0.1;
     this.svgPic.style.zoom = this.zoom;
+
   }
 
+  download(data: any){
+    svg.saveSvgAsPng(document.getElementById(data), 'VARNA_drawing.png');
+  }
 
 }
 

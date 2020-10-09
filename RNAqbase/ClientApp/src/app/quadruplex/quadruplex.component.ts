@@ -6,10 +6,10 @@ import { VisualizationDialogComponent } from '../visualization-dialog/visualizat
 import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
-import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
-import * as $ from 'jquery'
-import { saveAs } from 'file-saver';
+import * as svg from 'save-svg-as-png';
+import saveSvgAsPng from 'save-svg-as-png';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-quadruplex',
@@ -147,8 +147,20 @@ export class QuadruplexComponent implements OnInit {
 
 
   saveImage(){
-    let diagram = { svg: this.data.arcDiagram } ;
-    FileSaver.saveAs(diagram, "image.jpg");
+
+    let sanitizer: DomSanitizer;
+    let svg: SafeHtml;
+    /*
+    saveSvgAsPng(document.getElementById("diagram"), "diagram.png");
+     */
+    //let svg = sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
+//    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+    let image = sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
+    saveSvgAsPng(document.getElementById("diagram"), "diagram.png");
+
+
+
+
   }
 
   saveZip(){
@@ -156,6 +168,9 @@ export class QuadruplexComponent implements OnInit {
     let tetrads = this.generateFile(this.tetradsInformation)
     let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
     let zip = new JSZip();
+
+
+
     zip.file("quadruplex" + ".csv", quadruplex);
     zip.file("tetrads" + ".csv", tetrads);
     zip.file("tetradsPairs" + ".csv", tetradsPairs)

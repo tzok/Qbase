@@ -1,5 +1,17 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 <div class="box" style="text-align:center;">
 
-  <div class="svg" [innerHTML]="svg" id="pic"></div>
+  <!-- <svg [innerHTML]="svg" id="pic"></svg> -->
+  <div style="text-align:center;">
+    <svg
+      width="280" height="230"
+      transform="translate(0,0)"
+      [innerHTML]="svg" id="pic"
+    ></svg>
+  </div>
+  <br>
+  <button (click)="download('pic')">Download as PNG</button>
+
+
 </div>
+
