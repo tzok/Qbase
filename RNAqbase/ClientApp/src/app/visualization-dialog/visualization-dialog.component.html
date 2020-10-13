@@ -2,19 +2,21 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 <div class="box" style="text-align:center;">
-  <a class="btn zoom" (click)="zoomIn()" ><i class="fas fa-search-plus"></i></a>
-  <a class="btn zoom-out" (click)="zoomOut()"><i class="fas fa-search-minus"></i></a>
+  <a class="btn zoom" (click)="zoomIn()" style="float: left;"><i class="fas fa-search-plus"></i></a>
+  <a class="btn zoom-out" (click)="zoomOut()"style="float: left;"><i class="fas fa-search-minus"></i></a>
+  <button (click)="download('pic')" style="float: right;" >Download as PNG</button>
+
+  <br>
+  <br>
 
   <!-- <svg [innerHTML]="svg" id="pic"></svg> -->
   <div style="text-align:center;">
     <svg
-      width="430" height="400"
+      width="430" height="520"
       transform="translate(40,20)"
       [innerHTML]="svg" id="pic"
     ></svg>
   </div>
-  <br>
-  <button (click)="download('pic')">Download as PNG</button>
 
 </div>
-
+<!--  transform="scale(1.2)" -->
