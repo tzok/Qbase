@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 
 @Component({
@@ -79,6 +80,7 @@ export class StatisticsComponent implements OnInit {
       }, error => console.error(error));
     }, error => console.error(error));
   }
+
 
 }
 
