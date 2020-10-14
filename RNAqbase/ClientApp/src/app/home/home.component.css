@@ -17,19 +17,19 @@ main {
   padding: 5px;
 }
 p {
-  font-size: x-large;
+  font-size: 18px;
   line-height: 1.5;
   margin: 5px;
 }
 .photo {
-  width: 350px;
-  height: 350px;
+  width: 200px;
+  height: 200px;
   text-align: center;
   margin-top: 15px;
 }
 img {
-  width: 250px;
-  height: 270px;
+  width: 200px;
+  height: 220px;
 }
 
 h3 {
@@ -45,6 +45,3 @@ a:hover {
 h3:hover {
   color: darkgreen;
 }
-
-
-
