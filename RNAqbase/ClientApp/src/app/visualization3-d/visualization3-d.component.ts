@@ -22,7 +22,9 @@ export class Visualization3DComponent implements OnInit {
     this.show3DVisualization();
   }
 
-  show3DVisualization() {
+
+
+  show3DVisuali() {
 
     if (!this.liteMolPlugin) {
       this.liteMolPlugin = LiteMol.Plugin.create({
@@ -40,6 +42,46 @@ export class Visualization3DComponent implements OnInit {
       console.error(e);
     });
   }
+
+
+  show3DVisualization(){
+    const plugin = LiteMol.Plugin.create({
+      target: '#litemol',
+      layoutState: {
+        hideControls: true,
+        collapsedControlsLayout:
+        LiteMol.Bootstrap.Components.CollapsedControlsLayout.Landscape,
+      },
+      viewportBackground: '#fff',
+    });
+
+
+    const Transformer = LiteMol.Bootstrap.Entity.Transformer;
+    const t = plugin.createTransform();
+    t.add(plugin.root, Transformer.Data.Download, {
+      url: this.url,
+      type: 'String',
+      id: this.pdbId,
+    })
+      .then(
+        Transformer.Molecule.CreateFromData,
+        { format: LiteMol.Core.Formats.Molecule.SupportedFormats.mmCIF },
+        {}
+      )
+      .then(
+        Transformer.Molecule.CreateModel,
+        { modelIndex: 0 },
+        { ref: 'model' }
+      )
+      .then(Transformer.Molecule.CreateVisual, {
+        style: LiteMol.Bootstrap.Visualization.Molecule.Default.ForType.get(
+          'BallsAndSticks'
+        ),
+      });
+    plugin.applyTransform(t);
+
+  }
+
 
 }
 
