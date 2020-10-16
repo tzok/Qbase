@@ -4,7 +4,17 @@
     overflow-x: scroll;
   }
 }
+td
+{
+  height: 50px;
+  width: 50px;
+}
 
+#cssTable td
+{
+  text-align: center;
+  vertical-align: middle;
+}
 .mat-table {
   overflow: auto;
   /*max-height: 500px;*/

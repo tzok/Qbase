@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using RNAqbase.Models;
+
 
 namespace RNAqbase.Repository
 {
@@ -166,5 +170,30 @@ WHERE  q.id = @QuadruplexId",
                 GROUP BY q.id;", new {helixId = id});
 			}
 		}
+		
+		/*
+		public async Task<MemoryStream> GetQadruplex3dVisualization(int quadruplexId)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				var coordinates = await connection.QueryFirstAsync<Coordinates>
+				(@" 
+					SELECT 
+						visualization_3d as visualization_3d
+					from quadruplex q
+					WHERE q.id = @Id;", new { id = quadruplexId });
+
+				var stream = new MemoryStream();
+				var writer = new StreamWriter(stream);
+				writer.Write(coordinates.CoordinatesAsString);
+				writer.Flush();
+				stream.Position = 0;
+				return stream;
+
+			}
+		}
+		*/
+		
 	}
 }

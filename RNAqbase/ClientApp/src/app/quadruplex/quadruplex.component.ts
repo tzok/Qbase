@@ -7,9 +7,11 @@ import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
-import * as svg from 'save-svg-as-png';
 import saveSvgAsPng from 'save-svg-as-png';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import * as svg from 'save-svg-as-png';
+import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
+
 
 @Component({
   selector: 'app-quadruplex',
@@ -17,6 +19,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   styleUrls: ['./quadruplex.component.css']
 })
 export class QuadruplexComponent implements OnInit {
+
+  svg: SafeHtml;
+
 
   data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: [] };
   tetrads: TetradReference[];
@@ -27,6 +32,7 @@ export class QuadruplexComponent implements OnInit {
 
   quadruplexId: string;
   sub;
+  private sanitizer: DomSanitizer
 
   constructor(
     private http: HttpClient,
@@ -133,43 +139,68 @@ export class QuadruplexComponent implements OnInit {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
 
+  /*
   showStructure() {
-    let dialogRef = this.dialog.open(VisualizationDialogComponent, {});
+    let dialogRef = this.dialog.open(Visualization3DComponent, {
+      data: {
+        pdbId: this.data.pdbIdentifier,
+        url: this.baseUrl + 'api/tetrad/GetCifFile?tetradId=' + this.data.id
+      }
+    });
   }
+*/
+
 
   showVarna() {
-    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D} });
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D, id: this.data.id} });
   }
 
   showDiagram() {
-    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram } });
+    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id:this.data.id } });
   }
 
-
+/*
   saveImage(){
 
-    let sanitizer: DomSanitizer;
-    let svg: SafeHtml;
+    let x: MatDialogRef<VisualizationDialogComponent>;
+
+    let image = new VisualizationDialogComponent(x,{svg: this.data.visualization2D}, this.sanitizer);
+
+   // var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+
+   /* let newDiv = document.createElement("div");
+    newDiv.innerHTML = 'image.svg';
+    let my_div = document.getElementById("org_div1");
+    document.body.insertBefore(newDiv, my_div);
+
+    const svg1 = document.createElementNS(newDiv.innerHTML, "svg");
+
+
+    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
+    let svgPic = document.getElementById('pic');
+    let myContainer = <HTMLElement>document.getElementById('pic');
+    console.log("xxxxxxxxxxxxxx");
+    console.log("x:        " + myContainer);
+    svg.saveSvgAsPng(myContainer, 'VARNA_drawing.png');
+
+
+
     /*
     saveSvgAsPng(document.getElementById("diagram"), "diagram.png");
      */
     //let svg = sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
 //    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+    /*
     let image = sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
     saveSvgAsPng(document.getElementById("diagram"), "diagram.png");
+*/
 
-
-
-
-  }
 
   saveZip(){
     let quadruplex = this.generateFile([this.quadruplexInformations])
     let tetrads = this.generateFile(this.tetradsInformation)
     let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
     let zip = new JSZip();
-
-
 
     zip.file("quadruplex" + ".csv", quadruplex);
     zip.file("tetrads" + ".csv", tetrads);

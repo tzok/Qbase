@@ -16,31 +16,30 @@
         </div>
 
       </div>
-    <br />
 
     <div class="col tetradtable">
       <table class="table" style="border:1px solid black;">
         <thead>
           <tr>
-            <th>Quadruplex ID</th>
-            <th>PDB ID</th>
-            <th>Assembly ID</th>
-            <th>Molecule</th>
-            <th>Experimental method</th>
-            <th>Planarity</th>
-            <th>ONZ class</th>
+            <th style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
+            <th style="text-align: center; vertical-align: middle;">PDB ID</th>
+            <th style="text-align: center; vertical-align: middle;">Assembly ID</th>
+            <th style="text-align: center; vertical-align: middle;">Molecule</th>
+            <th style="text-align: center; vertical-align: middle;">Experimental method</th>
+            <th style="text-align: center; vertical-align: middle;">Planarity</th>
+            <th style="text-align: center; vertical-align: middle;">ONZ class</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
-            <td *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.quadruplexId]">Q{{data.quadruplexId}}</a></td>
-            <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}</a></td>
-            <td>{{data.assemblyId}}</td>
-            <td>{{data.molecule}}</td>
-            <td>{{data.experiment}}</td>
-            <td>{{data.planarity}}</td>
-            <td>{{data.onzClass}}</td>
+            <td style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
+            <td  style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a [routerLink]="['/quadruplex', data.quadruplexId]">Q{{data.quadruplexId}}</a></td>
+            <td style="text-align: center; vertical-align: middle;" ><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}</a></td>
+            <td style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{data.planarity}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{data.onzClass}}</td>
           </tr>
         </tbody>
       </table>
@@ -50,6 +49,7 @@
     <h5>Sequence:</h5>
     <p>{{data.sequence}}</p>
 
+      <br />
 
     <h5>Secondary structure:</h5>
 

@@ -18,35 +18,33 @@
         </div>
       </div>
 
-      <br />
 
       <div class="col tetradtable">
         <table class="table" style="border:1px solid black;"  >
           <thead>
             <tr>
               <!-- <th>PDB</th> -->
-              <th>Assembly ID</th>
-              <th>Molecule</th>
-              <th>Experimental method</th>
-              <th>No. of strands</th>
-              <th>No. of quadruplexes</th>
-              <th>No. of tetrads</th>
+              <th style="text-align: center; vertical-align: middle;">Assembly ID</th>
+              <th style="text-align: center; vertical-align: middle;">Molecule</th>
+              <th style="text-align: center; vertical-align: middle;">Experimental method</th>
+              <th style="text-align: center; vertical-align: middle;">No. of strands</th>
+              <th style="text-align: center; vertical-align: middle;">No. of quadruplexes</th>
+              <th style="text-align: center; vertical-align: middle;">No. of tetrads</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <!-- <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td> -->
-              <td>{{data.assemblyId}}</td>
-              <td>{{data.molecule}}</td>
-              <td>{{data.experiment}}</td>
-              <td>{{data.numberOfStrands}}</td>
-              <td>{{data.numberOfQudaruplexes}}</td>
-              <td>{{data.numberOfTetrads}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{data.numberOfStrands}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{data.numberOfQudaruplexes}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
             </tr>
           </tbody>
         </table>
       </div>
-
 
       <br />
       <div class="row ">
@@ -54,75 +52,78 @@
           <h5>Component quadruplexes:</h5>
         </div>
       </div>
-      <br />
       <table class="table" style="border:1px solid black;">
         <thead>
           <tr>
-            <th>Quadruplex ID</th>
-            <th>Sequence</th>
-            <th>ONZ Class</th>
+            <th style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
+            <th style="text-align: center; vertical-align: middle;">Sequence</th>
+            <th style="text-align: center; vertical-align: middle;">ONZ Class</th>
 
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let q of quadruplexes">
-            <td><a [routerLink]="['/quadruplex', q.id]">Q{{q.id}}</a></td>
-            <td>{{q.sequence}}</td>
-            <td>{{q.onzmClass}}</td>
+            <td style="text-align: center; vertical-align: middle;"><a [routerLink]="['/quadruplex', q.id]">Q{{q.id}}</a></td>
+            <td style="text-align: center; vertical-align: middle;">{{q.sequence}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{q.onzmClass}}</td>
           </tr>
         </tbody>
       </table>
 
+
       <br />
+
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
           <h5>Component tetrads:</h5>
         </div>
       </div>
-      <br />
 
 
       <table class="table" style="border:1px solid black;">
         <thead>
           <tr>
-            <th>Tetrad ID</th>
-            <th>Sequence</th>
-            <th>ONZ Class</th>
-            <th>Planarity</th>
+            <th style="text-align: center; vertical-align: middle;">Tetrad ID</th>
+            <th style="text-align: center; vertical-align: middle;">Sequence</th>
+            <th style="text-align: center; vertical-align: middle;">ONZ Class</th>
+            <th style="text-align: center; vertical-align: middle;">Planarity</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let t of tetrads">
-            <td>
+            <td style="text-align: center; vertical-align: middle;">
               <a [routerLink]="['/tetrad', t.id]">
                 T{{t.id}}
               </a>
             </td>
-            <td>{{t.sequence}}</td>
-            <td>{{t.onzClass}}</td>
-            <td>{{t.planarity}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{t.sequence}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{t.onzClass}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{t.planarity}}</td>
           </tr>
         </tbody>
       </table>
-    <br />
 
+
+      <br />
 
     <h5>Component tetrads pair:</h5>
-    <br />
+
     <div class="col quadruplextable">
       <table class="table" style="border:1px solid black;">
         <thead>
           <tr>
-            <th>Tetrad ID</th>
-            <th>Twist</th>
-            <th>Rise</th>
-            <th>Strand direction</th>
+            <th style="text-align: center; vertical-align: middle;">Tetrad ID</th>
+            <th style="text-align: center; vertical-align: middle;">Twist</th>
+            <th style="text-align: center; vertical-align: middle;">Rise</th>
+            <th style="text-align: center; vertical-align: middle;">Strand direction</th>
           </tr>
         </thead>
         <tbody>
 
           <tr *ngFor="let t of tetrads">
-            <td *ngIf="t.tetrad2_id != 0">
+            <td
+              style="text-align: center; vertical-align: middle;"
+              *ngIf="t.tetrad2_id != 0">
               <a [routerLink]="['/tetrad', t.id]">
                 T{{t.id}}
               </a>
@@ -131,16 +132,16 @@
                 T{{t.tetrad2_id}}
               </a>
             </td>
-            <td *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
-            <td *ngIf="t.tetrad2_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
-            <td *ngIf="t.tetrad2_id != 0 ">{{t.direction}}</td>
+            <td style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
+            <td style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
+            <td style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.direction}}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <br />
-    <br />
+
 </div>
   </main>
 </div>

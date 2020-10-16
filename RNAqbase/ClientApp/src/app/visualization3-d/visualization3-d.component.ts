@@ -22,8 +22,6 @@ export class Visualization3DComponent implements OnInit {
     this.show3DVisualization();
   }
 
-
-
   show3DVisuali() {
 
     if (!this.liteMolPlugin) {

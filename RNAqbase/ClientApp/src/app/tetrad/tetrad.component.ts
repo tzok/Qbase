@@ -94,6 +94,8 @@ export class TetradComponent implements OnInit {
   showDotBracket() {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
+
+
   showStructure() {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
@@ -102,11 +104,13 @@ export class TetradComponent implements OnInit {
       }
     });
   }
-  showDiagram() {
-    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram} });
-  }
+
   showVarna() {
-    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D } });
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D, id: this.data.id.toString()} });
+  }
+
+  showDiagram() {
+    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id:this.data.id.toString() } });
   }
 
   saveZip(){

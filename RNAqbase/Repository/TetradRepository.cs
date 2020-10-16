@@ -140,17 +140,17 @@ WHERE n1.pdb_id = @PdbId
 				connection.Open();
 				var coordinates = await connection.QueryFirstAsync<Coordinates>
 				(@"
-SELECT 
-	n1.coordinates as c1,
-	n2.coordinates as c2,
-	n3.coordinates as c3,
-	n4.coordinates as c4
-FROM tetrad t
-	JOIN nucleotide n1 on t.nt1_id = n1.id
-	JOIN nucleotide n2 on t.nt2_id = n2.id
-	JOIN nucleotide n3 on t.nt3_id = n3.id
-	JOIN nucleotide n4 on t.nt4_id = n4.id
-WHERE t.id = @Id;", new { id = tetradId });
+					SELECT 
+						n1.coordinates as c1,
+						n2.coordinates as c2,
+						n3.coordinates as c3,
+						n4.coordinates as c4
+					FROM tetrad t
+						JOIN nucleotide n1 on t.nt1_id = n1.id
+						JOIN nucleotide n2 on t.nt2_id = n2.id
+						JOIN nucleotide n3 on t.nt3_id = n3.id
+						JOIN nucleotide n4 on t.nt4_id = n4.id
+					WHERE t.id = @Id;", new { id = tetradId });
 
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);
