@@ -1,18 +1,12 @@
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 <div class="box" style="text-align:center;">
-  <button (click)="download('pic')" style="float: right;" >Download as PNG</button>
+  <button (click)="download()" style="float: right;" >Download as PNG</button>
 
-  <!-- <svg [innerHTML]="svg" id="pic"></svg> -->
 
-    <svg
-      width="380px" height="300px"
-      transform="translate(0,20)"
-      [innerHTML]="svg" id="pic"
+    <div
+      [innerHTML]="svg"
       style="text-align:center;"
-
-    ></svg>
+    ></div>
   <br>
-
 
 </div>
 

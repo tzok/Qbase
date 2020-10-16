@@ -1,6 +1,6 @@
 .box{
   width: 800px;
-  height: 700px;
+  height: auto;
 }
 .zoom {
   bottom: 190px;

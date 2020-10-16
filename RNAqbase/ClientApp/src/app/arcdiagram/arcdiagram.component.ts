@@ -20,21 +20,25 @@ export class ArcdiagramComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ArcDiagram, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.setId();
     this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
-    this.svgPic = document.getElementById('pic');
-    this.svgPic.style.zoom += 1.5;
-
   }
 
-  download(data: any){
-    svg.saveSvgAsPng(document.getElementById(data), 'Arc_diagram.png');
+  setId() {
+    let tmp = this.data.svg.indexOf( "<svg" ) + 4;
+    let id = " id=" + this.data.id;
+    this.data.svg = [this.data.svg.slice(0, tmp), id, this.data.svg.slice(tmp)].join('');
+    console.log(this.data.svg);
   }
 
-
+  download(){
+    svg.saveSvgAsPng(document.getElementById(this.data.id), 'VARNA_drawing.png');
+  }
 
 
 
 }
 interface ArcDiagram {
   svg: string;
+  id: string;
 }
