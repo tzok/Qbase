@@ -1,12 +1,7 @@
-.svgImage {
-  width: auto;
-  height: 500px;
-}
-.box {
-  width: 750px;
+.box{
+  width: 800px;
   height: 700px;
 }
-
 .zoom {
   bottom: 190px;
 }

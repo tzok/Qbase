@@ -1,9 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import * as svg from 'save-svg-as-png';
-import { ViewChild, ElementRef } from '@angular/core';
-
 
 
 @Component({
@@ -27,27 +25,41 @@ export class VisualizationDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setId();
     this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
-    this.svgPic = document.getElementById('pic');
+  }
+
+  setSvgPic(){
+    this.svgPic = document.getElementById(this.data.id);
   }
 
   zoomIn() {
+    this.setSvgPic();
     this.zoom += 0.1;
+    console.log(this.svgPic);
     this.svgPic.style.zoom = this.zoom;
   }
 
   zoomOut() {
+    this.setSvgPic();
     this.zoom -= 0.1;
     this.svgPic.style.zoom = this.zoom;
 
   }
 
-  download(data: any){
-    svg.saveSvgAsPng(document.getElementById(data), 'VARNA_drawing.png');
+  setId() {
+    let tmp = this.data.svg.indexOf( "<svg" ) + 4;
+    let id = " id=" + this.data.id;
+    this.data.svg = [this.data.svg.slice(0, tmp), id, this.data.svg.slice(tmp)].join('');
+  }
+
+  download(){
+    svg.saveSvgAsPng(document.getElementById(this.data.id), 'VARNA_drawing.png');
   }
 
 }
 
 interface DialogData {
   svg: string;
+  id: string;
 }
