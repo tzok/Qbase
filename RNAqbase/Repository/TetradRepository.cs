@@ -158,7 +158,6 @@ WHERE n1.pdb_id = @PdbId
 				writer.Flush();
 				stream.Position = 0;
 				return stream;
-
 			}
 		}
 	}

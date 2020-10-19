@@ -139,16 +139,14 @@ export class QuadruplexComponent implements OnInit {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
 
-  /*
   showStructure() {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: this.data.pdbIdentifier,
-        url: this.baseUrl + 'api/tetrad/GetCifFile?tetradId=' + this.data.id
+        url: this.baseUrl + 'api/Quadruplex/GetQuadruplex3dVisualizationMethod?id=' + this.data.id
       }
     });
   }
-*/
 
 
   showVarna() {

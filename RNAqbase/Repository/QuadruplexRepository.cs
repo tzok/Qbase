@@ -24,11 +24,11 @@ namespace RNAqbase.Repository
 				connection.Open();
 				return await connection.QueryAsync<int>
 				(@"
-SELECT t.quadruplex_id
-FROM tetrad t
-	JOIN nucleotide n on t.nt1_id=n.id
-WHERE n.pdb_id=@PdbId
-	AND t.quadruplex_id <> @QuadruplexId;",
+					SELECT t.quadruplex_id
+					FROM tetrad t
+						JOIN nucleotide n on t.nt1_id=n.id
+					WHERE n.pdb_id=@PdbId
+						AND t.quadruplex_id <> @QuadruplexId;",
 					new
 					{
 						QuadruplexId = quadruplexId,
@@ -172,7 +172,12 @@ WHERE  q.id = @QuadruplexId",
 		}
 		
 		/*
-		public async Task<MemoryStream> GetQadruplex3dVisualization(int quadruplexId)
+		IN (select tetrad.Id from quadruplex
+			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+			where quadruplex.id = @id)"
+			*/
+		
+		public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
 		{
 			using (var connection = Connection)
 			{
@@ -180,20 +185,32 @@ WHERE  q.id = @QuadruplexId",
 				var coordinates = await connection.QueryFirstAsync<Coordinates>
 				(@" 
 					SELECT 
-						visualization_3d as visualization_3d
-					from quadruplex q
-					WHERE q.id = @Id;", new { id = quadruplexId });
-
+						n1.coordinates as c1,
+						n2.coordinates as c2,
+						n3.coordinates as c3,
+						n4.coordinates as c4
+					FROM tetrad t
+						JOIN nucleotide n1 on t.nt1_id = n1.id
+						JOIN nucleotide n2 on t.nt2_id = n2.id
+						JOIN nucleotide n3 on t.nt3_id = n3.id
+						JOIN nucleotide n4 on t.nt4_id = n4.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+			where quadruplex.id = @id) ",
+					
+					new { id = quadruplexId });
+				Console.WriteLine("C1:");
+				Console.WriteLine(coordinates.C1);
+				
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);
 				writer.Write(coordinates.CoordinatesAsString);
 				writer.Flush();
 				stream.Position = 0;
 				return stream;
-
 			}
 		}
-		*/
+		
 		
 	}
 }

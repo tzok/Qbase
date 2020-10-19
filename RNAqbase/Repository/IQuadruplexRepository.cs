@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using RNAqbase.Models;
 
@@ -10,6 +11,6 @@ namespace RNAqbase.Repository
 		Task<Quadruplex> GetQuadruplexById(int id);
 		Task<List<Quadruplex>> GetAllQuadruplexes();
         Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id);
-
-    }
+        Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId);
+	}
 }
