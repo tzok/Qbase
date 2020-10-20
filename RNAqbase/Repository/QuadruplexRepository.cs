@@ -191,8 +191,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
 			where quadruplex.id = @id) ",
 					new {id = quadruplexId});
-
-
+				
 				var coordinates2Query = await connection.QueryAsync<string>
 				(@" 
 					SELECT 
@@ -225,10 +224,9 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
 			where quadruplex.id = @id) ",
 					new {id = quadruplexId});
-
 				
-				var coordinates = await connection.QueryFirstAsync<CoordinatesQuadruplex>("select * from nucleotide");
-
+				var coordinates = new CoordinatesQuadruplex();
+				
 				coordinates.C1 = coordinates1Query.ToArray();
 				coordinates.C2 = coordinates2Query.ToArray();
 				coordinates.C3 = coordinates3Query.ToArray();
