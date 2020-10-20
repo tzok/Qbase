@@ -3,7 +3,7 @@ using System.Text;
 
 namespace RNAqbase.Models
 {
-	public class Coordinates : BaseEntity
+	public class Coordinates
 	{
 		public string C1 { get; set; }
 		public string C2 { get; set; }
@@ -14,7 +14,6 @@ namespace RNAqbase.Models
 		{
 			get
 			{
-				Console.WriteLine("jestem tu!");
 				var sb = new StringBuilder();
 				var index = C1.IndexOf(CoordinatesStart, StringComparison.Ordinal);
 				sb.AppendLine("data_onquadro");

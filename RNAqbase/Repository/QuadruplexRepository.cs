@@ -80,14 +80,13 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 
 				var ids = await connection.QueryAsync<int>(
 					@"
-SELECT t.id
-FROM QUADRUPLEX q
-JOIN TETRAD t ON q.id = t.quadruplex_id
-WHERE  q.id = @QuadruplexId",
+					SELECT t.id
+					FROM QUADRUPLEX q
+					JOIN TETRAD t ON q.id = t.quadruplex_id
+					WHERE  q.id = @QuadruplexId",
 					new {QuadruplexId = id});
 
 				quadruplex.Tetrads = ids.ToList();
-
 				return quadruplex;
 			}
 		}
@@ -182,32 +181,67 @@ WHERE  q.id = @QuadruplexId",
 			using (var connection = Connection)
 			{
 				connection.Open();
-				var coordinates = await connection.QueryFirstAsync<Coordinates>
+				var coordinates1Query = await connection.QueryAsync<string>
 				(@" 
 					SELECT 
-						n1.coordinates as c1,
-						n2.coordinates as c2,
-						n3.coordinates as c3,
-						n4.coordinates as c4
+						n1.coordinates
 					FROM tetrad t
 						JOIN nucleotide n1 on t.nt1_id = n1.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+			where quadruplex.id = @id) ",
+					new {id = quadruplexId});
+
+
+				var coordinates2Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n2.coordinates
+					FROM tetrad t
 						JOIN nucleotide n2 on t.nt2_id = n2.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+			where quadruplex.id = @id) ",
+					new {id = quadruplexId});
+
+				var coordinates3Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n3.coordinates
+					FROM tetrad t
 						JOIN nucleotide n3 on t.nt3_id = n3.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+			where quadruplex.id = @id) ",
+					new {id = quadruplexId});
+
+				var coordinates4Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n4.coordinates
+					FROM tetrad t
 						JOIN nucleotide n4 on t.nt4_id = n4.id
 					WHERE t.id IN (select tetrad.Id from quadruplex
 			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
 			where quadruplex.id = @id) ",
-					
-					new { id = quadruplexId });
-				Console.WriteLine("C1:");
-				Console.WriteLine(coordinates.C1);
+					new {id = quadruplexId});
+
+				
+				var coordinates = await connection.QueryFirstAsync<CoordinatesQuadruplex>("select * from nucleotide");
+
+				coordinates.C1 = coordinates1Query.ToArray();
+				coordinates.C2 = coordinates2Query.ToArray();
+				coordinates.C3 = coordinates3Query.ToArray();
+				coordinates.C4 = coordinates4Query.ToArray();
 				
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);
 				writer.Write(coordinates.CoordinatesAsString);
 				writer.Flush();
+			
 				stream.Position = 0;
 				return stream;
+				
 			}
 		}
 		

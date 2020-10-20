@@ -29,8 +29,8 @@ namespace RNAqbase.Services
         public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id) =>
             (await quadruplexRepository.FindAllQuadruplexInTheHelix(id)).ToList();
 
-        public async  Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId) =>
-	        (await quadruplexRepository.GetQuadruplex3dVisualization(quadruplexId));
+        public async  Task<MemoryStream> GetQuadruplex3dVisualization(int id) =>
+	        (await quadruplexRepository.GetQuadruplex3dVisualization(id));
 
 	}
 }

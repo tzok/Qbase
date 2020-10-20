@@ -140,12 +140,17 @@ export class QuadruplexComponent implements OnInit {
   }
 
   showStructure() {
+
+
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: this.data.pdbIdentifier,
         url: this.baseUrl + 'api/Quadruplex/GetQuadruplex3dVisualizationMethod?id=' + this.data.id
+
       }
     });
+
+
   }
 
 
@@ -159,46 +164,20 @@ export class QuadruplexComponent implements OnInit {
 
 /*
   saveImage(){
-
     let x: MatDialogRef<VisualizationDialogComponent>;
+    let img = new VisualizationDialogComponent(x,{svg: this.data.visualization2D, id: this.data.id}, this.sanitizer);
 
-    let image = new VisualizationDialogComponent(x,{svg: this.data.visualization2D}, this.sanitizer);
-
-   // var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-   /* let newDiv = document.createElement("div");
-    newDiv.innerHTML = 'image.svg';
-    let my_div = document.getElementById("org_div1");
-    document.body.insertBefore(newDiv, my_div);
-
-    const svg1 = document.createElementNS(newDiv.innerHTML, "svg");
-
-
-    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
-    let svgPic = document.getElementById('pic');
-    let myContainer = <HTMLElement>document.getElementById('pic');
-    console.log("xxxxxxxxxxxxxx");
-    console.log("x:        " + myContainer);
-    svg.saveSvgAsPng(myContainer, 'VARNA_drawing.png');
-
-
-
-    /*
-    saveSvgAsPng(document.getElementById("diagram"), "diagram.png");
-     */
-    //let svg = sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
-//    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
-    /*
-    let image = sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
-    saveSvgAsPng(document.getElementById("diagram"), "diagram.png");
+    img.setId();
+    img.download();
+}
 */
-
 
   saveZip(){
     let quadruplex = this.generateFile([this.quadruplexInformations])
     let tetrads = this.generateFile(this.tetradsInformation)
     let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
     let zip = new JSZip();
+    //this.saveImage();
 
     zip.file("quadruplex" + ".csv", quadruplex);
     zip.file("tetrads" + ".csv", tetrads);
