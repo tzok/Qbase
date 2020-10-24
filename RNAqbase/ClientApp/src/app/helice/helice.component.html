@@ -2,7 +2,7 @@
   <main>
     <div class="mat-elevation-z8 table">
       <div class="text-rectangle">
-        <h2>List of helices</h2>
+        <h2>List of G4Helixes</h2>
         <div class="statictext">
           <span>Search the table:</span>
         </div>
@@ -22,7 +22,7 @@
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header="id">
-              Helix ID<sup matTooltip="Click ID to see helix description">&#9432;</sup>
+              G4Helix ID<sup matTooltip="Click ID to see helix description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
@@ -81,7 +81,7 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">No. of strands</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type of strands</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of Strands</span>
               {{row.numberOfStrands}}
@@ -89,7 +89,7 @@
           </ng-container>
           <!-- numberOfQuadruplex Column -->
           <ng-container matColumnDef="numberOfQudaruplexes">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfQudaruplexes">Number of quadruplexes</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfQudaruplexes">No. of quadruplexes</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
               {{row.numberOfQudaruplexes}}

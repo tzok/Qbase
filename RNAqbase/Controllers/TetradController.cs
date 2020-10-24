@@ -62,5 +62,15 @@ namespace RNAqbase.Controllers
 	        
 	        return File(dataStream, "application/octet-stream", $"{tetradId}.cif");
         }
+        
+        
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetVisualization3DForTetrad(int id)
+        {
+            if (id == 0) return BadRequest();
+
+            return Ok(await repository.GetVisualization3D(id));
+        }
+        
     }
 }

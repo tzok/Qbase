@@ -13,6 +13,7 @@ namespace RNAqbase.Repository
 		Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId);
 		Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameQuadruplex(int id);
 		Task<MemoryStream> GetTetrad3dVisualization(int tetradId);
+		Task<Visualization_3d> GetVisualization3D(int id);
 
 	}
 }

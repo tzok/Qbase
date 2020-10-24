@@ -30,7 +30,7 @@ namespace RNAqbase.Repository
 	                            STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 	                            COUNT(t.id) AS NumberOfTetrads,
 	                            p.experiment AS Experiment,
-	                            COUNT(q.id) AS NumberOfQudaruplexes,
+	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
 	                            h.visualization_2d AS Visualization2D,
 	                            h.visualization_3d AS Visualization3D,
 	                           CASE
@@ -88,7 +88,7 @@ namespace RNAqbase.Repository
 	                            STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 	                            COUNT(t.id) AS NumberOfTetrads,
 	                            p.experiment AS Experiment,
-	                            COUNT(q.id) AS NumberOfQudaruplexes,
+	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
 	                            CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
@@ -144,8 +144,8 @@ namespace RNAqbase.Repository
 	                        STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 	                        COUNT(t.id) AS NumberOfTetrads,
 	                        p.experiment AS Experiment,
-	                        COUNT(q.id) AS NumberOfQudaruplexes,
-	                        	                        	                            CASE
+	                        COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
+	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'

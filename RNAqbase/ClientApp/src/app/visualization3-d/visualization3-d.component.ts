@@ -22,26 +22,6 @@ export class Visualization3DComponent implements OnInit {
     this.show3DVisualization();
   }
 
-  show3DVisuali() {
-
-    if (!this.liteMolPlugin) {
-      this.liteMolPlugin = LiteMol.Plugin.create({
-        target: '#litemol'
-      });
-    }
-
-    this.liteMolPlugin.loadMolecule({
-      id: this.pdbId,
-      format: 'cif', // or pdb, sdf, binarycif/bcif
-      url: this.url,
-    }).then(() => {
-      console.log('Molecule loaded');
-    }).catch(e => {
-      console.error(e);
-    });
-  }
-
-
   show3DVisualization(){
     const plugin = LiteMol.Plugin.create({
       target: '#litemol',
@@ -53,8 +33,8 @@ export class Visualization3DComponent implements OnInit {
       viewportBackground: '#fff',
     });
 
-
     const Transformer = LiteMol.Bootstrap.Entity.Transformer;
+
     const t = plugin.createTransform();
     t.add(plugin.root, Transformer.Data.Download, {
       url: this.url,
@@ -79,8 +59,6 @@ export class Visualization3DComponent implements OnInit {
     plugin.applyTransform(t);
 
   }
-
-
 }
 
 interface DialogData {

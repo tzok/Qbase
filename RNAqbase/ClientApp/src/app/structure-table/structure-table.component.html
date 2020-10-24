@@ -75,18 +75,18 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">No. of strands</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type of strands</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of strands</span>
               {{row.numberOfStrands}}
             </mat-cell>
           </ng-container>
-          <!-- ONZ Column -->
+          <!-- ONZM Column -->
           <ng-container matColumnDef="onzClass">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="onzClass">ONZ Class</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="onzClass">ONZM Class</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span class="mobile-label">ONZ Class</span>
-              {{row.onzClass}}
+              <span class="mobile-label">ONZm Class</span>
+              {{row.onzmClass}}
             </mat-cell>
           </ng-container>
           <!-- Checkbox Column -->

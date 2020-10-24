@@ -160,5 +160,19 @@ WHERE n1.pdb_id = @PdbId
 				return stream;
 			}
 		}
+
+		public async Task<Visualization_3d> GetVisualization3D(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				var result = await connection.QueryAsync<Visualization_3d>
+				(" select visualization_3d as Visualization3d from tetrad where tetrad.id = @Id;", new { Id = id });
+				Console.WriteLine("TYP:");
+				Console.WriteLine(result.GetType());
+				return result.FirstOrDefault();
+			}
+			
+		}
 	}
 }

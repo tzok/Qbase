@@ -11,6 +11,8 @@ export class VisualizationComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<VisualizationComponent>) { }
 
   ngOnInit() {
+
+
   }
 
 }

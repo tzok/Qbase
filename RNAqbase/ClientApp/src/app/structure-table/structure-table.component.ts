@@ -82,7 +82,7 @@ interface Structure {
   experiment: string;
   id: number;
   numberOfStrands: number;
-  onzClass: string;
+  onzmClass: string;
   pdbDeposition: string;
   select: boolean;
 }
