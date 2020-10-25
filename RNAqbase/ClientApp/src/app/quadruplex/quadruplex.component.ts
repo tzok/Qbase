@@ -140,8 +140,6 @@ export class QuadruplexComponent implements OnInit {
   }
 
   showStructure() {
-
-
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: this.data.pdbIdentifier,
@@ -149,8 +147,6 @@ export class QuadruplexComponent implements OnInit {
 
       }
     });
-
-
   }
 
 

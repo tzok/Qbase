@@ -48,7 +48,8 @@ export class HelixComponent implements OnInit {
         this.data = result;
         this.data.tetradsIds = result.tetrads.join(";");
         this.data.quadruplexIds = result.quadruplexes.join(";")
-
+        console.log("ARC:");
+        console.log(this.data.arcDiagram);
 
         this.HelixReferenceInformations = {
           id: this.data.id,
@@ -166,6 +167,16 @@ saveZip(){
     this.sub.unsubscribe();
   }
 
+
+  showVarna() {
+    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D, id: this.data.id} });
+  }
+
+  showDiagram() {
+    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id: this.data.id } });
+  }
+
+
 }
 
 interface HelixReference {
@@ -181,7 +192,10 @@ interface HelixReference {
   tetrads: number[];
   quadruplexes: number[];
   tetradsIds: string;
-  quadruplexIds: string
+  quadruplexIds: string;
+  visualization3D: any;
+  arcDiagram: string;
+  visualization2D: string;
 }
 
 interface HelixReferenceInformations {

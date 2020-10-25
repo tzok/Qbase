@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
 
 @Component({
   selector: 'structure-table',
@@ -24,7 +25,7 @@ export class StructureTableComponent implements OnInit {
 
   displayedColumns = [
     'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
-    'experimentalMethod', 'structure2D', 'quadruplexId', 'numberOfStrands', 'onzClass', 'select'
+    'experimentalMethod', 'structure2D','structure3D', 'quadruplexId', 'numberOfStrands', 'onzClass', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
@@ -72,6 +73,18 @@ export class StructureTableComponent implements OnInit {
     },
       error => console.error(error));
   }
+
+  show3DStructure(pdbId: number, id: number) {
+    let dialogRef = this.dialog.open(Visualization3DComponent, {
+      data: {
+        pdbId: pdbId,
+        url: this.baseUrl + 'api/Quadruplex/GetQuadruplex3dVisualizationMethod?id=' + id
+
+      }
+    });
+  }
+
+
 }
 
 interface Structure {

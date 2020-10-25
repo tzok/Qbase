@@ -19,6 +19,10 @@ namespace RNAqbase.Models
         public int NumberOfQudaruplexes { get; set; }
         public string Experiment { get; set; }
         public List<int> Tetrads { get; set; }
+        public string Visualization2D { get; set; }
+
+        public string ArcDiagram { get; set; }
+        
         public List<int> Quadruplexes { get; set; }
     }
 }

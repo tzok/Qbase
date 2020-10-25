@@ -33,6 +33,7 @@ namespace RNAqbase.Repository
 	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
 	                            h.visualization_2d AS Visualization2D,
 	                            h.visualization_3d AS Visualization3D,
+	                            h.arc_diagram AS ArcDiagram,
 	                           CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
@@ -89,6 +90,9 @@ namespace RNAqbase.Repository
 	                            COUNT(t.id) AS NumberOfTetrads,
 	                            p.experiment AS Experiment,
 	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
+	                             h.visualization_2d AS Visualization2D,
+	                            h.visualization_3d AS Visualization3D,
+	                            h.arc_diagram AS ArcDiagram,
 	                            CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
@@ -145,6 +149,9 @@ namespace RNAqbase.Repository
 	                        COUNT(t.id) AS NumberOfTetrads,
 	                        p.experiment AS Experiment,
 	                        COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
+	                       -- h.visualization_2d AS Visualization2D,
+	                        -- h.visualization_3d AS Visualization3D,
+	                        -- h.arc_diagram AS ArcDiagram,
 	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
@@ -152,8 +159,6 @@ namespace RNAqbase.Repository
 									ELSE ''
 							 END 
 							 as NumberOfStrands
-	                        --h.visualization_2d AS Visualization2D,
-	                        --h.visualization_3d AS Visualization3D
                         FROM HELIX h
                         JOIN QUADRUPLEX q on h.id = q.helix_id
                         JOIN TETRAD t ON q.id = t.quadruplex_id
