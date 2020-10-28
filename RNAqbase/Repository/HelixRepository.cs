@@ -37,7 +37,7 @@ namespace RNAqbase.Repository
 	                           CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
 									ELSE ''
 							 END 
 							 as NumberOfStrands
@@ -96,7 +96,7 @@ namespace RNAqbase.Repository
 	                            CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
 									ELSE ''
 							 END 
 							 as NumberOfStrands
@@ -155,7 +155,7 @@ namespace RNAqbase.Repository
 	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
 									ELSE ''
 							 END 
 							 as NumberOfStrands

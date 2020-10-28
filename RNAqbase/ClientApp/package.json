@@ -49,10 +49,7 @@
     "jszip": "^3.5.0",
     "save-svg-as-png": "^1.4.17",
     "fast-xml-parser": "^3.17.4",
-    "ng-config-service":"^0.1.8"
-
-
-
+    "ng-config-service": "^0.1.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.0",

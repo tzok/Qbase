@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {DomSanitizer, SafeHtml, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-visualization',
@@ -8,11 +9,24 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 })
 export class VisualizationComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<VisualizationComponent>) { }
+  picture: any;
+  image: string;
+  sanitizedImageData: SafeResourceUrl;
+
+  constructor(public dialogRef: MatDialogRef<VisualizationComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-
-
+    this.picture = this.data.bytePicture;
+    this.getPicture();
   }
 
+  getPicture(){
+    this.image = 'data:image/png;base64,' + this.picture;
+  }
+
+}
+
+interface DialogData {
+  bytePicture: any;
 }

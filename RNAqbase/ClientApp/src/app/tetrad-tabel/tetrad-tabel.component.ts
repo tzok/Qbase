@@ -4,6 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CsvModule } from '@ctrl/ngx-csv';
 import {DomSanitizer} from "@angular/platform-browser";
+import {MatTooltipModule} from '@angular/material';
+import {VisualizationDialogComponent} from "../visualization-dialog/visualization-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
+import {VisualizationComponent} from "../visualization/visualization.component";
+
 
 
 @Component({
@@ -18,7 +24,6 @@ export class TetradTabelComponent implements OnInit {
   image: Visualization3D;
   imageData: any;
   sanitizedImageData: any;
-
   areButtonsHidden: boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,15 +32,24 @@ export class TetradTabelComponent implements OnInit {
   displayedColumns = ['id', 'quadruplexId', 'pdbIdentifier', "pdbDeposition", 'assemblyId', 'molecule',
     'sequence', 'onzClass', 'select'];
 
-  constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
+
+      for (let val of result) {
+
+        this.http.get<Visualization3D>(this.baseUrl + 'api/Tetrad/GetVisualization3DForTetrad?id=' + val.id).subscribe(result => {
+          this.image = result;
+          val.visualization = 'data:image/png;base64,' + this.image.visualization3d;
+        }, error => console.error(error));
+      }
+
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
-    }, error => console.error(error));
+      }, error => console.error(error));
   }
 
   applyFilter(event: Event) {
@@ -62,35 +76,16 @@ export class TetradTabelComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  arrayBufferToBase64 = function( buffer ) {
-    var binary = '';
-    var bytes = new Uint8Array( buffer );
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-      binary += String.fromCharCode( bytes[ i ] );
-    }
-    return window.btoa( binary );
-  }
 
-   getVisualization(tetradID: number)
-  {
-      this.http.get<Visualization3D>(this.baseUrl + 'api/Tetrad/GetVisualization3DForTetrad?id=' + tetradID).subscribe(result => {
-
+  showStructure(tetradID: string) {
+    this.http.get<Visualization3D>(this.baseUrl + 'api/Tetrad/GetVisualization3DForTetrad?id=' + tetradID).subscribe(result => {
         this.image = result;
-        console.log("TUTAJ: ");
-        this.imageData = 'data:image/jpeg;base64,' + this.hexToBase64(this.image.visualization3d);
-        console.log("imagedata: " + this.imageData)
-        console.log(this.image)
 
-        this.sanitizedImageData =  this.sanitizer.bypassSecurityTrustUrl(this.imageData);
-        console.log("tu2" + this.sanitizedImageData);
-        return this.sanitizedImageData;
-    })
-
-  }
-
-   hexToBase64(str: any) {
-    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+          let dialogRef = this.dialog.open(VisualizationComponent, {
+            data: { bytePicture: this.image.visualization3d },
+          });
+        },
+        error => console.error(error));
   }
 
 }
@@ -98,7 +93,6 @@ export class TetradTabelComponent implements OnInit {
 interface Visualization3D {
   visualization3d: string;
 }
-
 
 interface Tetrad {
   id: number;
@@ -110,4 +104,5 @@ interface Tetrad {
   onzClass: string;
   pdbDeposition: string;
   select: boolean;
+  visualization: any;
 }

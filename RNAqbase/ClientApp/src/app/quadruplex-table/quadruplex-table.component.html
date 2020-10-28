@@ -76,7 +76,7 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">No. of strands</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of Strands</span>
               {{row.numberOfStrands}}
@@ -100,7 +100,7 @@
           </ng-container>
           <!-- No. of tetrads Column -->
           <ng-container matColumnDef="numberOfTetrads">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads">Type of tetrads</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads">No. of tetrads</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of tetrads</span>
               {{row.numberOfTetrads}}

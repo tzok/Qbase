@@ -1,6 +1,8 @@
 .mat-table {
-overflow: auto;
-/*max-height: 500px;*/
+  overflow: auto;
+  white-space: nowrap;
+
+  /*max-height: 500px;*/
 }
 
 .mobile-label {
@@ -25,7 +27,10 @@ border: none;
 }
 
 .mat-cell {
-  overflow: scroll;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position:relative;
 }
 
 .mat-table {
@@ -34,7 +39,11 @@ border: none;
 }
 
 .mat-row {
-  overflow: auto;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position:relative;
   min-width: 640px;
   /*flex: 1 0 100%;
   align-items: start;
@@ -97,50 +106,7 @@ color: white;
 display: inline-block;
 
 }
-/* Tooltip container */
-.tooltip {
-position: relative;
-display: inline-block;
-border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-}
 
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-/* Tooltip arrow */
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
 
 .inputtext {
 display: inline-block;
@@ -165,26 +131,51 @@ margin-right: 20px;
 }
 }
 
-a.tooltip {outline:none; }
-a.tooltip strong {line-height:30px;}
-a.tooltip:hover {text-decoration:none;}
-a.tooltip span {
-  z-index:10;display:none; padding:14px 20px;
-  margin-top:60px; margin-left:-160px;
-  width:300px; line-height:16px;
-}
-a.tooltip:hover span{
-  display:inline; position:absolute;
-  border:2px solid #FFF;  color:#EEE;
-  background:#333 url(http://www.menucool.com/tooltip/cssttp/css-tooltip-gradient-bg.png) repeat-x 0 0;
+.tooltip2 {
+  text-decoration:none;
+  position:relative;
 }
 
-.callout {z-index:20;position:absolute;border:0;top:-14px;left:120px;}
-
-/*CSS3 extras*/
-a.tooltip span
-{
-  border-radius:2px;
-  box-shadow: 0px 0px 8px 4px #666;
-  /*opacity: 0.8;*/
+.tooltip2 span {
+  white-space: nowrap;
+  border: 1px solid #CCC;
+  color: #333;
+  padding: 5px;
+  background: #FFF;
+  left: 50%;
+  top: 0;
+  width: auto;
+  position: absolute;
+  display: none
 }
+
+.tooltip2 span img {
+  float:left;
+  margin:0px 8px 8px 0;
+
+}
+
+.tooltip2:hover span {
+  display:block;
+  position:relative;
+  font-style: normal;
+  top:0;
+  left:0;
+  width:auto;
+  max-width:320px;
+  min-height:128px;
+  margin-top:12px;
+  margin-left:32px;
+  overflow: visible;
+  padding:8px;
+}
+
+
+
+
+
+
+
+
+
+
