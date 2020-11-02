@@ -8,5 +8,6 @@ namespace RNAqbase.Models
     public class Visualization_3d : BaseEntity
     {
         public byte[] Visualization3d { get; set; }
+        public int Id { get; set; }
     }
 }

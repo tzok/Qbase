@@ -48,8 +48,7 @@ export class HelixComponent implements OnInit {
         this.data = result;
         this.data.tetradsIds = result.tetrads.join(";");
         this.data.quadruplexIds = result.quadruplexes.join(";")
-        console.log("ARC:");
-        console.log(this.data.arcDiagram);
+
 
         this.HelixReferenceInformations = {
           id: this.data.id,
@@ -65,7 +64,7 @@ export class HelixComponent implements OnInit {
           quadruplexIds: this.data.quadruplexIds
         }
 
-        this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetrads?id=' + '' + this.helixId).subscribe(result => {
+        this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.helixId).subscribe(result => {
           this.tetrads = result;
 
           for (let val of result) {
@@ -167,6 +166,15 @@ saveZip(){
     this.sub.unsubscribe();
   }
 
+  showStructure() {
+    let dialogRef = this.dialog.open(Visualization3DComponent, {
+      data: {
+        pdbId: this.data.pdbId,
+        url: this.baseUrl + 'api/Helix/GetHelix3dVisualizationMethod?id=' + this.data.id
+
+      }
+    });
+  }
 
   showVarna() {
     let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D, id: this.data.id} });

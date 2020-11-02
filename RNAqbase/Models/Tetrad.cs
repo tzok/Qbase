@@ -21,12 +21,16 @@ namespace RNAqbase.Models
 		public string ArcDiagram { get; set; }
 		public string Visualization2D { get; set; }
 		public string PdbDeposition { get; set; }
-
+		public byte[] Visualization { get; set; }
+ 
 		[JsonIgnore]
 		public int QuadruplexIdAsInt { get; set; }
 
 		[JsonIgnore]
 		public int TetradsInQuadruplex { get; set; }
+		
+		
+	
 
 		
 	}

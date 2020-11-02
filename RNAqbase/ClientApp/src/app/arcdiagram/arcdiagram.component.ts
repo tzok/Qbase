@@ -28,10 +28,10 @@ export class ArcdiagramComponent implements OnInit {
     let tmp = this.data.svg.indexOf( "<svg" ) + 4;
     let id = " id=" + this.data.id;
     this.data.svg = [this.data.svg.slice(0, tmp), id, this.data.svg.slice(tmp)].join('');
-    console.log(this.data.svg);
   }
 
   download(){
+    console.log(document.getElementById(this.data.id));
     svg.saveSvgAsPng(document.getElementById(this.data.id), 'VARNA_drawing.png');
   }
 

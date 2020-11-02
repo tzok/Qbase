@@ -35,6 +35,13 @@ namespace RNAqbase.Controllers
 
             return Ok(await helixService.GetHelixReferenceById(id));
         }
+        
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetHelix3dVisualizationMethod(int id)
+        {
+	        var dataStream = await helixService.GetHelix3dVisualization(id);
+	        return File(dataStream,  "application/octet-stream", $"{id}.cif");
+        }
 
 
     }

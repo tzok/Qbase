@@ -62,6 +62,7 @@ export class StructureTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+
   showStructure(pdbId: string) {
     this.http.get(this.baseUrl + 'api/pdb/GetVisualizationById?pdbid=' + pdbId,
       { responseType: 'text' })
@@ -74,12 +75,12 @@ export class StructureTableComponent implements OnInit {
       error => console.error(error));
   }
 
+
   show3DStructure(pdbId: number, id: number) {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: pdbId,
         url: this.baseUrl + 'api/Quadruplex/GetQuadruplex3dVisualizationMethod?id=' + id
-
       }
     });
   }

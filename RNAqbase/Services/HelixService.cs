@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using RNAqbase.Models;
@@ -57,5 +58,7 @@ namespace RNAqbase.Services
 
             return result;
         }
+        public async  Task<MemoryStream> GetHelix3dVisualization(int id) =>
+	        (await helixRepository.GetHelix3dVisualization(id));
     }
 }

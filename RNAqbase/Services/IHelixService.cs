@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using RNAqbase.Models;
@@ -11,5 +12,7 @@ namespace RNAqbase.Services
 		Task<List<Helix>> GetAllHelices();
 		Task<Helix> GetHelixById(int id);
         Task<HelixReference> GetHelixReferenceById(int id);
+        Task<MemoryStream> GetHelix3dVisualization(int id);
+
     }
 }

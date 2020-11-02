@@ -47,18 +47,21 @@
       </div>
 
       <br />
+      <h5>Sequence:</h5>
+      <p>{{data.sequence}}</p>
 
+      <br />
       <h5>Secondary structure:</h5>
 
       <div class="row">
         <button >Dot-bracket encoding</button>
         <button (click)="showDiagram()" >Arc diagram</button>
-        <button (click) = "showVarna()">VARNA drawing</button>
+        <button (click) = "showVarna()" >VARNA drawing</button>
       </div>
 
       <h5>3D structure:</h5>
       <div class="row">
-        <button>View</button>
+        <button (click) = "showStructure()" >View</button>
       </div>
 
       <br />

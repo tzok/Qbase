@@ -11,7 +11,6 @@ import {Visualization3DComponent} from "../visualization3-d/visualization3-d.com
 import {VisualizationComponent} from "../visualization/visualization.component";
 
 
-
 @Component({
   selector: 'tetrad-tabel',
   templateUrl: './tetrad-tabel.component.html',
@@ -21,12 +20,11 @@ export class TetradTabelComponent implements OnInit {
 
   selection = new SelectionModel<Tetrad>(true, []);
   dataSource = new MatTableDataSource<Tetrad>();
-  image: Visualization3D;
-  imageData: any;
-  sanitizedImageData: any;
+  visulization: Visualization3D[] = [];
   areButtonsHidden: boolean = true;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+@ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns = ['id', 'quadruplexId', 'pdbIdentifier', "pdbDeposition", 'assemblyId', 'molecule',
@@ -37,22 +35,18 @@ export class TetradTabelComponent implements OnInit {
   ngOnInit() {
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
 
-      for (let val of result) {
-
-        this.http.get<Visualization3D>(this.baseUrl + 'api/Tetrad/GetVisualization3DForTetrad?id=' + val.id).subscribe(result => {
-          this.image = result;
-          val.visualization = 'data:image/png;base64,' + this.image.visualization3d;
-        }, error => console.error(error));
-      }
-
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
+
+      this.http.get<Visualization3D[]>(this.baseUrl + 'api/Tetrad/GetAllVisualization3DFromTetrad').subscribe(result => {
+        this.visulization = result;
+      }, error => console.error(error));
       }, error => console.error(error));
   }
 
-  applyFilter(event: Event) {
+applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -76,22 +70,17 @@ export class TetradTabelComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-
-  showStructure(tetradID: string) {
-    this.http.get<Visualization3D>(this.baseUrl + 'api/Tetrad/GetVisualization3DForTetrad?id=' + tetradID).subscribe(result => {
-        this.image = result;
-
-          let dialogRef = this.dialog.open(VisualizationComponent, {
-            data: { bytePicture: this.image.visualization3d },
-          });
-        },
-        error => console.error(error));
+  get3dStructure(tetradID:string){
+    for (let val of this.visulization){
+      if(val.id == tetradID)
+        return 'data:image/png;base64,' + val.visualization3d;
+    }
   }
-
 }
 
 interface Visualization3D {
   visualization3d: string;
+  id: string;
 }
 
 interface Tetrad {
@@ -104,5 +93,5 @@ interface Tetrad {
   onzClass: string;
   pdbDeposition: string;
   select: boolean;
-  visualization: any;
+  //visualization: string;
 }

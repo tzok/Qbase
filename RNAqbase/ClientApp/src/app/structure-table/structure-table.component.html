@@ -73,6 +73,7 @@
               <button (click)="show3DStructure(row.pdbId, row.id)">View</button>
             </mat-cell>
           </ng-container>
+
           <!-- Quadruplex Id Column -->
           <ng-container matColumnDef="quadruplexId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="id">Quadruplex ID</mat-header-cell>
@@ -85,7 +86,7 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type of strands</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of strands</span>
               {{row.numberOfStrands}}

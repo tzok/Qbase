@@ -1,5 +1,6 @@
 <div class="container">
   <main>
+
     <div class="mat-elevation-z8 table">
       <div class="text-rectangle">
         <h2>List of tetrads</h2>
@@ -13,22 +14,22 @@
         </div>
         <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
         <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
-
       </div>
 
       <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
         <!-- Id Column -->
+
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
             <mat-header-cell *matHeaderCellDef mat-sort-header="id">
               Tetrad ID<sup matTooltip="Click ID to see tetrad description">&#9432;</sup>
             </mat-header-cell>
 
-
-            <mat-cell  class = "CellWithTooltip" *matCellDef="let row">
-              <a class="tooltip2" [routerLink]="['/tetrad', row.id]">
-                 T{{row.id}}  <span> <img src= "{{row.visualization}}" width="110" height="110" > </span>
-              </a>
+            <mat-cell  *matCellDef="let row">
+                <a class="hasTooltip" [routerLink]="['/tetrad', row.id]">
+                <!--  T{{row.id}}  <span> <img src= "data:image/png;base64,{{row.visualization}}" width="110" height="110" > </span> -->
+                  T{{row.id}}  <span> <img [src] = "get3dStructure(row.id)" width="110" height="110" > </span>
+                </a>
             </mat-cell>
 
           </ng-container>
@@ -55,6 +56,9 @@
               </a>
               <a *ngIf="row.quadruplexId==='99999999'">n/a</a>
             </mat-cell>
+
+
+
           </ng-container>
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbIdentifier">
@@ -143,8 +147,8 @@
                      [pageSizeOptions]="[10, 25, 50, 100]">
       </mat-paginator>
     </div>
+
+
   </main>
-
-
-</div>
+  </div>
 

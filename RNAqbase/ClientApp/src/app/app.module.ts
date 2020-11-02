@@ -29,6 +29,7 @@ import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
 import { HeliceComponent } from './helice/helice.component';
 import { HelixComponent } from './helix/helix.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -54,40 +55,41 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HelixComponent,
     PageNotFoundComponent
   ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
+    imports: [
+        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+        HttpClientModule,
+        FormsModule,
 
-    RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'test', component: TestComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'citeUs', component: CiteUsComponent },
-      // { path: 'contact', component: ContactComponent },
-      { path: 'help', component: HelpComponent },
-      { path: 'quadruplexes', component: QuadruplexTableComponent },
-      { path: 'structures', component: StructureTableComponent },
-      { path: 'tetrads', component: TetradTabelComponent },
-      { path: 'tetrad/:tetradId', component: TetradComponent },
-      { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
-      { path: 'statistics', component: StatisticsComponent },
-      { path: 'helices', component: HeliceComponent },
-      { path: 'helices/:helixId', component: HelixComponent },
-      { path: '**', component: PageNotFoundComponent}
-    ]),
-    BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    CsvModule,
-    MatTooltipModule
-  ],
+        RouterModule.forRoot([
+            {path: 'home', component: HomeComponent},
+            {path: '', redirectTo: '/home', pathMatch: 'full'},
+            {path: 'test', component: TestComponent},
+            {path: 'about', component: AboutComponent},
+            {path: 'citeUs', component: CiteUsComponent},
+            // { path: 'contact', component: ContactComponent },
+            {path: 'help', component: HelpComponent},
+            {path: 'quadruplexes', component: QuadruplexTableComponent},
+            {path: 'structures', component: StructureTableComponent},
+            {path: 'tetrads', component: TetradTabelComponent},
+            {path: 'tetrad/:tetradId', component: TetradComponent},
+            {path: 'quadruplex/:quadruplexId', component: QuadruplexComponent},
+            {path: 'statistics', component: StatisticsComponent},
+            {path: 'helices', component: HeliceComponent},
+            {path: 'helices/:helixId', component: HelixComponent},
+            {path: '**', component: PageNotFoundComponent}
+        ]),
+        BrowserAnimationsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        CsvModule,
+        MatTooltipModule,
+        MatIconModule
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [VisualizationDialogComponent, VisualizationComponent, Visualization3DComponent, ArcdiagramComponent]

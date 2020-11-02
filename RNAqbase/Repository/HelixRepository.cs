@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -37,7 +38,7 @@ namespace RNAqbase.Repository
 	                           CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
 									ELSE ''
 							 END 
 							 as NumberOfStrands
@@ -96,7 +97,7 @@ namespace RNAqbase.Repository
 	                            CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
 									ELSE ''
 							 END 
 							 as NumberOfStrands
@@ -155,7 +156,7 @@ namespace RNAqbase.Repository
 	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
+									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
 									ELSE ''
 							 END 
 							 as NumberOfStrands
@@ -170,6 +171,74 @@ namespace RNAqbase.Repository
                         GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d")).ToList();
 		    }
 	}
+        
+        
+        public async Task<MemoryStream> GetHelix3dVisualization(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				var coordinates1Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n1.coordinates
+					FROM tetrad t
+							JOIN nucleotide n1 on t.nt1_id = n1.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					new {id = id});
+				
+				var coordinates2Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n2.coordinates
+					FROM tetrad t
+							JOIN nucleotide n2 on t.nt2_id = n2.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					new {id = id});
+
+				var coordinates3Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n3.coordinates
+					FROM tetrad t
+							JOIN nucleotide n3 on t.nt3_id = n3.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					new {id = id});
+
+				var coordinates4Query = await connection.QueryAsync<string>
+				(@" 
+					SELECT 
+						n4.coordinates
+					FROM tetrad t
+							JOIN nucleotide n4 on t.nt4_id = n4.id
+					WHERE t.id IN (select tetrad.Id from quadruplex
+						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
+					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					new {id = id});
+				
+				var coordinates = new CoordinatesQuadruplex();
+				
+				coordinates.C1 = coordinates1Query.ToArray();
+				coordinates.C2 = coordinates2Query.ToArray();
+				coordinates.C3 = coordinates3Query.ToArray();
+				coordinates.C4 = coordinates4Query.ToArray();
+				
+				var stream = new MemoryStream();
+				var writer = new StreamWriter(stream);
+				writer.Write(coordinates.CoordinatesAsString);
+				writer.Flush();
+			
+				stream.Position = 0;
+				return stream;
+				
+			}
+		}
 
 
     

@@ -53,6 +53,7 @@ WHERE t.id = @Id;", new { Id = id });
 
 		public async Task<IEnumerable<Tetrad>> FindAll()
 		{
+			//	t.visualization_3d as Visualization,
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -132,6 +133,32 @@ WHERE n1.pdb_id = @PdbId
                 ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}
+		
+		public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameHelix(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<TetradReference>
+				(@"
+                SELECT t.id, 
+	                COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
+	                t.onz as ""OnzClass"",
+	                t.planarity_deviation as ""Planarity"",
+	                tp.rise,
+	                tp.twist,
+	                tp.tetrad2_id, 
+	                tp.direction
+				FROM tetrad t
+					JOIN nucleotide n1 on t.nt1_id = n1.id
+					JOIN nucleotide n2 on t.nt2_id = n2.id
+					JOIN nucleotide n3 on t.nt3_id = n3.id
+					JOIN nucleotide n4 on t.nt4_id = n4.id
+					LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+				WHERE t.quadruplex_id IN (select quadruplex.id from quadruplex where helix_id = @HelixId)
+				ORDER BY t.id;", new { HelixId = id });
+			}
+		}
 
 		public async Task<MemoryStream> GetTetrad3dVisualization(int tetradId)
 		{
@@ -168,11 +195,25 @@ WHERE n1.pdb_id = @PdbId
 				connection.Open();
 				var result = await connection.QueryAsync<Visualization_3d>
 				(" select visualization_3d as Visualization3d from tetrad where tetrad.id = @Id;", new { Id = id });
-				Console.WriteLine("TYP:");
-				Console.WriteLine(result.GetType());
 				return result.FirstOrDefault();
 			}
 			
 		}
+		
+		public async Task<IEnumerable<Visualization_3d>> GetALlVisualization3D()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<Visualization_3d>
+				(@"SELECT 
+					id as Id,
+					visualization_3d as Visualization3d
+					from tetrad order by id;
+					");
+				
+			}
+		}
+		
 	}
 }

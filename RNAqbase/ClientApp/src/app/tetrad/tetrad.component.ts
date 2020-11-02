@@ -8,6 +8,8 @@ import {VisualizationDialogComponent} from '../visualization-dialog/visualizatio
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
+import * as svg from 'save-svg-as-png';
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 
 @Component({
@@ -20,15 +22,15 @@ export class TetradComponent implements OnInit {
   data: Tetrad;
   csvData: Tetrad[];
   tetradInformations: TetradInformations;
-
   tetradId: number;
-
   sub;
+  svg: SafeHtml;
 
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -113,6 +115,24 @@ export class TetradComponent implements OnInit {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id:this.data.id.toString() } });
   }
 
+  setId(image: any, label: string) {
+    let tmp = image.indexOf( "<svg" ) + 4;
+    let id = " id=" + this.data.id + label;
+    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
+    return image;
+  }
+
+  download(id: any){
+    console.log("tu2");
+    console.log(id);
+    console.log(this.data.arcDiagram);
+
+    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+    console.log(document.getElementById(id));
+    console.log(this.svg);
+    svg.saveSvgAsPng(document.getElementById(id), 'image.png');
+  }
+
   saveZip(){
     let tetrad = this.generateFile([this.tetradInformations])
     let zip = new JSZip();
@@ -121,6 +141,12 @@ export class TetradComponent implements OnInit {
     zip.generateAsync({type: "blob"}).then(function(content) {
       FileSaver.saveAs(content, "data.zip");
     });
+
+    this.data.arcDiagram = this.setId(this.data.arcDiagram, '_arc');
+   // this.data.visualization2D = this.setId(this.data.visualization2D, '_varna' );
+    this.download(this.data.id.toString() + "_arc");
+    //this.download(this.data.id.toString() + "_varna")
+
   }
 
   generateFile(data: any) {

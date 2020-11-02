@@ -55,6 +55,15 @@ namespace RNAqbase.Controllers
             return Ok(await repository.FindAllTetradsInTheSameQuadruplex(id));
         }
 
+        
+        [HttpGet("[action]")]
+        public async Task <IActionResult> GetListOfTetradsInHelix(int id)
+        {
+            if(id == 0) return BadRequest();
+            return Ok(await repository.FindAllTetradsInTheSameHelix(id));
+        }
+
+        
         [HttpGet("[action]")]
         public async Task<IActionResult> GetCifFile(int tetradId)
         {
@@ -70,6 +79,12 @@ namespace RNAqbase.Controllers
             if (id == 0) return BadRequest();
 
             return Ok(await repository.GetVisualization3D(id));
+        }
+        
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAllVisualization3DFromTetrad()
+        {
+            return Ok(await repository.GetALlVisualization3D());
         }
         
     }
