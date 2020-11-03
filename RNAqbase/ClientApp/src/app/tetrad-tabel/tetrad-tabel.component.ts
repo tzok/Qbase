@@ -1,14 +1,9 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { SelectionModel } from '@angular/cdk/collections';
-import { CsvModule } from '@ctrl/ngx-csv';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {HttpClient} from '@angular/common/http';
+import {SelectionModel} from '@angular/cdk/collections';
 import {DomSanitizer} from "@angular/platform-browser";
-import {MatTooltipModule} from '@angular/material';
-import {VisualizationDialogComponent} from "../visualization-dialog/visualization-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
-import {VisualizationComponent} from "../visualization/visualization.component";
 
 
 @Component({
@@ -23,6 +18,7 @@ export class TetradTabelComponent implements OnInit {
   visulization: Visualization3D[] = [];
   areButtonsHidden: boolean = true;
 
+  mapImage: any;
 
 @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,6 +38,8 @@ export class TetradTabelComponent implements OnInit {
 
       this.http.get<Visualization3D[]>(this.baseUrl + 'api/Tetrad/GetAllVisualization3DFromTetrad').subscribe(result => {
         this.visulization = result;
+        this.mapImage = Object.assign({}, ...this.visulization.map(s => ({[s.id]: s.visualization3d})));
+
       }, error => console.error(error));
       }, error => console.error(error));
   }
@@ -70,11 +68,8 @@ applyFilter(event: Event) {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  get3dStructure(tetradID:string){
-    for (let val of this.visulization){
-      if(val.id == tetradID)
-        return 'data:image/png;base64,' + val.visualization3d;
-    }
+  get3dStructure(tetradID:string) {
+      return 'data:image/png;base64,' + this.mapImage[tetradID];
   }
 }
 

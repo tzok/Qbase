@@ -27,7 +27,6 @@
 
             <mat-cell  *matCellDef="let row">
                 <a class="hasTooltip" [routerLink]="['/tetrad', row.id]">
-                <!--  T{{row.id}}  <span> <img src= "data:image/png;base64,{{row.visualization}}" width="110" height="110" > </span> -->
                   T{{row.id}}  <span> <img [src] = "get3dStructure(row.id)" width="110" height="110" > </span>
                 </a>
             </mat-cell>
