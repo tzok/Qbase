@@ -35,11 +35,10 @@ namespace RNAqbase.Repository
 	                            h.visualization_2d AS Visualization2D,
 	                            h.visualization_3d AS Visualization3D,
 	                            h.arc_diagram AS ArcDiagram,
-	                           CASE
+	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
-									ELSE ''
+									ELSE 'tetramolecular'
 							 END 
 							 as NumberOfStrands
                             FROM HELIX h
@@ -94,11 +93,10 @@ namespace RNAqbase.Repository
 	                             h.visualization_2d AS Visualization2D,
 	                            h.visualization_3d AS Visualization3D,
 	                            h.arc_diagram AS ArcDiagram,
-	                            CASE
+	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
-									ELSE ''
+									ELSE 'tetramolecular'
 							 END 
 							 as NumberOfStrands
                             FROM HELIX h
@@ -156,8 +154,7 @@ namespace RNAqbase.Repository
 	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 3 THEN  'tetramolecular'
-									ELSE ''
+									ELSE 'tetramolecular'
 							 END 
 							 as NumberOfStrands
                         FROM HELIX h

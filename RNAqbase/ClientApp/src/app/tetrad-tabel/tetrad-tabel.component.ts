@@ -29,6 +29,7 @@ export class TetradTabelComponent implements OnInit {
   constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
 
   ngOnInit() {
+
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
 
       this.dataSource = new MatTableDataSource(result);
@@ -38,7 +39,7 @@ export class TetradTabelComponent implements OnInit {
 
       this.http.get<Visualization3D[]>(this.baseUrl + 'api/Tetrad/GetAllVisualization3DFromTetrad').subscribe(result => {
         this.visulization = result;
-        this.mapImage = Object.assign({}, ...this.visulization.map(s => ({[s.id]: s.visualization3d})));
+        //this.mapImage = Object.assign({}, ...this.visulization.map(s => ({[s.id]: s.visualization3d})));
 
       }, error => console.error(error));
       }, error => console.error(error));
@@ -69,8 +70,21 @@ applyFilter(event: Event) {
   }
 
   get3dStructure(tetradID:string) {
-      return 'data:image/png;base64,' + this.mapImage[tetradID];
+   // if (Object.keys(this.mapImage).length === 0)
+     // return "https://i.pinimg.com/originals/10/b2/f6/10b2f6d95195994fca386842dae53bb2.png";
+   // return 'data:image/png;base64,' + this.mapImage[tetradID];
+
+    if(this.visulization.length == 0)
+      return "https://i1.wp.com/www.cssscript.com/wp-content/uploads/2014/10/iOS-OS-X-Style-Pure-CSS-Loading-Spinner.jpg?fit=400%2C300&ssl=1";
+
+    for (let val of this.visulization) {
+      if (val.id == tetradID)
+        return 'data:image/png;base64,' + val.visualization3d;
+    }
+
+
   }
+
 }
 
 interface Visualization3D {
