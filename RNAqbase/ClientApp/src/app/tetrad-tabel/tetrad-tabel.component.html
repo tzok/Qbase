@@ -50,8 +50,8 @@
               Quadruplex ID <sup matTooltip="Click ID to see quadruplex description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <a *ngIf="row.quadruplexId!='99999999'" [routerLink]="['/quadruplex', row.quadruplexId]">
-                Q{{row.quadruplexId}}
+              <a class = "hasTooltip" *ngIf="row.quadruplexId!='99999999'" [routerLink]="['/quadruplex', row.quadruplexId]">
+                Q{{row.quadruplexId}} <span> <img src = "qbase-static/Q{{row.quadruplexId}}.png" width="150" height="150"  alt=""> </span>
               </a>
               <a *ngIf="row.quadruplexId==='99999999'">n/a</a>
             </mat-cell>
@@ -65,9 +65,13 @@
               PDB ID <sup matTooltip="Click ID to visit PDB record">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">{{row.pdbIdentifier}}</a>
+              <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">
+                {{row.pdbIdentifier}}  <span> <img src = "qbase-static/{{row.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span>
+              </a>
             </mat-cell>
           </ng-container>
+
+
           <!-- PDB deposition  Column -->
           <ng-container matColumnDef="pdbDeposition">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>

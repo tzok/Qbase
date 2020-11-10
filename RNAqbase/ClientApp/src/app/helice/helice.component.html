@@ -26,9 +26,8 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a [routerLink]="['/helices', row.id]">
-
-                H{{row.id}}
+              <a class = "hasTooltip"[routerLink]="['/helices', row.id]">
+                H{{row.id}} <span> <img src = "qbase-static/H{{row.id}}.png" width="150" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>
@@ -41,8 +40,8 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Pdb ID</span>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">
-                {{row.pdbIdentifier}}
+              <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">
+                {{row.pdbIdentifier}} <span> <img src = "qbase-static/{{row.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>

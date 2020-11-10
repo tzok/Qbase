@@ -21,7 +21,10 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">PDB ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
-              <a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">{{row.pdbIdentifier}}</a>
+              <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">
+                {{row.pdbIdentifier}} <span> <img src = "qbase-static/{{row.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span>
+
+              </a>
             </mat-cell>
           </ng-container>
           <!-- PDB deposition  Column -->
@@ -79,8 +82,8 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="id">Quadruplex ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Quadruplex ID</span>
-              <a [routerLink]="['/quadruplex', row.id]">
-                Q{{row.id}}
+              <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id]">
+                Q{{row.id}} <span> <img src = "qbase-static/Q{{row.id}}.png" width="150" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>
