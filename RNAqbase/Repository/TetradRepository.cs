@@ -62,7 +62,7 @@ WHERE t.id = @Id;", new { Id = id });
 SELECT t.id, 
 	t.quadruplex_id as ""QuadruplexIdAsInt"", 
 	pdb1.identifier as ""PdbIdentifier"", 
-	to_char(pdb1.release_date::date, 'trY-MM-DD') as ""PdbDeposition"",
+	to_char(pdb1.release_date::date, 'YYYY-MM-DD') as ""PdbDeposition"",
 	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
 	COALESCE(n1.molecule, 'Other') as ""Molecule"",
 	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",

@@ -184,6 +184,10 @@ saveZip(){
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id: this.data.id } });
   }
 
+  setTwoNumberDecimal(num) {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
+
 
 }
 

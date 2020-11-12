@@ -194,6 +194,10 @@ export class QuadruplexComponent implements OnInit {
     return  new Blob([csvArray], {type: 'text/csv' })
   }
 
+  setTwoNumberDecimal(num) {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
+
 }
 
 interface Quadruplex {

@@ -37,7 +37,7 @@
             <td style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
             <td style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
             <td style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
-            <td style="text-align: center; vertical-align: middle;">{{data.planarity}}</td>
+            <td style="text-align: center; vertical-align: middle;">{{setTwoNumberDecimal(data.planarity)}}</td>
             <td style="text-align: center; vertical-align: middle;">{{data.onzClass}}</td>
           </tr>
         </tbody>
@@ -81,7 +81,7 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of tetrads in this structure{{data.IdentifierId}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
+            Number of tetrads in this structure{{data.pdbIdentifier}}: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
           </p>
         </div>
 
