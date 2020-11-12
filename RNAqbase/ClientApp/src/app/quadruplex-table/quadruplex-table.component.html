@@ -74,9 +74,10 @@
               {{row.sequence}}
             </mat-cell>
           </ng-container>
+
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by strand numer)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
               {{row.numberOfStrands}}
@@ -84,12 +85,13 @@
           </ng-container>
           <!-- Type Column -->
           <ng-container matColumnDef="type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="type">Type</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="type">Type (by ONZM)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
               {{row.type}}
             </mat-cell>
           </ng-container>
+
           <!-- ONZ Column -->
           <ng-container matColumnDef="onzmClass">
             <mat-header-cell *matHeaderCellDef mat-sort-header="onzmClass">ONZM Class</mat-header-cell>
