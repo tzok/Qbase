@@ -1,6 +1,15 @@
 .mat-table {
   overflow: auto;
+
   /*max-height: 500px;*/
+}
+.centre {
+  text-align: center
+}
+
+.mat-column-id, .mat-column-pdbId, .mat-column-pdbDeposition, .mat-column-assemblyId, .mat-column-molecule, .mat-column-type_strand, .mat-column-type_onzm, .mat-column-onzmClass, .mat-column-numberOfTetrads{
+  flex: 0 0 9%;
+  word-break: break-all;
 }
 
 .mobile-label {
@@ -12,15 +21,18 @@
 }
 
 @media(max-width: 600px) {
- .mat-cell:first-child {
-   /*padding-left: 0;*/
- }
+  .mat-cell:first-child {
+    /*padding-left: 0;*/
+  }
 
   .mat-header-row {
     /*display: none;*/
   }
+
   .mat-header-cell {
     width: 90px;
+    text-align: center !important;
+
   }
   .mat-cell {
     overflow:scroll;
@@ -81,10 +93,10 @@ a {
   color: #45A29E;
 }
 
-  a.disabled {
-    pointer-events: none;
-    cursor: default;
-  }
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
 
 .mat-button {
   border-style: solid;

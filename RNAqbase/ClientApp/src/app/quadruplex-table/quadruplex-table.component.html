@@ -70,13 +70,13 @@
           <ng-container matColumnDef="sequence">
             <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Sequence</span>
-              {{row.sequence}}
+              <span class="mobile-label" >Sequence</span>
+              {{truncate(row.sequence)}}
             </mat-cell>
           </ng-container>
 
           <!-- No. of strands Column -->
-          <ng-container matColumnDef="numberOfStrands">
+          <ng-container matColumnDef="type_strand">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by strand numer)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
@@ -84,7 +84,7 @@
             </mat-cell>
           </ng-container>
           <!-- Type Column -->
-          <ng-container matColumnDef="type">
+          <ng-container matColumnDef="type_onzm">
             <mat-header-cell *matHeaderCellDef mat-sort-header="type">Type (by ONZM)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
@@ -100,14 +100,16 @@
               {{row.onzmClass}}
             </mat-cell>
           </ng-container>
+
           <!-- No. of tetrads Column -->
-          <ng-container matColumnDef="numberOfTetrads">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads">No. of tetrads</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">No. of tetrads</span>
+          <ng-container  matColumnDef="numberOfTetrads">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads" >No. of tetrads</mat-header-cell>
+            <mat-cell  *matCellDef="let row">
+              <span  class="mobile-label">No. of tetrads</span>
               {{row.numberOfTetrads}}
             </mat-cell>
           </ng-container>
+
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>

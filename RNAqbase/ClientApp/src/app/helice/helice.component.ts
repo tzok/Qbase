@@ -22,7 +22,7 @@ export class HeliceComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
-    'sequence', 'numberOfStrands', 'numberOfQudaruplexes', 'numberOfTetrads', 'select'
+    'sequence', 'type_strand', 'numberOfQudaruplexes', 'numberOfTetrads', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
@@ -61,6 +61,11 @@ export class HeliceComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  truncate(source) {
+    let size = 30;
+    return source.length > size ? source.slice(0, size - 1) + "…" : source;
   }
 
 }

@@ -75,14 +75,14 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Sequence</span>
-              {{row.sequence}}
+              {{truncate(row.sequence)}}
             </mat-cell>
           </ng-container>
           <!-- No. of strands Column -->
-          <ng-container matColumnDef="numberOfStrands">
+          <ng-container matColumnDef="type_strand">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by strand numer)</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span class="mobile-label">No. of Strands</span>
+              <span class="mobile-label">Type (by strand numer)</span>
               {{row.numberOfStrands}}
             </mat-cell>
           </ng-container>
@@ -90,7 +90,7 @@
           <ng-container matColumnDef="numberOfQudaruplexes">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfQudaruplexes">No. of quadruplexes</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Type</span>
+              <span class="mobile-label">No. of quadruplexes</span>
               {{row.numberOfQudaruplexes}}
             </mat-cell>
           </ng-container>

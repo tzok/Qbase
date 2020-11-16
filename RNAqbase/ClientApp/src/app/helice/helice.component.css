@@ -3,6 +3,11 @@
   /*max-height: 500px;*/
 }
 
+.mat-column-id, .mat-column-pdbId, .mat-column-pdbDeposition, .mat-column-assemblyId, .mat-column-molecule, .mat-column-type_strand, .mat-column-numberOfQudaruplexes, .mat-column-numberOfTetrads{
+  flex: 0 0 10%;
+}
+
+
 .mobile-label {
   display: none;
 }

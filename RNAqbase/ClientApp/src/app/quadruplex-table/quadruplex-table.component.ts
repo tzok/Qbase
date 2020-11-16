@@ -22,7 +22,7 @@ export class QuadruplexTableComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
-    'sequence', 'numberOfStrands', 'type', 'onzmClass', 'numberOfTetrads', 'select'
+    'sequence', 'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
@@ -61,7 +61,10 @@ export class QuadruplexTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-
+ truncate(source) {
+    let size = 30;
+    return source.length > size ? source.slice(0, size - 1) + "…" : source;
+}
 
 }
 
