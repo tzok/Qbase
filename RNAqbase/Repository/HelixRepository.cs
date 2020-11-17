@@ -129,18 +129,17 @@ namespace RNAqbase.Repository
             }
         }
 
-        public async Task<List<Helix>> GetAllHelices()
+        public async Task<List<HelicesWithoutVisualizations>> GetAllHelices()
 	    {
 		    using (var connection = Connection)
 		    {
 			    connection.Open();
 
-			    return (await connection.QueryAsync<Helix>(
+			    return (await connection.QueryAsync<HelicesWithoutVisualizations>(
                     @"
                         SELECT DISTINCT ON(h.id)
 	                        h.id AS Id,
-	                        p.identifier AS PdbIdentifier,
-	                        n1.pdb_id AS PdbId,
+	                        p.identifier AS PdbId,
 	                        to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 	                        p.assembly AS AssemblyId,
 	                        n1.molecule AS Molecule,
@@ -148,9 +147,6 @@ namespace RNAqbase.Repository
 	                        COUNT(t.id) AS NumberOfTetrads,
 	                        p.experiment AS Experiment,
 	                        COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
-	                       -- h.visualization_2d AS Visualization2D,
-	                        -- h.visualization_3d AS Visualization3D,
-	                        -- h.arc_diagram AS ArcDiagram,
 	                        CASE
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 									WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
@@ -168,6 +164,8 @@ namespace RNAqbase.Repository
                         GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d")).ToList();
 		    }
 	}
+        
+       
         
         
         public async Task<MemoryStream> GetHelix3dVisualization(int id)

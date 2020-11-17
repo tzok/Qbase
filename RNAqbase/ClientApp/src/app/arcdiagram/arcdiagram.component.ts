@@ -22,6 +22,7 @@ export class ArcdiagramComponent implements OnInit {
   ngOnInit() {
     this.setId();
     this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+    console.log(this.svg);
   }
 
   setId() {

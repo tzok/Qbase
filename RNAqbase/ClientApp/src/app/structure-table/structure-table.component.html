@@ -21,8 +21,8 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">PDB ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
-              <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbIdentifier}}">
-                {{row.pdbIdentifier}} <span> <img src = "qbase-static/{{row.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span>
+              <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">
+                {{row.pdbId}} <span> <img src = "qbase-static/{{row.pdbId}}-1.png" width="150" height="150"  alt=""> </span>
 
               </a>
             </mat-cell>

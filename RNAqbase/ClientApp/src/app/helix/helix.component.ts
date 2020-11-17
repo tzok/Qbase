@@ -9,6 +9,8 @@ import { VisualizationDialogComponent } from '../visualization-dialog/visualizat
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
+import * as svg from 'save-svg-as-png';
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 
 @Component({
@@ -29,12 +31,15 @@ export class HelixComponent implements OnInit {
   HelixReferenceInformations: HelixReferenceInformations;
   helixId: number;
   sub;
+  svg_varna: SafeHtml;
+  svg_arc: SafeHtml;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private dialog: MatDialog)
     { }
 
@@ -48,7 +53,10 @@ export class HelixComponent implements OnInit {
         this.data = result;
         this.data.tetradsIds = result.tetrads.join(";");
         this.data.quadruplexIds = result.quadruplexes.join(";")
-
+        this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
+        this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+        this.data.visualization2D = this.setId(result.visualization2D, '_varna');
+        this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
 
         this.HelixReferenceInformations = {
           id: this.data.id,
@@ -62,6 +70,7 @@ export class HelixComponent implements OnInit {
           numberOfTetrads: this.data.numberOfTetrads,
           tetradsIds: this.data.tetradsIds,
           quadruplexIds: this.data.quadruplexIds
+
         }
 
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.helixId).subscribe(result => {
@@ -118,23 +127,14 @@ export class HelixComponent implements OnInit {
     });
   }
 
-/*
-   saveAsZip(){
-     let zip = new JSZip();
-     zip.file("Hello.txt", "Hello world\n");
-
-     jQuery("#blob").on("click", function () {
-       zip.generateAsync({type:"blob"}).then(function (blob) { // 1) generate the zip file
-         saveAs(blob, "hello.zip");                          // 2) trigger the download
-       }, function (err) {
-         jQuery("#blob").text(err);
-       });
-     });
+  setId(image: any, label: string) {
+    let tmp = image.indexOf( "<svg" ) + 4;
+    let id = " id=" + this.data.id + label;
+    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
+    return image;
   }
-*/
 
-
-saveZip(){
+  saveZip(){
   let helix = this.generateFile([this.HelixReferenceInformations])
   let tetrads = this.generateFile(this.tetradsInformation)
   let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
@@ -149,6 +149,9 @@ saveZip(){
   zip.generateAsync({type: "blob"}).then(function(content) {
     FileSaver.saveAs(content, "data.zip");
   });
+
+  svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
+  svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
 
 }
 

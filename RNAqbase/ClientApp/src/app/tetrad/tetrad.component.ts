@@ -21,10 +21,12 @@ export class TetradComponent implements OnInit {
 
   data: Tetrad;
   csvData: Tetrad[];
-  tetradInformations: TetradInformations;
+  tetradInformations: TetradCSVInformations;
   tetradId: number;
   sub;
-  svg: SafeHtml;
+  svg_varna: SafeHtml;
+  svg_arc: SafeHtml;
+
 
   constructor(
     private http: HttpClient,
@@ -40,6 +42,12 @@ export class TetradComponent implements OnInit {
 
       this.http.get<Tetrad>(this.baseUrl + 'api/Tetrad/GetTetradById?id=' + this.tetradId).subscribe(result => {
         this.data = result;
+        //this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+        this.data.arcDiagram = this.setId(this.data.arcDiagram, '_arc');
+        this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+
+        this.data.visualization2D = this.setId(this.data.visualization2D, '_varna');
+        this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
 
         this.tetradInformations = {
           id: this.data.id,
@@ -55,7 +63,6 @@ export class TetradComponent implements OnInit {
           tetradsInTheSamePdb: '',
           tetradsInTheSameQuadruplex: ''
         }
-
 
         this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSamePdb?tetradId=' + this.data.id + '&pdbId=' + this.data.pdbId).subscribe(result => {
           if (result) {
@@ -93,10 +100,10 @@ export class TetradComponent implements OnInit {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
   showDotBracket() {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
-
 
   showStructure() {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
@@ -122,31 +129,16 @@ export class TetradComponent implements OnInit {
     return image;
   }
 
-  download(id: any){
-    console.log("tu2");
-    console.log(id);
-    console.log(this.data.arcDiagram);
-
-    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
-    console.log(document.getElementById(id));
-    console.log(this.svg);
-    svg.saveSvgAsPng(document.getElementById(id), 'image.png');
-  }
-
   saveZip(){
     let tetrad = this.generateFile([this.tetradInformations])
     let zip = new JSZip();
     zip.file("tetrad" + ".csv", tetrad);
-
     zip.generateAsync({type: "blob"}).then(function(content) {
       FileSaver.saveAs(content, "data.zip");
     });
 
-    this.data.arcDiagram = this.setId(this.data.arcDiagram, '_arc');
-   // this.data.visualization2D = this.setId(this.data.visualization2D, '_varna' );
-    this.download(this.data.id.toString() + "_arc");
-    //this.download(this.data.id.toString() + "_varna")
-
+    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
+    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
   }
 
   generateFile(data: any) {
@@ -185,7 +177,7 @@ interface Tetrad {
 }
 
 
-interface TetradInformations {
+interface TetradCSVInformations {
   id: number;
   quadruplexId: string;
   pdbId: number;

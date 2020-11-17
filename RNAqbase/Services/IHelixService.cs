@@ -9,7 +9,7 @@ namespace RNAqbase.Services
 {
 	public interface IHelixService
 	{
-		Task<List<Helix>> GetAllHelices();
+		Task<List<HelicesWithoutVisualizations>> GetAllHelices();
 		Task<Helix> GetHelixById(int id);
         Task<HelixReference> GetHelixReferenceById(int id);
         Task<MemoryStream> GetHelix3dVisualization(int id);

@@ -51,34 +51,35 @@ WHERE t.id = @Id;", new { Id = id });
 			}
 		}
 
-		public async Task<IEnumerable<Tetrad>> FindAll()
+		public async Task<IEnumerable<TetradsWithoutVisualizations>> FindAll()
 		{
-			//	t.visualization_3d as Visualization,
 			using (var connection = Connection)
 			{
 				connection.Open();
-				return await connection.QueryAsync<Tetrad>
+				return await connection.QueryAsync<TetradsWithoutVisualizations>
 				(@"
-SELECT t.id, 
-	t.quadruplex_id as ""QuadruplexIdAsInt"", 
-	pdb1.identifier as ""PdbIdentifier"", 
-	to_char(pdb1.release_date::date, 'YYYY-MM-DD') as ""PdbDeposition"",
-	COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
-	COALESCE(n1.molecule, 'Other') as ""Molecule"",
-	COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
-	t.onz as ""OnzClass"",
-	(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = q.id) as ""TetradsInQuadruplex""
-FROM tetrad t
-	JOIN quadruplex q on t.quadruplex_id = q.id
-	JOIN nucleotide n1 on t.nt1_id = n1.id
-	JOIN nucleotide n2 on t.nt2_id = n2.id
-	JOIN nucleotide n3 on t.nt3_id = n3.id
-	JOIN nucleotide n4 on t.nt4_id = n4.id
-	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
-ORDER BY t.id;");
+					SELECT t.id, 
+						t.quadruplex_id as ""QuadruplexId"", 
+						pdb1.identifier as ""PdbId"", 
+						to_char(pdb1.release_date::date, 'YYYY-MM-DD') as ""PdbDeposition"",
+						COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
+						COALESCE(n1.molecule, 'Other') as ""Molecule"",
+						COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
+						t.onz as ""OnzClass""
+					FROM tetrad t
+						JOIN quadruplex q on t.quadruplex_id = q.id
+						JOIN nucleotide n1 on t.nt1_id = n1.id
+						JOIN nucleotide n2 on t.nt2_id = n2.id
+						JOIN nucleotide n3 on t.nt3_id = n3.id
+						JOIN nucleotide n4 on t.nt4_id = n4.id
+						JOIN pdb pdb1 on n1.pdb_id = pdb1.id
+					ORDER BY t.id;");
 			}
 		}
 
+		
+		
+		
 		public async Task<IEnumerable<int>> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId)
 		{
 			using (var connection = Connection)

@@ -15,33 +15,22 @@ export class TetradTabelComponent implements OnInit {
 
   selection = new SelectionModel<Tetrad>(true, []);
   dataSource = new MatTableDataSource<Tetrad>();
-  visulization: Visualization3D[] = [];
   areButtonsHidden: boolean = true;
-
-  mapImage: any;
 
 @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['id', 'quadruplexId', 'pdbIdentifier', "pdbDeposition", 'assemblyId', 'molecule',
+  displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule',
     'sequence', 'onzClass', 'select'];
 
   constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
 
   ngOnInit() {
-
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
-
       this.dataSource = new MatTableDataSource(result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
-
-      this.http.get<Visualization3D[]>(this.baseUrl + 'api/Tetrad/GetAllVisualization3DFromTetrad').subscribe(result => {
-        this.visulization = result;
-        //this.mapImage = Object.assign({}, ...this.visulization.map(s => ({[s.id]: s.visualization3d})));
-
-      }, error => console.error(error));
       }, error => console.error(error));
   }
 
@@ -69,38 +58,16 @@ applyFilter(event: Event) {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  get3dStructure(tetradID:string) {
-   // if (Object.keys(this.mapImage).length === 0)
-     // return "https://i.pinimg.com/originals/10/b2/f6/10b2f6d95195994fca386842dae53bb2.png";
-   // return 'data:image/png;base64,' + this.mapImage[tetradID];
-
-    if(this.visulization.length == 0)
-      return "https://i1.wp.com/www.cssscript.com/wp-content/uploads/2014/10/iOS-OS-X-Style-Pure-CSS-Loading-Spinner.jpg?fit=400%2C300&ssl=1";
-
-    for (let val of this.visulization) {
-      if (val.id == tetradID)
-        return 'data:image/png;base64,' + val.visualization3d;
-    }
-
-
-  }
-
-}
-
-interface Visualization3D {
-  visualization3d: string;
-  id: string;
 }
 
 interface Tetrad {
   id: number;
-  quadruplexId: string;
-  pdbIdentifier: string;
+  quadruplexId: number;
+  pdbId: string;
   assemblyId: number;
   molecule: string;
   sequence: string;
   onzClass: string;
   pdbDeposition: string;
   select: boolean;
-  //visualization: string;
 }

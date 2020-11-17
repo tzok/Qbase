@@ -17,7 +17,7 @@ namespace RNAqbase.Services
 			this.quadruplexRepository = quadruplexRepository;
 		}
 
-		public async Task<List<Quadruplex>> GetAllQuadruplexes() =>
+		public async Task<List<QuadruplexesWithoutVisualizations>> GetAllQuadruplexes() =>
 			await quadruplexRepository.GetAllQuadruplexes();
 
 		public async Task<Quadruplex> GetQuadruplexById(int id) =>

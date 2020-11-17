@@ -23,9 +23,9 @@ namespace RNAqbase.Services
 			this.helixRepository = helixRepository;
 			this.cache = cache;
 		}
-		public async Task<List<Helix>> GetAllHelices()
+		public async Task<List<HelicesWithoutVisualizations>> GetAllHelices()
 		{
-			if (!cache.TryGetValue(nameof(GetAllHelices), out List<Helix> result))
+			if (!cache.TryGetValue(nameof(GetAllHelices), out List<HelicesWithoutVisualizations> result))
 			{
 				result = await helixRepository.GetAllHelices();
 

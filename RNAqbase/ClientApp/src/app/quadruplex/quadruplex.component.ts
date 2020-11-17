@@ -19,10 +19,8 @@ import {Visualization3DComponent} from "../visualization3-d/visualization3-d.com
   styleUrls: ['./quadruplex.component.css']
 })
 export class QuadruplexComponent implements OnInit {
-
-  svg: SafeHtml;
-
-
+  svg_varna: SafeHtml;
+  svg_arc: SafeHtml;
   data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: [] };
   tetrads: TetradReference[];
   quadruplexInformations: QuadruplexInformations;
@@ -32,18 +30,17 @@ export class QuadruplexComponent implements OnInit {
 
   quadruplexId: string;
   sub;
-  private sanitizer: DomSanitizer
 
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private dialog: MatDialog) {
   }
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
       this.quadruplexId = params.get('quadruplexId');
 
       this.http.get<Quadruplex>(this.baseUrl + '' +
@@ -52,7 +49,6 @@ export class QuadruplexComponent implements OnInit {
         .subscribe(result => {
           this.data.id = result.id;
           this.data.pdbId = result.pdbId;
-          this.data.pdbIdentifier = result.pdbIdentifier;
           this.data.assemblyId = result.assemblyId;
           this.data.molecule = result.molecule;
           this.data.sequence = result.sequence;
@@ -62,14 +58,17 @@ export class QuadruplexComponent implements OnInit {
           this.data.numberOfTetrads = result.numberOfTetrads;
           this.data.type = result.type;
           this.data.chiAngle = result.chiAngle;
-          this.data.visualization2D = result.visualization2D;
-          this.data.arcDiagram = result.arcDiagram;
+
+          this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
+          this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+
+          this.data.visualization2D = this.setId(result.visualization2D, '_varna');
+          this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
 
 
           this.quadruplexInformations = {
             id: this.data.id,
             pdbId: this.data.pdbId,
-            pdbIdentifier: this.data.pdbIdentifier,
             assemblyId: this.data.assemblyId,
             molecule: this.data.molecule,
             experiment: this.data.experiment,
@@ -126,6 +125,9 @@ export class QuadruplexComponent implements OnInit {
                   this.data.tetrads = this.tetrads.map(({ id }) => id);
                   this.quadruplexInformations.tetrads = this.data.tetrads.join(';');
                   this.csvData = [this.data];
+
+
+
                 }, error => console.error(error));
             }, error => console.error(error));
         }, error => console.error(error));
@@ -135,6 +137,13 @@ export class QuadruplexComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
+  setId(image: any, label: string) {
+    let tmp = image.indexOf( "<svg" ) + 4;
+    let id = " id=" + this.data.id + label;
+    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
+    return image;
+  }
+
   showDotBracket() {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
   }
@@ -142,13 +151,11 @@ export class QuadruplexComponent implements OnInit {
   showStructure() {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
-        pdbId: this.data.pdbIdentifier,
+        pdbId: this.data.pdbId,
         url: this.baseUrl + 'api/Quadruplex/GetQuadruplex3dVisualizationMethod?id=' + this.data.id
-
       }
     });
   }
-
 
   showVarna() {
     let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D, id: this.data.id} });
@@ -158,22 +165,11 @@ export class QuadruplexComponent implements OnInit {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id:this.data.id } });
   }
 
-/*
-  saveImage(){
-    let x: MatDialogRef<VisualizationDialogComponent>;
-    let img = new VisualizationDialogComponent(x,{svg: this.data.visualization2D, id: this.data.id}, this.sanitizer);
-
-    img.setId();
-    img.download();
-}
-*/
-
   saveZip(){
     let quadruplex = this.generateFile([this.quadruplexInformations])
     let tetrads = this.generateFile(this.tetradsInformation)
     let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
     let zip = new JSZip();
-    //this.saveImage();
 
     zip.file("quadruplex" + ".csv", quadruplex);
     zip.file("tetrads" + ".csv", tetrads);
@@ -182,6 +178,8 @@ export class QuadruplexComponent implements OnInit {
       FileSaver.saveAs(content, "data.zip");
     });
 
+    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
+    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
   }
 
   generateFile(data: any) {
@@ -202,8 +200,7 @@ export class QuadruplexComponent implements OnInit {
 
 interface Quadruplex {
   id: string;
-  pdbId: number;
-  pdbIdentifier: string;
+  pdbId: string;
   assemblyId: number;
   molecule: string;
   experiment: string;
@@ -233,8 +230,7 @@ interface TetradReference {
 
 interface QuadruplexInformations {
   id: string;
-  pdbId: number;
-  pdbIdentifier: string;
+  pdbId: string;
   assemblyId: number;
   molecule: string;
   experiment: string;

@@ -89,8 +89,7 @@ export class StructureTableComponent implements OnInit {
 }
 
 interface Structure {
-  pdbId: number;
-  pdbIdentifier: string;
+  pdbId: string;
   assemblyId: number;
   molecule: string;
   experiment: string;

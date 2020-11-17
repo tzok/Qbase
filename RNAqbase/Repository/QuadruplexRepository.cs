@@ -91,20 +91,19 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 			}
 		}
 
-		public async Task<List<Quadruplex>> GetAllQuadruplexes()
+		public async Task<List<QuadruplexesWithoutVisualizations>> GetAllQuadruplexes()
 		{
 			using (var connection = Connection)
 			{
 				connection.Open();
 
-				return (await connection.QueryAsync<Quadruplex>(
+				return (await connection.QueryAsync<QuadruplexesWithoutVisualizations>(
                     @"
                     SELECT
 	                    MAX(q.id) AS Id,
 	                    MAX(q.onzm) AS OnzmClass,
-	                    MAX(p.identifier) AS PdbIdentifier,
 	                    to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-	                    MAX(n1.pdb_id) AS PdbId,
+						MAX(p.identifier) AS PdbId,
 	                    MAX(p.assembly) AS AssemblyId,
 	                    MAX(n1.molecule) AS Molecule,
 	                    STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
