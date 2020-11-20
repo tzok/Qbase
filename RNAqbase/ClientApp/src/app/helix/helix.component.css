@@ -74,12 +74,12 @@ main {
   width: 25% ;
 }
 
-.threeColumnsStyle{
+.threeColumnsStyle {
   width: 33.3%
 }
 
-.sixColumnsStyle {
-  width: 16.67%;
+.sevenColumnsStyle {
+  width: 14.28%;
 }
 
 .text-rectangle {

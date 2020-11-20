@@ -52,7 +52,6 @@ export class TetradComponent implements OnInit {
         this.tetradInformations = {
           id: this.data.id,
           quadruplexId: this.data.quadruplexId,
-          pdbId: this.data.pdbId,
           pdbIdentifier: this.data.pdbIdentifier,
           assemblyId: this.data.assemblyId,
           molecule: this.data.molecule,
@@ -180,7 +179,6 @@ interface Tetrad {
 interface TetradCSVInformations {
   id: number;
   quadruplexId: string;
-  pdbId: number;
   pdbIdentifier: string;
   assemblyId: number;
   molecule: string;

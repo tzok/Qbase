@@ -24,7 +24,7 @@ namespace RNAqbase.Repository
 				connection.Open();
 				return await connection.QueryAsync<int>
 				(@"
-					SELECT t.quadruplex_id
+					SELECT DISTINCT(t.quadruplex_id)
 					FROM tetrad t
 						JOIN nucleotide n on t.nt1_id=n.id
 					WHERE n.pdb_id=@PdbId
@@ -76,6 +76,7 @@ JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 JOIN PDB p ON n1.pdb_id = p.id
 WHERE q.id = @QuadruplexId
 GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visualization_2d, p.experiment, q.visualization_2d, q.arc_diagram, q.visualization_3d",
+					
 					new {QuadruplexId = id});
 
 				var ids = await connection.QueryAsync<int>(

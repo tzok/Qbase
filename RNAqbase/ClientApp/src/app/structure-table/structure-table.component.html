@@ -18,7 +18,7 @@
         <!--Pdb Id Column -->
         <div class="col-sm-8">
           <ng-container matColumnDef="pdbIdentifier">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">PDB ID</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbId">PDB ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
               <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">
@@ -89,7 +89,7 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by strand numer)</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by no. of strands)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">No. of strands</span>
               {{row.numberOfStrands}}

@@ -29,23 +29,24 @@
           <thead>
             <tr >
               <!-- <th>PDB</th> -->
-              <th class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">Assembly ID</th>
-              <th class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">Molecule</th>
-              <th class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">Experimental method</th>
-              <th class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">Type (by strand numer)</th>
-              <th class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">No. of quadruplexes</th>
-              <th class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">No. of tetrads</th>
+              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">PDB ID</th>
+              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Assembly ID</th>
+              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Molecule</th>
+              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Experimental method</th>
+              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Type (by no. of strands)</th>
+              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">No. of quadruplexes</th>
+              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">No. of tetrads</th>
             </tr>
           </thead>
           <tbody>
-            <tr class = "sixColumnsStyle">
-              <!-- <td><a target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}</a></td> -->
-              <td class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
-              <td class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
-              <td class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
-              <td class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfStrands}}</td>
-              <td class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfQudaruplexes}}</td>
-              <td class = "sixColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
+            <tr>
+              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span> </a></td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfStrands}}</td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfQudaruplexes}}</td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
             </tr>
           </tbody>
         </table>

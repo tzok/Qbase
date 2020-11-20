@@ -49,6 +49,7 @@ export class QuadruplexComponent implements OnInit {
         .subscribe(result => {
           this.data.id = result.id;
           this.data.pdbId = result.pdbId;
+          this.data.pdbIdentifier = result.pdbIdentifier;
           this.data.assemblyId = result.assemblyId;
           this.data.molecule = result.molecule;
           this.data.sequence = result.sequence;
@@ -68,7 +69,7 @@ export class QuadruplexComponent implements OnInit {
 
           this.quadruplexInformations = {
             id: this.data.id,
-            pdbId: this.data.pdbId,
+            pdbIdentifier: this.data.pdbIdentifier,
             assemblyId: this.data.assemblyId,
             molecule: this.data.molecule,
             experiment: this.data.experiment,
@@ -94,6 +95,9 @@ export class QuadruplexComponent implements OnInit {
                 this.quadruplexInformations.quadruplexesInTheSamePdb = result.join(';');
               }
               else this.data.quadruplexesInTheSamePdb = [];
+
+              console.log(this.data.quadruplexesInTheSamePdb);
+              console.log(this.data.pdbId);
 
               this.http.get<TetradReference[]>(this.baseUrl + '' +
                 'api/Tetrad/GetListOfTetrads?id=' + '' +
@@ -200,7 +204,8 @@ export class QuadruplexComponent implements OnInit {
 
 interface Quadruplex {
   id: string;
-  pdbId: string;
+  pdbId: number;
+  pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
   experiment: string;
@@ -230,7 +235,7 @@ interface TetradReference {
 
 interface QuadruplexInformations {
   id: string;
-  pdbId: string;
+  pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
   experiment: string;

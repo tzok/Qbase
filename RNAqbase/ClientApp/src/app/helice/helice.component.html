@@ -35,7 +35,7 @@
 
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbIdentifier">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbId">
               PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -80,7 +80,7 @@
           </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="type_strand">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by strand numer)</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by no. of strands)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type (by strand numer)</span>
               {{row.numberOfStrands}}

@@ -34,14 +34,14 @@
               <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Assembly ID</th>
               <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Molecule</th>
               <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Experimental method</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Type (by strand numer)</th>
+              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Type (by no. of strands)</th>
               <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">No. of tetrads</th>
               <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">ONZM class</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbId}}">{{data.pdbId}}  <span> <img src = "qbase-static/{{data.pdbId}}-1.png" width="150" height="150"  alt=""> </span> </a></td>
+              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span> </a></td>
               <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
               <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
               <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
@@ -141,7 +141,7 @@
       <div class="lists">
         <div class="list">
           <p>
-            Number of quadruplexes in {{data.pdbId}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
+            Number of quadruplexes in {{data.pdbIdentifier}}: <b>{{data.quadruplexesInTheSamePdb.length + 1}}</b>
           </p>
         </div>
         <div class="list">
