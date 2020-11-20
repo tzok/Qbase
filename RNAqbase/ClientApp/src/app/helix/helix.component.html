@@ -40,7 +40,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span> </a></td>
+              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="200" height="150"  alt=""> </span> </a></td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
@@ -89,7 +89,7 @@
           <tr *ngFor="let q of quadruplexes">
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">
               <a class = "hasTooltip" [routerLink]="['/quadruplex', q.id]">Q{{q.id}}
-                <span> <img src = "qbase-static/Q{{q.id}}.png" width="150" height="150"  alt=""> </span>
+                <span> <img src = "qbase-static/Q{{q.id}}.png" width="200" height="150"  alt=""> </span>
             </a></td>
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.sequence}}</td>
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.onzmClass}}</td>

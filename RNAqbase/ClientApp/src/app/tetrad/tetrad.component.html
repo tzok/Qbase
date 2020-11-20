@@ -38,8 +38,8 @@
         <tbody>
           <tr>
             <td style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
-            <td  style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a class="hasTooltip" [routerLink]="['/quadruplex', data.quadruplexId]">Q{{data.quadruplexId}}<span> <img src = "qbase-static/Q{{data.quadruplexId}}.png" width="150" height="150"  alt=""> </span> </a></td>
-            <td style="text-align: center; vertical-align: middle;" ><a class="hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}<span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="150" height="150"  alt=""> </span>   </a></td>
+            <td  style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a class="hasTooltip" [routerLink]="['/quadruplex', data.quadruplexId]">Q{{data.quadruplexId}}<span> <img src = "qbase-static/Q{{data.quadruplexId}}.png" width="200" height="150"  alt=""> </span> </a></td>
+            <td style="text-align: center; vertical-align: middle;" ><a class="hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}<span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="200" height="150"  alt=""> </span>   </a></td>
             <td style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
             <td style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
             <td style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
