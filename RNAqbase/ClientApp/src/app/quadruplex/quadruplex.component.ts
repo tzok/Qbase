@@ -161,7 +161,6 @@ export class QuadruplexComponent implements OnInit {
     let id = " width=150px height=150px ";
     image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
     return image;
-
   }
 
 

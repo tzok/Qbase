@@ -16,15 +16,31 @@ namespace RNAqbase.Models
             get
             {
                 var sb = new StringBuilder();
-                var index = C1[0].IndexOf(CoordinatesStart, StringComparison.Ordinal);
                 sb.AppendLine("data_onquadro");
-                sb.AppendLine(C1[0].Substring(0, index - 1));
+                sb.AppendLine(
+                    @"loop_
+				_atom_site.group_PDB
+				_atom_site.id
+				_atom_site.auth_atom_id
+				_atom_site.label_alt_id
+				_atom_site.auth_comp_id
+				_atom_site.auth_asym_id
+				_atom_site.auth_seq_id
+				_atom_site.pdbx_PDB_ins_code
+				_atom_site.Cartn_x
+				_atom_site.Cartn_y
+				_atom_site.Cartn_z
+				_atom_site.occupancy
+				_atom_site.B_iso_or_equiv
+				_atom_site.type_symbol
+				_atom_site.pdbx_formal_charge
+					");
                 for (int i = 0; i < C1.Length; i++)
                 {
-                    sb.Append(C1[i].Substring(index));
-                    sb.Append(C2[i].Substring(index));
-                    sb.Append(C3[i].Substring(index));
-                    sb.Append(C4[i].Substring(index));
+                    sb.Append(C1[i] + '\n');
+                    sb.Append(C2[i] + '\n');
+                    sb.Append(C3[i] + '\n');
+                    sb.Append(C4[i] + '\n');
                 }
                 Console.WriteLine(sb.ToString());
                 return sb.ToString();

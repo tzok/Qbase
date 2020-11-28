@@ -26,7 +26,14 @@ export class VisualizationDialogComponent implements OnInit {
 
   ngOnInit() {
     this.setId();
+    this.setSize()
     this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+  }
+
+  setSize(){
+    let tmp = this.data.svg.indexOf( "<svg" ) + 4;
+    let id = " width=500px height=500px ";
+    this.data.svg = [this.data.svg.slice(0, tmp), id, this.data.svg.slice(tmp)].join('');
   }
 
   setSvgPic(){
