@@ -61,6 +61,7 @@ export class QuadruplexComponent implements OnInit {
           this.data.numberOfTetrads = result.numberOfTetrads;
           this.data.type = result.type;
           this.data.chiAngle = result.chiAngle;
+          this.data.dot_bracket = result.dot_bracket;
 
           this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
           this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
@@ -88,7 +89,8 @@ export class QuadruplexComponent implements OnInit {
             sequence: this.data.sequence,
             onzmClass: this.data.onzmClass,
             quadruplexesInTheSamePdb: '',
-            tetrads: ''
+            tetrads: '',
+            dot_bracket: this.data.dot_bracket
 
           }
 
@@ -237,7 +239,7 @@ interface Quadruplex {
   visualization2D: string;
   arcDiagram_icon: string;
   visualization2D_icon: string;
-
+  dot_bracket: string;
 }
 
 interface TetradReference {
@@ -264,6 +266,7 @@ interface QuadruplexInformations {
   onzmClass: string;
   quadruplexesInTheSamePdb: string;
   tetrads: string;
+  dot_bracket: string;
 }
 
 interface TetradInformations {

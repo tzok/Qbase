@@ -50,6 +50,7 @@ SELECT DISTINCT ON (q.id)
 	q.onzm AS OnzmClass,
 	p.identifier AS PdbIdentifier,
 	n1.pdb_id AS PdbId,
+	q.dot_bracket AS Dot_bracket,
 	p.assembly AS AssemblyId,
 	n1.molecule AS Molecule,
 	STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,

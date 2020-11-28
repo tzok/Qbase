@@ -28,6 +28,7 @@ SELECT t.id,
 	t.quadruplex_id as ""QuadruplexIdAsInt"", 
 	t.arc_diagram as ""ArcDiagram"",
 	t.visualization_2d as ""Visualization2D"",
+	t.dot_bracket as ""Dot_bracket"",
 	pdb1.identifier as ""PdbIdentifier"", 
 	pdb1.id as ""PdbId"", 
 	pdb1.experiment as ""Experiment"",
@@ -178,7 +179,7 @@ WHERE n1.pdb_id = @PdbId
 						JOIN nucleotide n2 on t.nt2_id = n2.id
 						JOIN nucleotide n3 on t.nt3_id = n3.id
 						JOIN nucleotide n4 on t.nt4_id = n4.id
-					WHERE t.id = @Id;", new { id = tetradId });
+					WHERE t.id = @Id;", new { Id = tetradId });
 
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);

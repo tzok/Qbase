@@ -15,13 +15,10 @@ namespace RNAqbase.Models
 			get
 			{
 				var sb = new StringBuilder();
-				var index = C1.IndexOf(CoordinatesStart, StringComparison.Ordinal);
-				sb.AppendLine("data_onquadro");
-				sb.AppendLine(C1.Substring(0, index - 1));
-				sb.Append(C1.Substring(index));
-				sb.Append(C2.Substring(index));
-				sb.Append(C3.Substring(index));
-				sb.Append(C4.Substring(index));
+				sb.Append(C1 + '\n');
+				sb.Append(C2 + '\n');
+				sb.Append(C3 + '\n');
+				sb.Append(C4);
 				Console.WriteLine(sb.ToString());
 				return sb.ToString();
 			}

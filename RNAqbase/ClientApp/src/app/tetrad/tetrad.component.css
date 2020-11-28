@@ -85,6 +85,7 @@ p {
 .dotbracket {
   font-family: "Courier New", Courier, monospace;
   margin: 5px;
+  white-space: pre-wrap;
 }
 
 .card {

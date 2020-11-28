@@ -11,6 +11,7 @@ namespace RNAqbase.Models
 		public int PdbId { get; set; }
 		public string PdbIdentifier { get; set; }
 		public int AssemblyId { get; set; }
+		public string Dot_bracket { get; set; }
 		public string Molecule { get; set; }
 		public string Sequence { get; set; }
 		public string OnzClass { get; set; }

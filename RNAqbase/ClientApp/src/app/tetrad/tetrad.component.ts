@@ -67,7 +67,8 @@ export class TetradComponent implements OnInit {
           planarity: this.data.planarity,
           experiment: this.data.experiment,
           tetradsInTheSamePdb: '',
-          tetradsInTheSameQuadruplex: ''
+          tetradsInTheSameQuadruplex: '',
+          dot_bracket: this.data.dot_bracket
         }
 
         this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSamePdb?tetradId=' + this.data.id + '&pdbId=' + this.data.pdbId).subscribe(result => {
@@ -190,6 +191,7 @@ interface Tetrad {
   visualization2D: string;
   arcDiagram_icon: string;
   visualization2D_icon: string;
+  dot_bracket: string;
 }
 
 
@@ -204,5 +206,6 @@ interface TetradCSVInformations {
   planarity: string;
   tetradsInTheSameQuadruplex: string;
   tetradsInTheSamePdb: string;
+  dot_bracket: string;
   experiment: string;
 }

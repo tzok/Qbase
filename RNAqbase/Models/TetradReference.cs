@@ -10,6 +10,7 @@ namespace RNAqbase.Models
 		public int Id { get; set; }
 		public string Sequence { get; set; }
 		public string OnzClass { get; set; }
+		public string Dot_bracket { get; set; }
 		public float Planarity { get; set; }
 		public float Twist { get; set; }
 		public float Rise { get; set; }

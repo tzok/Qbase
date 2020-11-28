@@ -79,7 +79,8 @@ export class HelixComponent implements OnInit {
           numberOfQudaruplexes: this.data.numberOfQudaruplexes,
           numberOfTetrads: this.data.numberOfTetrads,
           tetradsIds: this.data.tetradsIds,
-          quadruplexIds: this.data.quadruplexIds
+          quadruplexIds: this.data.quadruplexIds,
+          dot_bracket: this.data.dot_bracket
 
         }
 
@@ -230,6 +231,7 @@ interface HelixReference {
   visualization2D: string;
   arcDiagram_icon: string;
   visualization2D_icon: string;
+  dot_bracket: string;
 
 }
 
@@ -245,6 +247,7 @@ interface HelixReferenceInformations {
   numberOfTetrads: number;
   tetradsIds: string;
   quadruplexIds: string;
+  dot_bracket: string;
 }
 
 

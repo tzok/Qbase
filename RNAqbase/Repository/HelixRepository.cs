@@ -83,6 +83,7 @@ namespace RNAqbase.Repository
 	                            h.id AS Id,
 	                            p.identifier AS PdbIdentifier,
 	                            n1.pdb_id AS PdbId,
+	                            h.dot_bracket AS Dot_bracket,
                                 to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 	                            p.assembly AS AssemblyId,
 	                            n1.molecule AS Molecule,
