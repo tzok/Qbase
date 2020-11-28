@@ -26,7 +26,8 @@ export class TetradComponent implements OnInit {
   sub;
   svg_varna: SafeHtml;
   svg_arc: SafeHtml;
-
+  svg_varna_icon: SafeHtml;
+  svg_arc_icon: SafeHtml;
 
   constructor(
     private http: HttpClient,
@@ -37,17 +38,23 @@ export class TetradComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
       this.tetradId = +params.get('tetradId');
 
       this.http.get<Tetrad>(this.baseUrl + 'api/Tetrad/GetTetradById?id=' + this.tetradId).subscribe(result => {
         this.data = result;
-        //this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
-        this.data.arcDiagram = this.setId(this.data.arcDiagram, '_arc');
-        this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
 
-        this.data.visualization2D = this.setId(this.data.visualization2D, '_varna');
+        this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
+        this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+        this.data.arcDiagram_icon = this.setId(result.arcDiagram, '_arc');
+        this.data.arcDiagram_icon = this.setSize(this.data.arcDiagram_icon);
+        this.svg_arc_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram_icon);
+
+
+        this.data.visualization2D = this.setId(result.visualization2D, '_varna');
         this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
+        this.data.visualization2D_icon = this.setId(result.visualization2D, '_varna');
+        this.data.visualization2D_icon = this.setSize(this.data.visualization2D_icon);
+        this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
         this.tetradInformations = {
           id: this.data.id,
@@ -128,6 +135,14 @@ export class TetradComponent implements OnInit {
     return image;
   }
 
+  setSize(image: any){
+    let tmp = image.indexOf( "<svg" ) + 4;
+    let id = " width=150px height=150px ";
+    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
+    return image;
+
+  }
+
   saveZip(){
     let tetrad = this.generateFile([this.tetradInformations])
     let zip = new JSZip();
@@ -173,6 +188,8 @@ interface Tetrad {
   experiment: string;
   arcDiagram: string;
   visualization2D: string;
+  arcDiagram_icon: string;
+  visualization2D_icon: string;
 }
 
 

@@ -16,9 +16,9 @@ namespace RNAqbase.Controllers
 		}
 
 		[HttpGet("[action]")]
-		public async Task<IActionResult> GetVisualizationById(int pdbId)
+		public async Task<IActionResult> GetVisualizationById(string pdbId)
 		{
-			if(pdbId == 0) return BadRequest();
+			if(pdbId == null) return BadRequest();
 			string svg = await repository.GetVisualizationByPdbId(pdbId);
 			return base.Ok(svg);
 		}

@@ -33,6 +33,8 @@ export class HelixComponent implements OnInit {
   sub;
   svg_varna: SafeHtml;
   svg_arc: SafeHtml;
+  svg_varna_icon: SafeHtml;
+  svg_arc_icon: SafeHtml;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +47,6 @@ export class HelixComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
       this.helixId = +params.get('helixId');
 
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
@@ -53,10 +54,19 @@ export class HelixComponent implements OnInit {
         this.data = result;
         this.data.tetradsIds = result.tetrads.join(";");
         this.data.quadruplexIds = result.quadruplexes.join(";")
+
         this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
         this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+        this.data.arcDiagram_icon = this.setId(result.arcDiagram, '_arc');
+        this.data.arcDiagram_icon = this.setSize(this.data.arcDiagram_icon);
+        this.svg_arc_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram_icon);
+
+
         this.data.visualization2D = this.setId(result.visualization2D, '_varna');
         this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
+        this.data.visualization2D_icon = this.setId(result.visualization2D, '_varna');
+        this.data.visualization2D_icon = this.setSize(this.data.visualization2D_icon);
+        this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
         this.HelixReferenceInformations = {
           id: this.data.id,
@@ -130,6 +140,15 @@ export class HelixComponent implements OnInit {
     image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
     return image;
   }
+
+  setSize(image: any){
+    let tmp = image.indexOf( "<svg" ) + 4;
+    let id = " width=150px height=150px ";
+    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
+    return image;
+
+  }
+
 
   saveZip(){
   let helix = this.generateFile([this.HelixReferenceInformations])
@@ -209,6 +228,9 @@ interface HelixReference {
   visualization3D: any;
   arcDiagram: string;
   visualization2D: string;
+  arcDiagram_icon: string;
+  visualization2D_icon: string;
+
 }
 
 interface HelixReferenceInformations {

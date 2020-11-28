@@ -11,16 +11,16 @@ namespace RNAqbase.Repository
 		{
 		}
 
-		public async Task<string> GetVisualizationByPdbId(int pdbId)
+		public async Task<string> GetVisualizationByPdbId(string pdbId)
 		{
 			using (var connection = Connection)
 			{
 				connection.Open();
 				var result = await connection.QueryAsync<string>
 					(@"
-SELECT visualization_2d
-FROM pdb
-WHERE id = @PdbId;", new {PdbId = pdbId});
+					SELECT visualization_2d
+					FROM pdb
+					WHERE identifier = @PdbId;", new {PdbId = pdbId});
 
 				return result.FirstOrDefault();
 			}

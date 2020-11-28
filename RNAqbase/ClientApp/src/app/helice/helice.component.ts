@@ -30,6 +30,16 @@ export class HeliceComponent implements OnInit {
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
+
+        this.dataSource.filterPredicate = (data: Helix, filter: string): boolean => {
+          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
+            return (currentTerm + (data as { [key: string]: any })[key] + '◬');
+          }, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+          const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+          return dataStr.indexOf(transformedFilter) != -1;
+        }
+
       console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

@@ -93,8 +93,13 @@ main {
 p {
   font-size: large;
   line-height: 1.5;
+}
+
+.dotbracket {
+  font-family: "Courier New", Courier, monospace;
   margin: 5px;
 }
+
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */

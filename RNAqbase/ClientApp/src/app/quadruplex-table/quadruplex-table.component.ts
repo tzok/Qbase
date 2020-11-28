@@ -30,11 +30,23 @@ export class QuadruplexTableComponent implements OnInit {
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
-        this.dataSource.paginator = this.paginator;
+
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string): boolean => {
+          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
+            return (currentTerm + (data as { [key: string]: any })[key] + '◬');
+          }, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+          const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+          return dataStr.indexOf(transformedFilter) != -1;
+        }
+
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
+
       },
       error => console.error(error));
+
   }
 
   applyFilter(event: Event) {

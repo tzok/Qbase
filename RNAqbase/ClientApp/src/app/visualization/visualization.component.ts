@@ -12,6 +12,7 @@ export class VisualizationComponent implements OnInit {
   picture: any;
   image: string;
   sanitizedImageData: SafeResourceUrl;
+  url = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=RNAcentral/URS0000000001";
 
   constructor(public dialogRef: MatDialogRef<VisualizationComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData, private sanitizer: DomSanitizer) { }

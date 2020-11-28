@@ -19,12 +19,10 @@
         <div class=" col-lg-2 col-sm-6 saveDataButton">
 
         <a class="mat-button" (click) = saveZip()>Save tables</a>
-
         </div>
       </div>
 
-
-      <div class="col tetradtable">
+      <div class="tetradtable">
         <table class="table" style="border:1px solid black;"  >
           <thead>
             <tr >
@@ -52,22 +50,51 @@
         </table>
       </div>
 
-      <br />
-      <h5>Sequence:</h5>
-      <p>{{data.sequence}}</p>
-
-      <br />
-      <h5>Secondary structure:</h5>
-
-      <div class="row">
-        <button >Dot-bracket encoding</button>
-        <button (click)="showDiagram()" >Arc diagram</button>
-        <button (click) = "showVarna()" >VARNA drawing</button>
+      <div>
+        <h5>Dot-bracked:</h5>
+        <p class="dotbracket">TGGTGGTGGTTGTTGTGGTGGTGGTGGT</p>
+        <p class="dotbracket">.([.)].([..)..].([.)].([.)].</p>
+        <p class="dotbracket">.([.([.)]..)..].([.([.)].)]...</p>
       </div>
 
-      <h5>3D structure:</h5>
-      <div class="row">
-        <button (click) = "showStructure()" >View</button>
+
+      <div class="quadruplextable">
+        <table class="table" style="border:1px solid black;">
+          <thead>
+          <tr>
+            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">VARNA</th>
+            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">Arc diagram</th>
+            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">3D structure</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <div [innerHTML]="svg_varna_icon"> </div>
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <div [innerHTML]="svg_arc_icon"></div>
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <img src = "qbase-static/Q{{data.id}}.png" width="200" height="150"  alt="">
+            </td>
+
+          </tr>
+
+          <tr>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <button (click)="showVarna()">View</button>
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <button (click)="showDiagram()">View</button>
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <button (click)="showStructure()">View</button>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
       </div>
 
       <br />
@@ -135,7 +162,7 @@
 
     <h5>Tetrads pairs in H{{data.id}}:</h5>
 
-    <div class="col quadruplextable">
+    <div class="quadruplextable">
       <table class="table" style="border:1px solid black;">
         <thead>
           <tr>

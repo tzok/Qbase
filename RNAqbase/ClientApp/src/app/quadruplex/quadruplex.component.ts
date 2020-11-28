@@ -21,6 +21,8 @@ import {Visualization3DComponent} from "../visualization3-d/visualization3-d.com
 export class QuadruplexComponent implements OnInit {
   svg_varna: SafeHtml;
   svg_arc: SafeHtml;
+  svg_varna_icon: SafeHtml;
+  svg_arc_icon: SafeHtml;
   data: Quadruplex = <Quadruplex>{ quadruplexesInTheSamePdb: [] };
   tetrads: TetradReference[];
   quadruplexInformations: QuadruplexInformations;
@@ -62,9 +64,16 @@ export class QuadruplexComponent implements OnInit {
 
           this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
           this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
+          this.data.arcDiagram_icon = this.setId(result.arcDiagram, '_arc');
+          this.data.arcDiagram_icon = this.setSize(this.data.arcDiagram_icon);
+          this.svg_arc_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram_icon);
+
 
           this.data.visualization2D = this.setId(result.visualization2D, '_varna');
           this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
+          this.data.visualization2D_icon = this.setId(result.visualization2D, '_varna');
+          this.data.visualization2D_icon = this.setSize(this.data.visualization2D_icon);
+          this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
 
           this.quadruplexInformations = {
@@ -95,9 +104,6 @@ export class QuadruplexComponent implements OnInit {
                 this.quadruplexInformations.quadruplexesInTheSamePdb = result.join(';');
               }
               else this.data.quadruplexesInTheSamePdb = [];
-
-              console.log(this.data.quadruplexesInTheSamePdb);
-              console.log(this.data.pdbId);
 
               this.http.get<TetradReference[]>(this.baseUrl + '' +
                 'api/Tetrad/GetListOfTetrads?id=' + '' +
@@ -147,6 +153,15 @@ export class QuadruplexComponent implements OnInit {
     image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
     return image;
   }
+
+  setSize(image: any){
+    let tmp = image.indexOf( "<svg" ) + 4;
+    let id = " width=150px height=150px ";
+    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
+    return image;
+
+  }
+
 
   showDotBracket() {
     let dialogRef = this.dialog.open(VisualizationComponent, {});
@@ -220,6 +235,9 @@ interface Quadruplex {
   tetrads: number[];
   arcDiagram: string;
   visualization2D: string;
+  arcDiagram_icon: string;
+  visualization2D_icon: string;
+
 }
 
 interface TetradReference {

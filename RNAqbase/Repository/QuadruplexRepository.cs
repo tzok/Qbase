@@ -242,7 +242,5 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 				
 			}
 		}
-		
-		
 	}
 }

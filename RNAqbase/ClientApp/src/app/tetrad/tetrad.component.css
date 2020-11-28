@@ -80,6 +80,10 @@ main {
 p {
   font-size: large;
   line-height: 1.5;
+}
+
+.dotbracket {
+  font-family: "Courier New", Courier, monospace;
   margin: 5px;
 }
 

@@ -1,4 +1,4 @@
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .quadruplextable {
     max-width: 100%;
     overflow-x: scroll;
@@ -81,6 +81,11 @@ main {
 p {
   font-size: large;
   line-height: 1.5;
+}
+
+
+.dotbracket {
+  font-family: "Courier New", Courier, monospace;
   margin: 5px;
 }
 
@@ -94,7 +99,6 @@ p {
 .p2{
   font-size: large;
   line-height: 1.5;
-  margin: 5px;
   text-align: center;
 }
 
