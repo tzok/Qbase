@@ -30,6 +30,9 @@ export class HeliceComponent implements OnInit {
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
+        for (let val of result){
+          val.helixId =  'H' + val.id.toString();
+        }
 
         this.dataSource.filterPredicate = (data: Helix, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
@@ -83,6 +86,7 @@ export class HeliceComponent implements OnInit {
 
 interface Helix {
   id: string;
+  helixId: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

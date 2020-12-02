@@ -34,6 +34,9 @@ export class StructureTableComponent implements OnInit {
     this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
 
+        for (let val of result){
+          val.quadruplexId =  'Q' + val.id.toString();
+        }
         this.dataSource.filterPredicate = (data: Structure, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
             return (currentTerm + (data as { [key: string]: any })[key] + '◬');
@@ -104,6 +107,7 @@ interface Structure {
   molecule: string;
   experiment: string;
   id: number;
+  quadruplexId: string;
   numberOfStrands: number;
   onzmClass: string;
   pdbDeposition: string;

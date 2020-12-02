@@ -29,6 +29,11 @@ export class TetradTabelComponent implements OnInit {
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
 
+      for (let val of result){
+        val.tetradId =  'T' + val.id.toString();
+        val.qId = 'Q' + val.quadruplexId.toString();
+      }
+
       this.dataSource.filterPredicate = (data: Tetrad, filter: string): boolean => {
         const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
           return (currentTerm + (data as { [key: string]: any })[key] + '◬');
@@ -72,7 +77,9 @@ applyFilter(event: Event) {
 
 interface Tetrad {
   id: number;
+  tetradId: string;
   quadruplexId: number;
+  qId: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

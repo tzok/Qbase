@@ -83,7 +83,7 @@
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Quadruplex ID</span>
               <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id]">
-                Q{{row.id}} <span> <img src = "qbase-static/Q{{row.id}}.png" width="200" height="150"  alt=""> </span>
+                {{row.quadruplexId}} <span> <img src = "qbase-static/Q{{row.id}}.png" width="200" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>

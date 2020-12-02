@@ -27,7 +27,7 @@
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
               <a class = "hasTooltip"[routerLink]="['/helices', row.id]">
-                H{{row.id}} <span> <img src = "qbase-static/H{{row.id}}.png" width="200" height="150"  alt=""> </span>
+                {{row.helixId}} <span> <img src = "qbase-static/H{{row.id}}.png" width="200" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>
