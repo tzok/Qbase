@@ -64,8 +64,7 @@ SELECT DISTINCT ON (q.id)
 	CASE
 		WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 		WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-	    WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
-		ELSE ''
+	    ELSE 'tetramolecular'
  END 
  as NumberOfStrands
 FROM QUADRUPLEX q
@@ -115,8 +114,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 						CASE
 								WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 								WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-							    WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
-								ELSE ''
+								ELSE 'tetramolecular'
 					     END 
 						 as NumberOfStrands
                     FROM QUADRUPLEX q
@@ -154,8 +152,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 	                CASE
 						WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 1 THEN 'unimolecular'
 						WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 2 THEN  'bimolecular'
-					    WHEN COUNT(DISTINCT(CONCAT(n1.chain, n2.chain, n3.chain, n4.chain))) = 4 THEN  'tetramolecular'
-						ELSE ''
+					    ELSE 'tetramolecular'
 				 END 
  as NumberOfStrands
                 FROM QUADRUPLEX q

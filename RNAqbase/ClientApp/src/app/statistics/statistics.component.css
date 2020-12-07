@@ -1,5 +1,5 @@
 @media screen and (max-width: 600px) {
-  .quadruplextable {
+  .responsive-table {
     max-width: 100%;
     overflow-x: scroll;
   }
@@ -79,13 +79,6 @@ main {
   text-align: left;
 }
 
-.text-rectangle {
-  text-align: center;
-  background-color: #45A29E;
-  color: white;
-  margin-top: 10px;
-  padding: 5px;
-}
 
 p {
   font-size: large;
@@ -101,7 +94,7 @@ p {
 }
 
 .p2{
-  font-size: large;
+  font-size: x-large;
   line-height: 1.5;
   margin: 5px;
   text-align: center;
@@ -116,15 +109,14 @@ a.disabled {
   cursor: default;
 }
 
-.mat-button {
+a.mat-button {
   border-style: solid;
   border-width: 2px;
-  margin: 5px;
   border-radius: 5px;
-  background-color: #45A29E;
-  color: white;
+  background-color: lightgrey;
+  color: black;
+  padding: 3px;
 }
-
 .inputtext {
   display: inline-block;
   margin-right: 550px;
@@ -136,4 +128,27 @@ a.disabled {
   margin-right: 20px;
 }
 
+tr:last-child {
+  font-weight: bold;
+}
 
+.mat-button {
+  border-style: solid;
+  border-width: 2px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #45A29E;
+  color: white;
+}
+
+.text-rectangle {
+  text-align: center;
+  background-color: #45A29E;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.saveDataButton {
+  text-align: right;
+}

@@ -14,13 +14,13 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 export class StatisticsComponent implements OnInit {
 
-  topologyBaseTableOne: Table[];
-  topologyBaseTableTwo: Table[];
-  topologyBaseTableThere: Table[];
-  ELTetradoableOne: Table[];
-  ELTetradoableTwo: Table[];
-  ELTetradoableThereA: Table[];
-  ELTetradoableThereB: Table[];
+  topologyBaseTableOne: TopologyBaseTetradViewTableOne[];
+  topologyBaseTableTwo: TopologyBaseTetradViewTableTwo[];
+  topologyBaseTableThere: TopologyBaseTableThere[];
+  ELTetradoableOne: ElTetradoTetradViewTableOne[];
+  ELTetradoableTwo: ElTetradoTetradViewTableTwo[];
+  ELTetradoableThereA: ElTetradoTetradViewTableThereA[];
+  ELTetradoableThereB: ElTetradoTetradViewTableThereB[];
   sub;
 
   constructor(private http: HttpClient,
@@ -32,56 +32,126 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableOne').subscribe(result => {
-        this.topologyBaseTableOne = result;
+      this.http.get<TopologyBaseTetradViewTableOne[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableOne').subscribe(result => {
+
+        let cleanedResult:  TopologyBaseTetradViewTableOne[] = [];
+        for (let val of result) {
+          cleanedResult.push({
+            sequence: val.sequence,
+            dna: val.dna,
+            rna: val.rna,
+            other: val.other,
+            total: val.total
+          });
+        }
+        this.topologyBaseTableOne = cleanedResult;
+
+
       }, error => console.error(error));
     }, error => console.error(error));
 
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableTwo').subscribe(result => {
-        this.topologyBaseTableTwo = result;
+      this.http.get<TopologyBaseTetradViewTableTwo[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableTwo').subscribe(result => {
+
+        let cleanedResult:  TopologyBaseTetradViewTableTwo[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            numberOfTetrads: val.numberOfTetrads,
+            dna: val.dna,
+            rna: val.rna,
+            other: val.other,
+            total: val.total
+          });
+        }
+        this.topologyBaseTableTwo = cleanedResult;
+
+        }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<TopologyBaseTableThere[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableThere').subscribe(result => {
+        let cleanedResult:  TopologyBaseTableThere[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            chains: val.chains,
+            dna: val.dna,
+            rna: val.rna,
+            other: val.other,
+            total: val.total
+          });
+        }
+        this.topologyBaseTableThere = cleanedResult;
+
       }, error => console.error(error));
     }, error => console.error(error));
 
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableThere').subscribe(result => {
-        this.topologyBaseTableThere = result;
+      this.http.get<ElTetradoTetradViewTableOne[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableOne').subscribe(result => {
+        let cleanedResult:  ElTetradoTetradViewTableOne[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            onz: val.onz,
+            unimolecular: val.unimolecular,
+            bimolecular: val.bimolecular,
+            tetramolecular: val.tetramolecular,
+            total: val.total
+          });
+        }
+        this.ELTetradoableOne = cleanedResult;
+
       }, error => console.error(error));
     }, error => console.error(error));
 
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableOne').subscribe(result => {
-        this.ELTetradoableOne = result;
+      this.http.get<ElTetradoTetradViewTableTwo[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableTwo').subscribe(result => {
+        let cleanedResult:  ElTetradoTetradViewTableTwo[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            onzm: val.onzm,
+            plus: val.plus,
+            minus: val.minus,
+            star: val.star,
+            total: val.total
+          });
+        }
+        this.ELTetradoableTwo = cleanedResult;
+
       }, error => console.error(error));
     }, error => console.error(error));
 
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableTwo').subscribe(result => {
-        this.ELTetradoableTwo = result;
+      this.http.get<ElTetradoTetradViewTableThereA[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableThereA').subscribe(result => {
+        let cleanedResult:  ElTetradoTetradViewTableThereA[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            onzm: val.onzm,
+            plus: val.plus,
+            minus: val.minus,
+            star: val.star,
+            total: val.total
+          });
+        }
+        this.ELTetradoableThereA = cleanedResult;
+
       }, error => console.error(error));
     }, error => console.error(error));
 
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableThereA').subscribe(result => {
-        this.ELTetradoableThereA = result;
-      }, error => console.error(error));
-    }, error => console.error(error));
-
-    this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      console.log(params);
-      this.http.get<Table[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableThereB').subscribe(result => {
-        this.ELTetradoableThereB = result;
+      this.http.get<ElTetradoTetradViewTableThereB[]>(this.baseUrl + 'api/Statistics/GetElTetradoTetradViewTableThereB').subscribe(result => {
+        let cleanedResult:  ElTetradoTetradViewTableThereB[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            onzm: val.onzm,
+            plus: val.plus,
+            minus: val.minus,
+            star: val.star,
+            total: val.total
+          });
+        }
+        this.ELTetradoableThereB = cleanedResult;
       }, error => console.error(error));
     }, error => console.error(error));
   }
-
-
 }
 
 interface Table{
@@ -100,4 +170,60 @@ interface Table{
   minus: number;
   star: number;
   chains: string;
+}
+
+interface TopologyBaseTetradViewTableOne{
+  sequence: string;
+  dna: number;
+  rna: number;
+  other: number;
+  total: number;
+}
+
+interface TopologyBaseTetradViewTableTwo{
+  numberOfTetrads: string;
+  dna: number;
+  rna: number;
+  other: number;
+  total: number;
+}
+
+interface TopologyBaseTableThere{
+  chains: string;
+  dna: number;
+  rna: number;
+  other: number;
+  total: number;
+}
+
+interface ElTetradoTetradViewTableOne{
+  onz: string;
+  unimolecular: number;
+  bimolecular: number;
+  tetramolecular: number;
+  total: number;
+}
+
+interface ElTetradoTetradViewTableTwo{
+  onzm: string;
+  plus: number;
+  minus: number;
+  star: number;
+  total: number;
+}
+
+interface ElTetradoTetradViewTableThereA{
+  onzm: string;
+  plus: number;
+  minus: number;
+  star: number;
+  total: number;
+}
+
+interface ElTetradoTetradViewTableThereB{
+  onzm: string;
+  plus: number;
+  minus: number;
+  star: number;
+  total: number;
 }

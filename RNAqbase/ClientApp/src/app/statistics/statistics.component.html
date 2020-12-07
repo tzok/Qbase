@@ -10,12 +10,18 @@
       </p>
     </b>
 
-    <b>
-      <p> Table 1</p>
-    </b>
+    <div class="row ">
+      <div class="col-lg-10 col-sm-6">
+          <b><p> Table 1. Number of tetrads by sequence and molecule type<p></b>
+      </div>
 
+      <div class=" col-lg-2 col-sm-6 saveDataButton">
 
-    <div class="col tetradtable">
+        <a class="mat-button" csvLink [data]="topologyBaseTableOne">Save table</a>
+      </div>
+    </div>
+
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
@@ -32,16 +38,24 @@
           <td style="text-align: center; vertical-align: middle;">{{t.dna}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.rna}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.other}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;" ><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <b>
-      <p> Table 2</p>
-    </b>
-    <div class="col tetradtable">
+    <div class="row ">
+      <div class="col-lg-10 col-sm-6">
+        <b><p> Table 2. Number of quadruplexes composed of 2–12 tetrads</p></b>
+      </div>
+
+      <div class=" col-lg-2 col-sm-6 saveDataButton">
+
+        <a class="mat-button" csvLink [data]="topologyBaseTableTwo">Save table</a>
+      </div>
+    </div>
+
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
@@ -58,16 +72,24 @@
           <td style="text-align: center; vertical-align: middle;">{{t.dna}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.rna}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.other}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <b>
-      <p> Table 3</p>
-    </b>
-    <div class="col tetradtable">
+
+    <div class="row ">
+      <div class="col-lg-10 col-sm-6">
+        <b><p> Table 3. Number of uni-, bi- and tetramolecular quadruplexes</p></b>
+      </div>
+
+      <div class=" col-lg-2 col-sm-6 saveDataButton">
+
+        <a class="mat-button" csvLink [data]="topologyBaseTableThere">Save table</a>
+      </div>
+    </div>
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
@@ -84,7 +106,7 @@
           <td style="text-align: center; vertical-align: middle;">{{t.dna}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.rna}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.other}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
@@ -97,10 +119,18 @@
       </p>
     </b>
 
-    <b>
-      <p> Table 1</p>
-    </b>
-    <div class="col tetradtable">
+    <div class="row ">
+    <div class="col-lg-10 col-sm-6">
+      <b><p> Table 1 ONZ class coverage by uni-, bi- and tetramolecular tetrad</p></b>
+    </div>
+
+    <div class=" col-lg-2 col-sm-6 saveDataButton">
+
+      <a class="mat-button" csvLink [data]="ELTetradoableOne">Save table</a>
+    </div>
+    </div>
+
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
@@ -117,23 +147,28 @@
           <td style="text-align: center; vertical-align: middle;">{{t.unimolecular}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.bimolecular}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.tetramolecular}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <b>
-      <p> Table 2</p>
-    </b>
-    <div class="col tetradtable">
+    <div class="row ">
+    <div class="col-lg-10 col-sm-6">
+      <b><p> Table 2. ONZM class coverage by unimolecular quadruplexes</p></b>
+    </div>
+    <div class=" col-lg-2 col-sm-6 saveDataButton">
+      <a class="mat-button" csvLink [data]="ELTetradoableTwo">Save table</a>
+    </div>
+    </div>
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
           <th style="text-align: center; vertical-align: middle;">ONZM</th>
-          <th style="text-align: center; vertical-align: middle;">Plus</th>
-          <th style="text-align: center; vertical-align: middle;">Minus</th>
-          <th style="text-align: center; vertical-align: middle;">Star</th>
+          <th style="text-align: center; vertical-align: middle;">+</th>
+          <th style="text-align: center; vertical-align: middle;">-</th>
+          <th style="text-align: center; vertical-align: middle;">*</th>
           <th style="text-align: center; vertical-align: middle;">Total</th>
         </tr>
         </thead>
@@ -143,23 +178,28 @@
           <td style="text-align: center; vertical-align: middle;">{{t.plus}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.minus}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.star}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <b>
-      <p> Table 3a</p>
-    </b>
-    <div class="col tetradtable">
+    <div class="row ">
+      <div class="col-lg-10 col-sm-6">
+        <p> <b> Table 3a. ONZM class coverage by bimolecular quadruplexes</b></p>
+      </div>
+      <div class=" col-lg-2 col-sm-6 saveDataButton">
+        <a class="mat-button" csvLink [data]="ELTetradoableThereA">Save table</a>
+      </div>
+    </div>
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
           <th style="text-align: center; vertical-align: middle;">ONZM</th>
-          <th style="text-align: center; vertical-align: middle;">Plus</th>
-          <th style="text-align: center; vertical-align: middle;">Minus</th>
-          <th style="text-align: center; vertical-align: middle;">Star</th>
+          <th style="text-align: center; vertical-align: middle;">+</th>
+          <th style="text-align: center; vertical-align: middle;">-</th>
+          <th style="text-align: center; vertical-align: middle;">*</th>
           <th style="text-align: center; vertical-align: middle;">Total</th>
         </tr>
         </thead>
@@ -169,23 +209,28 @@
           <td style="text-align: center; vertical-align: middle;">{{t.plus}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.minus}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.star}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
     </div>
 
-    <b>
-      <p> Table 3b</p>
-    </b>
-    <div class="col tetradtable">
+    <div class="row ">
+      <div class="col-lg-10 col-sm-6">
+        <p> <b> Table 3b. ONZM class coverage by tetramolecular quadruplexes</b></p>
+      </div>
+      <div class=" col-lg-2 col-sm-6 saveDataButton">
+        <a class="mat-button" csvLink [data]="ELTetradoableThereB">Save table</a>
+      </div>
+    </div>
+    <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
         <tr>
           <th style="text-align: center; vertical-align: middle;">ONZM</th>
-          <th style="text-align: center; vertical-align: middle;">Plus</th>
-          <th style="text-align: center; vertical-align: middle;">Minus</th>
-          <th style="text-align: center; vertical-align: middle;">Star</th>
+          <th style="text-align: center; vertical-align: middle;">+</th>
+          <th style="text-align: center; vertical-align: middle;">-</th>
+          <th style="text-align: center; vertical-align: middle;">*</th>
           <th style="text-align: center; vertical-align: middle;">Total</th>
         </tr>
         </thead>
@@ -195,7 +240,7 @@
           <td style="text-align: center; vertical-align: middle;">{{t.plus}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.minus}}</td>
           <td style="text-align: center; vertical-align: middle;">{{t.star}}</td>
-          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+          <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
         </tr>
         </tbody>
       </table>
