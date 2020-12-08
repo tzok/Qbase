@@ -1,5 +1,5 @@
 .container {
-  min-height: 100%
+  min-height: 100%;
 }
 main {
   padding-bottom: 100px;
@@ -7,8 +7,9 @@ main {
   height: auto;
 }
 .row {
-  margin-top: 50px;
+  margin-top: 10px;
 }
+
 .text-rectangle {
   text-align: center;
   background-color: #45A29E;
@@ -52,7 +53,7 @@ h3:hover {
   -ms-flex-wrap: wrap; /* IE10 */
   flex-wrap: wrap;
   padding: 0 4px;
-  margin-top: 50px;
+  margin-top: 10px;
 
 }
 
@@ -62,7 +63,7 @@ h3:hover {
   flex: 25%;
   max-width: 25%;
   padding: 0 4px;
-  margin-top: 50px;
+  margin-top: 10px;
   text-align: center;
 }
 
@@ -73,9 +74,25 @@ h3:hover {
   text-align: center;
 }
 
+.column2 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+  max-width: 50%;
+  padding: 0 4px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.column2 img {
+  vertical-align: middle;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+}
+
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
-  .column {
+  .column,column2 {
     -ms-flex: 50%;
     flex: 50%;
     max-width: 50%;
@@ -84,7 +101,7 @@ h3:hover {
 
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .column {
+  .column, column2 {
     -ms-flex: 100%;
     flex: 100%;
     max-width: 100%;

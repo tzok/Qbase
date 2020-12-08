@@ -1,9 +1,16 @@
+<div style="  background: #F0F0F0;" >
 <div class="container">
   <main>
     <section>
       <div class="text-rectangle">
         <h2>ONQUADRO</h2>
       </div>
+    </section>
+
+    <br>
+      <mat-card>
+        <mat-card-content>
+
       <p align="justify">
         <b>ONQUADRO</b> database collects tetrads and quadruplexes found in PDB-deposited
         structures of nucleic acids. It stores their sequences, secondary and
@@ -11,13 +18,16 @@
         rise and twist parameters, ONZ classification, dot-bracket encoding, arc
         diagrams, etc. Graphical 2D and 3D views complement their characteristics.
       </p>
-    </section>
+
+
+    </mat-card-content>
+    </mat-card>
+
+<br/>
+
+    <mat-card>
+      <mat-card-content>
     <section>
-
-
-
-
-
 
       <div class="row">
         <div class="column">
@@ -47,8 +57,41 @@
             <h3>Structures</h3>
           </a>
         </div>
-
       </div>
     </section>
+
+      </mat-card-content>
+    </mat-card>
+
+    <br>
+    <mat-card>
+      <mat-card-content>
+        <div class="row">
+          <div class="column2">
+            <h5>Database includes:</h5>
+            <p> <b>1547</b> Tetrads </p>
+            <p> <b>484</b> Quadruplexes </p>
+            <p> <b>450</b> Helices </p>
+            <p> <b>484</b> Structures </p>
+          </div>
+
+          <div class="column2">
+            <img mat-card-image src="https://www.r-graph-gallery.com/img/graph/piechart-ggplot23.png">
+          </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
   </main>
+
 </div>
+</div>
+
+<!--
+
+select (select count(*) from quadruplex) as quadruplex_count,
+  (select count(*) from helix) as helix_count,
+   (select count(*) from tetrad) as tetrad_count
+
+-->

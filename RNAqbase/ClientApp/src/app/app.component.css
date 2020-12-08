@@ -7,3 +7,18 @@ footer {
   flex-shrink: 0;
   background-color: #282828;;
 }
+
+nav {
+  background-color: #282828;
+}
+.logoPP {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
+
+.logoIchb {
+  width: 70px;
+  height: 60px;
+  margin-right: 5px;
+}

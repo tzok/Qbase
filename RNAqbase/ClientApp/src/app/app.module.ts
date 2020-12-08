@@ -30,6 +30,7 @@ import { HeliceComponent } from './helice/helice.component';
 import { HelixComponent } from './helix/helix.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {MatIconModule} from "@angular/material/icon";
         MatDialogModule,
         CsvModule,
         MatTooltipModule,
-        MatIconModule
+        MatIconModule,
+        MatCardModule
     ],
   providers: [],
   bootstrap: [AppComponent],
