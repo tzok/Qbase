@@ -67,7 +67,7 @@
     <mat-card>
       <mat-card-content>
         <div class="row">
-          <div class="column2">
+          <div class="column2" style="margin-top: 50px">
             <h5>Database includes:</h5>
             <p> <b>1547</b> Tetrads </p>
             <p> <b>484</b> Quadruplexes </p>
@@ -76,8 +76,44 @@
           </div>
 
           <div class="column2">
-            <img mat-card-image src="https://www.r-graph-gallery.com/img/graph/piechart-ggplot23.png">
+            <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
           </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <br>
+    <mat-card>
+      <mat-card-content>
+        <div class="row">
+          <div class="column2">
+          <div style="display: block;">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+            </canvas>
+          </div>
+          </div>
+          <div class="column2" style="margin-top: 50px">
+            <h5>Last update: 20.12.03</h5>
+            <p> <b>+186</b> Tetrads </p>
+            <p> <b>+53</b> Quadruplexes </p>
+            <p> <b>+32</b> Helices </p>
+            <p> <b>+53</b> Structures </p>
+          </div>
+
+
         </div>
 
       </mat-card-content>

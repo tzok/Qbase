@@ -31,6 +31,8 @@ import { HelixComponent } from './helix/helix.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import { ChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import {MatCardModule} from "@angular/material/card";
         CsvModule,
         MatTooltipModule,
         MatIconModule,
-        MatCardModule
+        MatCardModule,
+        ChartsModule
+
     ],
   providers: [],
   bootstrap: [AppComponent],

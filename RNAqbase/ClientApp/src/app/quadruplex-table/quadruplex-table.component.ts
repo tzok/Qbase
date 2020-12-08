@@ -90,7 +90,7 @@ interface Quadruplex {
   assemblyId: number;
   molecule: string;
   sequence: string;
-  numberOfStrands: number;
+  numberOfStrands: string;
   type: string;
   onzmClass: string;
   numberOfTetrads: string;
