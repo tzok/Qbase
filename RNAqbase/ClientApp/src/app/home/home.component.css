@@ -92,7 +92,7 @@ h3:hover {
 
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
-  .column,column2 {
+  .column {
     -ms-flex: 50%;
     flex: 50%;
     max-width: 50%;
@@ -101,7 +101,23 @@ h3:hover {
 
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-  .column, column2 {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }}
+
+@media screen and (max-width: 1600px) {
+  .column2 {
+    -ms-flex: 50%;
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1200px) {
+  .column2 {
     -ms-flex: 100%;
     flex: 100%;
     max-width: 100%;

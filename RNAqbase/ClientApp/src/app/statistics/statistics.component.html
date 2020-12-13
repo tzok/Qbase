@@ -1,19 +1,35 @@
-<div class="container">
+<div class="container" *ngIf="topologyBaseTableOne">
   <main>
     <div class="text-rectangle">
       <h2>Statistics</h2>
     </div>
 
-    <b>
-      <p class = 'p2'>
-        Topology-based classification of
-        tetrads and quadruplex structures:
-      </p>
-    </b>
 
-    <div class="row ">
+    <div>
+      <mat-form-field appearance="fill" style="margin-top: 30px; width: 100%">
+        <mat-label>Select a table</mat-label>
+        <mat-select [(value)]="selected" disableOptionCentering panelClass="myPanelClass">
+          <mat-option value="topologyBaseTableOne">Number of tetrads by sequence and molecule type</mat-option>
+          <mat-option value="topologyBaseTableTwo">Number of quadruplexes composed of 2–12 tetrads</mat-option>
+          <mat-option value="topologyBaseTableThere">Number of uni-, bi- and tetramolecular quadruplexes</mat-option>
+
+          <mat-option value="ELTetradoableOne">ONZ class coverage by uni-, bi- and tetramolecular tetrad</mat-option>
+          <mat-option value="ELTetradoableTwo">ONZM class coverage by unimolecular quadruplexes</mat-option>
+          <mat-option value="ELTetradoableThereA">ONZM class coverage by bimolecular quadruplexes</mat-option>
+          <mat-option value="ELTetradoableThereB">Number of uni-, bi- and tetramolecular quadruplexes</mat-option>
+
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+
+    <!-- Number of tetrads by sequence and molecule type START -->
+
+    <div *ngIf="selected == 'topologyBaseTableOne'">
+    <div class="row">
       <div class="col-lg-10 col-sm-6">
-          <b><p> Table 1. Number of tetrads by sequence and molecule type<p></b>
+          <b><p>Number of tetrads by sequence and molecule type<p></b>
       </div>
 
       <div class=" col-lg-2 col-sm-6 saveDataButton">
@@ -45,9 +61,41 @@
       </table>
     </div>
 
-    <div class="row ">
+      <!--
+      <div class="container">
+        <div class="chart">
+          <igx-doughnut-chart #chart height="90%" width="100%" >
+            <igx-ring-series
+              [dataSource] = "months"
+              valueMemberPath="Value"
+              labelMemberPath="Label"
+              labelsPosition="Center"
+              brushes="#23c7d6, #23c7d6, #23c7d6,
+        #27c52f, #27c52f, #27c52f,
+        #eba613, #eba613, #eba613,
+        #b4b3b3, #b4b3b3, #b4b3b3">
+            </igx-ring-series>
+            <igx-ring-series
+              [dataSource] = "seasons"
+              valueMemberPath="Value"
+              labelMemberPath="Label"
+              labelsPosition="Center"
+              brushes="#1ea8b4, #20a026, #c78d0f, #888888" >
+            </igx-ring-series>
+          </igx-doughnut-chart>
+        </div>
+      </div>
+-->
+    </div>
+
+    <!-- Number of tetrads by sequence and molecule type END -->
+
+    <!-- Number of quadruplexes composed of 2–12 tetrads START-->
+
+    <div *ngIf="selected == 'topologyBaseTableTwo' && topologyBaseTableTwo">
+    <div class="row">
       <div class="col-lg-10 col-sm-6">
-        <b><p> Table 2. Number of quadruplexes composed of 2–12 tetrads</p></b>
+        <b><p>Number of quadruplexes composed of 2–12 tetrads</p></b>
       </div>
 
       <div class=" col-lg-2 col-sm-6 saveDataButton">
@@ -78,11 +126,16 @@
         </tbody>
       </table>
     </div>
+</div>
 
+    <!-- Number of quadruplexes composed of 2–12 tetrads END -->
 
-    <div class="row ">
+    <!-- Number of uni-, bi- and tetramolecular quadruplexes START -->
+
+  <div *ngIf="selected == 'topologyBaseTableThere' && topologyBaseTableThere">
+    <div class="row">
       <div class="col-lg-10 col-sm-6">
-        <b><p> Table 3. Number of uni-, bi- and tetramolecular quadruplexes</p></b>
+        <b><p>Number of uni-, bi- and tetramolecular quadruplexes</p></b>
       </div>
 
       <div class=" col-lg-2 col-sm-6 saveDataButton">
@@ -112,17 +165,16 @@
         </tbody>
       </table>
     </div>
+  </div>
 
-    <b>
-      <p class = 'p2'>
-        ElTetrado: a tool for identification and
-        classification of tetrads and quadruplexes
-      </p>
-    </b>
+    <!-- Number of uni-, bi- and tetramolecular quadruplexes END -->
 
-    <div class="row ">
+    <!-- ONZ class coverage by uni-, bi- and tetramolecular tetrad START -->
+
+    <div *ngIf="selected == 'ELTetradoableOne' && ELTetradoableOne">
+    <div class="row">
     <div class="col-lg-10 col-sm-6">
-      <b><p> Table 1 ONZ class coverage by uni-, bi- and tetramolecular tetrad</p></b>
+      <b><p>ONZ class coverage by uni-, bi- and tetramolecular tetrad</p></b>
     </div>
 
     <div class=" col-lg-2 col-sm-6 saveDataButton">
@@ -153,10 +205,16 @@
         </tbody>
       </table>
     </div>
+    </div>
 
-    <div class="row ">
+    <!-- ONZ class coverage by uni-, bi- and tetramolecular tetrad END -->
+
+    <!-- ONZM class coverage by unimolecular quadruplexes START -->
+
+    <div *ngIf="selected == 'ELTetradoableTwo' && ELTetradoableTwo">
+    <div class="row">
     <div class="col-lg-10 col-sm-6">
-      <b><p> Table 2. ONZM class coverage by unimolecular quadruplexes</p></b>
+      <b><p>ONZM class coverage by unimolecular quadruplexes</p></b>
     </div>
     <div class=" col-lg-2 col-sm-6 saveDataButton">
       <a class="mat-button" csvLink [data]="ELTetradoableTwo">Save table</a>
@@ -184,10 +242,16 @@
         </tbody>
       </table>
     </div>
+    </div>
 
-    <div class="row ">
+    <!-- ONZM class coverage by unimolecular quadruplexes END -->
+
+    <!-- ONZM class coverage by bimolecular quadruplexes START -->
+
+<div *ngIf="selected == 'ELTetradoableThereA' && ELTetradoableThereA">
+    <div class="row">
       <div class="col-lg-10 col-sm-6">
-        <p> <b> Table 3a. ONZM class coverage by bimolecular quadruplexes</b></p>
+        <p> <b> ONZM class coverage by bimolecular quadruplexes</b></p>
       </div>
       <div class=" col-lg-2 col-sm-6 saveDataButton">
         <a class="mat-button" csvLink [data]="ELTetradoableThereA">Save table</a>
@@ -215,10 +279,16 @@
         </tbody>
       </table>
     </div>
+</div>
 
-    <div class="row ">
+    <!-- ONZM class coverage by bimolecular quadruplexes END -->
+
+    <!-- ONZM class coverage by tetramolecular quadruplexes START -->
+
+    <div *ngIf="selected == 'ELTetradoableThereB' && ELTetradoableThereB">
+    <div class="row">
       <div class="col-lg-10 col-sm-6">
-        <p> <b> Table 3b. ONZM class coverage by tetramolecular quadruplexes</b></p>
+        <p> <b>ONZM class coverage by tetramolecular quadruplexes</b></p>
       </div>
       <div class=" col-lg-2 col-sm-6 saveDataButton">
         <a class="mat-button" csvLink [data]="ELTetradoableThereB">Save table</a>
@@ -246,6 +316,9 @@
         </tbody>
       </table>
     </div>
+    </div>
+
+    <!-- ONZM class coverage by tetramolecular quadruplexes END -->
 
   </main>
 </div>

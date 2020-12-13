@@ -156,7 +156,7 @@ namespace RNAqbase.Repository
 								ELSE 'tetramolecular'
 						 END 
 						 as NumberOfStrands
-					FROM HELIX h
+					FROM HELIX_new h
 					JOIN QUADRUPLEX q on h.id = q.helix_id
 					JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
 					JOIN TETRAD t ON q.id = t.quadruplex_id

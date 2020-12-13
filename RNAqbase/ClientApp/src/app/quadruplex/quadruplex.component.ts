@@ -19,6 +19,7 @@ import {Visualization3DComponent} from "../visualization3-d/visualization3-d.com
   styleUrls: ['./quadruplex.component.css']
 })
 export class QuadruplexComponent implements OnInit {
+
   svg_varna: SafeHtml;
   svg_arc: SafeHtml;
   svg_varna_icon: SafeHtml;

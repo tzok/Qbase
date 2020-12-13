@@ -202,6 +202,44 @@ FROM quadruplex_view
 WHERE chains = 4;")).ToList();
 			}
 		}
+		
+		
+		public async Task<HomePagePlot> GetCountOfComponents()
+		{
+			
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryFirstAsync<HomePagePlot>(
+					@"select (select count(*) from quadruplex) as QuadruplexCount,
+						  (select count(*) from helix) as HelixCount,
+						   (select count(*) from tetrad) as TetradCount
+						   "));
+			}
+		}
+
+		
+		public async Task<HomePagePlot> GetUpdateInformations()
+		{
+			
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryFirstAsync<HomePagePlot>(
+					@"select to_char(t.release_date::date, 'YYYY-MM-DD') as PdbRelease,
+							COALESCE(numberOfTetrad,0) as AddedTetradCount,
+							COALESCE(numberOfQuadruplex, 0) as AddedQuadruplexCount,
+							COALESCE(numberOfHelix, 0) as AddedHelixCount
+							from tetrad_growth_view t
+							left join quadruplex_growth_view q  on t.release_date = q.release_date
+							left join helix_growth_view h on t.release_date = h.release_date
+							where t.release_date = (select max(release_date) from tetrad_growth_view)
+						   "));
+			}
+		}
+
 	}
 }
 

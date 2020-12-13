@@ -107,5 +107,28 @@ namespace RNAqbase.Services
 
 			return result;
 		}
+		
+		public async Task<HomePagePlot> GetCountOfComponents()
+		{
+			if (!cache.TryGetValue(nameof(GetCountOfComponents), out HomePagePlot result))
+			{
+				result = await statisticsRepository.GetCountOfComponents();
+
+				cache.Set(nameof(GetCountOfComponents), result, Cache);
+			}
+
+			return result;
+		}
+		public async Task<HomePagePlot> GetUpdateInformations()
+		{
+			if (!cache.TryGetValue(nameof(GetUpdateInformations), out HomePagePlot result))
+			{
+				result = await statisticsRepository.GetUpdateInformations();
+
+				cache.Set(nameof(GetUpdateInformations), result, Cache);
+			}
+
+			return result;
+		}
 	}
 }

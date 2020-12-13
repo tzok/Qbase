@@ -1,5 +1,5 @@
 <div style="  background: #F0F0F0;" >
-<div class="container">
+<div class="container" *ngIf="update">
   <main>
     <section>
       <div class="text-rectangle">
@@ -68,51 +68,26 @@
       <mat-card-content>
         <div class="row">
           <div class="column2" style="margin-top: 50px">
-            <h5>Database includes:</h5>
-            <p> <b>1547</b> Tetrads </p>
-            <p> <b>484</b> Quadruplexes </p>
-            <p> <b>450</b> Helices </p>
-            <p> <b>484</b> Structures </p>
+            <h5>Last update: {{update.pdbRelease}} </h5>
+            <p> <b>+{{update.addedTetradCount}}</b> Tetrads </p>
+            <p> <b>+{{update.addedQuadruplexCount}}</b> Quadruplexes </p>
+            <p> <b>+{{update.addedHelixCount}}</b> Helices </p>
+            <p> <b>+{{update.addedQuadruplexCount}}</b> Structures </p>
           </div>
 
           <div class="column2">
-            <canvas baseChart
-                    [data]="pieChartData"
-                    [labels]="pieChartLabels"
-                    [chartType]="pieChartType"
-                    [options]="pieChartOptions"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-          </div>
-        </div>
-
-      </mat-card-content>
-    </mat-card>
-
-    <br>
-    <mat-card>
-      <mat-card-content>
-        <div class="row">
-          <div class="column2">
-          <div style="display: block;">
+          <div style="display: block;" >
             <canvas baseChart
                     [datasets]="barChartData"
                     [labels]="barChartLabels"
                     [options]="barChartOptions"
                     [plugins]="barChartPlugins"
                     [legend]="barChartLegend"
+                    [colors]="barChartColors"
                     [chartType]="barChartType">
             </canvas>
           </div>
           </div>
-          <div class="column2" style="margin-top: 50px">
-            <h5>Last update: 20.12.03</h5>
-            <p> <b>+186</b> Tetrads </p>
-            <p> <b>+53</b> Quadruplexes </p>
-            <p> <b>+32</b> Helices </p>
-            <p> <b>+53</b> Structures </p>
-          </div>
-
 
         </div>
 
@@ -126,8 +101,26 @@
 
 <!--
 
+
+select t.release_date, numberOfTetrad, numberOfQuadruplex, numberOfHelix, from tetrad_growth_view t
+join quadruplex_growth_view q  on t.release_date = q.release_date
+join helix_growth_view h on t.release_date = h.release_date
+where t.release_date = (select max(release_date) from tetrad_growth_view natural join quadruplex_growth_view natural join helix_growth_view);
+
 select (select count(*) from quadruplex) as quadruplex_count,
   (select count(*) from helix) as helix_count,
    (select count(*) from tetrad) as tetrad_count
 
+CREATE VIEW helix_growth_view AS
+SELECT p.release_date, COUNT(DISTINCT h.id) as numberOfHelix
+FROM pdb p
+         JOIN nucleotide n on p.id = n.pdb_id
+         JOIN tetrad t on n.id = t.nt1_id
+         JOIN quadruplex q on t.quadruplex_id = q.id
+		 JOIN helix_new h on q.helix_id = h.id
+GROUP BY p.release_date
+ORDER BY p.release_date DESC;
+
+CREATE VIEW helix_new AS
+select * from helix where id in (select helix_id from quadruplex group by helix_id having(count(id))>1);
 -->

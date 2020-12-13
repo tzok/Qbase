@@ -31,7 +31,17 @@ import { HelixComponent } from './helix/helix.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
-import { ChartsModule } from 'ng2-charts';
+import {ChartsModule } from 'ng2-charts';
+import {MatSelectModule} from "@angular/material/select";
+/*
+import {
+  IgxDoughnutChartModule,
+  IgxRingSeriesModule
+} from "igniteui-angular-charts";
+    //"igniteui-angular-core": "6.1.0",
+    //"igniteui-angular-charts": "6.1.0"
+*/
+
 
 
 @NgModule({
@@ -93,7 +103,13 @@ import { ChartsModule } from 'ng2-charts';
         MatTooltipModule,
         MatIconModule,
         MatCardModule,
-        ChartsModule
+        ChartsModule,
+        MatSelectModule,
+      BrowserModule,
+      BrowserAnimationsModule,
+      FormsModule,
+    //  IgxDoughnutChartModule,
+     // IgxRingSeriesModule
 
     ],
   providers: [],

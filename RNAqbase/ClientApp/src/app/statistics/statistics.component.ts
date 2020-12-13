@@ -22,13 +22,17 @@ export class StatisticsComponent implements OnInit {
   ELTetradoableThereA: ElTetradoTetradViewTableThereA[];
   ELTetradoableThereB: ElTetradoTetradViewTableThereB[];
   sub;
+  selected = 'topologyBaseTableOne';
+
+  public months: any[];
+  public seasons: any[];
+
 
   constructor(private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog) {}
 
-  }
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
@@ -151,6 +155,28 @@ export class StatisticsComponent implements OnInit {
         this.ELTetradoableThereB = cleanedResult;
       }, error => console.error(error));
     }, error => console.error(error));
+
+
+    this.months = [
+      { Value: 1, Label: "December" },
+      { Value: 1, Label: "January" },
+      { Value: 1, Label: "February" },
+      { Value: 1, Label: "March" },
+      { Value: 1, Label: "April" },
+      { Value: 1, Label: "May" },
+      { Value: 1, Label: "June" },
+      { Value: 1, Label: "July" },
+      { Value: 1, Label: "August" },
+      { Value: 1, Label: "September" },
+      { Value: 1, Label: "October" },
+      { Value: 1, Label: "November" }
+    ];
+    this.seasons = [
+      { Value: 4, Label: "Winter" },
+      { Value: 4, Label: "Spring" },
+      { Value: 4, Label: "Summer" },
+      { Value: 4, Label: "Fall" }
+    ];
   }
 }
 

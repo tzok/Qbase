@@ -15,6 +15,8 @@ namespace RNAqbase.Services
 		Task<List<Statistics>> GetElTetradoQuadruplexViewTableTwo();
 		Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereA();
 		Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereB();
+		Task<HomePagePlot>  GetCountOfComponents();
+		Task<HomePagePlot> GetUpdateInformations();
 	}
 
 }

@@ -62,6 +62,21 @@ namespace RNAqbase.Controllers
 			var a = await statisticsService.GetElTetradoQuadruplexViewTableThereB();
 			return Ok(a);
 		}
+		//Task<HomePagePlot> GetCountOfComponents();
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetCount()
+		{
+			var a = await statisticsService.GetCountOfComponents();
+			return Ok(a);
+		}
+
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetUpdate()
+		{
+			var a = await statisticsService.GetUpdateInformations();
+			return Ok(a);
+		}
 
 
 	}
