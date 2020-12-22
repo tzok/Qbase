@@ -4,7 +4,7 @@ import { Label, Color } from 'ng2-charts';
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-home',
@@ -14,18 +14,60 @@ import {MatDialog} from "@angular/material/dialog";
 
 export class HomeComponent implements OnInit {
 
+  sub;
+  count: componentsCount;
+  update: updateInfotmations;
+
+  colors = [
+    {
+      backgroundColor: [
+        'rgb(243,47,19)',
+        'rgb(8,132,239)',
+        'rgb(78,222,7)',
+        'rgb(255,255,0)'
+
+      ]
+    }
+  ];
   public barChartOptions: any = {
     responsive: true,
+    tooltips: {
+      mode: 'label'
+
+    },
+
+      legend: { display: false },
+    scales : {
+      yAxes: [{
+        ticks: {
+          steps : 10,
+          stepValue : 10,
+          max : 1800,
+          min: 0
+        }
+      }]
+    },
+
+    // We use these empty structures as placeholders for dynamic theming.
+    plugins: {
+      datalabels: {
+        backgroundColor: () => 'white',
+        align: 'end',
+        anchor: 'end',
+        padding: 0,
+      },
+    }
   };
+
+
   public barChartLabels: string[] = ["Tetrads", "Quadruplexes", "Helices", "Structures"];
+  public barChartPlugins = [pluginDataLabels];
 
   public barChartType: any = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
+
 
   public barChartData: ChartDataSets[] = [
-    {data: [0,0,0,0], label: 'Before update', stack: 'a'},
-    {data: [0,0,0,0], label: 'Added', stack: 'a'}
+    {data: [0,0,0,0]}
   ];
 
   public barChartColors: Color[] = [
@@ -33,9 +75,6 @@ export class HomeComponent implements OnInit {
     {backgroundColor: "#57dbd5"},
   ]
 
-  sub;
-  count: componentsCount;
-  update: updateInfotmations;
 
 
   constructor(private http: HttpClient,
@@ -49,19 +88,13 @@ export class HomeComponent implements OnInit {
 
       this.http.get<updateInfotmations>(this.baseUrl + 'api/Statistics/GetUpdate').subscribe(result => {
         this.update = result;
-        console.log(this.update);
 
       this.http.get<componentsCount>(this.baseUrl + 'api/Statistics/GetCount').subscribe(result => {
         this.count = result;
-        console.log(this.count);
 
+          this.barChartData =  [{data: [this.count.tetradCount, this.count.quadruplexCount, this.count.helixCount, this.count.quadruplexCount]} ];
 
-
-          this.barChartData =  [
-            {data: [this.count.tetradCount-this.update.addedTetradCount, this.count.quadruplexCount-this.update.addedQuadruplexCount, this.count.helixCount-this.update.addedHelixCount, this.count.quadruplexCount-this.update.addedQuadruplexCount], label: 'Before update', stack: 'a'},
-            {data: [this.update.addedTetradCount, this.update.addedQuadruplexCount, this.update.addedHelixCount, this.update.addedQuadruplexCount], label: 'Added', stack: 'a'}
-          ];
-
+          //this.barChartPlugins = [this.count.tetradCount, this.count.quadruplexCount, this.count.helixCount, this.count.quadruplexCount]
       }, error => console.error(error));
 
 
@@ -69,8 +102,6 @@ export class HomeComponent implements OnInit {
       }, error => console.error(error));
 
     }, error => console.error(error));
-
-
   }
 
   getPlot(){
