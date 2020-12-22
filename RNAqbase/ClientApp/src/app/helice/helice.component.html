@@ -1,3 +1,4 @@
+<div style="  background: #F0F0F0; height: 100%">
 <div class="container">
   <main>
     <div class="mat-elevation-z8 table">
@@ -21,12 +22,12 @@
         <!-- Id Column a [routerLink]="['/helix', row.id]"-->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="id_updated">
               G4Helix ID<sup matTooltip="Click ID to see helix description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a class = "hasTooltip"[routerLink]="['/helices', row.id]">
+              <a class = "hasTooltip"[routerLink]="['/helices', row.id_updated]">
                 {{row.helixId}} <span> <img src = "qbase-static/H{{row.id}}.png" width="200" height="150"  alt=""> </span>
               </a>
             </mat-cell>
@@ -134,4 +135,4 @@
     </div>
   </main>
 </div>
-
+</div>

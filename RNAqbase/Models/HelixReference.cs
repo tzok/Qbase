@@ -8,6 +8,7 @@ namespace RNAqbase.Models
     public class HelixReference : BaseEntity
     {
         public string Id { get; set; }
+        public string Id_updated { get; set; }
         public string PdbIdentifier { get; set; }
         public int PdbId { get; set; }
         public string Dot_bracket { get; set; }

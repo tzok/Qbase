@@ -22,8 +22,9 @@ namespace RNAqbase.Repository
 
 				var helix = await connection.QueryFirstAsync<Helix>(
 						(@"
-                            SELECT DISTINCT ON(h.id)
+                            SELECT DISTINCT ON(h.id_updated)
 	                            h.id AS Id,
+                                h.id_updated as Id_updated,
 	                            p.identifier AS PdbIdentifier,
 	                            n1.pdb_id AS PdbId,
 	                            p.assembly AS AssemblyId,
@@ -41,7 +42,7 @@ namespace RNAqbase.Repository
 									ELSE 'tetramolecular'
 								END 
 								as NumberOfStrands
-                            FROM HELIX h
+                            FROM HELIX_new h
                             JOIN QUADRUPLEX q on h.id = q.helix_id
                             JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
                             JOIN TETRAD t ON q.id = t.quadruplex_id
@@ -50,8 +51,8 @@ namespace RNAqbase.Repository
                             JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
                             JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
                             JOIN PDB p ON n1.pdb_id = p.id
-                            WHERE h.id = @HelixId
-                            GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d"), 
+                            WHERE h.id_updated = @HelixId
+                            GROUP BY h.id, h.id_updated p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d"), 
 				new { HelixId = id });
                
                 var idsT = await connection.QueryAsync<int>(
@@ -80,8 +81,9 @@ namespace RNAqbase.Repository
 
                 var helix = await connection.QueryFirstAsync<HelixReference>(
                         (@"
-                            SELECT DISTINCT ON(h.id)
-	                            h.id AS Id,
+                            SELECT DISTINCT ON(h.id_updated)
+	                            h.id AS Id,      
+                                h.id_updated as Id_updated,
 	                            p.identifier AS PdbIdentifier,
 	                            n1.pdb_id AS PdbId,
 	                            h.dot_bracket AS Dot_bracket,
@@ -92,7 +94,7 @@ namespace RNAqbase.Repository
 	                            COUNT(t.id) AS NumberOfTetrads,
 	                            p.experiment AS Experiment,
 	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
-	                             h.visualization_2d AS Visualization2D,
+	                            h.visualization_2d AS Visualization2D,
 	                            h.visualization_3d AS Visualization3D,
 	                            h.arc_diagram AS ArcDiagram,
 	                       	 CASE
@@ -101,7 +103,7 @@ namespace RNAqbase.Repository
 									ELSE 'tetramolecular'
 							 END 
 							 as NumberOfStrands
-                            FROM HELIX h
+                            FROM HELIX_new h
                             JOIN QUADRUPLEX q on h.id = q.helix_id
                             JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
                             JOIN TETRAD t ON q.id = t.quadruplex_id
@@ -110,8 +112,8 @@ namespace RNAqbase.Repository
                             JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
                             JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
                             JOIN PDB p ON n1.pdb_id = p.id
-                            WHERE h.id = @HelixId
-                            GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment"),
+                            WHERE h.id_updated = @HelixId
+                            GROUP BY h.id, h.id_updated, h.dot_bracket,h.visualization_2d,  h.visualization_3d, h.arc_diagram, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment"),
                 new { HelixId = id });
 
                 var idsT = await connection.QueryAsync<int>(
@@ -140,8 +142,9 @@ namespace RNAqbase.Repository
 
 			    return (await connection.QueryAsync<HelicesWithoutVisualizations>(
                     @"
-                        SELECT DISTINCT ON(h.id)
-						h.id AS Id,
+                        SELECT DISTINCT ON(h.id_updated)
+						h.id AS Id,        
+                        h.id_updated as Id_updated,
 						p.identifier AS PdbId,
 						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 						p.assembly AS AssemblyId,
@@ -165,7 +168,8 @@ namespace RNAqbase.Repository
 					JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
 					JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 					JOIN PDB p ON n1.pdb_id = p.id
-					GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d")).ToList();
+					GROUP BY h.id, h.id_updated, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d
+					order by h.id_updated")).ToList();
 		    }
 	}
         

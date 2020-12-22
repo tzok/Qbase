@@ -1,3 +1,4 @@
+<div style=" background: #F0F0F0; height: 100%">
 <div class="container" *ngIf="data">
   <main>
     <div class="description">
@@ -12,9 +13,11 @@
       ></div>
       <br />
 
+      <mat-card>
+        <mat-card-content>
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <h5><b>G4Helix ID: H{{data.id}}</b></h5>
+          <h5><b>G4Helix ID: H{{data.id_updated}}</b></h5>
         </div>
 
         <div class=" col-lg-2 col-sm-6 saveDataButton">
@@ -50,7 +53,11 @@
           </tbody>
         </table>
       </div>
-
+        </mat-card-content>
+      </mat-card>
+      <br>
+      <mat-card>
+        <mat-card-content>
       <div>
         <h5>Dot-bracket:</h5>
         <p class="dotbracket">{{data.dot_bracket}}</p>
@@ -95,11 +102,14 @@
           </tbody>
         </table>
       </div>
-
+        </mat-card-content>
+      </mat-card>
       <br />
+      <mat-card>
+        <mat-card-content>
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <h5>Quadruplexes in H{{data.id}}:</h5>
+          <h5>Quadruplexes in H{{data.id_updated}}:</h5>
         </div>
       </div>
       <table class="table" style="border:1px solid black;">
@@ -123,16 +133,16 @@
         </tbody>
       </table>
 
-
+        </mat-card-content>
+      </mat-card>
       <br />
-
+      <mat-card>
+        <mat-card-content>
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <h5>Tetrads in H{{data.id}}:</h5>
+          <h5>Tetrads in H{{data.id_updated}}:</h5>
         </div>
       </div>
-
-
       <table class="table" style="border:1px solid black;">
         <thead>
           <tr>
@@ -156,10 +166,14 @@
         </tbody>
       </table>
 
+        </mat-card-content>
+      </mat-card>
 
       <br />
 
-    <h5>Tetrads pairs in H{{data.id}}:</h5>
+      <mat-card>
+        <mat-card-content>
+    <h5>Tetrads pairs in H{{data.id_updated}}:</h5>
 
     <div class="quadruplextable">
       <table class="table" style="border:1px solid black;">
@@ -193,12 +207,10 @@
         </tbody>
       </table>
     </div>
-
-      <br />
-      <br />
-      <br />
-
+        </mat-card-content>
+      </mat-card>
+      <br>
     </div>
   </main>
 </div>
-
+</div>

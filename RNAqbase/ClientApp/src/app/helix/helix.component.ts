@@ -70,6 +70,7 @@ export class HelixComponent implements OnInit {
 
         this.HelixReferenceInformations = {
           id: this.data.id,
+          id_updated: this.data.id_updated,
           pdbIdentifier: this.data.pdbIdentifier,
           assemblyId: this.data.assemblyId,
           molecule: this.data.molecule,
@@ -84,7 +85,7 @@ export class HelixComponent implements OnInit {
 
         }
 
-        this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.helixId).subscribe(result => {
+        this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id).subscribe(result => {
           this.tetrads = result;
 
           for (let val of result) {
@@ -110,7 +111,7 @@ export class HelixComponent implements OnInit {
 
         }, error => console.error(error));
 
-        this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.helixId).subscribe(result => {
+        this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.data.id).subscribe(result => {
           this.quadruplexes = result;
 
           for (let val of result) {
@@ -213,6 +214,7 @@ export class HelixComponent implements OnInit {
 
 interface HelixReference {
   id: string;
+  id_updated:string;
   pdbId: string;
   pdbIdentifier: string;
   assemblyId: number;
@@ -237,6 +239,7 @@ interface HelixReference {
 
 interface HelixReferenceInformations {
   id: string;
+  id_updated:string;
   pdbIdentifier: string;
   assemblyId: number;
   molecule: string;

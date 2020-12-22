@@ -1,11 +1,15 @@
-<div class="container" *ngIf="data && data.tetradsInTheSameQuadruplex">
+<div style=" background: #F0F0F0; height: 100%">
 
+<div class="container" *ngIf="data && data.tetradsInTheSameQuadruplex">
   <main>
+
     <div class="description">
-      <div class="text-rectangle">
+        <div class="text-rectangle">
         <h2>Tetrad description</h2>
       </div>
       <br />
+          <mat-card>
+            <mat-card-content>
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
           <h5><b>Tetrad ID: T{{data.id}}</b></h5>
@@ -50,7 +54,15 @@
       </table>
     </div>
 
-      <div>
+      </mat-card-content>
+    </mat-card>
+
+      <br>
+
+      <mat-card>
+        <mat-card-content>
+
+        <div>
         <h5>Dot-bracket:</h5>
         <p class="dotbracket">{{data.dot_bracket}}</p>
 
@@ -94,9 +106,13 @@
           </tbody>
         </table>
       </div>
+        </mat-card-content>
+      </mat-card>
 
+<br>
 
-
+      <mat-card>
+        <mat-card-content>
 
     <div class="lists">
       <div class="list">
@@ -129,6 +145,12 @@
         </div>
       </div>
     </div>
+        </mat-card-content>
+      </mat-card>
+      <br>
 </div>
+
   </main>
+
+</div>
 </div>

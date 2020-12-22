@@ -213,7 +213,7 @@ WHERE chains = 4;")).ToList();
 
 				return (await connection.QueryFirstAsync<HomePagePlot>(
 					@"select (select count(*) from quadruplex) as QuadruplexCount,
-						  (select count(*) from helix) as HelixCount,
+						  (select count(*) from helix_new) as HelixCount,
 						   (select count(*) from tetrad) as TetradCount
 						   "));
 			}
@@ -222,7 +222,6 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<HomePagePlot> GetUpdateInformations()
 		{
-			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -235,7 +234,7 @@ WHERE chains = 4;")).ToList();
 							from tetrad_growth_view t
 							left join quadruplex_growth_view q  on t.release_date = q.release_date
 							left join helix_growth_view h on t.release_date = h.release_date
-							where t.release_date = (select max(release_date) from tetrad_growth_view)
+							WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
 						   "));
 			}
 		}

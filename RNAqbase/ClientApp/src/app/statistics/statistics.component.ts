@@ -2,8 +2,10 @@ import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-
+import {ChartDataSets} from "chart.js";
+import {Color} from "ng2-charts";
+import { ChartType } from 'chart.js';
+import { MultiDataSet, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-statistics',
@@ -24,8 +26,58 @@ export class StatisticsComponent implements OnInit {
   sub;
   selected = 'topologyBaseTableOne';
 
-  public months: any[];
-  public seasons: any[];
+
+  public pieChartLabels_tableOne_type:string[] = ["DNA", "RNA", "Other"];
+  public pieChartLabels_tableOne_sequence:string[] = [];
+
+
+  public pieChartData_tableOne_type:number[] = [];
+  public pieChartData_tableOne_sequence:number[] = [];
+  public pieChartData_tableOne_sequence_dna:number[] = [];
+  public pieChartData_tableOne_sequence_rna:number[] = [];
+  public pieChartData_tableOne_sequence_other:number[] = []; public barChartOptions: any = {
+    responsive: true,
+  };
+  public barChartLabels: string[] =[];
+
+  public barChartType: any = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartDataSets[] = [];
+
+  public barChartColors: Color[] = [
+    {backgroundColor: "#45A29E"},
+    {backgroundColor: "#57dbd5"},
+  ]
+
+  public doughnutChartLabels: Label[] = [];
+  public doughnutChartData: MultiDataSet = [];
+  public doughnutChartType: ChartType = 'doughnut';
+
+
+  public pieChartType:any = 'pie';
+  public pieChartOptions:any = {
+    responsive: true,
+    legend: { position: "right" },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          return  ctx.chart.data.labels[ctx.dataIndex];
+        },
+      },
+    },
+  }
+
+  // events on slice click
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+
+  // event on pie chart slice hover
+  public chartHovered(e:any):void {
+    console.log(e);
+  }
 
 
   constructor(private http: HttpClient,
@@ -48,8 +100,42 @@ export class StatisticsComponent implements OnInit {
             total: val.total
           });
         }
-        this.topologyBaseTableOne = cleanedResult;
 
+        this.pieChartData_tableOne_type = [cleanedResult.slice(-1)[0].dna, cleanedResult.slice(-1)[0].rna, cleanedResult.slice(-1)[0].other];
+
+        let dna = result.map(x => x.dna)
+        dna.pop();
+        this.pieChartData_tableOne_sequence_dna = dna;
+        let rna = result.map(x => x.rna);
+        rna.pop()
+        this.pieChartData_tableOne_sequence_rna = rna;
+        let other = result.map(x => x.other);
+        other.pop();
+        this.pieChartData_tableOne_sequence_other = other;
+        let total = result.map(x => x.total);
+        total.pop();
+        this.pieChartData_tableOne_sequence = total;
+
+        let label = result.map(x => x.sequence)
+        label.pop()
+        this.pieChartLabels_tableOne_sequence = label;
+        this.barChartLabels = label;
+
+
+        this.barChartData.push({data: dna, label: 'DNA', stack:'a'})
+        this.barChartData.push({data: rna, label: 'RNA', stack:'a'})
+        this.barChartData.push({data: other, label: 'Other', stack:'a'})
+
+
+        this.doughnutChartLabels = ['DNA','RNA','Other']
+
+        for(let val of result){
+          this.doughnutChartData.push([val.dna, val.rna, val.other]);
+        }
+
+
+
+        this.topologyBaseTableOne = cleanedResult;
 
       }, error => console.error(error));
     }, error => console.error(error));
@@ -155,29 +241,9 @@ export class StatisticsComponent implements OnInit {
         this.ELTetradoableThereB = cleanedResult;
       }, error => console.error(error));
     }, error => console.error(error));
-
-
-    this.months = [
-      { Value: 1, Label: "December" },
-      { Value: 1, Label: "January" },
-      { Value: 1, Label: "February" },
-      { Value: 1, Label: "March" },
-      { Value: 1, Label: "April" },
-      { Value: 1, Label: "May" },
-      { Value: 1, Label: "June" },
-      { Value: 1, Label: "July" },
-      { Value: 1, Label: "August" },
-      { Value: 1, Label: "September" },
-      { Value: 1, Label: "October" },
-      { Value: 1, Label: "November" }
-    ];
-    this.seasons = [
-      { Value: 4, Label: "Winter" },
-      { Value: 4, Label: "Spring" },
-      { Value: 4, Label: "Summer" },
-      { Value: 4, Label: "Fall" }
-    ];
   }
+
+
 }
 
 interface Table{

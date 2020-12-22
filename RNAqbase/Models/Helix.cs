@@ -6,6 +6,7 @@ namespace RNAqbase.Models
 	public class Helix : BaseEntity
 	{
 		public string Id { get; set; }
+		public string Id_updated { get; set; }
 		public string PdbIdentifier { get; set; }
 		public int PdbId { get; set; }
 		public int AssemblyId { get; set; }

@@ -75,6 +75,7 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetUpdate()
 		{
 			var a = await statisticsService.GetUpdateInformations();
+			
 			return Ok(a);
 		}
 
