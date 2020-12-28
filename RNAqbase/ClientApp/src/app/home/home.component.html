@@ -13,12 +13,11 @@
 
       <p align="justify">
         <b>ONQUADRO</b> database collects tetrads, quadruplexes, and G4-helices
-        found in PDB-deposited structures of nucleic acids . It stores their sequences, secondary and
+        found in PDB-deposited structures of nucleic acids. It stores their sequences, secondary and
         tertiary structures, and motif-specific description including planarity,
         rise and twist parameters, ONZ classification, dot-bracket encoding, arc
         diagrams, etc. Graphical 2D and 3D views complement their characteristics.
       </p>
-
 
     </mat-card-content>
     </mat-card>
@@ -87,6 +86,12 @@
           </div>
           </div>
 
+          <p style = "text-align: left; color: darkgray; margin-left: 50px; ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+              <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+            </svg>
+            Database is updated every <b>Thursday</b></p>
         </div>
 
       </mat-card-content>
@@ -97,29 +102,3 @@
 
 </div>
 </div>
-
-<!--
-
-
-select t.release_date, numberOfTetrad, numberOfQuadruplex, numberOfHelix, from tetrad_growth_view t
-join quadruplex_growth_view q  on t.release_date = q.release_date
-join helix_growth_view h on t.release_date = h.release_date
-where t.release_date = (select max(release_date) from tetrad_growth_view natural join quadruplex_growth_view natural join helix_growth_view);
-
-select (select count(*) from quadruplex) as quadruplex_count,
-  (select count(*) from helix) as helix_count,
-   (select count(*) from tetrad) as tetrad_count
-
-CREATE VIEW helix_growth_view AS
-SELECT p.release_date, COUNT(DISTINCT h.id) as numberOfHelix
-FROM pdb p
-         JOIN nucleotide n on p.id = n.pdb_id
-         JOIN tetrad t on n.id = t.nt1_id
-         JOIN quadruplex q on t.quadruplex_id = q.id
-		 JOIN helix_new h on q.helix_id = h.id
-GROUP BY p.release_date
-ORDER BY p.release_date DESC;
-
-CREATE VIEW helix_new AS
-select * from helix where id in (select helix_id from quadruplex group by helix_id having(count(id))>1);
--->

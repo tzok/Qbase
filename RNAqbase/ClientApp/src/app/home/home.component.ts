@@ -18,17 +18,10 @@ export class HomeComponent implements OnInit {
   count: componentsCount;
   update: updateInfotmations;
 
-  colors = [
-    {
-      backgroundColor: [
-        'rgb(243,47,19)',
-        'rgb(8,132,239)',
-        'rgb(78,222,7)',
-        'rgb(255,255,0)'
+  colors: Color[] = [
+    {backgroundColor: "#45A29E"}
+    ]
 
-      ]
-    }
-  ];
   public barChartOptions: any = {
     responsive: true,
     tooltips: {
@@ -36,7 +29,7 @@ export class HomeComponent implements OnInit {
 
     },
 
-      legend: { display: false },
+    legend: { display: false },
     scales : {
       yAxes: [{
         ticks: {
