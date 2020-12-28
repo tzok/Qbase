@@ -14,6 +14,7 @@ export class HeliceComponent implements OnInit {
   selection = new SelectionModel<Helix>(true, []);
   dataSource = new MatTableDataSource<Helix>();
   areButtonsHidden: boolean = true;
+  filteredDataLength = this.dataSource.data.length;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -32,7 +33,6 @@ export class HeliceComponent implements OnInit {
       this.dataSource = new MatTableDataSource(result);
         for (let val of result){
           val.helixId =  'H' + val.id_updated;
-          console.log(val.helixId);
         }
 
         this.dataSource.filterPredicate = (data: Helix, filter: string): boolean => {
@@ -44,17 +44,20 @@ export class HeliceComponent implements OnInit {
           return dataStr.indexOf(transformedFilter) != -1;
         }
 
-      console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
-    },
+      this.filteredDataLength = this.dataSource.data.length;
+
+      },
       error => console.error(error));
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
+
   }
 
   isAllSelected() {

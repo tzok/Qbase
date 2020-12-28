@@ -16,6 +16,7 @@ export class TetradTabelComponent implements OnInit {
   selection = new SelectionModel<Tetrad>(true, []);
   dataSource = new MatTableDataSource<Tetrad>();
   areButtonsHidden: boolean = true;
+  filteredDataLength = this.dataSource.data.length;
 
 @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -46,12 +47,14 @@ export class TetradTabelComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
+      this.filteredDataLength = this.dataSource.data.length;
       }, error => console.error(error));
   }
 
 applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
   }
 
   isAllSelected() {

@@ -13,10 +13,9 @@ import {Visualization3DComponent} from "../visualization3-d/visualization3-d.com
 })
 export class StructureTableComponent implements OnInit {
   selection = new SelectionModel<Structure>(true, []);
-
   dataSource = new MatTableDataSource<Structure>();
-
   areButtonsHidden: boolean = true;
+  filteredDataLength = this.dataSource.data.length;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -49,13 +48,16 @@ export class StructureTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
-    },
+      this.filteredDataLength = this.dataSource.data.length;
+
+      },
       error => console.error(error));
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
   }
 
   isAllSelected() {

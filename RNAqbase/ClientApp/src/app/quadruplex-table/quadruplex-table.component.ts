@@ -14,6 +14,7 @@ export class QuadruplexTableComponent implements OnInit {
   selection = new SelectionModel<Quadruplex>(true, []);
   dataSource = new MatTableDataSource<Quadruplex>();
   areButtonsHidden: boolean = true;
+  filteredDataLength = this.dataSource.data.length;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -46,7 +47,7 @@ export class QuadruplexTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
-
+      this.filteredDataLength = this.dataSource.data.length;
       },
       error => console.error(error));
 
@@ -55,6 +56,7 @@ export class QuadruplexTableComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
   }
 
   isAllSelected() {
