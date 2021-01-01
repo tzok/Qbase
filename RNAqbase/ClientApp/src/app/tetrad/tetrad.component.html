@@ -72,25 +72,33 @@
         <table class="table" style="border:1px solid black;">
           <thead>
           <tr>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">VARNA</th>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">Arc diagram</th>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">3D structure</th>
+            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <button (click)="showVarna()" title="Click to see 2D structure"> 2D structure (VARNA)</button>
+            </th>
+            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <button (click)="showDiagram()" title="Click to see 2D structure"> 2D structure (R-chie)</button>
+             </th>
+            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+              <button (click)="showStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
+             </th>
           </tr>
           </thead>
           <tbody>
           <tr>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <div [innerHTML]="svg_varna_icon"> </div>
+              <div [innerHTML]="svg_varna_icon"></div>
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <div [innerHTML]="svg_arc_icon"></div>
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <img src = "qbase-static/T{{data.id}}.png" width="200" height="150"  alt="">
+
+              <img src = "qbase-static/T{{data.id}}.png" width="200" height="150"  alt="litemol" title="Click to see more!"/>
+
             </td>
 
           </tr>
-
+          <!--
           <tr>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showVarna()">View</button>
@@ -103,6 +111,7 @@
             </td>
 
           </tr>
+          -->
           </tbody>
         </table>
       </div>

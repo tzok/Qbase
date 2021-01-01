@@ -131,6 +131,10 @@ button {
   color: white;
 }
 
+button:hover{
+  background: #57dbd5;
+}
+
 .lists {
   margin-top: 20px;
 }
