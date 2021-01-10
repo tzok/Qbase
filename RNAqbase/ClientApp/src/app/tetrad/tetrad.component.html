@@ -63,27 +63,24 @@
         <mat-card-content>
 
         <div>
-        <h5>Dot-bracket:</h5>
+          <h5> 2D structure (dot-bracket):</h5>
         <p class="dotbracket">{{data.dot_bracket}}</p>
 
       </div>
 
       <div class="tetradtable">
         <table class="table" style="border:1px solid black;">
-          <thead>
           <tr>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showVarna()" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-            </th>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showDiagram()" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-             </th>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+             </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-             </th>
+             </td>
           </tr>
-          </thead>
-          <tbody>
           <tr>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <div [innerHTML]="svg_varna_icon"></div>
@@ -92,27 +89,9 @@
               <div [innerHTML]="svg_arc_icon"></div>
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-
               <img src = "qbase-static/T{{data.id}}.png" width="200" height="150"  alt="litemol" title="Click to see more!"/>
-
             </td>
-
           </tr>
-          <!--
-          <tr>
-            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <button (click)="showVarna()">View</button>
-            </td>
-            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <button (click)="showDiagram()">View</button>
-            </td>
-            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <button (click)="showStructure()">View</button>
-            </td>
-
-          </tr>
-          -->
-          </tbody>
         </table>
       </div>
         </mat-card-content>

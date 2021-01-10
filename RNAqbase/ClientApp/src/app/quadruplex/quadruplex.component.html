@@ -60,27 +60,24 @@
       <mat-card>
         <mat-card-content>
       <div>
-        <h5>Dot-bracket:</h5>
+        <h5> 2D structure (dot-bracket):</h5>
         <p class="dotbracket">{{data.dot_bracket}}</p>
 
       </div>
 
       <div class="quadruplextable">
         <table class="table" style="border:1px solid black;">
-          <thead>
           <tr>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showVarna()" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-            </th>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showDiagram()" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-            </th>
-            <th class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+            </td>
+            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <button (click)="showStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-            </th>
+            </td>
           </tr>
-          </thead>
-          <tbody>
           <tr>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
               <div [innerHTML]="svg_varna_icon"> </div>
@@ -92,7 +89,6 @@
               <img src = "qbase-static/Q{{data.id}}.png" width="200" height="150"  alt="">
             </td>
           </tr>
-          </tbody>
         </table>
       </div>
         </mat-card-content>
@@ -133,12 +129,12 @@
       <br />
       <mat-card>
         <mat-card-content>
-      <h5>Tetrads pairs in Q{{data.id}}:</h5>
+      <h5>Tetrad pairs in Q{{data.id}}:</h5>
       <div class="quadruplextable">
         <table class="table" style="border:1px solid black;">
           <thead>
           <tr>
-            <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Tetrads pairs</th>
+            <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Tetrad pairs</th>
             <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Twist</th>
             <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Rise</th>
             <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Strand direction</th>
@@ -151,12 +147,12 @@
               class = fourColumnsStyle
               style="text-align: center; vertical-align: middle;"
               *ngIf="t.tetrad2_id != 0">
-              <a class = "hasTooltip" [routerLink]="['/tetrad', t.id]">
-                T{{t.id}} <span> <img src = "qbase-static/T{{t.id}}.png" width="100" height="100"  alt=""> </span>
-              </a>
-              -
               <a class ="hasTooltip" [routerLink]="['/tetrad', t.tetrad2_id]">
                 T{{t.tetrad2_id}} <span> <img src = "qbase-static/T{{t.tetrad2_id}}.png" width="100" height="100"  alt=""> </span>
+              </a>
+              -
+              <a class = "hasTooltip" [routerLink]="['/tetrad', t.id]">
+                T{{t.id}} <span> <img src = "qbase-static/T{{t.id}}.png" width="100" height="100"  alt=""> </span>
               </a>
             </td>
             <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>

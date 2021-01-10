@@ -150,15 +150,18 @@ WHERE n1.pdb_id = @PdbId
 	                tp.rise,
 	                tp.twist,
 	                tp.tetrad2_id, 
-	                tp.direction
+	                tp.direction,
+					t.quadruplex_id as ""Quadruplex_id"",
+                	t2.quadruplex_id as ""Quadruplex_pair_id""
 				FROM tetrad t
 					JOIN nucleotide n1 on t.nt1_id = n1.id
 					JOIN nucleotide n2 on t.nt2_id = n2.id
 					JOIN nucleotide n3 on t.nt3_id = n3.id
 					JOIN nucleotide n4 on t.nt4_id = n4.id
 					LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+                	LEFT JOIN tetrad t2 on t2.id = tp.tetrad2_id
 				WHERE t.quadruplex_id IN (select quadruplex.id from quadruplex where helix_id = @HelixId)
-				ORDER BY t.id;", new { HelixId = id });
+				ORDER BY  t.id;", new { HelixId = id });
 			}
 		}
 

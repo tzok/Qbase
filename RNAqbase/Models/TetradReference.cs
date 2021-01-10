@@ -16,5 +16,7 @@ namespace RNAqbase.Models
 		public float Rise { get; set; }
         public int Tetrad2_id { get; set; }
         public string Direction { get; set; }
-    }
+        public int Quadruplex_id { get; set; }
+        public int Quadruplex_pair_id { get; set; }
+	}
 }

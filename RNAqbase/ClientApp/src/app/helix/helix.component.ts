@@ -87,10 +87,12 @@ export class HelixComponent implements OnInit {
 
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id).subscribe(result => {
           this.tetrads = result;
+          console.log(result);
 
           for (let val of result) {
             this.tetradsInformation.push({
               id: val.id,
+              quadruplex_id: val.quadruplex_id,
               sequence: val.sequence,
               onzClass: val.onzClass,
               planarity: val.planarity
@@ -99,9 +101,13 @@ export class HelixComponent implements OnInit {
 
           for (let val of result) {
             if(val.tetrad2_id != 0) {
+              let quadruplex = 0;
+              if (val.quadruplex_id == val.quadruplex_pair_id)
+                quadruplex = val.quadruplex_id;
               this.tetradsPairsInformation.push({
                 TetradId: val.id,
                 TetradPairId: val.tetrad2_id,
+                quadruplex_id: quadruplex,
                 twist: val.twist,
                 rise: val.rise,
                 direction: val.direction
@@ -270,6 +276,8 @@ interface QuadruplexReference {
 
 interface TetradReference {
   id: number;
+  quadruplex_id: number;
+  quadruplex_pair_id: number;
   sequence: string;
   onzClass: string;
   twist: number;
@@ -281,6 +289,7 @@ interface TetradReference {
 
 interface TetradInformations {
   id: number;
+  quadruplex_id: number;
   sequence: string;
   onzClass: string;
   planarity: number;
@@ -289,6 +298,7 @@ interface TetradInformations {
 interface TetradPairsInformations {
   TetradId: number;
   TetradPairId: number;
+  quadruplex_id: number;
   twist: number;
   rise: number;
   direction: string;

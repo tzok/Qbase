@@ -22,24 +22,24 @@ namespace RNAqbase.Repository
 
 				return (await connection.QueryAsync<Statistics>(
 					@"
-SELECT sequence,
-SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
-SUM(CASE tv.molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
-SUM(CASE tv.molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
-COUNT(*) AS Total
-FROM tetrad_view tv
-JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
-WHERE qv.count > 1
-GROUP BY sequence
-UNION ALL
-SELECT 'Total',
-SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
-SUM(CASE tv.molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
-SUM(CASE tv.molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
-COUNT(*) AS Total
-FROM tetrad_view tv
-JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
-WHERE qv.count > 1;")).ToList();
+					SELECT sequence,
+					SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+					SUM(CASE tv.molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+					SUM(CASE tv.molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+					COUNT(*) AS Total
+					FROM tetrad_view tv
+					JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
+					WHERE qv.count > 1
+					GROUP BY sequence
+					UNION ALL
+					SELECT 'Total',
+					SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+					SUM(CASE tv.molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+					SUM(CASE tv.molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+					COUNT(*) AS Total
+					FROM tetrad_view tv
+					JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
+					WHERE qv.count > 1;")).ToList();
 			}
 		}
 
@@ -51,20 +51,20 @@ WHERE qv.count > 1;")).ToList();
 
 				return (await connection.QueryAsync<Statistics>(
 					@"
-SELECT CAST(count AS text) AS NumberOfTetrads,
-SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
-SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
-SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
-COUNT(*) AS Total
-FROM quadruplex_view
-GROUP BY count
-UNION ALL
-SELECT 'Total',
-SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
-SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
-SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
-COUNT(*) AS Total
-FROM quadruplex_view;")).ToList();
+					SELECT CAST(count AS text) AS NumberOfTetrads,
+					SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+					SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+					SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+					COUNT(*) AS Total
+					FROM quadruplex_view
+					GROUP BY count
+					UNION ALL
+					SELECT 'Total',
+					SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+					SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+					SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+					COUNT(*) AS Total
+					FROM quadruplex_view;")).ToList();
 			}
 		}
 
@@ -76,20 +76,20 @@ FROM quadruplex_view;")).ToList();
 
 				return (await connection.QueryAsync<Statistics>(
 					@"
-SELECT CAST(chains AS text),
-SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
-SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
-SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
-COUNT(*) AS Total
-FROM quadruplex_view
-GROUP BY chains
-UNION ALL
-SELECT 'Total',
-SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
-SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
-SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
-COUNT(*) AS Total
-FROM quadruplex_view;")).ToList();
+				SELECT CAST(chains AS text),
+				SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+				SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+				SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+				COUNT(*) AS Total
+				FROM quadruplex_view
+				GROUP BY chains
+				UNION ALL
+				SELECT 'Total',
+				SUM(CASE molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
+				SUM(CASE molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
+				SUM(CASE molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
+				COUNT(*) AS Total
+				FROM quadruplex_view;")).ToList();
 			}
 		}
 
