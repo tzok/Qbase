@@ -235,13 +235,16 @@ WHERE chains = 4;")).ToList();
 				
 				return (await connection.QueryFirstAsync<HomePagePlot>(
 					@"select to_char(t.release_date::date, 'YYYY-MM-DD') as PdbRelease,
-							COALESCE(numberOfTetrad,0) as AddedTetradCount,
-							COALESCE(numberOfQuadruplex, 0) as AddedQuadruplexCount,
-							COALESCE(numberOfHelix, 0) as AddedHelixCount
-							from tetrad_growth_view t
-							left join quadruplex_growth_view q  on t.release_date = q.release_date
-							left join helix_growth_view h on t.release_date = h.release_date
-							WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
+						COALESCE(numberOfTetrad,0) as AddedTetradCount,
+						COALESCE(numberOfQuadruplex, 0) as AddedQuadruplexCount,
+						COALESCE(numberOfHelix, 0) as AddedHelixCount,
+						COALESCE(numerOfStructure, 0) as AddedStructureCount
+						from tetrad_growth_view t
+						left join quadruplex_growth_view q  on t.release_date = q.release_date
+						left join helix_growth_view h on t.release_date = h.release_date
+						left join structure_growth_view s on t.release_date = s.release_date
+						WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
+
 						   "));
 				
 			}

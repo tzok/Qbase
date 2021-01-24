@@ -159,7 +159,20 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 		}		
 		
 		
-		
+		/*
+		 CREATE VIEW structure_growth_view AS
+
+SELECT
+count(p.identifier) AS StructureCount,
+p.release_date as release_date
+FROM 
+QUADRUPLEX as q  
+JOIN TETRAD t ON q.id = t.quadruplex_id
+JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+JOIN PDB p ON n1.pdb_id = p.id
+GROUP BY p.release_date
+		 */
 		
 		
 		

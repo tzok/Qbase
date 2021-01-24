@@ -9,6 +9,7 @@ namespace RNAqbase.Models
         public int AddedHelixCount { get; set; }
         public int AddedTetradCount { get; set; }
         public int AddedQuadruplexCount { get; set; }
+        public int AddedStructureCount { get; set; }
         public string PdbRelease { get; set; }
     }
 }

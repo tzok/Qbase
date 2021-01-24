@@ -145,6 +145,7 @@ interface updateInfotmations {
   addedHelixCount: number;
   addedQuadruplexCount: number;
   addedTetradCount: number;
+  addedStructureCount: number;
 
   pdbRelease: string;
 }
