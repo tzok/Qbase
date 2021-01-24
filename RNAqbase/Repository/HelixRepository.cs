@@ -12,7 +12,7 @@ namespace RNAqbase.Repository
 	public class HelixRepository : RepositoryBase, IHelixRepository
 	{
 		public HelixRepository(IConfiguration configuration) : base(configuration)
-		{		}
+		{}
 
 		public async Task<Helix> GetHelixById(int id)
 		{

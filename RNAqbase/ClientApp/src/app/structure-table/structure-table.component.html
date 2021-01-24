@@ -60,6 +60,18 @@
             </mat-cell>
           </ng-container>
 
+
+          <!-- Quadruplex Id Column -->
+          <ng-container matColumnDef="quadruplexId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplex_filter">Quadruplex ID</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Quadruplex ID</span>
+              <a *ngFor="let t of row.quadruplex_id_list; " [routerLink]="['/quadruplex', t]">
+                <a class = "hasTooltip"><p style="font-size: 14px;"> Q{{t}} </p> <span> <img src = "qbase-static/Q{{t}}.png" width="200" height="150"  alt=""> </span></a>
+              </a>
+            </mat-cell>
+          </ng-container>
+
           <!-- Structure 2D Column -->
           <ng-container matColumnDef="structure2D">
             <mat-header-cell *matHeaderCellDef> 2D structure</mat-header-cell>
@@ -74,36 +86,10 @@
             <mat-header-cell *matHeaderCellDef> 3D structure</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">3D structure</span>
-              <button (click)="show3DStructure(row.pdbId, row.id)">View</button>
+              <button (click)="show3DStructure(row.pdbId)">View</button>
             </mat-cell>
           </ng-container>
 
-          <!-- Quadruplex Id Column -->
-          <ng-container matColumnDef="quadruplexId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="id">Quadruplex ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Quadruplex ID</span>
-              <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id]">
-                {{row.quadruplexId}} <span> <img src = "qbase-static/Q{{row.id}}.png" width="200" height="150"  alt=""> </span>
-              </a>
-            </mat-cell>
-          </ng-container>
-          <!-- No. of strands Column -->
-          <ng-container matColumnDef="numberOfStrands">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by no. of strands)</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">No. of strands</span>
-              {{row.numberOfStrands}}
-            </mat-cell>
-          </ng-container>
-          <!-- ONZM Column -->
-          <ng-container matColumnDef="onzClass">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="onzClass">ONZM Class</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">ONZm Class</span>
-              {{row.onzmClass}}
-            </mat-cell>
-          </ng-container>
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>

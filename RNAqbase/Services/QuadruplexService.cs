@@ -19,6 +19,9 @@ namespace RNAqbase.Services
 
 		public async Task<List<QuadruplexesWithoutVisualizations>> GetAllQuadruplexes() =>
 			await quadruplexRepository.GetAllQuadruplexes();
+		
+		public async Task<List<Structure>> GetAllStructures() =>
+			await quadruplexRepository.GetAllStructures();
 
 		public async Task<Quadruplex> GetQuadruplexById(int id) =>
 			await quadruplexRepository.GetQuadruplexById(id);
@@ -31,6 +34,9 @@ namespace RNAqbase.Services
 
         public async  Task<MemoryStream> GetQuadruplex3dVisualization(int id) =>
 	        (await quadruplexRepository.GetQuadruplex3dVisualization(id));
+        
+        public async  Task<string> AddEmailToDatabase(string email) =>
+	        (await quadruplexRepository.AddEmailToDatabase(email));
 
 	}
 }

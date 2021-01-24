@@ -98,7 +98,51 @@
     </mat-card>
     <br>
 
+    <mat-card>
+      <mat-card-content>
+
+          <p class = "center">Enter your e-mail address and subscribe to our newsletter to get an email when something new will be added to ONQUADRO!</p>
+
+        <body style = "text-align: center;">
+
+        <form class="form-inline" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
+
+            <input type="email"
+                   name="email"
+                   ngModel
+                   placeholder="youremail@example.com"
+                   #emailWithPattern="ngModel"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                   required>
+
+            <button type="submit" [disabled]="form.invalid">Submit</button>
+
+          <div>
+            <p *ngIf="emailWithPattern.errors?.pattern">
+              Your e-mail address is wrong!
+              {{wrong_email()}}
+            </p>
+            <p *ngIf ="email_added && !emailWithPattern.errors?.pattern">You are a new subscriber!</p>
+          </div>
+
+
+          </form>
+        </body>
+
+
+      </mat-card-content>
+    </mat-card>
+    <br>
+
   </main>
 
 </div>
 </div>
+
+<!--
+CREATE TABLE email
+(
+    id               SERIAL PRIMARY KEY,
+    email      TEXT  NOT NULL
+);
+-->

@@ -71,6 +71,7 @@
               {{row.molecule}}
             </mat-cell>
           </ng-container>
+
           <!-- Sequence Column -->
           <ng-container matColumnDef="sequence">
             <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence</mat-header-cell>
@@ -79,6 +80,7 @@
               {{truncate(row.sequence)}}
             </mat-cell>
           </ng-container>
+
           <!-- No. of strands Column -->
           <ng-container matColumnDef="type_strand">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by no. of strands)</mat-header-cell>

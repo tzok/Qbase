@@ -22,5 +22,17 @@ namespace RNAqbase.Controllers
 			string svg = await repository.GetVisualizationByPdbId(pdbId);
 			return base.Ok(svg);
 		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetVisualization3dById(string pdbId)
+		{
+			var dataStream = await repository.GetVisualization3dByPdbId(pdbId);
+			return File(dataStream, "application/octet-stream", $"{pdbId}.cif");
+		}
+		
 	}
 }
+
+/*
+public async Task<MemoryStream> GetVisualization3dByPdbId(string pdbId)
+*/

@@ -77,7 +77,6 @@ export class QuadruplexComponent implements OnInit {
           this.data.visualization2D_icon = this.setSize(this.data.visualization2D_icon);
           this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
-
           this.quadruplexInformations = {
             id: this.data.id,
             pdbIdentifier: this.data.pdbIdentifier,

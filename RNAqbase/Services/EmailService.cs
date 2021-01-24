@@ -1,7 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using RNAqbase.Models;
+using RNAqbase.Repository;
 
 namespace RNAqbase.Services
 {
@@ -13,6 +16,7 @@ namespace RNAqbase.Services
 		{
 			this.configuration = configuration;
 		}
+
 
 		public async Task SendEmail(string subject, string message)
 		{
@@ -42,5 +46,6 @@ namespace RNAqbase.Services
 
 			await Task.CompletedTask;
 		}
+
 	}
 }

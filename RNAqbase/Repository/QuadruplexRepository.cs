@@ -87,7 +87,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 					JOIN TETRAD t ON q.id = t.quadruplex_id
 					WHERE  q.id = @QuadruplexId",
 					new {QuadruplexId = id});
-
+				
 				quadruplex.Tetrads = ids.ToList();
 				return quadruplex;
 			}
@@ -101,36 +101,70 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 
 				return (await connection.QueryAsync<QuadruplexesWithoutVisualizations>(
                     @"
-
-SELECT
-	MAX(q.id) AS Id,
-	MAX(q.onzm) AS OnzmClass,
-	to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-	MAX(p.identifier) AS PdbId,
-	MAX(p.assembly) AS AssemblyId,
-	MAX(q_view.molecule) AS Molecule,
-	STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	COUNT(DISTINCT(t.onz)) AS TypeCount,
-	COUNT(t.id) AS NumberOfTetrads,
-	MAX(p.experiment) AS experiment,
-	CASE
-			WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-			WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-			ELSE 'tetramolecular'
-	 END 
-	 as NumberOfStrands
-FROM QUADRUPLEX q
-JOIN TETRAD t ON q.id = t.quadruplex_id
-JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
-JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-JOIN PDB p ON n1.pdb_id = p.id
-GROUP BY q.id
-HAVING COUNT(t.id) > 1")).ToList();
+						SELECT
+							MAX(q.id) AS Id,
+							MAX(q.onzm) AS OnzmClass,
+							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+							MAX(p.identifier) AS PdbId,
+							MAX(p.assembly) AS AssemblyId,
+							MAX(q_view.molecule) AS Molecule,
+							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+							COUNT(DISTINCT(t.onz)) AS TypeCount,
+							COUNT(t.id) AS NumberOfTetrads,
+							MAX(p.experiment) AS experiment,
+							CASE
+									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+									ELSE 'tetramolecular'
+							 END 
+							 as NumberOfStrands
+						FROM QUADRUPLEX q
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+						JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						GROUP BY q.id
+						HAVING COUNT(t.id) > 1")).ToList();
 			}
 		}
+		
+		
+		
+		public async Task<List<Structure>> GetAllStructures()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Structure>(
+					@"
+						SELECT
+						string_agg(CAST(q.id AS TEXT), ',') as Quadruplex_id,
+						p.identifier AS PdbId,
+						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+						MAX(p.assembly) AS AssemblyId,
+						MAX(q_view.molecule) AS Molecule,
+						MAX(p.experiment) AS experiment
+						FROM 
+						QUADRUPLEX as q  
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						GROUP BY p.identifier")).ToList();
+			}
+		}		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id)
 		{
@@ -172,11 +206,21 @@ HAVING COUNT(t.id) > 1")).ToList();
 			}
 		}
 		
-		/*
-		IN (select tetrad.Id from quadruplex
-			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-			where quadruplex.id = @id)"
-			*/
+		public async Task<string> AddEmailToDatabase(string email)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				var ids = await connection.QueryAsync<int>(
+					@"
+					INSERT INTO email (email)
+                          VALUES (@email)", new {@email = email});
+				
+				return ("DONE");
+				
+			}
+		}
+
 		
 		public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
 		{

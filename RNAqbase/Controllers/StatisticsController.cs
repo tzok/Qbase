@@ -79,6 +79,5 @@ namespace RNAqbase.Controllers
 			return Ok(a);
 		}
 
-
 	}
 }

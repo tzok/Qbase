@@ -17,10 +17,10 @@ export class Visualization3DComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
+    console.log(this.data.url);
+    console.log(this.pdbId);
     this.pdbId = this.data.pdbId;
     this.url = this.data.url;
-    console.log(this.url);
-    console.log(this.pdbId);
     this.show3DVisualization();
   }
 

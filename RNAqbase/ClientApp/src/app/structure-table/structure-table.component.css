@@ -2,6 +2,10 @@
   overflow: auto;
   /*max-height: 500px;*/
 }
+.mat-column-pdbIdentifier, .mat-column-pdbDeposition, .mat-column-assemblyId, .mat-column-molecule,  .mat-column-experimentalMethod, .mat-column-structure2D{
+  flex: 0 0 11%;
+}
+
 
 .mobile-label {
   display: none;
@@ -126,6 +130,7 @@ a {
   color: #000;
   text-decoration: none;
   padding: 5px 0;
+  z-index: 50;
 }
 
 .hasTooltip:hover span {

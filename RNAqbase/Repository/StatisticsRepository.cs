@@ -213,9 +213,16 @@ WHERE chains = 4;")).ToList();
 
 				return (await connection.QueryFirstAsync<HomePagePlot>(
 					@"select (select count(*) from quadruplex) as QuadruplexCount,
-						  (select count(*) from helix_new) as HelixCount,
-						   (select count(*) from tetrad) as TetradCount
-						   "));
+					   (select count(*) from helix_new) as HelixCount,
+					   (select count(*) from tetrad) as TetradCount, 
+					   (select count(x) as StructureCount from
+						(SELECT p.identifier
+						FROM 
+						QUADRUPLEX as q  
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						GROUP BY p.identifier) as x)"));
 			}
 		}
 
@@ -225,7 +232,7 @@ WHERE chains = 4;")).ToList();
 			using (var connection = Connection)
 			{
 				connection.Open();
-
+				
 				return (await connection.QueryFirstAsync<HomePagePlot>(
 					@"select to_char(t.release_date::date, 'YYYY-MM-DD') as PdbRelease,
 							COALESCE(numberOfTetrad,0) as AddedTetradCount,
@@ -236,9 +243,9 @@ WHERE chains = 4;")).ToList();
 							left join helix_growth_view h on t.release_date = h.release_date
 							WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
 						   "));
+				
 			}
 		}
-
 	}
 }
 

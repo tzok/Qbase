@@ -27,6 +27,13 @@ namespace RNAqbase.Controllers
 		{
 			return Ok(await quadruplexService.GetAllQuadruplexes());
 		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetStructures()
+		{
+			return Ok(await quadruplexService.GetAllStructures());
+		}
+	
 
 		[HttpGet("[action]")]
 		public async Task<IActionResult> GetQuadruplexById(int id)
@@ -52,10 +59,16 @@ namespace RNAqbase.Controllers
         }
         
         [HttpGet("[action]")]
+        public async Task<IActionResult> AddEmailToDatabase(string email)
+        {
+	        return Ok(await quadruplexService.AddEmailToDatabase(email));
+        }
+        
+        
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetQuadruplex3dVisualizationMethod(int id)
         {
 	        var dataStream = await quadruplexService.GetQuadruplex3dVisualization(id);
-	        //https://social.msdn.microsoft.com/Forums/en-US/c2532732-e70b-403e-8f73-34356a6be93e/serialize-a-list-to-memorystream?forum=csharpgeneral
 	        return File(dataStream,  "application/octet-stream", $"{id}.cif");
         }
         

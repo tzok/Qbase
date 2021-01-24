@@ -24,17 +24,18 @@ export class StructureTableComponent implements OnInit {
 
   displayedColumns = [
     'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
-    'experimentalMethod', 'structure2D','structure3D', 'quadruplexId', 'numberOfStrands', 'onzClass', 'select'
+    'experimentalMethod', 'quadruplexId', 'structure2D','structure3D', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
+    this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures').subscribe(result => {
       this.dataSource = new MatTableDataSource(result);
-
         for (let val of result){
-          val.quadruplexId =  'Q' + val.id.toString();
+          val.quadruplex_id_list = val.quadruplex_id.split(',');
+          val.quadruplex_id_list = new Set(val.quadruplex_id_list);
+          val.quadruplex_filter = parseInt(val.quadruplex_id.split(',')[0]);
         }
         this.dataSource.filterPredicate = (data: Structure, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
@@ -52,7 +53,8 @@ export class StructureTableComponent implements OnInit {
 
       },
       error => console.error(error));
-  }
+
+      }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -74,7 +76,7 @@ export class StructureTableComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.pdbId + 1}`;
   }
 
 
@@ -91,27 +93,24 @@ export class StructureTableComponent implements OnInit {
   }
 
 
-  show3DStructure(pdbId: number, id: number) {
+  show3DStructure(pdbId: number) {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: pdbId,
-        url: this.baseUrl + 'api/Quadruplex/GetQuadruplex3dVisualizationMethod?id=' + id
+        url: this.baseUrl + 'api/pdb/GetVisualization3dById?pdbid=' + pdbId
       }
     });
   }
-
-
 }
 
 interface Structure {
+  quadruplex_id: string;
   pdbId: string;
+  pdbDeposition: string;
   assemblyId: number;
   molecule: string;
   experiment: string;
-  id: number;
-  quadruplexId: string;
-  numberOfStrands: number;
-  onzmClass: string;
-  pdbDeposition: string;
-  select: boolean;
+  quadruplex_id_list: any;
+  quadruplex_filter: number;
 }
+
