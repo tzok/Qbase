@@ -31,12 +31,11 @@ export class StructureTableComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures').subscribe(result => {
-      this.dataSource = new MatTableDataSource(result);
+        this.dataSource = new MatTableDataSource(result);
         for (let val of result){
-          val.quadruplex_id_list = val.quadruplex_id.split(',');
-          val.quadruplex_id_list = new Set(val.quadruplex_id_list);
-          val.quadruplex_filter = parseInt(val.quadruplex_id.split(',')[0]);
+          val.quadruplex_id =  Array.from(new Set( val.quadruplex_id.split(',') ))
         }
+
         this.dataSource.filterPredicate = (data: Structure, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
             return (currentTerm + (data as { [key: string]: any })[key] + '◬');
@@ -50,6 +49,17 @@ export class StructureTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
       this.filteredDataLength = this.dataSource.data.length;
+
+      /* let tmp = this.dataSource.data.map(function(obj) {
+          return {
+            quadruplex_id_list: obj.quadruplex_id_list,
+            pdbId: obj.pdbId,
+            pdbDeposition: obj.pdbDeposition,
+            assemblyId: obj.assemblyId,
+            molecule: obj.molecule,
+            experiment: obj.experiment
+          }
+        });*/
 
       },
       error => console.error(error));
@@ -104,13 +114,11 @@ export class StructureTableComponent implements OnInit {
 }
 
 interface Structure {
-  quadruplex_id: string;
+  quadruplex_id: any;
   pdbId: string;
   pdbDeposition: string;
   assemblyId: number;
   molecule: string;
   experiment: string;
-  quadruplex_id_list: any;
-  quadruplex_filter: number;
 }
 
