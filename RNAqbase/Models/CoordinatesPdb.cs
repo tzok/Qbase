@@ -6,7 +6,7 @@ namespace RNAqbase.Models
     public class CoordinatesPdb
     {
         
-        public string[] C1 { get; set; }
+        public string[] Coordinates { get; set; }
         
         public string CoordinatesAsString
         {
@@ -33,9 +33,9 @@ namespace RNAqbase.Models
 				_atom_site.pdbx_formal_charge
 					");
                
-                for (int i = 0; i < C1.Length; i++)
+                for (int i = 0; i < Coordinates.Length; i++)
                 {
-                    sb.Append(C1[i] + '\n');
+                    sb.Append(Coordinates[i] + '\n');
                 }
                 
                 return sb.ToString();

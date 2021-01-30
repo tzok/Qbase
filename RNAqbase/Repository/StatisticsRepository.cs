@@ -222,7 +222,7 @@ WHERE chains = 4;")).ToList();
 						JOIN TETRAD t ON q.id = t.quadruplex_id
 						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
 						JOIN PDB p ON n1.pdb_id = p.id
-						GROUP BY p.identifier) as x)"));
+						GROUP BY p.identifier, p.assembly) as x)"));
 			}
 		}
 
@@ -238,7 +238,7 @@ WHERE chains = 4;")).ToList();
 						COALESCE(numberOfTetrad,0) as AddedTetradCount,
 						COALESCE(numberOfQuadruplex, 0) as AddedQuadruplexCount,
 						COALESCE(numberOfHelix, 0) as AddedHelixCount,
-						COALESCE(numerOfStructure, 0) as AddedStructureCount
+					    COALESCE(numerOfStructure, 0) as AddedStructureCount
 						from tetrad_growth_view t
 						left join quadruplex_growth_view q  on t.release_date = q.release_date
 						left join helix_growth_view h on t.release_date = h.release_date

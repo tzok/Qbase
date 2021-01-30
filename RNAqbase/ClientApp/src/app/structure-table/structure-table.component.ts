@@ -94,7 +94,6 @@ export class StructureTableComponent implements OnInit {
     this.http.get(this.baseUrl + 'api/pdb/GetVisualizationById?pdbid=' + pdbId,
       { responseType: 'text' })
       .subscribe(result => {
-        console.log(result);
       let dialogRef = this.dialog.open(VisualizationDialogComponent, {
           data: { svg: result },
         });
@@ -103,11 +102,11 @@ export class StructureTableComponent implements OnInit {
   }
 
 
-  show3DStructure(pdbId: number) {
+  show3DStructure(pdbId: number, assembly: number) {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: pdbId,
-        url: this.baseUrl + 'api/pdb/GetVisualization3dById?pdbid=' + pdbId
+        url: this.baseUrl + 'api/pdb/GetVisualization3dById?pdbid=' + pdbId + '&assembly=' + assembly
       }
     });
   }

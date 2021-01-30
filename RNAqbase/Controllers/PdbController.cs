@@ -24,9 +24,9 @@ namespace RNAqbase.Controllers
 		}
 		
 		[HttpGet("[action]")]
-		public async Task<IActionResult> GetVisualization3dById(string pdbId)
+		public async Task<IActionResult> GetVisualization3dById(string pdbId, int assembly)
 		{
-			var dataStream = await repository.GetVisualization3dByPdbId(pdbId);
+			var dataStream = await repository.GetVisualization3dByPdbId(pdbId, assembly);
 			return File(dataStream, "application/octet-stream", $"{pdbId}.cif");
 		}
 		

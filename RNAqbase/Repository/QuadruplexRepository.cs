@@ -145,7 +145,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 						string_agg(CAST(q.id AS TEXT), ',') as Quadruplex_id,
 						p.identifier AS PdbId,
 						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-						MAX(p.assembly) AS AssemblyId,
+						p.assembly AS AssemblyId,
 						MAX(q_view.molecule) AS Molecule,
 						MAX(p.experiment) AS experiment
 						FROM 
@@ -154,7 +154,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
 						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
 						JOIN PDB p ON n1.pdb_id = p.id
-						GROUP BY p.identifier")).ToList();
+						GROUP BY p.identifier, p.assembly")).ToList();
 			}
 		}		
 		
