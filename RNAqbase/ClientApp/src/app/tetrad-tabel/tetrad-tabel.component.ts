@@ -15,25 +15,36 @@ export class TetradTabelComponent implements OnInit {
 
   selection = new SelectionModel<Tetrad>(true, []);
   dataSource = new MatTableDataSource<Tetrad>();
+  csvData: TetradCSV[] = [];
   areButtonsHidden: boolean = true;
   filteredDataLength = this.dataSource.data.length;
 
-@ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule',
     'sequence', 'onzClass', 'select'];
 
-  constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
+  constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
-      this.dataSource = new MatTableDataSource(result);
-
-      for (let val of result){
-        val.tetradId =  'T' + val.id.toString();
-        val.qId = 'Q' + val.quadruplexId.toString();
+      this.csvData = JSON.parse(JSON.stringify(result));
+      for (let val of this.csvData){
+        val.id = 'T' + val.id.toString();
+        val.quadruplexId = 'Q' + val.quadruplexId.toString();
       }
+
+      this.dataSource = new MatTableDataSource(result);
+      for (let val of result) {
+        val.tetrad_id = val.id;
+        val.quadruplex_id = val.quadruplexId;
+        val.id = 'T' + val.id.toString();
+        val.quadruplexId = 'Q' + val.quadruplexId.toString();
+      }
+
+
 
       this.dataSource.filterPredicate = (data: Tetrad, filter: string): boolean => {
         const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
@@ -48,10 +59,12 @@ export class TetradTabelComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
       this.filteredDataLength = this.dataSource.data.length;
-      }, error => console.error(error));
+
+    }, error => console.error(error));
+
   }
 
-applyFilter(event: Event) {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.filteredDataLength = this.dataSource.filteredData.length;
@@ -76,13 +89,26 @@ applyFilter(event: Event) {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+
 }
 
 interface Tetrad {
-  id: number;
-  tetradId: string;
-  quadruplexId: number;
-  qId: string;
+  id: any;
+  quadruplexId: any;
+  pdbId: string;
+  assemblyId: number;
+  molecule: string;
+  sequence: string;
+  onzClass: string;
+  pdbDeposition: string;
+  select: boolean;
+  tetrad_id: number;
+  quadruplex_id: number;
+}
+
+interface TetradCSV {
+  id: any;
+  quadruplexId: any;
   pdbId: string;
   assemblyId: number;
   molecule: string;

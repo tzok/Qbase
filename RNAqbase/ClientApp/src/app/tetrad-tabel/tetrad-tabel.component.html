@@ -13,7 +13,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
           </mat-form-field>
         </div>
-        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
         <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
 
@@ -22,13 +22,13 @@
 
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="tetrad_id">
               Tetrad ID<sup matTooltip="Click ID to see tetrad description">&#9432;</sup>
             </mat-header-cell>
 
             <mat-cell  *matCellDef="let row">
-                <a class="hasTooltip" [routerLink]="['/tetrad', row.id]">
-                  {{row.tetradId}}  <span> <img src = "qbase-static/T{{row.id}}.png" width="110" height="110"  alt=""> </span>
+                <a class="hasTooltip" [routerLink]="['/tetrad', row.id.slice(1)]">
+                  {{row.id}}  <span> <img src = "qbase-static/{{row.id}}.png" width="110" height="110"  alt=""> </span>
                 </a>
             </mat-cell>
 
@@ -36,12 +36,12 @@
 
           <!-- Quadruplex ID Column -->
           <ng-container matColumnDef="quadruplexId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplexId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplex_id">
               Quadruplex ID <sup matTooltip="Click ID to see quadruplex description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <a class = "hasTooltip" *ngIf="row.quadruplexId!='99999999'" [routerLink]="['/quadruplex', row.quadruplexId]">
-                {{row.qId}} <span> <img src = "qbase-static/Q{{row.quadruplexId}}.png" width="200" height="150"  alt=""> </span>
+            <a class = "hasTooltip" *ngIf="row.quadruplexId!='99999999'" [routerLink]="['/quadruplex', row.quadruplexId.slice(1)]">
+                {{row.quadruplexId}} <span> <img src = "qbase-static/{{row.quadruplexId}}.png" width="200" height="150"  alt=""> </span>
               </a>
               <a *ngIf="row.quadruplexId==='99999999'">n/a</a>
             </mat-cell>

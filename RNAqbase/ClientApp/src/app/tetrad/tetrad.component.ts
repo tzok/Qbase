@@ -4,12 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
 import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
-import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
+import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import * as svg from 'save-svg-as-png';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import { saveAs } from "file-saver";
+
 
 
 @Component({
@@ -18,6 +20,8 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
   styleUrls: ['./tetrad.component.css']
 })
 export class TetradComponent implements OnInit {
+  images = ["https://www.zooplus.pl/magazyn/wp-content/uploads/2019/12/kot-przyb%C5%82%C4%99da-768x512.jpeg"];
+  getRequests = [];
 
   data: Tetrad;
   csvData: Tetrad[];
@@ -28,6 +32,7 @@ export class TetradComponent implements OnInit {
   svg_arc: SafeHtml;
   svg_varna_icon: SafeHtml;
   svg_arc_icon: SafeHtml;
+  require: any;
 
   constructor(
     private http: HttpClient,
@@ -42,13 +47,11 @@ export class TetradComponent implements OnInit {
 
       this.http.get<Tetrad>(this.baseUrl + 'api/Tetrad/GetTetradById?id=' + this.tetradId).subscribe(result => {
         this.data = result;
-
         this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
         this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
         this.data.arcDiagram_icon = this.setId(result.arcDiagram, '_arc');
         this.data.arcDiagram_icon = this.setSize(this.data.arcDiagram_icon);
         this.svg_arc_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram_icon);
-
 
         this.data.visualization2D = this.setId(result.visualization2D, '_varna');
         this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
@@ -57,8 +60,8 @@ export class TetradComponent implements OnInit {
         this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
         this.tetradInformations = {
-          id: this.data.id,
-          quadruplexId: this.data.quadruplexId,
+          id: 'T' + this.data.id,
+          quadruplexId: 'Q' + this.data.quadruplexId,
           pdbIdentifier: this.data.pdbIdentifier,
           assemblyId: this.data.assemblyId,
           molecule: this.data.molecule,
@@ -144,17 +147,28 @@ export class TetradComponent implements OnInit {
 
   }
 
-  saveZip(){
-    let tetrad = this.generateFile([this.tetradInformations])
-    let zip = new JSZip();
-    zip.file("tetrad" + ".csv", tetrad);
-    zip.generateAsync({type: "blob"}).then(function(content) {
-      FileSaver.saveAs(content, "data.zip");
-    });
+  downloadZip() {
+    let images = ["/qbase-static/" + this.tetradInformations.id + ".png", "/qbase-static/" + this.tetradInformations.id + ".png"]
+    for (let image of images) {
+      console.log(image);
+    }
 
-    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
-    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
+    this.loadSvgData("/qbase-static/" + this.tetradInformations.quadruplexId + ".png", this.saveAsZip);
   }
+
+  private loadSvgData(url: string, callback: Function) : void{
+    this.http.get(url, { responseType: "arraybuffer" })
+      .subscribe(x => callback(x, this.tetradInformations, this.generateFile));
+  }
+
+  private saveAsZip(content: Blob, tetradInformations: any, generateFile) : void{
+    var zip =new JSZip();
+    let tetrad = generateFile([tetradInformations])
+    zip.file("3d_tetrad_visualization.png", content);
+    zip.file("tetrad" + ".csv", tetrad);
+    zip.generateAsync({ type: "blob" })
+      .then(blob => saveAs(blob,'data.zip'));
+  };
 
   generateFile(data: any) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
@@ -196,8 +210,8 @@ interface Tetrad {
 
 
 interface TetradCSVInformations {
-  id: number;
-  quadruplexId: string;
+  id: any;
+  quadruplexId: any;
   pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
