@@ -224,14 +224,30 @@ GROUP BY p.release_date
 			using (var connection = Connection)
 			{
 				connection.Open();
-				var ids = await connection.QueryAsync<int>(
+				var ids = await connection.QueryAsync(
 					@"
-					INSERT INTO email (email)
+					INSERT INTO newsletter (email)
                           VALUES (@email)", new {@email = email});
 				
-				return ("DONE");
+				return (null);
 				
 			}
+		}
+		
+		public async Task<string> DeleteEmailFromDatabase(string id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				Guid id_uuid = new Guid(id);
+				Console.WriteLine(id);
+				var ids = await connection.QueryAsync(
+					@"
+					DELETE FROM newsletter
+					WHERE id = @id;", new {@id = id_uuid});
+			}
+
+			return(null);
 		}
 
 		

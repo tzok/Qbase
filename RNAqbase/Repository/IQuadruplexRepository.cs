@@ -14,5 +14,6 @@ namespace RNAqbase.Repository
         Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id);
         Task<MemoryStream> GetQuadruplex3dVisualization(int id);
         Task<string> AddEmailToDatabase(string email);
+        Task<string> DeleteEmailFromDatabase(string id);
 	}
 }

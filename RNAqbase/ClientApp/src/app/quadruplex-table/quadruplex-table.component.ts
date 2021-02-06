@@ -31,7 +31,7 @@ export class QuadruplexTableComponent implements OnInit {
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
         for (let val of result){
-          val.quadruplexId =  'Q' + val.id;
+          val.id =  'Q' + val.id;
         }
         this.dataSource = new MatTableDataSource(result);
 
@@ -87,7 +87,6 @@ export class QuadruplexTableComponent implements OnInit {
 
 interface Quadruplex {
   id: string;
-  quadruplexId: string;
   pdbId: string;
   assemblyId: number;
   molecule: string;

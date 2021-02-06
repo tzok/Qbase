@@ -109,7 +109,6 @@ export class HomeComponent implements OnInit {
         stack: 'a'
       }
     ];
-
   }
 
   getPdbRelease() {
@@ -128,7 +127,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
   wrong_email(){
     this.email_added = false;
   }
@@ -146,7 +144,6 @@ interface updateInfotmations {
   addedQuadruplexCount: number;
   addedTetradCount: number;
   addedStructureCount: number;
-
   pdbRelease: string;
 }
 

@@ -20,9 +20,6 @@ import { saveAs } from "file-saver";
   styleUrls: ['./tetrad.component.css']
 })
 export class TetradComponent implements OnInit {
-  images = ["https://www.zooplus.pl/magazyn/wp-content/uploads/2019/12/kot-przyb%C5%82%C4%99da-768x512.jpeg"];
-  getRequests = [];
-
   data: Tetrad;
   csvData: Tetrad[];
   tetradInformations: TetradCSVInformations;
@@ -32,7 +29,6 @@ export class TetradComponent implements OnInit {
   svg_arc: SafeHtml;
   svg_varna_icon: SafeHtml;
   svg_arc_icon: SafeHtml;
-  require: any;
 
   constructor(
     private http: HttpClient,

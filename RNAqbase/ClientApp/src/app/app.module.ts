@@ -33,8 +33,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {ChartsModule } from 'ng2-charts';
 import {MatSelectModule} from "@angular/material/select";
-
-
+import { NewsletterComponent } from './newsletter/newsletter.component';
 
 
 @NgModule({
@@ -59,7 +58,8 @@ import {MatSelectModule} from "@angular/material/select";
     ArcdiagramComponent,
     HeliceComponent,
     HelixComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NewsletterComponent
   ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -82,6 +82,7 @@ import {MatSelectModule} from "@angular/material/select";
             {path: 'statistics', component: StatisticsComponent},
             {path: 'helices', component: HeliceComponent},
             {path: 'helices/:helixId', component: HelixComponent},
+            {path: 'unsubscribe/:id', component: NewsletterComponent},
             {path: '**', component: PageNotFoundComponent}
         ]),
         BrowserAnimationsModule,
@@ -101,9 +102,6 @@ import {MatSelectModule} from "@angular/material/select";
       BrowserModule,
       BrowserAnimationsModule,
       FormsModule
-      //  IgxDoughnutChartModule,
-     // IgxRingSeriesModule
-
     ],
   providers: [],
   bootstrap: [AppComponent],

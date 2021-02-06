@@ -37,6 +37,8 @@ namespace RNAqbase.Services
         
         public async  Task<string> AddEmailToDatabase(string email) =>
 	        (await quadruplexRepository.AddEmailToDatabase(email));
+        public async  Task<string> DeleteEmailFromDatabase(string id) =>
+	        (await quadruplexRepository.DeleteEmailFromDatabase(id));
 
 	}
 }

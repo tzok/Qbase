@@ -25,8 +25,8 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id]">
-                {{row.quadruplexId}} <span> <img src = "qbase-static/{{row.quadruplexId}}.png" width="200" height="150"  alt=""> </span>
+              <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id.slice(1)]">
+                {{row.id}} <span> <img src = "qbase-static/{{row.id}}.png" width="200" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>

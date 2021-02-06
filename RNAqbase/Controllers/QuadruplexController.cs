@@ -64,6 +64,12 @@ namespace RNAqbase.Controllers
 	        return Ok(await quadruplexService.AddEmailToDatabase(email));
         }
         
+        [HttpGet("[action]")]
+        public async Task<IActionResult> DeleteEmailFromDatabase(string id)
+        {
+	        return Ok(await quadruplexService.DeleteEmailFromDatabase(id));
+        }
+        
         
         [HttpGet("[action]")]
         public async Task<IActionResult> GetQuadruplex3dVisualizationMethod(int id)

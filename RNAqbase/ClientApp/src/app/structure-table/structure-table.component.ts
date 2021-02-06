@@ -44,26 +44,12 @@ export class StructureTableComponent implements OnInit {
           const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
           return dataStr.indexOf(transformedFilter) != -1;
         }
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
       this.filteredDataLength = this.dataSource.data.length;
-
-      /* let tmp = this.dataSource.data.map(function(obj) {
-          return {
-            quadruplex_id_list: obj.quadruplex_id_list,
-            pdbId: obj.pdbId,
-            pdbDeposition: obj.pdbDeposition,
-            assemblyId: obj.assemblyId,
-            molecule: obj.molecule,
-            experiment: obj.experiment
-          }
-        });*/
-
       },
       error => console.error(error));
-
       }
 
   applyFilter(event: Event) {
