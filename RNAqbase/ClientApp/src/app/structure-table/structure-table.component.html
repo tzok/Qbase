@@ -12,7 +12,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
           </mat-form-field>
         </div>
-        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
         <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
       <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">

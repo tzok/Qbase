@@ -11,6 +11,7 @@ import saveSvgAsPng from 'save-svg-as-png';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import * as svg from 'save-svg-as-png';
 import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
+import { saveAs } from "file-saver";
 
 
 @Component({
@@ -78,7 +79,7 @@ export class QuadruplexComponent implements OnInit {
           this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
           this.quadruplexInformations = {
-            id: this.data.id,
+            id: 'Q' + this.data.id,
             pdbIdentifier: this.data.pdbIdentifier,
             assemblyId: this.data.assemblyId,
             molecule: this.data.molecule,
@@ -115,7 +116,7 @@ export class QuadruplexComponent implements OnInit {
 
                   for (let val of result) {
                     this.tetradsInformation.push({
-                      id: val.id,
+                      id: "T" + val.id,
                       sequence: val.sequence,
                       onzClass: val.onzClass,
                       planarity: val.planarity
@@ -125,8 +126,8 @@ export class QuadruplexComponent implements OnInit {
                   for (let val of result) {
                     if (val.tetrad2_id != 0) {
                       this.tetradsPairsInformation.push({
-                        TetradId: val.id,
-                        TetradPairId: val.tetrad2_id,
+                        TetradId: "T" + val.id,
+                        TetradPairId: "T" + val.tetrad2_id,
                         twist: val.twist,
                         rise: val.rise,
                         direction: val.direction
@@ -185,6 +186,34 @@ export class QuadruplexComponent implements OnInit {
     let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id:this.data.id } });
   }
 
+  downloadZip() {
+    //let images = ["/qbase-static/" + this.tetradInformations.id + ".png", "/qbase-static/" + this.tetradInformations.id + ".png"]
+    //for (let image of images) {
+    //console.log(image);
+    // }
+      this.loadSvgData("/qbase-static/" + this.quadruplexInformations.id + ".png", this.saveAsZip);
+  }
+
+  private loadSvgData(url: string, callback: Function) : void{
+    this.http.get(url, { responseType: "arraybuffer" })
+      .subscribe(x => callback(x, this.quadruplexInformations,this.tetradsInformation, this.tetradsPairsInformation, this.generateFile));
+  }
+
+  private saveAsZip(content: Blob, quadruplexInformations: any,tetradsInformation: any, tetradsPairsInformation: any,  generateFile) : void{
+    let quadruplex = generateFile([quadruplexInformations])
+    let tetrads = generateFile(tetradsInformation)
+    let tetradsPairs = generateFile(tetradsPairsInformation)
+    let zip = new JSZip();
+
+    zip.file("quadruplex" + ".csv", quadruplex);
+    zip.file("tetrads" + ".csv", tetrads);
+    zip.file("tetradsPairs" + ".csv", tetradsPairs)
+    zip.file("3d_structure.png", content);
+    zip.generateAsync({ type: "blob" })
+      .then(blob => saveAs(blob,'data.zip'));
+  };
+
+/*
   saveZip(){
     let quadruplex = this.generateFile([this.quadruplexInformations])
     let tetrads = this.generateFile(this.tetradsInformation)
@@ -198,9 +227,10 @@ export class QuadruplexComponent implements OnInit {
       FileSaver.saveAs(content, "data.zip");
     });
 
-    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
-    svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
+    //svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
+    //svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
   }
+*/
 
   generateFile(data: any) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
@@ -219,7 +249,7 @@ export class QuadruplexComponent implements OnInit {
 }
 
 interface Quadruplex {
-  id: string;
+  id: any;
   pdbId: number;
   pdbIdentifier: string;
   assemblyId: number;
@@ -242,18 +272,18 @@ interface Quadruplex {
 }
 
 interface TetradReference {
-  id: number;
+  id: any;
   sequence: string;
   onzClass: string;
   twist: number;
   rise: number;
   planarity: number;
-  tetrad2_id: number;
+  tetrad2_id: any;
   direction: string;
 }
 
 interface QuadruplexInformations {
-  id: string;
+  id: any;
   pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
@@ -269,15 +299,15 @@ interface QuadruplexInformations {
 }
 
 interface TetradInformations {
-  id: number;
+  id: any;
   sequence: string;
   onzClass: string;
   planarity: number;
 }
 
 interface TetradPairsInformations {
-  TetradId: number;
-  TetradPairId: number;
+  TetradId: any;
+  TetradPairId: any;
   twist: number;
   rise: number;
   direction: string;

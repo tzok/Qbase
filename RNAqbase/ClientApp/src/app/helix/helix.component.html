@@ -22,7 +22,7 @@
 
         <div class=" col-lg-2 col-sm-6 saveDataButton">
 
-        <a class="mat-button" (click) = saveZip()>Save tables</a>
+        <a class="mat-button" (click) = downloadZip()>Save tables</a>
         </div>
       </div>
 
@@ -189,23 +189,23 @@
               class="fiveColumnsStyle"
               style="text-align: center; vertical-align: middle;"
               *ngIf="t.TetradPairId != 0">
-              <a class= "hasTooltip" [routerLink]="['/tetrad', t.TetradPairId]">
-                T{{t.TetradPairId}}  <span> <img src = "qbase-static/T{{t.TetradPairId}}.png" width="100" height="100"  alt=""> </span>
+              <a class= "hasTooltip" [routerLink]="['/tetrad', t.TetradPairId.slice(1)]">
+                {{t.TetradPairId}}  <span> <img src = "qbase-static/{{t.TetradPairId}}.png" width="100" height="100"  alt=""> </span>
               </a>
               -
-              <a  class = "hasTooltip" [routerLink]="['/tetrad', t.TetradId]">
-                T{{t.TetradId}}  <span> <img src = "qbase-static/T{{t.TetradId}}.png" width="100" height="100" alt=""> </span>
+              <a  class = "hasTooltip" [routerLink]="['/tetrad', t.TetradId.slice(1)]">
+                {{t.TetradId}}  <span> <img src = "qbase-static/{{t.TetradId}}.png" width="100" height="100" alt=""> </span>
               </a>
             </td>
 
 
-            <td *ngIf="t.quadruplex_id != 0 && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-              <a class = "hasTooltip"[routerLink]="['/quadruplex', t.quadruplex_id]">
-                Q{{t.quadruplex_id}} <span> <img src = "qbase-static/Q{{t.quadruplex_id}}.png" width="200" height="150" alt=""> </span>
+            <td *ngIf="t.quadruplex_id != null && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
+              <a class = "hasTooltip"[routerLink]="['/quadruplex', t.quadruplex_id.slice(1)]">
+                {{t.quadruplex_id}} <span> <img src = "qbase-static/{{t.quadruplex_id}}.png" width="200" height="150" alt=""> </span>
               </a>
             </td>
 
-            <td *ngIf="t.quadruplex_id == 0 && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" >-</td>
+            <td *ngIf="t.quadruplex_id == null && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" >-</td>
             <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.twist | number: '1.0-2'}}</td>
             <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.rise | number: '1.0-2'}}</td>
             <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.direction}}</td>

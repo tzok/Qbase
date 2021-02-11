@@ -14,6 +14,7 @@ import {Visualization3DComponent} from "../visualization3-d/visualization3-d.com
 export class StructureTableComponent implements OnInit {
   selection = new SelectionModel<Structure>(true, []);
   dataSource = new MatTableDataSource<Structure>();
+  csvData: Structure[] = [];
   areButtonsHidden: boolean = true;
   filteredDataLength = this.dataSource.data.length;
 
@@ -34,6 +35,12 @@ export class StructureTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(result);
         for (let val of result){
           val.quadruplex_id =  Array.from(new Set( val.quadruplex_id.split(',') ))
+        }
+        this.csvData = JSON.parse(JSON.stringify(result));
+        for (let val of this.csvData){
+          for (var i = 0; i < val.quadruplex_id.length; i++) {
+            val.quadruplex_id[i] = 'Q' + val.quadruplex_id[i];
+          }
         }
 
         this.dataSource.filterPredicate = (data: Structure, filter: string): boolean => {

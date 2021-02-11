@@ -115,7 +115,7 @@ namespace RNAqbase.Repository
                             WHERE h.id_updated = @HelixId
                             GROUP BY h.id, h.id_updated, h.dot_bracket,h.visualization_2d,  h.visualization_3d, h.arc_diagram, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment"),
                 new { HelixId = id });
-
+	            /*
                 var idsT = await connection.QueryAsync<int>(
                 @"
                 SELECT tetrad.id from tetrad join quadruplex 
@@ -129,7 +129,7 @@ namespace RNAqbase.Repository
                 SELECT id from quadruplex where id =  @HelixId",
                 new { HelixId = id });
                 helix.Quadruplexes = idsQ.ToList();
-
+				*/
                 return helix;
             }
         }
@@ -144,7 +144,7 @@ namespace RNAqbase.Repository
                     @"
                         SELECT DISTINCT ON(h.id_updated)
 						h.id AS Id,        
-                        h.id_updated as Id_updated,
+                        h.id_updated as HelixId,
 						p.identifier AS PdbId,
 						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 						p.assembly AS AssemblyId,

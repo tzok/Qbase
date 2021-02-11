@@ -11,6 +11,7 @@ import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import * as svg from 'save-svg-as-png';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import { saveAs } from "file-saver";
 
 
 @Component({
@@ -52,8 +53,8 @@ export class HelixComponent implements OnInit {
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
 
         this.data = result;
-        this.data.tetradsIds = result.tetrads.join(";");
-        this.data.quadruplexIds = result.quadruplexes.join(";")
+       // this.data.tetradsIds = result.tetrads.join(";");
+       // this.data.quadruplexIds = result.quadruplexes.join(";")
 
         this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
         this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
@@ -69,8 +70,7 @@ export class HelixComponent implements OnInit {
         this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
 
         this.HelixReferenceInformations = {
-          id: this.data.id,
-          id_updated: this.data.id_updated,
+          id: 'H' + this.data.id_updated,
           pdbIdentifier: this.data.pdbIdentifier,
           assemblyId: this.data.assemblyId,
           molecule: this.data.molecule,
@@ -79,40 +79,39 @@ export class HelixComponent implements OnInit {
           numberOfStrands: this.data.numberOfStrands,
           numberOfQudaruplexes: this.data.numberOfQudaruplexes,
           numberOfTetrads: this.data.numberOfTetrads,
-          tetradsIds: this.data.tetradsIds,
-          quadruplexIds: this.data.quadruplexIds,
+          //tetradsIds: this.data.tetradsIds,
+          //quadruplexIds: this.data.quadruplexIds,
           dot_bracket: this.data.dot_bracket
-
         }
 
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id).subscribe(result => {
           this.tetrads = result;
-          console.log(result);
-
-          for (let val of result) {
-            this.tetradsInformation.push({
-              id: val.id,
-              quadruplex_id: val.quadruplex_id,
-              sequence: val.sequence,
-              onzClass: val.onzClass,
-              planarity: val.planarity
-              });
-          }
+          console.log(this.tetrads);
 
           for (let val of result) {
             if(val.tetrad2_id != 0) {
-              let quadruplex = 0;
+              let quadruplex = null;
               if (val.quadruplex_id == val.quadruplex_pair_id)
-                quadruplex = val.quadruplex_id;
+                quadruplex = 'Q' + val.quadruplex_id;
               this.tetradsPairsInformation.push({
-                TetradId: val.id,
-                TetradPairId: val.tetrad2_id,
-                quadruplex_id: quadruplex,
+                TetradId: 'T' + val.id,
+                TetradPairId: 'T' + val.tetrad2_id,
+                quadruplex_id:  quadruplex,
                 twist: val.twist,
                 rise: val.rise,
                 direction: val.direction
               });
             }
+          }
+
+          for (let val of result) {
+            this.tetradsInformation.push({
+              id: 'T' + val.id,
+              quadruplex_id: 'Q' + val.quadruplex_id,
+              sequence: val.sequence,
+              onzClass: val.onzClass,
+              planarity: val.planarity
+            });
           }
 
         }, error => console.error(error));
@@ -122,7 +121,7 @@ export class HelixComponent implements OnInit {
 
           for (let val of result) {
             this.quadruplexInformation.push({
-              id: val.id,
+              id: 'Q' + val.id,
               pdbIdentifier: val.pdbIdentifier,
               assemblyId: val.assemblyId,
               molecule: val.molecule,
@@ -157,6 +156,35 @@ export class HelixComponent implements OnInit {
 
   }
 
+  downloadZip() {
+    //let images = ["/qbase-static/" + this.tetradInformations.id + ".png", "/qbase-static/" + this.tetradInformations.id + ".png"]
+    //for (let image of images) {
+    //console.log(image);
+    // }
+    this.loadSvgData("/qbase-static/H" + this.data.id + ".png", this.saveAsZip);
+  }
+
+  private loadSvgData(url: string, callback: Function) : void{
+    this.http.get(url, { responseType: "arraybuffer" })
+      .subscribe(x => callback(x, this.quadruplexInformation, this.HelixReferenceInformations,this.tetradsInformation, this.tetradsPairsInformation, this.generateFile));
+  }
+
+  private saveAsZip(content: Blob, quadruplexInformation: any, helixReferenceInformations: any, tetradsInformation: any, tetradsPairsInformation: any,  generateFile) : void{
+    let helix = generateFile([helixReferenceInformations])
+    let quadruplex = generateFile(quadruplexInformation)
+    let tetrads = generateFile(tetradsInformation)
+    let tetradsPairs = generateFile(tetradsPairsInformation)
+    let zip = new JSZip();
+
+    zip.file("helix" + ".csv", helix);
+    zip.file("tetrads" + ".csv", tetrads);
+    zip.file("tetradsPairs" + ".csv", tetradsPairs)
+    zip.file("quadruplex" + ".csv", quadruplex)
+    zip.file("3d_structure.png", content);
+    zip.generateAsync({ type: "blob" })
+      .then(blob => saveAs(blob,'data.zip'));
+  };
+
 
   saveZip(){
   let helix = this.generateFile([this.HelixReferenceInformations])
@@ -174,9 +202,8 @@ export class HelixComponent implements OnInit {
     FileSaver.saveAs(content, "data.zip");
   });
 
-  svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
-  svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
-
+  //svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
+  //svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
 }
 
   generateFile(data: any) {
@@ -232,8 +259,8 @@ interface HelixReference {
   numberOfTetrads: number;
   tetrads: number[];
   quadruplexes: number[];
-  tetradsIds: string;
-  quadruplexIds: string;
+ // tetradsIds: string;
+ // quadruplexIds: string;
   visualization3D: any;
   arcDiagram: string;
   visualization2D: string;
@@ -244,8 +271,7 @@ interface HelixReference {
 }
 
 interface HelixReferenceInformations {
-  id: string;
-  id_updated:string;
+  id: any;
   pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
@@ -254,15 +280,15 @@ interface HelixReferenceInformations {
   numberOfStrands: string;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
-  tetradsIds: string;
-  quadruplexIds: string;
+  //tetradsIds: any;
+  //quadruplexIds: any;
   dot_bracket: string;
 }
 
 
 
 interface QuadruplexReference {
-  id: string;
+  id: any;
   pdbIdentifier: string;
   assemblyId: number;
   molecule: string;
@@ -275,9 +301,9 @@ interface QuadruplexReference {
 }
 
 interface TetradReference {
-  id: number;
-  quadruplex_id: number;
-  quadruplex_pair_id: number;
+  id: any;
+  quadruplex_id: any;
+  quadruplex_pair_id: any;
   sequence: string;
   onzClass: string;
   twist: number;
@@ -288,17 +314,17 @@ interface TetradReference {
 }
 
 interface TetradInformations {
-  id: number;
-  quadruplex_id: number;
+  id: any;
+  quadruplex_id: any;
   sequence: string;
   onzClass: string;
   planarity: number;
 }
 
 interface TetradPairsInformations {
-  TetradId: number;
-  TetradPairId: number;
-  quadruplex_id: number;
+  TetradId: any;
+  TetradPairId: any;
+  quadruplex_id: any;
   twist: number;
   rise: number;
   direction: string;

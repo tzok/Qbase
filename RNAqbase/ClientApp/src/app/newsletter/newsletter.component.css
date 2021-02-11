@@ -1,3 +1,53 @@
+body {
+}
+
+.container {
+  min-height: 100%
+}
+
+main {
+  padding-top: 30px;
+  height: auto;
+}
+
+.text-rectangle {
+  text-align: center;
+  background-color: #45A29E;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 2px;
+}
+
+.photo {
+  margin-top: 10px;
+  margin-bottom: 45px;
+  margin-right: 10px;
+  width: 190px;
+  height: 210px;
+  text-align: center;
+}
+
+img {
+  width: 190px;
+  height: 210px;
+
+}
+
+.description {
+  margin-bottom: 50px;
+  text-align: center;
+  font-size: large;
+}
+
+a {
+  color: #45A29E;
+}
 a.mat-button {
   border-style: solid;
   border-width: 2px;

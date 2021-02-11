@@ -13,6 +13,7 @@ export class HeliceComponent implements OnInit {
 
   selection = new SelectionModel<Helix>(true, []);
   dataSource = new MatTableDataSource<Helix>();
+  csvData: Helix[] = [];
   areButtonsHidden: boolean = true;
   filteredDataLength = this.dataSource.data.length;
 
@@ -30,9 +31,11 @@ export class HeliceComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
-      this.dataSource = new MatTableDataSource(result);
-        for (let val of result){
-          val.helixId =  'H' + val.id_updated;
+        this.csvData = JSON.parse(JSON.stringify(result));
+        this.dataSource = new MatTableDataSource(result);
+        for (let val of this.csvData){
+          val.helixId =  'H' + val.helixId;
+          delete val.id;
         }
 
         this.dataSource.filterPredicate = (data: Helix, filter: string): boolean => {
@@ -84,14 +87,11 @@ export class HeliceComponent implements OnInit {
     let size = 30;
     return source.length > size ? source.slice(0, size - 1) + "…" : source;
   }
-
 }
-
 
 interface Helix {
   id: string;
-  id_updated: string;
-  helixId: string;
+  helixId: any;
   pdbId: string;
   assemblyId: number;
   molecule: string;

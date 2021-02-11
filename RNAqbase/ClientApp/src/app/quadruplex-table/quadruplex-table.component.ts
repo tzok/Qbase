@@ -13,6 +13,7 @@ export class QuadruplexTableComponent implements OnInit {
 
   selection = new SelectionModel<Quadruplex>(true, []);
   dataSource = new MatTableDataSource<Quadruplex>();
+  csvData: Quadruplex[] = [];
   areButtonsHidden: boolean = true;
   filteredDataLength = this.dataSource.data.length;
 
@@ -30,7 +31,7 @@ export class QuadruplexTableComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
-        for (let val of result){
+        for (let val of this.csvData){
           val.id =  'Q' + val.id;
         }
         this.dataSource = new MatTableDataSource(result);
@@ -91,7 +92,7 @@ interface Quadruplex {
   assemblyId: number;
   molecule: string;
   sequence: string;
-  numberOfStrands: string;
+  typeOfStrands: string;
   type: string;
   onzmClass: string;
   numberOfTetrads: string;

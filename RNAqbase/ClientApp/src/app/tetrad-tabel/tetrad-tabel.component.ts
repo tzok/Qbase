@@ -12,10 +12,9 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./tetrad-tabel.component.css']
 })
 export class TetradTabelComponent implements OnInit {
-
   selection = new SelectionModel<Tetrad>(true, []);
   dataSource = new MatTableDataSource<Tetrad>();
-  csvData: TetradCSV[] = [];
+  csvData: Tetrad[] = [];
   areButtonsHidden: boolean = true;
   filteredDataLength = this.dataSource.data.length;
 
@@ -43,8 +42,6 @@ export class TetradTabelComponent implements OnInit {
         val.id = 'T' + val.id.toString();
         val.quadruplexId = 'Q' + val.quadruplexId.toString();
       }
-
-
 
       this.dataSource.filterPredicate = (data: Tetrad, filter: string): boolean => {
         const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
@@ -89,7 +86,6 @@ export class TetradTabelComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-
 }
 
 interface Tetrad {
@@ -104,16 +100,4 @@ interface Tetrad {
   select: boolean;
   tetrad_id: number;
   quadruplex_id: number;
-}
-
-interface TetradCSV {
-  id: any;
-  quadruplexId: any;
-  pdbId: string;
-  assemblyId: number;
-  molecule: string;
-  sequence: string;
-  onzClass: string;
-  pdbDeposition: string;
-  select: boolean;
 }

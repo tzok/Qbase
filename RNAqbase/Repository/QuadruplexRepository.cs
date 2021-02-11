@@ -117,7 +117,7 @@ GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visua
 									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
 									ELSE 'tetramolecular'
 							 END 
-							 as NumberOfStrands
+							 as typeOfStrands
 						FROM QUADRUPLEX q
 						JOIN TETRAD t ON q.id = t.quadruplex_id
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
@@ -194,17 +194,17 @@ GROUP BY p.release_date
 	                to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 	                MAX(n1.pdb_id) AS PdbId,
 	                MAX(p.assembly) AS AssemblyId,
-	MAX(q_view.molecule) AS Molecule,
+					MAX(q_view.molecule) AS Molecule,
 	                STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 	                COUNT(DISTINCT(t.onz)) AS TypeCount,
 	                COUNT(t.id) AS NumberOfTetrads,
 	                MAX(p.experiment) AS experiment,
-	                CASE
-			WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-			WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-			ELSE 'tetramolecular'
-	 END 
-	 as NumberOfStrands
+			        CASE
+					WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+					WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+					ELSE 'tetramolecular'
+					 END 
+					 as NumberOfStrands
                 FROM QUADRUPLEX q
                 JOIN TETRAD t ON q.id = t.quadruplex_id
                 JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
@@ -228,9 +228,7 @@ GROUP BY p.release_date
 					@"
 					INSERT INTO newsletter (email)
                           VALUES (@email)", new {@email = email});
-				
 				return (null);
-				
 			}
 		}
 		

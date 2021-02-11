@@ -12,7 +12,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
           </mat-form-field>
         </div>
-        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
         <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
 
@@ -25,8 +25,8 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id.slice(1)]">
-                {{row.id}} <span> <img src = "qbase-static/{{row.id}}.png" width="200" height="150"  alt=""> </span>
+              <a class = "hasTooltip" [routerLink]="['/quadruplex', row.id]">
+                Q{{row.id}} <span> <img src = "qbase-static/Q{{row.id}}.png" width="200" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>
@@ -79,10 +79,10 @@
 
           <!-- No. of strands Column -->
           <ng-container matColumnDef="type_strand">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfStrands">Type (by no. of strands)</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="typeOfStrands">Type (by no. of strands)</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Type</span>
-              {{row.numberOfStrands}}
+              {{row.typeOfStrands}}
             </mat-cell>
           </ng-container>
           <!-- Type Column -->

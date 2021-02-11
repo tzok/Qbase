@@ -12,7 +12,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
           </mat-form-field>
         </div>
-        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="dataSource.data">Save table</a>
+        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
         <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
 
@@ -22,13 +22,13 @@
         <!-- Id Column a [routerLink]="['/helix', row.id]"-->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="id_updated">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="helixId">
               G4Helix ID<sup matTooltip="Click ID to see helix description">&#9432;</sup>
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">ID:</span>
-              <a class = "hasTooltip"[routerLink]="['/helices', row.id_updated]">
-                {{row.helixId}} <span> <img src = "qbase-static/H{{row.id}}.png" width="200" height="150"  alt=""> </span>
+              <a class = "hasTooltip"[routerLink]="['/helices', row.helixId]">
+                H{{row.helixId}} <span> <img src = "qbase-static/H{{row.id}}.png" width="200" height="150"  alt=""> </span>
               </a>
             </mat-cell>
           </ng-container>

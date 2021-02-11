@@ -26,16 +26,14 @@ export class NewsletterComponent implements OnInit {
   this.sub = this.activatedRoute.paramMap.subscribe(params => {
     this.id = params.get('id');
   });
-  }
-
-  unsubscribe(id: string) {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.http.get<string>(this.baseUrl + '' +
         'api/Quadruplex/DeleteEmailFromDatabase?id=' +
-        '' + id).subscribe(result => {
+        '' + this.id).subscribe(result => {
       }, error => console.error(error));
     });
   }
-}
+  }
+
 
 

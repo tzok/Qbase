@@ -144,10 +144,10 @@ export class TetradComponent implements OnInit {
   }
 
   downloadZip() {
-    let images = ["/qbase-static/" + this.tetradInformations.id + ".png", "/qbase-static/" + this.tetradInformations.id + ".png"]
-    for (let image of images) {
-      console.log(image);
-    }
+    //let images = ["/qbase-static/" + this.tetradInformations.id + ".png", "/qbase-static/" + this.tetradInformations.id + ".png"]
+    //for (let image of images) {
+      //console.log(image);
+   // }
 
     this.loadSvgData("/qbase-static/" + this.tetradInformations.quadruplexId + ".png", this.saveAsZip);
   }
@@ -160,7 +160,7 @@ export class TetradComponent implements OnInit {
   private saveAsZip(content: Blob, tetradInformations: any, generateFile) : void{
     var zip =new JSZip();
     let tetrad = generateFile([tetradInformations])
-    zip.file("3d_tetrad_visualization.png", content);
+    zip.file("3d_structure.png", content);
     zip.file("tetrad" + ".csv", tetrad);
     zip.generateAsync({ type: "blob" })
       .then(blob => saveAs(blob,'data.zip'));
