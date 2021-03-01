@@ -1,11 +1,748 @@
 <div style="background: #F0F0F0; height: 100%" >
 <div class="container">
   <main>
+
     <div class="text-rectangle">
       <h2>Help</h2>
     </div>
-    <p>
-    </p>
+    <mat-card>
+      <mat-card-content>
+        <p align="justify">
+          <b>ONQUADRO</b> stores information about experimentally-determined quadruplex structures from the <a href = "https://www.rcsb.org/">Protein Data Bank</a>
+          [<a href="help#1" title="Berman, H.M., Westbrook, J., Feng, Z., Gilliland, G., Bhat, T.N., Weissig, H., Shindyalov, I.N., Bourne, P.E. 2000. The Protein Data Bank Nucleic Acids Research, 28: 235–242.">1</a>].
+          The data contain nucleic acid sequences, 2D and 3D structures that can be viewed at the level of tetrads, quadruplexes, helices (called G4Helices),
+          and whole molecules containing these motifs. We share detailed information about basic conformational parameters and topology-driven classification
+          [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>]
+          and provide structure visualization.
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <div class="header">
+          <h2>Table of Contents </h2>
+        </div>
+        <div id="table_of_contents">
+        <ol>
+          <li> <a href="help#authors"> Authors</a> </li>
+          <li> <a href="help#database_contents"> Database contents</a> </li>
+          <li> <a href="help#representations"> Representations</a>
+            <ol>
+              <li> <a href="help#2d_representations"> 2D representations</a>
+                <ol>
+                  <li> <a href="help#dot_bracket_notation"> Dot-bracket notation</a> </li>
+                  <li> <a href="help#rchie"> R-chie diagram</a> </li>
+                  <li> <a href="help#varna"> VARNA</a> </li>
+                </ol>
+              </li>
+              <li> <a href="help#3d_models"> 3D models</a>
+                <ol>
+                  <li> <a href=help#litemol> LiteMol visualisation</a> </li>
+                  <li> <a href="help#layer"> Layer diagram</a> </li>
+                </ol>
+              </li>
+            </ol>
+          <li> <a href="help#classifications"> Classifications</a>
+            <ol>
+              <li> <a href="help#onzm"> ONZM</a> </li>
+              <li> <a href="help#webba_da_silva"> Webba da Silva geometric formalism</a> </li>
+            </ol>
+          </li>
+          <li> <a href="help#search"> Searching the data</a>
+            <ol>
+              <li> <a href="help#tetrads"> Tetrads</a> </li>
+              <li> <a href="help#quadruplexes"> Quadruplexes</a> </li>
+              <li> <a href="help#helices"> G4Helices</a> </li>
+              <li> <a href="help#molecule_structures"> Molecule Structures</a> </li>
+            </ol>
+          </li>
+          <li> <a href="help#statistics"> Statistics</a>
+          <li> <a href="help#system_requirements"> System requirements</a>
+          <li> <a href="help#funding"> Funding</a>
+          <li> <a href="help#references"> References</a>
+        </ol>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card id="authors" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Authors</h2>
+        </div>
+        <p>Tomasz Zok<sup>1</sup>, Natalia Kraszewska<sup>1</sup>, Joanna Miskiewicz<sup>1</sup>, Paulina Pielacinska<sup>1</sup>, Michal Zurkowski<sup>1</sup>, Marta Szachniuk<sup>1,2</sup></p>
+        <div style="margin-top: 20px">
+          <ol>
+            <li>
+              <a href="http://www2.cs.put.poznan.pl/en/" target="_blank" rel="noopener noreferrer">Institute of Computing Science</a>, <a href="http://ecbig.pl/" target="_blank" rel="noopener noreferrer">European Centre for Bioinformatics and Genomics</a>, <a href="https://www.put.poznan.pl" target="_blank" rel="noopener noreferrer">Poznan University of Technology</a>, 60-965 Poznan Poland
+            </li>
+            <li>
+              <a href="https://www.ibch.poznan.pl/en/home/" target="_blank" rel="noopener noreferrer">Institute of Bioorganic Chemistry</a>,
+              <a href="https://institution.pan.pl/" target="_blank" rel="noopener noreferrer">Polish Academy of Sciences</a>, 61-704 Poznan, Poland
+            </li>
+          </ol>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card id="database_contents" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Database contents</h2>
+        </div>
+        <p><b>ONQUADRO</b> is a quadruplex database which basic functionality allows users to search, view, and download information of quadruplex structures.
+          The database is composed of four major tables: Tetrads, Quadruplexes, G4Helices, and Molecule Structures.
+          Each table allows descending and ascending sorting of numerical data fields and alphabetically sorting the string data fields (A-Z or Z-A).
+          The content of the tables are described in the following sections of this document.
+          In this database, users can find sequences, 2D and 3D structures, as well as diverse tetrad and quadruplex representations and classifications.
+          For 2D structures ONQUADRO presents extended dot-bracket notation (called two-line dot-bracket), VARNA
+          [<a href="help#3" title="Darty, K., Denise A., Ponty Y. 2009. VARNA: Interactive drawing and editing of the RNA secondary structure Bioinformatics, 25: 1974–1975.">3</a>]
+          , and R-chie
+          [<a href="help#4" title="Lai, D., Proctor, J.R., Zhu, J.Y.A., Meyer, I.M. 2012. R-chie: a web server and R package for visualizing RNA secondary structures Nucleic Acids Research, 40: e95.">4</a>] representations, and ONZM classification
+          [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>].
+          All 3D structures are available to be displayed using LiteMol Viewer application
+          [<a href="help#5" title="Sehnal, D., Deshpande, M., Varekova, R.S., Mir, S., Berka, K., Midlik, A., Pravda, L., Velankar, S., Koca, J. 2017. LiteMol suite: Interactive web-based visualization of large-scale macromolecular structure data Nature methods, 14: 1121–1122.">5</a>].
+          Additionally, quadruplexes and G4Helices can be viewed in a layer diagram.
+          3D structures quadruplexes are also associated with geometric formalism proposed by Webba da Silva group
+          [<a href="help#6" title="Webba da Silva, M. 2007. Geometric formalism for DNA quadruplex folding Chemistry, 13: 9738–9745.">6</a>,
+          <a href="help#7" title="Webba da Silva, M., Trajkovski, M., Sannohe, Y., Ma'ani Hessari, N., Sugiyama H., Plavec, J. 2009. Design of a G-quadruplex topology through glycosidic bond angles Angewandte Chemie International Edition, 48: 9167–9170.">7</a>,
+          <a href="help#8" title="Dvorkin, S.A., Karsisiotis, A.I., Webba da Silva, M. 2018. Encoding canonical DNA quadruplex structure Science Advances, 4: eaat3007.">8</a>]
+          using chi angles and loops presented within a quadruplex.
+          All representations and classifications available in ONQUADRO are described in <a href = "help#representations">Representations</a> and <a href="help#classifications">Classifications</a> sections, respectively.
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card id="representations" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Representations</h2>
+        </div>
+
+        <h3 id="2d_representations" class="hreflink">2D representations</h3>
+        <h5 id="dot_bracket_notation" class="hreflink">Dot-bracket notation</h5>
+        <p>
+          Dot-bracket notation represents 2D structures using dots and parentheses. Each dot encodes a single unpaired nucleotide
+          and parentheses represent paired nucleotides. Due to crossing pairings in some complex 2D structures (i.a. pseudoknots),
+          the hierarchy of the occurrence of parentheses was established. The order of the brackets’ appearance is as follows:
+        </p>
+        <ol>
+          <li> ( ) - brackets</li>
+          <li> [ ] - squared brackets</li>
+          <li> {{ "{" }} } - curly brackets</li>
+          <li> < > - angle brackets</li>
+          <li> A a till Z z (ordered alphabetically)</li>
+        </ol>
+        <p>
+          The simple example of hairpin loop sequence folded into a 2D structure and encoded in dot-bracket notation is presented below:
+        </p>
+        <div style="margin-bottom: 20px">
+          <p class="dotbracket">
+            A<mark class="orange">A</mark>GCAAAGC<mark class="green">U</mark>U
+          </p>
+          <p class="dotbracket">
+            (<mark class = "orange">(</mark>((...))<mark class="green">)</mark>)
+          </p>
+        </div>
+        <p>
+          Each nucleotide in the sequence has a corresponding bracket or dot in the latter row of the example.
+          In green highlighting we marked both the first nucleotide of the pair and its corresponding opening bracket.
+          Orange highlighting reflects the second nucleotide of the same pair and its dot-bracket encryption of a closing bracket.
+        </p>
+        <br>
+        <p>
+          The above example has a limitation, each nucleotide can be connected to a maximum of one other nucleotide.
+          It was necessary to extend the basic dot-bracket notation to enable encoding 2D structure of tetrads.
+          Thus, we proposed adding one more line into the encryption and transforming the one-line dot-bracket notation
+          into a two-line dot-bracket format. First line of the notation is determined by the nucleotide of a tetrad which
+          is the nearest to the 5' end. It is connected with two other nucleotides with its Watson-Crick, Hoogsteen,
+          or Sugar edge. In [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>]
+          we set the priority hierarchy of the edges: (1) Watson-Crick, (2) Hoogsteen, (3) Sugar.
+          That indicates, if the first nucleotide of the tetrad is connected with nucleotide X by Watson-Crick edge and
+          with the second one, Y,  with either Hoogsteen or Sugar edge, first line of the two-line dot-bracket notation
+          will follow the encoding for the connection with X nucleotide. The connection with Y nucleotide will be encoded
+          in the second line of the notation. With two-line dot-bracket notation each tetrad is encrypted as a cycle of
+          four linkages. Below example shows the 2D structure of Q1 quadruplex. Connections with the first nucleotide of
+          a first tetrad are highlighted with green color.
+        </p>
+        <div style="margin-bottom: 20px">
+          <p class="dotbracket">
+            AAA<mark class="green">G</mark>GGTTA<mark class="green">G</mark>GGTTAGGGTTA<mark class="green">G</mark>GGAA
+          </p>
+          <p class="dotbracket">
+            ...<mark class="green">[</mark>([...{{ "{" }})]...((}...<mark class="green">]</mark>))..
+          </p>
+          <p class="dotbracket">
+            ...<mark class="green">(</mark>[{{ "{" }}...<mark class="green">)</mark>((...))(...)]}..
+          </p>
+        </div>
+        <p>
+          More information on two-line dot-bracket notation can be found in [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019.Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>].
+        </p>
+
+        <h5 id="rchie" class="hreflink">R-chie diagram</h5>
+        <p>2D structure of a quadruplex can be represented by R-chie diagrams.
+          The diagram shows the same information as the extended dot-bracket notation but in a graphical way.
+          Each arc represents one connection between two nucleotides. Upper arcs are determined by the connection
+          established for the first nucleotide of the first tetrad in a quadruplex (the same mechanism as in two-line
+          dot-bracket format).</p>
+        <div style="text-align: center">
+          <img src = "static/rchie/Q1.svg" width="50%" height="50%" alt="r-chie"/>
+        </div>
+        <p class="description">
+          <b>Figure 1.</b> R-chie diagram of quadruplex Q1.
+          The diagram shows connections between residues among all tetrads within the quadruplex.
+        </p>
+
+        <h5 id="varna" class="hreflink">VARNA</h5>
+        <p>The VARNA tool was proposed by Yann Ponty’s group
+          [<a href="help#3" title="Darty, K., Denise A., Ponty Y. 2009. VARNA: Interactive drawing and editing of the RNA secondary structure Bioinformatics, 25: 1974–1975.">3</a>].
+          It was designed for RNA secondary
+          structure automated visualization. VARNA Java Applet draws 2D structures, nucleotides are
+          embedded within circles and displayed in equal distances between the preceding and following
+          nucleotides. All non-canonical interactions are encoded in Leontis/Westhof classification
+          [<a href="help#10" title="Leontis, N.B., Westhof, E. 2001. Geometric nomenclature and classification of RNA base pairs RNA, 7: 499–512.">10</a>]
+          and displayed in structure as pictograms.</p>
+        <div style="text-align: center">
+          <img src = "static/varna/Q1.svg" width="40%" height="40%" alt="varna"/>
+        </div>
+        <p class="description">
+          <b>Figure 2.</b> VARNA representation of Q1 quadruplex. Tetrads in VARNA format are cycles connected
+          with black lines and pictograms reflecting the interactions between the nucleotides.
+        </p>
+        <h3 id="3d_models" class="hreflink">3D models</h3>
+        <h5 id="litemol" class="hreflink">LiteMol visualisation</h5>
+        <p>LiteMol Viewer [<a href="help#5" title="Sehnal, D., Deshpande, M., Varekova, R.S., Mir, S., Berka, K., Midlik, A., Pravda, L., Velankar, S., Koca, J. 2017. LiteMol suite: Interactive web-based visualization of large-scale macromolecular structure data Nature methods, 14: 1121–1122.">5</a>]
+          is a tool for 3D molecule visualization in both web browsers and mobile devices.
+          ONQUADRO utilizes this viewer for interactive display of tetrads, quadruplexes, and G4Helices.
+          In these visualizations users can manipulate the structure, the type of representation (balls and sticks,
+          VDW balls, surface, cartoon, c-𝛼 trace), colors of the background and the structure. Users can also select
+          atoms to reveal atomic details. The adjusted and personalized view of the 3D molecule image can be directly saved
+          to users' local machine in png format.</p>
+
+        <div class="pymol_table">
+          <table class="table" style="border:1px solid black;">
+            <tr>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/pymol_screens/T1_2.png" width="350px" height="300px"  alt="pymol_t1"/>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/pymol_screens/T1_1.png" width="300px" height="300px"  alt="pymol_t1"/>
+              </td>
+            </tr>
+            <tr>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/pymol_screens/Q1_1.png" width="300px" height="300px"  alt="pymol_q1"/>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/pymol_screens/Q1_2.png" width="350px" height="300px"  alt="pymol_q1"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p style="text-align: center; margin-top: 10px">
+          <b>Figure 3.</b> 3D model of T1 tetrads (top row) and Q1 quadruplex (bottom row) visualized using
+          LiteMol application as a balls and sticks representation.
+        </p>
+        <h5 id="layer" class="hreflink">Layer diagram</h5>
+        <p>Layer diagram shows the 3D models of quadruplexes and G4Helices in a simplified view. Each tetrad is
+          demonstrated as a planar rhombus with defined each nucleotide and its order number within a sequence.</p>
+        <div style="text-align: center">
+          <img src = "static/layer_diagram/2hy9-assembly-1-h1.svg" width="50%" height="50%" alt="layer_diagram"/>
+        </div>
+        <p class="description">
+          <b>Figure 4.</b> Layer diagram of Q1 quadruplex.
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card id="classifications" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Classifications</h2>
+        </div>
+        <p>
+          ONQUADRO incorporates two quadruplex classifications: ONZM
+          [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>]
+          for 2D structures, and Webba da Silva geometric formalism
+          [<a href="help#6" title="Webba da Silva, M. 2007. Geometric formalism for DNA quadruplex folding Chemistry, 13: 9738–9745.">6</a>,
+          <a href="help#7" title="Webba da Silva, M., Trajkovski, M., Sannohe, Y., Ma'ani Hessari, N., Sugiyama H., Plavec, J. 2009. Design of a G-quadruplex topology through glycosidic bond angles Angewandte Chemie International Edition, 48: 9167–9170.">7</a>,
+          <a href="help#8" title="Dvorkin, S.A., Karsisiotis, A.I., Webba da Silva, M. 2018. Encoding canonical DNA quadruplex structure Science Advances, 4: eaat3007.">8</a>]
+
+          for 3D structures. Both classifications are described in the following sections.
+        </p>
+        <h3 id="onzm" class="hreflink">ONZM</h3>
+        <p>The secondary structure of both tetrads and quadruplexes can be presented as a cyclic graph in
+          which nucleotides of a tetrad(s) are connected via hydrogen-bonding interactions. As mentioned in
+          the dot-bracket notation section, we set the interaction hierarchy where the highest priority have
+          interactions starting from the Watson-Crick edge, then the Hoogsteen edge interactions, and the
+          lowest priority is set up for the connections starting with Sugar edge. Thus, the three possible
+          arrangements of the connections within a tetrad (displayed in a graph) form a shape of O, N, and Z
+          letters. These are the basic classes of ONZ classification
+          [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>]
+          of a single tetrad. If we name the first nucleotide (the closest to the 5’ end) of a selected tetrad as N1 and following nucleotides
+          of the same tetrad in 3’ end direction as <em>N<sub>2</sub>, N<sub>3</sub>, N<sub>4</sub>,</em> then we can define ONZ classes as pairings:
+        </p>
+        <ul>
+          <li>O - <em>(N<sub>1</sub>, N<sub>2</sub>), (N<sub>2</sub>, N<sub>3</sub>), (N<sub>3</sub>, N<sub>4</sub>), (N<sub>4</sub>, N<sub>1</sub>),</em></li>
+          <li>N - <em>(N<sub>1</sub>, N<sub>2</sub>), (N<sub>2</sub>, N<sub>4</sub>), (N<sub>4</sub>, N<sub>3</sub>), (N<sub>3</sub>, N<sub>1</sub>),</em></li>
+          <li>Z - <em>(N<sub>1</sub>, N<sub>3</sub>), (N<sub>3</sub>, N<sub>2</sub>), (N<sub>2</sub>, N<sub>4</sub>), (N<sub>4</sub>, N<sub>1</sub>),</em></li>
+        </ul>
+        <p>This ONZ arrangement assumes following connections from 5’ end to 3’ end. Let us visualize it as
+          a clockwise progression of the nucleotide connection chain. In such case, the classes are attributed
+          with the + symbol (O+, N+, Z+) to distinguish it from an anticlockwise progression of the nucleotides
+          connection (from <em>N1</em> to 3’ end direction). The counter direction is attributed with - symbol, giving
+          us another three subcategories of ONZ classes: O-, N-, Z-. All the clockwise and anticlockwise classes
+          are presented in Figure 5.</p>
+        <div style="text-align: center; margin:20px">
+          <img src = "ONZM_class.png" width="70%" height="70%" alt="onzm_classes"/>
+        </div>
+        <p class="description">
+          <b>Figure 5.</b> The ONZ classes divided into six subcategories: O+, O-, N+, N-, Z+, Z-.
+          Arrows show the direction of connections, black circle pictograms denote Watson-Crick edges,
+          square pictograms represent Hoogsteen edges. </p>
+
+        <p>
+          For quadruplexes, the ONZ classification needed to extend to ONZM classification.
+          The fundamental rule for a single quadruplex is a structure built of at least two tetrads.
+          If the quadruplex consists of tetrads of mixed classes, e.g. O and Z, it has to be labeled
+          as the M (mixed) type. For the quadruplexes, ONZM classes are given the additional attribute
+          specifying the order of nucleotides within the tract (nucleotides engaged in a quadruplex that
+          are closed to each other and belong to different tetrads). The antiparallel arrangement has the
+          a suffix, the parallel - p suffix, the hybrid - h.  Parallel arrangement has tracts directed in
+          the same course. Antiparallel has two tracts directed in course opposite to other two tracts.
+          When at least one tract is opposite from the other three tracts direction - the hybrid direction is
+          established. Thus, in quadruplexes we can distinguish twelve subclasses:
+          Op, Oa, Oh, Np, Na, Nh, Zp, Za, Zh, Mp, Ma, Mh.
+        </p>
+
+        <h3 id="webba_da_silva" class="hreflink">Webba da Silva geometric formalism</h3>
+
+        <p>The formalism proposed by Webba da Silva [6,7,8] was created based on glycosidic bond angles (GBA)
+          and loops. The proposed topology concerns unimolecular quadruplexes. Each nucleotide within
+          a tetrad has one of the two conformations of the base/sugar relation – <em>syn</em> or <em>anti</em>.
+          Both conformations can be described by the glycosidic torsion angle χ. <em>Syn</em> architecture is present
+          when -90° ≤ χ ≤ +90°, anti in condition when +90° ≤ χ ≤ +180°. Depending on the conformation
+          of each nucleotide and its neighbours connected with hydrogen bonding, da Silva research group
+          established three types of groove, that appears between the nucleotides: narrow (n), medium (m),
+          and wide (w). This information can be directly translated into quadruplex grooves as in stable
+          quadruplexes tetrads can be stacked only if they have the same groove width.</p>
+
+        <p>The research group aligned the groove identification with the loop types. A lateral loop (l)
+          connects nucleobases that share hydrogen bonds (i.e. nucleobases of the same tetrad).
+          A propeller loop (p) links nucleobases that share a groove but are not a part of the same tetrad.
+          A diagonal loop (d) creates linkage between nucleobases that do not share hydrogen bonds but are still
+          part of the same tetrad. Quadruplexes are built of three loops, each of them can be one of the three
+          possible types but not all combinations are possible to exist. Thus, da Silva group presented 26 permissible
+          loop topologies with groove description (all listed in Table 1). Each quadruplex loop descriptor has also
+          established attributes for loop progression. The clockwise progression of a loop (5’ to 3’) has a + prefix
+          to a loop type, the anticlockwise progression (3’ to 5’) has a – prefix.</p>
+
+        <div class="center_table">
+          <table class="table" style="border:1px solid black; width:50%">
+          <tr>
+            <th> Loop progression </th>
+            <th> Groove combination </th>
+          </tr>
+          <tr>
+            <td>-(ppp)</td>
+            <td>mmmm</td>
+          </tr>
+          <tr>
+            <td>+(ppp)</td>
+            <td>mmmm</td>
+          </tr>
+          <tr>
+            <td>-(ppl)</td>
+            <td>mwmn</td>
+          </tr>
+          <tr>
+            <td>+(ppl)</td>
+            <td>wnmm</td>
+          </tr>
+          <tr>
+            <td>-(plp)</td>
+            <td>mwmn</td>
+          </tr>
+          <tr>
+            <td>+(plp)</td>
+            <td>wmnm</td>
+          </tr>
+          <tr>
+            <td>-(lpp)</td>
+            <td>wmmn</td>
+          </tr>
+          <tr>
+            <td>+(lpp)</td>
+            <td>wmmn</td>
+          </tr>
+          <tr>
+            <td>(-pd+p)</td>
+            <td>wnmn</td>
+          </tr>
+          <tr>
+            <td>(+pd-p)</td>
+            <td>wmnm</td>
+          </tr>
+          <tr>
+            <td>-(lll)</td>
+            <td>wnwn</td>
+          </tr>
+          <tr>
+            <td>+(lll)</td>
+            <td>wnwn</td>
+          </tr>
+          <tr>
+            <td>-(llp)</td>
+            <td>wnmm</td>
+          </tr>
+          <tr>
+            <td>+(llp)</td>
+            <td>mmwn</td>
+          </tr>
+          <tr>
+            <td>-(lpl)</td>
+            <td>wmnm</td>
+          </tr>
+          <tr>
+            <td>+(lpl)</td>
+            <td>mwmn</td>
+          </tr>
+          <tr>
+            <td>-(pll)</td>
+            <td>mwnm</td>
+          </tr>
+          <tr>
+            <td>+(pll)</td>
+            <td>mwnm</td>
+          </tr>
+          <tr>
+            <td>(-pd+l)</td>
+            <td>mmwn</td>
+          </tr>
+          <tr>
+            <td>(+pd-l)</td>
+            <td>wnmm</td>
+          </tr>
+          <tr>
+            <td>(-ld+l)</td>
+            <td>wmnm</td>
+          </tr>
+          <tr>
+            <td>(+ld-l)</td>
+            <td>mwmn</td>
+          </tr>
+          <tr>
+            <td>(d-pd)</td>
+            <td>mwmn</td>
+          </tr>
+          <tr>
+            <td>(d+pd)</td>
+            <td>wmnm</td>
+          </tr>
+          <tr>
+            <td>(-ld+p)</td>
+            <td>wnmm</td>
+          </tr>
+          <tr>
+            <td>(+ld-p)</td>
+            <td>mmwn</td>
+          </tr>
+          </table>
+        </div>
+        <p class="description">
+          <b>Table 1.</b> Webba da Silva quadruplex topology, based on loops and GBA.
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card id="search" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Searching the data</h2>
+        </div>
+        <p>
+          Search tool is available for users after selecting one of four table views from the home
+          page – <em>Tetrads, Quadruplexes, G4Helices,</em> or <em>Structures</em>. Each table has an option to search
+          records by typing keywords which correspond to any of the available non-numeric fields.
+        </p>
+        <p style="margin-top: 20px">
+          Example 1: searching for RNA tetrads requires selecting the <em>Tetrads</em> table from the
+          home page and typing <em>RNA</em> in the search tool.
+        </p>
+        <div style="text-align: center">
+          <img src = "static/help_images/tetrad_search_screen.png" width="60%" height="60%" alt="tetrad_search"/>
+        </div>
+        <p style="text-align: center; margin-top: 10px">
+          <b>Figure 6.</b> Search tool in <em>Tetrads</em>, using <em>RNA</em> string.
+        </p>
+        <p>Search results will be automatically displayed with all the RNA type tetrads.</p>
+
+        <p style="margin-top: 20px">
+          Example 2: searching for tetrads which are encoded with GGC string within the whole sequence
+          requires selecting <em>Tetrads</em> table from the home page and typing <em>GGC</em> in the search tool.
+        </p>
+        <div style="text-align: center">
+          <img src = "static/help_images/tetrad_search_screen_notfound.png" width="60%" height="60%" alt="tetrad_search_notfound"/>
+        </div>
+        <p style="text-align: center; margin-top: 10px">
+          <b>Figure 7.</b> Search tool in <em>Tetrads</em>, using <em>GGC</em> string.
+        </p>
+        <p>Search results should display all tetrads that contain <em>GGC</em> subsequence.</p>
+
+        <p style="margin-top: 20px">
+          Example 3: searching for unimolecular quadruplexes requires selecting the <em>Quadruplexes</em>
+          table from the home page and typing <em>unimolecular</em> in the search tool.</p>
+        <p>Results with only unimolecular quadruplexes should be displayed.</p>
+        <div style="text-align: center">
+          <img src = "static/help_images/quadruplex_search_screen.png" width="60%" height="60%" alt="quadruplex_search"/>
+        </div>
+        <p style="text-align: center; margin-top: 10px">
+          <b>Figure 8.</b> Search tool in <em>Quadruplexes</em>, using <em>unimolecular</em> string.
+        </p>
+
+        <p style="margin-top: 20px">
+          Fields that can be queried with users data for each table are described in the following
+          subsections of this document. Searched results can be downloaded directly from the ONQUADRO
+          web page. The Save table button enables saving locally the whole table in csv format:</p>
+
+        <div style="text-align: center">
+          <img src = "static/help_images/save_button.png" alt="save"/>
+        </div>
+        <p style="text-align: center; margin-top: 10px">
+          <b>Figure 9.</b> <em> Save table</em> button, available in <em>Tetrads, Quadruplexes, G4Helices</em>, and <em>Structures</em> tables.
+        </p>
+
+        <p style="margin-top: 20px">
+          If users have more custom download preferences, each record is available to be selected by
+          clicking the checkbox in the last column of each table. Selected data can be downloaded by
+          using the Save selected rows button.</p>
+        <div style="text-align: center">
+          <img src = "static/help_images/save_selected_button.png" alt="save_selected"/>
+        </div>
+        <p style="text-align: center; margin-top: 10px">
+          <b>Figure 10.</b> <em> Save selected rows</em> button, available in <em>Tetrads, Quadruplexes, G4Helices</em>, and <em>Structures</em> tables.
+        </p>
+
+        <h5 id="tetrads" class="hreflink">Tetrads</h5>
+        <p>Basic building unit of a quadruplex is a tetrad, four nucleotides composed in pseudo-planar
+          architecture. In G-quadruplexes, tetrads can be encoded as a <em>GGGG</em> string, but using ONQUADRO
+          users can find examples of tetrads composed of different residues. <em>Tetrads</em> table allows users
+          to browse all types of tetrads. Each tetrad has an individual <em>tetrad ID</em> value composed of <em>T</em>
+          prefix and its own sequential number. A single tetrad is always connected with:</p>
+        <ul>
+          <li> <em>Quadruplex</em> ID, unique id of a quadruplex related to the tetrad,</li>
+          <li> <em>PDB ID</em>, link to PDB web page of a structure that contains the tetrad,</li>
+          <li> <em>PDB Deposition</em>, date of deposition of the molecule,</li>
+          <li> <em>Assembly ID</em>, the functional form of the molecule,</li>
+          <li> <em>Molecule</em>, type of nucleic acid (one of three: <em>DNA, RNA,</em> or <em>Other</em>),</li>
+          <li> <em>Sequence</em>, the sequence of the tetrad,</li>
+          <li> <em>ONZ</em> class, assigned ONZ class according to [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>].</li>
+        </ul>
+        <p>Clicking the tetrad id link redirects users to the web page with detailed information
+          of a selected tetrad. Beside the text data, users are provided with dot-bracket notation,
+          VARNA and R-chie representations of a 2D tetrad structure, and interactive application
+          (LiteMol Viewer) to view the 3D model of a tetrad. All the information included on this page,
+          excluding the interactive model, are available for download. This functionality is enabled by
+          the Save data button on the web page.</p>
+
+        <h5 id="quadruplexes" class="hreflink">Quadruplexes</h5>
+        <p>Quadruplexes are built of at least two tetrads. This means each quadruplex in the <em>Quadruplex</em>
+          table is in a 1:N relation with tetrads. Each quadruplex has an individual <em>quadruplex ID</em> value
+          composed of <em>Q</em> prefix and its own sequential number. All stored quadruplexes are connected with
+          the following attributes:</p>
+        <ul>
+          <li> <em>PDB ID</em>, link to PDB web page of a structure that contains the tetrad,</li>
+          <li> <em>PDB Deposition</em>, date of deposition of the molecule,</li>
+          <li> <em>Assembly ID</em>, the functional form of the molecule,</li>
+          <li> <em>Molecule</em>, type of nucleic acid (one of three: <em>DNA, RNA,</em> or <em>Other</em>),</li>
+          <li> <em>Sequence</em>, the sequence of the tetrad,</li>
+          <li> <em>Type (by no. of strands)</em>, type of the quadruplex based on number of strands
+            (one of three: <em>unimolecular, bimolecular,</em> or <em>tetramolecular</em>),</li>
+          <li> <em>Type (by ONZM)</em>, type of the quadruplex determined by differentiation
+            of the ONZ classes assigned to tetrads that are building the quadruplex.
+            Regular quadruplexes contain tetrads of the same ONZ class progression,
+            either clockwise (+) or anticlockwise (-), whereas the irregular quadruplexes
+            have tetrads of both types, clockwise and anticlockwise. For more information,
+            please refer to [<a href="help#9" title="Zok, T., Popenda, M., Szachniuk, M. 2020. ElTetrado: a tool for identification and classification of tetrads and quadruplexes BMC Bioinformatics, 21: 40.">9</a>],</li>
+          <li> <em>ONZM class</em>, assigned ONZM class according to [<a href="help#2" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">2</a>],</li>
+          <li> <em>No. of tetrads</em>, number of tetrads which create the quadruplex.</li>
+        </ul>
+        <p>Clicking the quadruplex id link redirects users to the web page with detailed information of
+          a selected quadruplex. Beside the text data, users are provided with dot-bracket notation,
+          VARNA and R-chie representations of a 2D quadruplex structure, and interactive application
+          (LiteMol Viewer) to view the 3D model of a quadruplex. All the information included on this
+          page, excluding the interactive model, are available for download. This functionality is
+          enabled by the Save data button on the web page.</p>
+
+        <h5 id="helices" class="hreflink">G4Helices</h5>
+        <p>Each helix has an individual <em>helix ID</em> value composed of the <em>H</em> prefix and its own sequential number.
+          All stored helices are connected with the <em>PDB ID</em> which are linking the helices to the 3D PDB structure
+          they originate from. Beside the <em>G4Helix ID</em> following attributes are displayed in the table:</p>
+        <ul>
+          <li> <em>PDB ID</em>, link to PDB web page of a structure that contains the tetrad,</li>
+          <li> <em>PDB Deposition</em>, date of deposition of the molecule,</li>
+          <li> <em>Assembly ID</em>, the functional form of the molecule,</li>
+          <li> <em>Molecule</em>, type of nucleic acid (one of three: <em>DNA, RNA,</em> or <em>Other</em>),</li>
+          <li> <em>Sequence</em>, the sequence of the tetrad,</li>
+          <li> <em>Type (by no. of strands)</em>, type of the quadruplex based on number of strands
+            (one of three: <em>unimolecular, bimolecular,</em> or <em>tetramolecular</em>),</li>
+          <li>No. of quadruplexes, number of quadruplexes the helix is built of,</li>
+          <li>No. of tetrads, number of tetrads the helix is built of.</li>
+        </ul>
+        <p>Clicking the G4Helix id link redirects users to the web page with detailed information of a selected G4Helix.
+          Beside the text data, users are provided with dot-bracket notation, VARNA and R-chie representations of a 2D
+          G4Helix structure, and interactive application (LiteMol Viewer) to view the 3D model of a G4Helix. All the
+          information included on this page, excluding the interactive model, are available for download.
+          This functionality is enabled by the <em>Save data</em> button on the web page.</p>
+
+        <h5 id="molecule_structures" class="hreflink">Molecule Structures</h5>
+        <p>Highest level of the structure types, each structure is composed of at least one quadruplex motif.
+          Structures are presented as PDB IDs. Each record in Structures table has:</p>
+        <ul>
+          <li> <em>PDB Deposition</em>, date of deposition of the molecule,</li>
+          <li> <em>Assembly ID</em>, the functional form of the molecule,</li>
+          <li> <em>Molecule</em>, type of nucleic acid (one of three: <em>DNA, RNA</em>, or <em>Other</em>),</li>
+          <li> <em>Experimental Method</em>, method used for analysing the structure,</li>
+          <li> <em>Quadruplex ID</em>, id of the quadruplexes associated with the molecule,</li>
+          <li> <em>2D structure</em>, VARNA image of the quadruplex,</li>
+          <li> <em>3D structure</em>, interactive model of a molecule.</li>
+        </ul>
+        <p>Clicking the PDB id link redirects users to the PDB web page.</p>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card id="statistics" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Statistics</h2>
+        </div>
+        <p>Information about currently stored data can be found in the <em>Statistic</em> tab in the top pane of the web page.
+          Statistics are weekly updated. Users can view statistics in table and interactive diagram format for following
+          data:</p>
+        <ul>
+          <li>number of tetrads by sequence and molecule type,</li>
+          <li>number of quadruplexes composed of 2–12 tetrads,</li>
+          <li>number of uni-, bi- and tetramolecular quadruplexes,</li>
+          <li>ONZ class coverage by uni-, bi- and tetramolecular tetrad,</li>
+          <li>ONZM class coverage by unimolecular quadruplexes,</li>
+          <li>ONZM class coverage by bimolecular quadruplexes,</li>
+          <li>ONZM class coverage by tetramolecular quadruplexes.</li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card id="system_requirements" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>System requirements</h2>
+        </div>
+        <p><b>ONQUADRO</b> does not require any specific plugins. The latest versions of browsers are strongly recommended.
+          Minimum browser requirements:</p>
+        <div class="pymol_table">
+          <table class="table" style="border:1px solid black;">
+            <tr>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/chrome_icon.png" width="100px" height="100px"  alt="chrome"/>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/edge_icon.png" width="100px" height="100px"  alt="edge"/>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/firefox_icon.png" width="100px" height="100px"  alt="firefox"/>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/safari_icon.png" width="100px" height="100px"  alt="safari"/>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <img src = "static/help_images/opera_icon.png" width="100px" height="100px"  alt="opera"/>
+              </td>
+            </tr>
+            <tr>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <p>Chrome 58</p>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <p>Edge 14</p>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <p>Firefox 54</p>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <p>Safari 10</p>
+              </td>
+              <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
+                <p>Opera 55</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card id="funding" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>Funding</h2>
+        </div>
+        <p>We acknowledge support from the National Science Centre, Poland [2016/23/B/ST6/03931, 2019/35/B/ST6/03074]
+          and the statutory funds of Poznan University of Technology.</p>
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card id="references" class="hreflink">
+      <mat-card-content>
+        <div class="header">
+          <h2>References</h2>
+        </div>
+        <div id="reference_table">
+          <ol>
+            <li id="1"> Berman, H.M., Westbrook, J., Feng, Z., Gilliland, G., Bhat, T.N., Weissig, H., Shindyalov, I.N., Bourne,
+              P.E. 2000. The Protein Data Bank <em>Nucleic Acids Research</em>, 28: 235–242.</li>
+            <li id="2">Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of
+              tetrads and quadruplex structures <em>Bioinformatics</em>, 36: 1129–1134.</li>
+            <li id="3">Darty, K., Denise A., Ponty Y. 2009. VARNA: Interactive drawing and editing of the RNA secondary structure
+              <em>Bioinformatics</em>, 25: 1974–1975.</li>
+            <li id="4">Lai, D., Proctor, J.R., Zhu, J.Y.A., Meyer, I.M. 2012. R-chie: a web server and R package for visualizing
+              RNA secondary structures <em>Nucleic Acids Research</em>, 40: e95.</li>
+            <li id="5">Sehnal, D., Deshpande, M., Varekova, R.S., Mir, S., Berka, K., Midlik, A., Pravda, L., Velankar, S., Koca,
+              J. 2017. LiteMol suite: Interactive web-based visualization of large-scale macromolecular structure data <em>Nature
+                methods</em>, 14: 1121–1122.</li>
+            <li id="6">Webba da Silva, M. 2007. Geometric formalism for DNA quadruplex folding <em>Chemistry</em>, 13: 9738–9745.</li>
+            <li id="7">Webba da Silva, M., Trajkovski, M., Sannohe, Y., Ma'ani Hessari, N., Sugiyama H., Plavec, J. 2009.
+              Design of a G-quadruplex topology through glycosidic bond angles <em>Angewandte Chemie International Edition</em>,
+              48: 9167–9170.</li>
+            <li id="8">Dvorkin, S.A., Karsisiotis, A.I., Webba da Silva, M. 2018. Encoding canonical DNA quadruplex structure
+              <em>Science Advances</em>, 4: eaat3007.</li>
+            <li id="9">Zok, T., Popenda, M., Szachniuk, M. 2020. ElTetrado: a tool for identification and classification of
+              tetrads and quadruplexes <em>BMC Bioinformatics</em>, 21: 40.</li>
+            <li id="10">Leontis, N.B., Westhof, E. 2001. Geometric nomenclature and classification of RNA base pairs <em>RNA</em>, 7: 499–512.</li>
+          </ol>
+        </div>
+
+
+
+      </mat-card-content>
+    </mat-card>
+
+
+
+
+
+
+
+
+
+
+
   </main>
 </div>
 </div>

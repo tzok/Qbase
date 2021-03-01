@@ -45,38 +45,34 @@ namespace RNAqbase.Repository
 
 				var quadruplex = await connection.QueryFirstAsync<Quadruplex>(
 					@"
-SELECT DISTINCT ON (q.id)
-	q.id AS Id,
-	q.onzm AS OnzmClass,
-	p.identifier AS PdbIdentifier,
-	n1.pdb_id AS PdbId,
-	q.dot_bracket AS Dot_bracket,
-	p.assembly AS AssemblyId,
-	MAX(q_view.molecule) AS Molecule,
-	STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	COUNT(DISTINCT(t.onz)) AS TypeCount,
-	COUNT(t.id) AS NumberOfTetrads,
-	p.visualization_2d AS PdbVisualization,
-	p.experiment AS Experiment,
-	q.visualization_2d AS Visualization2D,
-	q.arc_diagram AS ArcDiagram,
-	q.visualization_3d AS Visualization3D,
-	CASE
-			WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-			WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-			ELSE 'tetramolecular'
-	 END 
-	 as NumberOfStrands
-FROM QUADRUPLEX q
-JOIN TETRAD t ON q.id = t.quadruplex_id
-JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
-JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-JOIN PDB p ON n1.pdb_id = p.id
-WHERE q.id = @QuadruplexId
-GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.visualization_2d, p.experiment, q.visualization_2d, q.arc_diagram, q.visualization_3d",
+						SELECT DISTINCT ON (q.id)
+							q.id AS Id,
+							q.onzm AS OnzmClass,
+							p.identifier AS PdbIdentifier,
+							n1.pdb_id AS PdbId,
+							q.dot_bracket AS Dot_bracket,
+							p.assembly AS AssemblyId,
+							MAX(q_view.molecule) AS Molecule,
+							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+							COUNT(DISTINCT(t.onz)) AS TypeCount,
+							COUNT(t.id) AS NumberOfTetrads,
+							p.experiment AS Experiment,
+							CASE
+									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+									ELSE 'tetramolecular'
+							 END 
+							 as NumberOfStrands
+						FROM QUADRUPLEX q
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+						JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						WHERE q.id = @QuadruplexId
+						GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment;",
 					
 					new {QuadruplexId = id});
 

@@ -1,25 +1,17 @@
 <div style=" background: #F0F0F0; height: 100%">
-<div class="container">
+<div class="container" *ngIf="data && data.quadruplexesInTheSamePdb && tetrads">
   <main>
     <div class="description">
       <div class="text-rectangle">
         <h2> Quadruplex description</h2>
       </div>
-
-      <div style="visibility: hidden; width: 0; height: 0 "
-           [innerHTML]="svg_arc"
-      ></div>
-      <div style="visibility: hidden; width: 0; height: 0 "
-           [innerHTML]="svg_varna"
-      ></div>
-
       <br/>
       <mat-card>
         <mat-card-content>
       <!-- <svg [innerHTML]="svg" id="pic"></svg> -->
       <div class="row ">
         <div class="col-lg-10 col-sm-6">
-          <h5><b>Quadruplex ID: Q{{data.id}}</b></h5>
+          <h5><b>Quadruplex ID: {{data.id}}</b></h5>
         </div>
         <div class=" col-lg-2 col-sm-6 saveDataButton">
         <a class="mat-button" (click) = downloadZip()>Save data</a>
@@ -42,7 +34,7 @@
           </thead>
           <tbody>
             <tr>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "qbase-static/{{data.pdbIdentifier}}-1.png" width="200" height="150"  alt=""> </span> </a></td>
+              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "static/pymol/{{data.pdbIdentifier}}-assembly-{{data.assemblyId}}.png" width="200" height="150"  alt=""> </span> </a></td>
               <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
               <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
               <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
@@ -69,24 +61,24 @@
         <table class="table" style="border:1px solid black;">
           <tr>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <button (click)="showVarna()" title="Click to see 2D structure"> 2D structure (VARNA)</button>
+              <button (click)="show2dStructure('varna')" title="Click to see 2D structure"> 2D structure (VARNA)</button>
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <button (click)="showDiagram()" title="Click to see 2D structure"> 2D structure (R-chie)</button>
+              <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <button (click)="showStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
+              <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
             </td>
           </tr>
           <tr>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <div [innerHTML]="svg_varna_icon"> </div>
+              <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="">
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <div [innerHTML]="svg_arc_icon"></div>
+              <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="">
             </td>
             <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <img src = "qbase-static/Q{{data.id}}.png" width="200" height="150"  alt="">
+              <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="">
             </td>
           </tr>
         </table>
@@ -97,7 +89,7 @@
       <br />
       <mat-card>
         <mat-card-content>
-      <h5>Tetrads in Q{{data.id}}:</h5>
+      <h5>Tetrads in {{data.id}}:</h5>
       <div class="quadruplextable">
         <table class="table"style="border:1px solid black;">
           <thead>
@@ -114,8 +106,8 @@
               <td
                 class = fourColumnsStyle
                 style="text-align: center; vertical-align: middle;">
-                <a class = "hasTooltip" [routerLink]="['/tetrad', t.id]">
-                  T{{t.id}}  <span> <img src = "qbase-static/T{{t.id}}.png" width="100" height="100"  alt=""> </span>
+                <a class = "hasTooltip" [routerLink]="['/tetrad', t.id.slice(1)]">
+                  {{t.id}}  <span> <img src = "static/pymol/{{t.id}}.png" width="100" height="100"  alt=""> </span>
                 </a>
               </td>
               <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" >{{t.sequence}}</td>
@@ -130,7 +122,7 @@
       <br />
       <mat-card>
         <mat-card-content>
-      <h5>Tetrad pairs in Q{{data.id}}:</h5>
+      <h5>Tetrad pairs in {{data.id}}:</h5>
       <div class="quadruplextable">
         <table class="table" style="border:1px solid black;">
           <thead>
@@ -143,22 +135,22 @@
           </thead>
           <tbody>
 
-          <tr *ngFor="let t of tetrads">
+          <tr *ngFor="let t of tetradsPairsTable">
             <td
               class = fourColumnsStyle
               style="text-align: center; vertical-align: middle;"
-              *ngIf="t.tetrad2_id != 0">
-              <a class ="hasTooltip" [routerLink]="['/tetrad', t.tetrad2_id]">
-                T{{t.tetrad2_id}} <span> <img src = "qbase-static/T{{t.tetrad2_id}}.png" width="100" height="100"  alt=""> </span>
+              *ngIf="t.TetradPairId.slice(1) != 0">
+              <a class = "hasTooltip" [routerLink]="['/tetrad', t.TetradId.slice(1)]">
+                {{t.TetradId}} <span> <img src = "static/pymol/{{t.TetradId}}.png" width="100" height="100"  alt=""> </span>
               </a>
               -
-              <a class = "hasTooltip" [routerLink]="['/tetrad', t.id]">
-                T{{t.id}} <span> <img src = "qbase-static/T{{t.id}}.png" width="100" height="100"  alt=""> </span>
+              <a class ="hasTooltip" [routerLink]="['/tetrad', t.TetradPairId.slice(1)]">
+                {{t.TetradPairId}} <span> <img src = "static/pymol/{{t.TetradPairId}}.png" width="100" height="100"  alt=""> </span>
               </a>
             </td>
-            <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.twist | number: '1.0-2'}}</td>
-            <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.rise | number: '1.0-2'}}</td>
-            <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.tetrad2_id != 0 ">{{t.direction}}</td>
+            <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId.slice(1) != 0 ">{{t.twist | number: '1.0-2'}}</td>
+            <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId.slice(1) != 0 ">{{t.rise | number: '1.0-2'}}</td>
+            <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId.slice(1) != 0 ">{{t.direction}}</td>
           </tr>
           </tbody>
         </table>

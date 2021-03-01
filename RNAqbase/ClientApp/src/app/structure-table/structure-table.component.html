@@ -23,7 +23,7 @@
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
               <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">
-                {{row.pdbId}} <span> <img src = "qbase-static/{{row.pdbId}}-1.png" width="200" height="150"  alt=""> </span>
+                {{row.pdbId}} <span> <img src = "static/pymol/{{row.pdbId}}-assembly-{{row.assemblyId}}.png" width="200" height="150"  alt=""> </span>
 
               </a>
             </mat-cell>
@@ -66,8 +66,8 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplex_id">Quadruplex ID</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">Quadruplex ID</span>
-              <a *ngFor="let t of row.quadruplex_id; " [routerLink]="['/quadruplex', t]">
-                <a class = "hasTooltip"><p style="font-size: 14px;"> Q{{t}} </p> <span> <img src = "qbase-static/Q{{t}}.png" width="200" height="150"  alt=""> </span></a>
+              <a *ngFor="let t of row.quadruplex_idetifier; " [routerLink]="['/quadruplex', t]">
+                <a class = "hasTooltip"><p style="font-size: 14px;"> {{t}} </p> <span> <img src = "static/pymol/{{t}}.png" width="200" height="150"  alt=""> </span></a>
               </a>
             </mat-cell>
           </ng-container>
@@ -77,7 +77,7 @@
             <mat-header-cell *matHeaderCellDef> 2D structure</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span class="mobile-label">2D structure</span>
-              <button (click)="showStructure(row.pdbId)">View</button>
+              <button (click)="showStructure('varna', row.pdbId+'-assembly-'+row.assemblyId)">View</button>
             </mat-cell>
           </ng-container>
 

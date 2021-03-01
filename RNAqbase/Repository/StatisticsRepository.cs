@@ -213,7 +213,7 @@ WHERE chains = 4;")).ToList();
 
 				return (await connection.QueryFirstAsync<HomePagePlot>(
 					@"select (select count(*) from quadruplex) as QuadruplexCount,
-					   (select count(*) from helix_new) as HelixCount,
+					   (select count(DISTINCT(helix_id)) from helix_quadruplex) as HelixCount,
 					   (select count(*) from tetrad) as TetradCount, 
 					   (select count(x) as StructureCount from
 						(SELECT p.identifier
@@ -238,14 +238,13 @@ WHERE chains = 4;")).ToList();
 						COALESCE(numberOfTetrad,0) as AddedTetradCount,
 						COALESCE(numberOfQuadruplex, 0) as AddedQuadruplexCount,
 						COALESCE(numberOfHelix, 0) as AddedHelixCount,
-					    COALESCE(numerOfStructure, 0) as AddedStructureCount
+					    COALESCE(numberOfStructure, 0) as AddedStructureCount
 						from tetrad_growth_view t
 						left join quadruplex_growth_view q  on t.release_date = q.release_date
 						left join helix_growth_view h on t.release_date = h.release_date
 						left join structure_growth_view s on t.release_date = s.release_date
 						WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
-
-						   "));
+						"));
 				
 			}
 		}

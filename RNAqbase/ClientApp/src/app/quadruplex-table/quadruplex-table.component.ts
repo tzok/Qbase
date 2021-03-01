@@ -31,10 +31,15 @@ export class QuadruplexTableComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
+        this.csvData = JSON.parse(JSON.stringify(result));
         for (let val of this.csvData){
           val.id =  'Q' + val.id;
         }
         this.dataSource = new MatTableDataSource(result);
+        for(let val of result){
+          val.quadruplex_id = 'Q' + val.id;
+        }
+
 
         this.dataSource.filterPredicate = (data: Quadruplex, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
@@ -88,6 +93,7 @@ export class QuadruplexTableComponent implements OnInit {
 
 interface Quadruplex {
   id: string;
+  quadruplex_id: any;
   pdbId: string;
   assemblyId: number;
   molecule: string;

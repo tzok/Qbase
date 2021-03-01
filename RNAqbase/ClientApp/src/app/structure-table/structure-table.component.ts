@@ -36,12 +36,20 @@ export class StructureTableComponent implements OnInit {
         for (let val of result){
           val.quadruplex_id =  Array.from(new Set( val.quadruplex_id.split(',') ))
         }
+
         this.csvData = JSON.parse(JSON.stringify(result));
         for (let val of this.csvData){
-          for (var i = 0; i < val.quadruplex_id.length; i++) {
+          for (let i = 0; i < val.quadruplex_id.length; i++) {
             val.quadruplex_id[i] = 'Q' + val.quadruplex_id[i];
           }
         }
+
+      for (let val of result) {
+        val.quadruplex_idetifier = JSON.parse(JSON.stringify(val.quadruplex_id));
+        for (let i = 0; i < val.quadruplex_id.length; i++) {
+          val.quadruplex_idetifier[i] = 'Q' + val.quadruplex_id[i];
+        }
+      }
 
         this.dataSource.filterPredicate = (data: Structure, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
@@ -83,17 +91,11 @@ export class StructureTableComponent implements OnInit {
   }
 
 
-  showStructure(pdbId: string) {
-    this.http.get(this.baseUrl + 'api/pdb/GetVisualizationById?pdbid=' + pdbId,
-      { responseType: 'text' })
-      .subscribe(result => {
-      let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-          data: { svg: result },
-        });
-    },
-      error => console.error(error));
+  showStructure(type: any, id: any) {
+    let dialogRef = this.dialog.open(VisualizationDialogComponent, {
+      data: { type: type, id: id },
+    });
   }
-
 
   show3DStructure(pdbId: number, assembly: number) {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
@@ -107,6 +109,7 @@ export class StructureTableComponent implements OnInit {
 
 interface Structure {
   quadruplex_id: any;
+  quadruplex_idetifier: any;
   pdbId: string;
   pdbDeposition: string;
   assemblyId: number;

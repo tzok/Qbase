@@ -16,8 +16,6 @@ namespace RNAqbase.Models
 		public int TypeCount { get; set; }
 
 		public string Id { get; set; }
-		public string Visualization2D { get; set; }
-		public byte[] Visualization3D { get; set; }
 		public string OnzmClass { get; set; }
 		public string PdbIdentifier { get; set; }
 		public int PdbId { get; set; }
@@ -28,11 +26,9 @@ namespace RNAqbase.Models
 		public string NumberOfStrands { get; set; }
 		public string Type => TypeCount == 1 ? "Regular" : "Irregular";
 		public int NumberOfTetrads { get; set; }
-		public string PdbVisualization { get; set; }
 		public string Experiment { get; set; }
 		public List<int> Tetrads { get; set; }
 		public string ChiAngle { get; set; }
-		public string ArcDiagram { get; set; }
 		public string PdbDeposition { get; set; }
 	}
 }

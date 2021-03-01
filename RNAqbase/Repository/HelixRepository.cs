@@ -141,35 +141,35 @@ namespace RNAqbase.Repository
 			    connection.Open();
 
 			    return (await connection.QueryAsync<HelicesWithoutVisualizations>(
-                    @"
-                        SELECT DISTINCT ON(h.id_updated)
-						h.id AS Id,        
-                        h.id_updated as HelixId,
-						p.identifier AS PdbId,
-						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-						p.assembly AS AssemblyId,
-						max(q_view.molecule) AS Molecule,
-						STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-						COUNT(t.id) AS NumberOfTetrads,
-						p.experiment AS Experiment,
-						COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
-						 CASE
-								WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-								WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-								ELSE 'tetramolecular'
-						 END 
-						 as NumberOfStrands
-					FROM HELIX_new h
-					JOIN QUADRUPLEX q on h.id = q.helix_id
-					JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
-					JOIN TETRAD t ON q.id = t.quadruplex_id
-					JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-					JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-					JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-					JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-					JOIN PDB p ON n1.pdb_id = p.id
-					GROUP BY h.id, h.id_updated, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d
-					order by h.id_updated")).ToList();
+                    @"SELECT DISTINCT ON(h.id)
+							h.id AS Id,        
+							p.identifier AS PdbId,
+							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+							p.assembly AS AssemblyId,
+							max(q_view.molecule) AS Molecule,
+							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+							COUNT(t.id) AS NumberOfTetrads,
+							p.experiment AS Experiment,
+							COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
+							 CASE
+									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+									ELSE 'tetramolecular'
+							 END 
+							 as NumberOfStrands
+						FROM HELIX h
+						JOIN HELIX_QUADRUPLEX hq on h.id = hq.helix_id
+						JOIN QUADRUPLEX q on hq.quadruplex_id = q.id
+						JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+						JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment
+						order by h.id;
+                        ")).ToList();
 		    }
 	}
         

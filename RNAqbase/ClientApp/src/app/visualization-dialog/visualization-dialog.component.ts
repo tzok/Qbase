@@ -12,8 +12,9 @@ import * as svg from 'save-svg-as-png';
 
 export class VisualizationDialogComponent implements OnInit {
 
-  svg: SafeHtml;
-  zoom: number = 1;
+  id: any;
+  type: any;
+  zoom: number = 75;
   public svgPic: any;
 
   @ViewChild('dataContainer') dataContainer: ElementRef;
@@ -25,25 +26,21 @@ export class VisualizationDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setId();
-    this.setSize()
-    this.svg = this.sanitizer.bypassSecurityTrustHtml(this.data.svg);
+    //this.setId();
+    //this.setSize()
+    this.id = this.data.id;
+    this.type = this.data.type;
+
   }
 
-  setSize(){
-    let tmp = this.data.svg.indexOf( "<svg" ) + 4;
-    let id = " width=500px height=500px ";
-    this.data.svg = [this.data.svg.slice(0, tmp), id, this.data.svg.slice(tmp)].join('');
-  }
-
-  setSvgPic(){
+  setSvgPic() {
     this.svgPic = document.getElementById(this.data.id);
-  }
+    console.log(this.svgPic);
 
+  }
   zoomIn() {
     this.setSvgPic();
     this.zoom += 0.1;
-    console.log(this.svgPic);
     this.svgPic.style.zoom = this.zoom;
   }
 
@@ -51,13 +48,6 @@ export class VisualizationDialogComponent implements OnInit {
     this.setSvgPic();
     this.zoom -= 0.1;
     this.svgPic.style.zoom = this.zoom;
-
-  }
-
-  setId() {
-    let tmp = this.data.svg.indexOf( "<svg" ) + 4;
-    let id = " id=" + this.data.id;
-    this.data.svg = [this.data.svg.slice(0, tmp), id, this.data.svg.slice(tmp)].join('');
   }
 
   download(){
@@ -67,6 +57,6 @@ export class VisualizationDialogComponent implements OnInit {
 }
 
 interface DialogData {
-  svg: string;
   id: string;
+  type: string;
 }
