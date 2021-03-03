@@ -13,66 +13,7 @@ namespace RNAqbase.Repository
 	{
 		public HelixRepository(IConfiguration configuration) : base(configuration)
 		{}
-
-		public async Task<Helix> GetHelixById(int id)
-		{
-			using (var connection = Connection)
-			{
-				connection.Open();
-
-				var helix = await connection.QueryFirstAsync<Helix>(
-						(@"
-                            SELECT DISTINCT ON(h.id_updated)
-	                            h.id AS Id,
-                                h.id_updated as Id_updated,
-	                            p.identifier AS PdbIdentifier,
-	                            n1.pdb_id AS PdbId,
-	                            p.assembly AS AssemblyId,
-								max(q_view.molecule) AS Molecule,
-	                            STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                            COUNT(t.id) AS NumberOfTetrads,
-	                            p.experiment AS Experiment,
-	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
-	                            h.visualization_2d AS Visualization2D,
-	                            h.visualization_3d AS Visualization3D,
-	                            h.arc_diagram AS ArcDiagram,
-	                        	CASE
-									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-									ELSE 'tetramolecular'
-								END 
-								as NumberOfStrands
-                            FROM HELIX_new h
-                            JOIN QUADRUPLEX q on h.id = q.helix_id
-                            JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
-                            JOIN TETRAD t ON q.id = t.quadruplex_id
-                            JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-                            JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-                            JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-                            JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-                            JOIN PDB p ON n1.pdb_id = p.id
-                            WHERE h.id_updated = @HelixId
-                            GROUP BY h.id, h.id_updated p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment, h.visualization_2d, h.visualization_3d"), 
-				new { HelixId = id });
-               
-                var idsT = await connection.QueryAsync<int>(
-                @"
-                SELECT tetrad.id from tetrad join quadruplex 
-                on tetrad.quadruplex_id = quadruplex.id
-                where quadruplex.helix_id = @HelixId",
-                new { HelixId = id });
-                helix.Tetrads = idsT.ToList();
-
-                var idsQ = await connection.QueryAsync<int>(
-                @"
-                SELECT id from quadruplex where id =  @HelixId",
-                new { HelixId = id });
-                helix.Quadruplexes = idsQ.ToList();
-
-                return helix;
-			}
-		}
-
+		
         public async Task<HelixReference> GetHelixReferenceById(int id)
         {
             using (var connection = Connection)
@@ -81,55 +22,38 @@ namespace RNAqbase.Repository
 
                 var helix = await connection.QueryFirstAsync<HelixReference>(
                         (@"
-                            SELECT DISTINCT ON(h.id_updated)
-	                            h.id AS Id,      
-                                h.id_updated as Id_updated,
-	                            p.identifier AS PdbIdentifier,
-	                            n1.pdb_id AS PdbId,
-	                            h.dot_bracket AS Dot_bracket,
-                                to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-	                            p.assembly AS AssemblyId,
-								max(q_view.molecule) AS Molecule,
-	                            STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                            COUNT(t.id) AS NumberOfTetrads,
-	                            p.experiment AS Experiment,
-	                            COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
-	                            h.visualization_2d AS Visualization2D,
-	                            h.visualization_3d AS Visualization3D,
-	                            h.arc_diagram AS ArcDiagram,
-	                       	 CASE
-									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-									ELSE 'tetramolecular'
-							 END 
-							 as NumberOfStrands
-                            FROM HELIX_new h
-                            JOIN QUADRUPLEX q on h.id = q.helix_id
-                            JOIN QUADRUPLEX_VIEW q_view on q.id = q_view.id
-                            JOIN TETRAD t ON q.id = t.quadruplex_id
-                            JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-                            JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-                            JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-                            JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-                            JOIN PDB p ON n1.pdb_id = p.id
-                            WHERE h.id_updated = @HelixId
-                            GROUP BY h.id, h.id_updated, h.dot_bracket,h.visualization_2d,  h.visualization_3d, h.arc_diagram, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment"),
+                        SELECT  DISTINCT ON(h.id)
+						h.id as Id,
+						h.dot_bracket as Dot_bracket,
+						p.identifier AS PdbIdentifier,
+						n1.pdb_id AS PdbId,
+						h.dot_bracket AS Dot_bracket,
+						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+						p.assembly AS AssemblyId,
+						max(q_view.molecule) AS Molecule,
+						STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+						COUNT(t.id) AS NumberOfTetrads,
+						p.experiment AS Experiment,
+						COUNT(DISTINCT(hq.id)) AS NumberOfQudaruplexes,
+					 CASE
+							WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+							WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+							ELSE 'tetramolecular'
+					 END 
+					 as NumberOfStrands
+					FROM HELIX h
+					JOIN HELIX_QUADRUPLEX hq on h.id = hq.helix_id
+					JOIN QUADRUPLEX_VIEW q_view on hq.id = q_view.id
+					JOIN TETRAD t ON hq.id = t.quadruplex_id
+					JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+					JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+					JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+					JOIN PDB p ON n1.pdb_id = p.id
+					where h.id = @HelixId
+					GROUP BY h.id, h.dot_bracket, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment"),
                 new { HelixId = id });
-	            /*
-                var idsT = await connection.QueryAsync<int>(
-                @"
-                SELECT tetrad.id from tetrad join quadruplex 
-                on tetrad.quadruplex_id = quadruplex.id
-                where quadruplex.helix_id = @HelixId",
-                new { HelixId = id });
-                helix.Tetrads = idsT.ToList();
 
-                var idsQ = await connection.QueryAsync<int>(
-                @"
-                SELECT id from quadruplex where id =  @HelixId",
-                new { HelixId = id });
-                helix.Quadruplexes = idsQ.ToList();
-				*/
                 return helix;
             }
         }
@@ -189,7 +113,7 @@ namespace RNAqbase.Repository
 							JOIN nucleotide n1 on t.nt1_id = n1.id
 					WHERE t.id IN (select tetrad.Id from quadruplex
 						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
 					new {id = id});
 				
 				var coordinates2Query = await connection.QueryAsync<string>
@@ -200,7 +124,7 @@ namespace RNAqbase.Repository
 							JOIN nucleotide n2 on t.nt2_id = n2.id
 					WHERE t.id IN (select tetrad.Id from quadruplex
 						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
 					new {id = id});
 
 				var coordinates3Query = await connection.QueryAsync<string>
@@ -211,7 +135,7 @@ namespace RNAqbase.Repository
 							JOIN nucleotide n3 on t.nt3_id = n3.id
 					WHERE t.id IN (select tetrad.Id from quadruplex
 						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
 					new {id = id});
 
 				var coordinates4Query = await connection.QueryAsync<string>
@@ -222,7 +146,7 @@ namespace RNAqbase.Repository
 							JOIN nucleotide n4 on t.nt4_id = n4.id
 					WHERE t.id IN (select tetrad.Id from quadruplex
 						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex.id from quadruplex where helix_id  = @id))",
+					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
 					new {id = id});
 				
 				var coordinates = new CoordinatesQuadruplex();

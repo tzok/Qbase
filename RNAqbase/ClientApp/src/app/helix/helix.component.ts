@@ -22,6 +22,9 @@ import { saveAs } from "file-saver";
 
 
 export class HelixComponent implements OnInit {
+  _3d_structure;
+  _2d_structure_varna;
+  _2d_structure_rchie;
 
   data: HelixReference;
   tetrads: TetradReference[];
@@ -29,13 +32,8 @@ export class HelixComponent implements OnInit {
   tetradsPairsInformation: TetradPairsInformations[] = [];
   quadruplexes: QuadruplexReference[];
   quadruplexInformation: QuadruplexReference[] = [];
-  HelixReferenceInformations: HelixReferenceInformations;
   helixId: number;
   sub;
-  svg_varna: SafeHtml;
-  svg_arc: SafeHtml;
-  svg_varna_icon: SafeHtml;
-  svg_arc_icon: SafeHtml;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,40 +51,10 @@ export class HelixComponent implements OnInit {
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
 
         this.data = result;
-       // this.data.tetradsIds = result.tetrads.join(";");
-       // this.data.quadruplexIds = result.quadruplexes.join(";")
+        this.data.id = 'H' + this.data.id;
 
-        this.data.arcDiagram = this.setId(result.arcDiagram, '_arc');
-        this.svg_arc = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram);
-        this.data.arcDiagram_icon = this.setId(result.arcDiagram, '_arc');
-        this.data.arcDiagram_icon = this.setSize(this.data.arcDiagram_icon);
-        this.svg_arc_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.arcDiagram_icon);
-
-
-        this.data.visualization2D = this.setId(result.visualization2D, '_varna');
-        this.svg_varna = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D);
-        this.data.visualization2D_icon = this.setId(result.visualization2D, '_varna');
-        this.data.visualization2D_icon = this.setSize(this.data.visualization2D_icon);
-        this.svg_varna_icon = this.sanitizer.bypassSecurityTrustHtml(this.data.visualization2D_icon);
-
-        this.HelixReferenceInformations = {
-          id: 'H' + this.data.id_updated,
-          pdbIdentifier: this.data.pdbIdentifier,
-          assemblyId: this.data.assemblyId,
-          molecule: this.data.molecule,
-          experiment: this.data.experiment,
-          sequence: this.data.sequence,
-          numberOfStrands: this.data.numberOfStrands,
-          numberOfQudaruplexes: this.data.numberOfQudaruplexes,
-          numberOfTetrads: this.data.numberOfTetrads,
-          //tetradsIds: this.data.tetradsIds,
-          //quadruplexIds: this.data.quadruplexIds,
-          dot_bracket: this.data.dot_bracket
-        }
-
-        this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id).subscribe(result => {
+        this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id.slice(1)).subscribe(result => {
           this.tetrads = result;
-          console.log(this.tetrads);
 
           for (let val of result) {
             if(val.tetrad2_id != 0) {
@@ -113,12 +81,10 @@ export class HelixComponent implements OnInit {
               planarity: val.planarity
             });
           }
-
         }, error => console.error(error));
 
-        this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.data.id).subscribe(result => {
+        this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.data.id.slice(1)).subscribe(result => {
           this.quadruplexes = result;
-
           for (let val of result) {
             this.quadruplexInformation.push({
               id: 'Q' + val.id,
@@ -134,78 +100,45 @@ export class HelixComponent implements OnInit {
             });
           }
           }, error => console.error(error));
-
-
       }, error => console.error(error));
 
     });
   }
 
-  setId(image: any, label: string) {
-    let tmp = image.indexOf( "<svg" ) + 4;
-    let id = " id=" + this.data.id + label;
-    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
-    return image;
+  downloadZip(): void {
+    this.http.get("/static/pymol/" + this.data.id + ".png", { responseType: "arraybuffer" })
+      .subscribe(data => {
+        this._3d_structure = data;
+
+        this.http.get("/static/varna/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+          .subscribe(data => {
+            this._2d_structure_varna = data;
+
+            this.http.get("/static/rchie/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+              .subscribe(data => {
+                this._2d_structure_rchie = data;
+
+                var zip =new JSZip();
+                let helix = this.generateFile([this.data]);
+                let quadruplex = this.generateFile(this.quadruplexInformation);
+                let tetrads = this.generateFile(this.tetradsInformation)
+                let tetradsPairs = this.generateFile(this.tetradsPairsInformation);
+
+                zip.file("3d_structure.png", this._3d_structure);
+                zip.file("2d_structure_varna.svg", this._2d_structure_varna);
+                zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
+                zip.file("helix" + ".csv", helix);
+                zip.file("quadruplex" +".csv", quadruplex);
+                zip.file("tetrads" + ".csv", tetrads);
+                zip.file("tetradsPairs" + ".csv", tetradsPairs)
+
+                zip.generateAsync({ type: "blob" })
+                  .then(blob => saveAs(blob,'data.zip'));
+
+              });
+          });
+      });
   }
-
-  setSize(image: any){
-    let tmp = image.indexOf( "<svg" ) + 4;
-    let id = " width=150px height=150px ";
-    image = [image.slice(0, tmp), id, image.slice(tmp)].join('');
-    return image;
-
-  }
-
-  downloadZip() {
-    //let images = ["/qbase-static/" + this.tetradInformations.id + ".png", "/qbase-static/" + this.tetradInformations.id + ".png"]
-    //for (let image of images) {
-    //console.log(image);
-    // }
-    this.loadSvgData("/qbase-static/H" + this.data.id + ".png", this.saveAsZip);
-  }
-
-  private loadSvgData(url: string, callback: Function) : void{
-    this.http.get(url, { responseType: "arraybuffer" })
-      .subscribe(x => callback(x, this.quadruplexInformation, this.HelixReferenceInformations,this.tetradsInformation, this.tetradsPairsInformation, this.generateFile));
-  }
-
-  private saveAsZip(content: Blob, quadruplexInformation: any, helixReferenceInformations: any, tetradsInformation: any, tetradsPairsInformation: any,  generateFile) : void{
-    let helix = generateFile([helixReferenceInformations])
-    let quadruplex = generateFile(quadruplexInformation)
-    let tetrads = generateFile(tetradsInformation)
-    let tetradsPairs = generateFile(tetradsPairsInformation)
-    let zip = new JSZip();
-
-    zip.file("helix" + ".csv", helix);
-    zip.file("tetrads" + ".csv", tetrads);
-    zip.file("tetradsPairs" + ".csv", tetradsPairs)
-    zip.file("quadruplex" + ".csv", quadruplex)
-    zip.file("3d_structure.png", content);
-    zip.generateAsync({ type: "blob" })
-      .then(blob => saveAs(blob,'data.zip'));
-  };
-
-
-  saveZip(){
-  let helix = this.generateFile([this.HelixReferenceInformations])
-  let tetrads = this.generateFile(this.tetradsInformation)
-  let tetradsPairs = this.generateFile(this.tetradsPairsInformation)
-  let quadruplex = this.generateFile(this.quadruplexInformation)
-
-  let zip = new JSZip();
-  zip.file("helix" + ".csv", helix);
-  zip.file("tetrads" + ".csv", tetrads);
-  zip.file("tetradsPairs" + ".csv", tetradsPairs)
-  zip.file("quadruplex" + ".csv", quadruplex)
-
-  zip.generateAsync({type: "blob"}).then(function(content) {
-    FileSaver.saveAs(content, "data.zip");
-  });
-
-  //svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + "_arc"), 'Arc_diagram.png');
-  //svg.saveSvgAsPng(document.getElementById(this.data.id.toString() + '_varna'), 'VARNA_drawing.png');
-}
-
   generateFile(data: any) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
     const header = Object.keys(data[0]);
@@ -224,18 +157,15 @@ export class HelixComponent implements OnInit {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: this.data.pdbId,
-        url: this.baseUrl + 'api/Helix/GetHelix3dVisualizationMethod?id=' + this.data.id
-
+        url: this.baseUrl + 'api/Helix/GetHelix3dVisualizationMethod?id=' + this.data.id.slice(1)
       }
     });
   }
 
-  showVarna() {
-    let diagram = this.dialog.open(VisualizationDialogComponent, { data: { svg: this.data.visualization2D, id: this.data.id} });
-  }
-
-  showDiagram() {
-    let diagram = this.dialog.open(ArcdiagramComponent, { data: { svg: this.data.arcDiagram, id: this.data.id } });
+  show2dStructure(type: any) {
+    let dialogRef = this.dialog.open(VisualizationDialogComponent, {
+      data: { type: type, id: this.data.id },
+    });
   }
 
   setTwoNumberDecimal(num) {
@@ -247,7 +177,6 @@ export class HelixComponent implements OnInit {
 
 interface HelixReference {
   id: string;
-  id_updated:string;
   pdbId: string;
   pdbIdentifier: string;
   assemblyId: number;
@@ -257,35 +186,9 @@ interface HelixReference {
   numberOfStrands: string;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
-  tetrads: number[];
-  quadruplexes: number[];
- // tetradsIds: string;
- // quadruplexIds: string;
-  visualization3D: any;
-  arcDiagram: string;
-  visualization2D: string;
-  arcDiagram_icon: string;
-  visualization2D_icon: string;
   dot_bracket: string;
 
 }
-
-interface HelixReferenceInformations {
-  id: any;
-  pdbIdentifier: string;
-  assemblyId: number;
-  molecule: string;
-  experiment: string
-  sequence: string;
-  numberOfStrands: string;
-  numberOfQudaruplexes: number;
-  numberOfTetrads: number;
-  //tetradsIds: any;
-  //quadruplexIds: any;
-  dot_bracket: string;
-}
-
-
 
 interface QuadruplexReference {
   id: any;

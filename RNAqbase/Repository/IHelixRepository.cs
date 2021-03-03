@@ -7,7 +7,6 @@ namespace RNAqbase.Repository
 {
 	public interface IHelixRepository
 	{
-		Task<Helix> GetHelixById(int id);
 		Task<List<HelicesWithoutVisualizations>> GetAllHelices();
         Task<HelixReference> GetHelixReferenceById(int id);
         Task<MemoryStream> GetHelix3dVisualization(int id);

@@ -151,7 +151,7 @@ namespace RNAqbase.Repository
 						JOIN nucleotide n4 on t.nt4_id = n4.id
 						LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
                 		LEFT JOIN tetrad t2 on t2.id = tp.tetrad2_id
-					WHERE t.quadruplex_id IN (select quadruplex.id from quadruplex where helix_id = @HelixId)
+					WHERE t.quadruplex_id IN (select quadruplex_id from helix_quadruplex where helix_id = @HelixId)
 					ORDER BY  t.id;", new { HelixId = id });
 			}
 		}

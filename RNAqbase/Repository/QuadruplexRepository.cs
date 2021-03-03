@@ -54,7 +54,7 @@ namespace RNAqbase.Repository
 							p.assembly AS AssemblyId,
 							MAX(q_view.molecule) AS Molecule,
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-							COUNT(DISTINCT(t.onz)) AS TypeCount,
+						    COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
 							COUNT(t.id) AS NumberOfTetrads,
 							p.experiment AS Experiment,
 							CASE
@@ -105,7 +105,7 @@ namespace RNAqbase.Repository
 							MAX(p.assembly) AS AssemblyId,
 							MAX(q_view.molecule) AS Molecule,
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-							COUNT(DISTINCT(t.onz)) AS TypeCount,
+							COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
 							COUNT(t.id) AS NumberOfTetrads,
 							MAX(p.experiment) AS experiment,
 							CASE
@@ -183,35 +183,36 @@ GROUP BY p.release_date
 
 				return await connection.QueryAsync<Quadruplex>(
                     @"
-                 SELECT
-	                MAX(q.id) AS Id,
-	                MAX(q.onzm) AS OnzmClass,
-	                MAX(p.identifier) AS PdbIdentifier, 
-	                to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-	                MAX(n1.pdb_id) AS PdbId,
-	                MAX(p.assembly) AS AssemblyId,
-					MAX(q_view.molecule) AS Molecule,
-	                STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-	                COUNT(DISTINCT(t.onz)) AS TypeCount,
-	                COUNT(t.id) AS NumberOfTetrads,
-	                MAX(p.experiment) AS experiment,
-			        CASE
-					WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-					WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-					ELSE 'tetramolecular'
-					 END 
-					 as NumberOfStrands
-                FROM QUADRUPLEX q
-                JOIN TETRAD t ON q.id = t.quadruplex_id
-                JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
-                JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-                JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-                JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-                JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-                JOIN PDB p ON n1.pdb_id = p.id
-                join helix on helix.id = q.helix_id
-                where helix.id = @helixId
-                GROUP BY q.id;", new {helixId = id});
+						SELECT
+							MAX(q.id) AS Id,
+							MAX(q.onzm) AS OnzmClass,
+							MAX(p.identifier) AS PdbIdentifier, 
+							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+							MAX(n1.pdb_id) AS PdbId,
+							MAX(p.assembly) AS AssemblyId,
+							MAX(q_view.molecule) AS Molecule,
+							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+							COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
+							COUNT(t.id) AS NumberOfTetrads,
+							MAX(p.experiment) AS experiment,
+							CASE
+							WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+							WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+							ELSE 'tetramolecular'
+							 END 
+							 as NumberOfStrands
+						FROM QUADRUPLEX q
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+						JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						join helix_quadruplex hq on hq.quadruplex_id = q.id
+						join helix on helix.id = hq.helix_id
+						where helix.id = @HelixId
+						GROUP BY q.id;", new {helixId = id});
 			}
 		}
 		
@@ -222,8 +223,7 @@ GROUP BY p.release_date
 				connection.Open();
 				var ids = await connection.QueryAsync(
 					@"
-					INSERT INTO newsletter (email)
-                          VALUES (@email)", new {@email = email});
+					FindAllQuadruplexInTheHelix", new {@email = email});
 				return (null);
 			}
 		}

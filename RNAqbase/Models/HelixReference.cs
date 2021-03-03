@@ -8,7 +8,6 @@ namespace RNAqbase.Models
     public class HelixReference : BaseEntity
     {
         public string Id { get; set; }
-        public string Id_updated { get; set; }
         public string PdbIdentifier { get; set; }
         public int PdbId { get; set; }
         public string Dot_bracket { get; set; }
@@ -20,11 +19,5 @@ namespace RNAqbase.Models
         public int NumberOfTetrads { get; set; }
         public int NumberOfQudaruplexes { get; set; }
         public string Experiment { get; set; }
-        public List<int> Tetrads { get; set; }
-        public string Visualization2D { get; set; }
-
-        public string ArcDiagram { get; set; }
-        
-        public List<int> Quadruplexes { get; set; }
     }
 }

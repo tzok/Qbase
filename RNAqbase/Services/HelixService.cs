@@ -34,19 +34,7 @@ namespace RNAqbase.Services
 
 			return result;
 		}
-
-		public async Task<Helix> GetHelixById(int id)
-		{
-			if (!cache.TryGetValue($"{nameof(GetAllHelices)}_{id}", out Helix result))
-			{
-				result = await helixRepository.GetHelixById(id);
-
-				cache.Set($"{nameof(GetAllHelices)}_{id}", result, Cache);
-			}
-
-			return result;
-		}
-
+		
         public async Task<HelixReference> GetHelixReferenceById(int id)
         {
             if (!cache.TryGetValue($"{nameof(GetAllHelices)}_{id}", out HelixReference result))

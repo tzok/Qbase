@@ -1,12 +1,14 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
 <div class="box">
-  <a class="btn zoom" (click)="zoom=zoom + 10" style="float: left;"><i class="fas fa-search-plus"></i></a>
-  <a class="btn zoom-out" (click)="zoom=zoom - 10" style="float: left;"><i class="fas fa-search-minus"></i></a>
-  <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn clss" target="_self" download>Download as PNG</a>
   <div>
-  <img [style.width]="zoom+'%'" [style.height]="zoom+'%'" src = 'static/{{type}}/{{id}}.svg' id="{{id}}" alt="2d_structure">
+  <ul>
+    <li><a class="btn zoom" (click)="zoom=zoom + 10" style="float: left;"><i class="fas fa-search-plus"></i></a></li>
+    <li><a class="btn zoom-out" (click)="zoom=zoom - 10" style="float: left;"><i class="fas fa-search-minus"></i></a></li>
+    <li style="float:right"> <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn clss" target="_self" download>Download as PNG</a></li>
+  </ul>
   </div>
+    <img  class="center" [style.width]="zoom+'%'" [style.height]="zoom+'%'" src = 'static/{{type}}/{{id}}.svg' id="{{id}}" alt="2d_structure">
 </div>
 
 
