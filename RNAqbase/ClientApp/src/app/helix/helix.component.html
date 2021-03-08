@@ -39,7 +39,7 @@
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfStrands}}</td>
+              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.typeOfStrands}}</td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfQudaruplexes}}</td>
               <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
             </tr>
@@ -51,38 +51,31 @@
       <br>
       <mat-card>
         <mat-card-content>
-      <div>
-        <h5> 2D structure (dot-bracket):</h5>
-        <p class="dotbracket">{{data.dot_bracket}}</p>
-      </div>
-
-
-      <div class="helixtable">
-        <table class="table" style="border:1px solid black;">
-          <tr>
-            <td class = threeColumnsStyle_str style="text-align: center; vertical-align: middle;">
-              <button (click)="show2dStructure('varna')" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-            </td>
-            <td class = threeColumnsStyle_str style="text-align: center; vertical-align: middle;">
-              <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-            </td>
-            <td class = threeColumnsStyle_str style="text-align: center; vertical-align: middle;">
-              <button (click)="showStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-            </td>
-          </tr>
-          <tr>
-            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <img src = "static/varna/{{data.id}}.svg" width="250px" height="150px"  alt="">
-            </td>
-            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <img src = "static/rchie/{{data.id}}.svg" width="250px" height="200px"  alt="">
-            </td>
-            <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-              <img src = "static/pymol/{{data.id}}.png" width="250px" height="200px"  alt="">
-            </td>
-          </tr>
-        </table>
-      </div>
+          <div>
+            <h5> 2D structure (dot-bracket):</h5>
+            <p class="dotbracket">{{data.dot_bracket}}</p>
+          </div>
+          <div class="tetradtable" style="margin-top: 30px">
+            <div class="row">
+              <div class="column">
+                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure"> 2D structure (VARNA)</button>
+                <img src = "static/varna/{{data.id}}.svg" width="190" height="120"  alt="varna"/>
+              </div>
+              <div class="column">
+                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
+                <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/>
+              </div>
+              <div class="column">
+                <button (click)="show2dStructure('layers')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
+                <img src = "static/layers/{{data.id}}.svg" width="200" height="150"  alt="layers"/>
+              </div>
+              <div class="column">
+                <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
+                <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/>
+              </div>
+            </div>
+          </div>
+          <br>
         </mat-card-content>
       </mat-card>
       <br />
@@ -106,8 +99,8 @@
         <tbody>
           <tr *ngFor="let q of quadruplexes">
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">
-              <a class = "hasTooltip" [routerLink]="['/quadruplex', q.id]">{{q.id}}
-                <span> <img src = "static/pymol/{{q.id}}.png" width="200" height="150"  alt=""> </span>
+              <a class = "hasTooltip" [routerLink]="['/quadruplex', q.id]">Q{{q.id}}
+                <span> <img src = "static/pymol/Q{{q.id}}.png" width="200" height="150"  alt=""> </span>
             </a></td>
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.sequence}}</td>
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.onzmClass}}</td>

@@ -37,7 +37,6 @@ export class QuadruplexComponent implements OnInit {
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.quadruplexId = params.get('quadruplexId');
-      console.log(this.quadruplexId);
       this.http.get<Quadruplex>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexById?id=' + '' + this.quadruplexId).subscribe(result => {
         this.data = result;
         this.data.id = 'Q' + this.data.id;
@@ -54,7 +53,6 @@ export class QuadruplexComponent implements OnInit {
 
                 this.data.tetrads = this.tetrads.map(({ id }) => id);
                 this.csvData.tetrads = this.data.tetrads.join(';');
-                console.log(this.csvData)
                   for (let val of result) {
                     val.id = 'T' + val.id;
                     val.tetrad2_id = 'T' + val.tetrad2_id;
@@ -160,7 +158,7 @@ interface Quadruplex {
   assemblyId: number;
   molecule: string;
   experiment: string;
-  numberOfStrands: string;
+  typeOfStrands: string;
   numberOfTetrads: number;
   type: string;
   sequence: string;

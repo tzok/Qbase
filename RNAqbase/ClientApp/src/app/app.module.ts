@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { TestComponent } from './test/test.component';
 import { CiteUsComponent } from './citeUs/citeUs.component';
 import { ContactComponent } from './contact/contact.component';
 import { HelpComponent } from './help/help.component';
@@ -21,11 +20,9 @@ import { VisualizationDialogComponent } from './visualization-dialog/visualizati
 import { TetradComponent } from './tetrad/tetrad.component';
 import { QuadruplexComponent } from './quadruplex/quadruplex.component';
 import { CsvModule } from '@ctrl/ngx-csv';
-import { VisualizationComponent } from './visualization/visualization.component';
 import { Visualization3DComponent } from './visualization3-d/visualization3-d.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ArcdiagramComponent } from './arcdiagram/arcdiagram.component';
 import { HeliceComponent } from './helice/helice.component';
 import { HelixComponent } from './helix/helix.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -41,7 +38,6 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    TestComponent,
     AboutComponent,
     CiteUsComponent,
     ContactComponent,
@@ -52,10 +48,8 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
     VisualizationDialogComponent,
     TetradComponent,
     QuadruplexComponent,
-    VisualizationComponent,
     Visualization3DComponent,
     StatisticsComponent,
-    ArcdiagramComponent,
     HeliceComponent,
     HelixComponent,
     PageNotFoundComponent,
@@ -69,7 +63,6 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
         RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
             {path: '', redirectTo: '/home', pathMatch: 'full'},
-            {path: 'test', component: TestComponent},
             {path: 'about', component: AboutComponent},
             {path: 'citeUs', component: CiteUsComponent},
             // { path: 'contact', component: ContactComponent },
@@ -105,7 +98,7 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
     ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [VisualizationDialogComponent, VisualizationComponent, Visualization3DComponent, ArcdiagramComponent]
+  entryComponents: [VisualizationDialogComponent, Visualization3DComponent]
 })
 
 export class AppModule { }

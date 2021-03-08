@@ -92,7 +92,7 @@ export class HelixComponent implements OnInit {
               assemblyId: val.assemblyId,
               molecule: val.molecule,
               experiment: val.experiment,
-              numberOfStrands: val.numberOfStrands,
+              typeOfStrands: val.typeOfStrands,
               numberOfTetrads: val.numberOfTetrads,
               type: val.type,
               sequence: val.sequence,
@@ -153,7 +153,7 @@ export class HelixComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  showStructure() {
+  show3dStructure() {
     let dialogRef = this.dialog.open(Visualization3DComponent, {
       data: {
         pdbId: this.data.pdbId,
@@ -183,7 +183,7 @@ interface HelixReference {
   molecule: string;
   experiment: string
   sequence: string;
-  numberOfStrands: string;
+  typeOfStrands: string;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
   dot_bracket: string;
@@ -196,7 +196,7 @@ interface QuadruplexReference {
   assemblyId: number;
   molecule: string;
   experiment: string;
-  numberOfStrands: string;
+  typeOfStrands: string;
   numberOfTetrads: number;
   type: string;
   sequence: string;

@@ -14,7 +14,8 @@ export class VisualizationDialogComponent implements OnInit {
 
   id: any;
   type: any;
-  zoom: number = 75;
+  zoomWidth: number;
+  zoomHeight: number;
   public svgPic: any;
 
   @ViewChild('dataContainer') dataContainer: ElementRef;
@@ -26,33 +27,22 @@ export class VisualizationDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.setId();
-    //this.setSize()
     this.id = this.data.id;
     this.type = this.data.type;
-
+    if(this.id.startsWith('H')){
+      this.zoomHeight = 65;
+      this.zoomWidth = 90;
+    }
+    else{
+      this.zoomHeight = 85;
+      this.zoomWidth = 75;
+    }
+    if(this.type == 'layers'){
+      this.zoomHeight= 90;
+      this.zoomWidth = 65;
+    }
   }
 
-  setSvgPic() {
-    this.svgPic = document.getElementById(this.data.id);
-    console.log(this.svgPic);
-
-  }
-  zoomIn() {
-    this.setSvgPic();
-    this.zoom += 0.1;
-    this.svgPic.style.zoom = this.zoom;
-  }
-
-  zoomOut() {
-    this.setSvgPic();
-    this.zoom -= 0.1;
-    this.svgPic.style.zoom = this.zoom;
-  }
-
-  download(){
-    svg.saveSvgAsPng(document.getElementById(this.data.id), 'VARNA_drawing.png');
-  }
 
 }
 

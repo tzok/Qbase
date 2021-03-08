@@ -47,40 +47,33 @@
         </mat-card-content>
       </mat-card>
       <br>
+
       <mat-card>
         <mat-card-content>
           <div>
             <h5> 2D structure (dot-bracket):</h5>
             <p class="dotbracket">{{data.dot_bracket}}</p>
           </div>
-          <div class="tetradtable">
-            <table class="table" style="border:1px solid black;">
-              <tr>
-                <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-                  <button (click)="show2dStructure('varna' )" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-                </td>
-                <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-                  <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-                 </td>
-                <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-                  <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-                 </td>
-              </tr>
-              <tr>
-                <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-                  <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="varna"/>
-                </td>
-                <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-                  <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/>
-                </td>
-                <td class = threeColumnsStyle style="text-align: center; vertical-align: middle;">
-                  <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/>
-                </td>
-              </tr>
-            </table>
+          <div class="tetradtable" style="margin-top: 30px">
+            <div class="row">
+              <div class="column">
+                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure"> 2D structure (VARNA)</button>
+                <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="varna"/>
+              </div>
+              <div class="column">
+                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
+                <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/>
+              </div>
+              <div class="column">
+                <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
+                <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/>
+              </div>
+            </div>
           </div>
+          <br>
         </mat-card-content>
       </mat-card>
+
      <br>
       <mat-card>
         <mat-card-content>
@@ -117,6 +110,8 @@
         </mat-card-content>
       </mat-card>
       <br>
+
+
       </div>
     </main>
   </div>

@@ -62,7 +62,7 @@ namespace RNAqbase.Repository
 									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
 									ELSE 'tetramolecular'
 							 END 
-							 as NumberOfStrands
+							 as TypeOfStrands
 						FROM QUADRUPLEX q
 						JOIN TETRAD t ON q.id = t.quadruplex_id
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
@@ -113,7 +113,7 @@ namespace RNAqbase.Repository
 									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
 									ELSE 'tetramolecular'
 							 END 
-							 as typeOfStrands
+							 as TypeOfStrands
 						FROM QUADRUPLEX q
 						JOIN TETRAD t ON q.id = t.quadruplex_id
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
@@ -154,27 +154,6 @@ namespace RNAqbase.Repository
 			}
 		}		
 		
-		
-		/*
-		 CREATE VIEW structure_growth_view AS
-
-SELECT
-count(p.identifier) AS StructureCount,
-p.release_date as release_date
-FROM 
-QUADRUPLEX as q  
-JOIN TETRAD t ON q.id = t.quadruplex_id
-JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
-JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-JOIN PDB p ON n1.pdb_id = p.id
-GROUP BY p.release_date
-		 */
-		
-		
-		
-		
-		
-
 		public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id)
 		{
 			using (var connection = Connection)
@@ -200,7 +179,7 @@ GROUP BY p.release_date
 							WHEN max(q_view.chains) = 2 THEN  'bimolecular'
 							ELSE 'tetramolecular'
 							 END 
-							 as NumberOfStrands
+							 as TypeOfStrands
 						FROM QUADRUPLEX q
 						JOIN TETRAD t ON q.id = t.quadruplex_id
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id

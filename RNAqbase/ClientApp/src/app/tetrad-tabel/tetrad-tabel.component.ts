@@ -30,7 +30,6 @@ export class TetradTabelComponent implements OnInit {
   ngOnInit() {
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
       this.csvData = JSON.parse(JSON.stringify(result));
-      console.log(result)
 
       for (let val of this.csvData){
         val.id = 'T' + val.id.toString();

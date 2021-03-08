@@ -97,7 +97,7 @@ interface Helix {
   assemblyId: number;
   molecule: string;
   sequence: string;
-  numberOfStrands: string;
+  typeOfStrands: string;
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
   pdbDeposition: string;

@@ -40,7 +40,7 @@ namespace RNAqbase.Repository
 							WHEN max(q_view.chains) = 2 THEN  'bimolecular'
 							ELSE 'tetramolecular'
 					 END 
-					 as NumberOfStrands
+					 as TypeOfStrands
 					FROM HELIX h
 					JOIN HELIX_QUADRUPLEX hq on h.id = hq.helix_id
 					JOIN QUADRUPLEX_VIEW q_view on hq.id = q_view.id
@@ -80,7 +80,7 @@ namespace RNAqbase.Repository
 									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
 									ELSE 'tetramolecular'
 							 END 
-							 as NumberOfStrands
+							 as TypeOfStrands
 						FROM HELIX h
 						JOIN HELIX_QUADRUPLEX hq on h.id = hq.helix_id
 						JOIN QUADRUPLEX q on hq.quadruplex_id = q.id

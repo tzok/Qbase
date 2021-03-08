@@ -3,12 +3,12 @@
 <div class="box">
   <div>
   <ul>
-    <li><a class="btn zoom" (click)="zoom=zoom + 10" style="float: left;"><i class="fas fa-search-plus"></i></a></li>
-    <li><a class="btn zoom-out" (click)="zoom=zoom - 10" style="float: left;"><i class="fas fa-search-minus"></i></a></li>
+    <li><a class="btn zoom" (click)="zoomWidth=zoomWidth + 10" style="float: left;"><i class="fas fa-search-plus"></i></a></li>
+    <li><a class="btn zoom-out" (click)="zoomWidth=zoomWidth - 10" style="float: left;"><i class="fas fa-search-minus"></i></a></li>
     <li style="float:right"> <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn clss" target="_self" download>Download as PNG</a></li>
   </ul>
   </div>
-    <img  class="center" [style.width]="zoom+'%'" [style.height]="zoom+'%'" src = 'static/{{type}}/{{id}}.svg' id="{{id}}" alt="2d_structure">
+    <img  class="center" [style.width]="zoomWidth+'%'" [style.height]="zoomHeight+'%'" src = 'static/{{type}}/{{id}}.svg' id="{{id}}" alt="2d_structure">
 </div>
 
 

@@ -1,4 +1,4 @@
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
 .helixtable {
   max-width: 100%;
   overflow-x: scroll;
@@ -148,12 +148,15 @@ button {
   margin: 20px;
   width: 200px;
   height: 50px;
-  background-color: #45A29E;
-  color: white;
+  color: black;
+  border: none;
+  background: none;
+  align-content: center;
+  font-weight:bold;
 }
 
 button:hover{
-  background: #57dbd5;
+  background: #F0F0F0;
 }
 
 .lists {
@@ -192,4 +195,28 @@ a.mat-button {
 
 td.threeColumnsStyle_str {
   border:none;
+}
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  align-content: center;
+  text-align: center;
+  padding: 1em;
+  margin: 0 2%;
+  width: 20%;
+  border: 1px solid black;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow:hidden;
+  align-items: center;
+  justify-content:center;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  grid-column-gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-direction: row;
 }
