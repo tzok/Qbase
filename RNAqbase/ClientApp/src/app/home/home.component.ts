@@ -55,13 +55,9 @@ export class HomeComponent implements OnInit {
     }
   };
 
-
   public barChartLabels: string[] = ["Tetrads", "Quadruplexes", "Helices", "Structures"];
   public barChartPlugins = [pluginDataLabels];
-
   public barChartType: any = 'bar';
-
-
   public barChartData: ChartDataSets[] = [
     {data: [0, 0, 0, 0]}
   ];
@@ -70,7 +66,6 @@ export class HomeComponent implements OnInit {
     {backgroundColor: "#45A29E"},
     {backgroundColor: "#57dbd5"},
   ]
-
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') private baseUrl: string,
@@ -86,7 +81,6 @@ export class HomeComponent implements OnInit {
 
         this.http.get<componentsCount>(this.baseUrl + 'api/Statistics/GetCount').subscribe(result => {
           this.count = result;
-          console.log(this.count);
           this.barChartData = [{data: [this.count.tetradCount, this.count.quadruplexCount, this.count.helixCount, this.count.structureCount]}];
 
         }, error => console.error(error));

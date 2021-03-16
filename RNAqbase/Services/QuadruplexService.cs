@@ -40,5 +40,11 @@ namespace RNAqbase.Services
         public async  Task<string> DeleteEmailFromDatabase(string id) =>
 	        (await quadruplexRepository.DeleteEmailFromDatabase(id));
 
+        public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id) =>
+	        (await quadruplexRepository.GetNucleotideChiValues(id)).ToList();
+
+        public async Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id) =>
+	        (await quadruplexRepository.GetQuadruplexLoops(id)).ToList();
+        
 	}
 }

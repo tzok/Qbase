@@ -15,6 +15,7 @@ import { saveAs } from "file-saver";
 })
 export class QuadruplexComponent implements OnInit {
   _3d_structure;
+  _3d_layers;
   _2d_structure_varna;
   _2d_structure_rchie;
 
@@ -23,6 +24,8 @@ export class QuadruplexComponent implements OnInit {
   csvData: Quadruplex;
   tetradsTable: TetradInformations[] = [];
   tetradsPairsTable: TetradPairsInformations[] = [];
+  nucleotideChiValues: NucleotideChiValues[];
+  quadruplexLoops: QuadruplexLoops[] = [];
   quadruplexId: string;
   sub;
 
@@ -78,6 +81,20 @@ export class QuadruplexComponent implements OnInit {
                       planarity: val.planarity
                     });
                 }
+                  this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Quadruplex/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
+                    this.nucleotideChiValues = result;
+                  }, error => console.error(error));
+
+                this.http.get<QuadruplexLoops[]>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexLoops?id=' + '' + this.data.id.slice(1)).subscribe(result => {
+                  this.quadruplexLoops = result;
+                  let counter = 1;
+                  for (let val of this.quadruplexLoops) {
+                      val.id = 'L' + counter.toString()
+                      val.loop_length = val.short_sequence.length;
+                      counter = counter + 1;
+                  }
+                }, error => console.error(error));
+
                 }, error => console.error(error));
             }, error => console.error(error));
         }, error => console.error(error));
@@ -121,20 +138,30 @@ export class QuadruplexComponent implements OnInit {
               .subscribe(data => {
                 this._2d_structure_rchie = data;
 
-                var zip =new JSZip();
-                let quadruplex = this.generateFile([this.csvData])
-                let tetrads = this.generateFile(this.tetradsTable)
-                let tetradsPairs = this.generateFile(this.tetradsPairsTable)
+                this.http.get("/static/layers/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+                  .subscribe(data => {
+                    this._3d_layers = data;
 
-                zip.file("3d_structure.png", this._3d_structure);
-                zip.file("2d_structure_varna.svg", this._2d_structure_varna);
-                zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
-                zip.file("quadruplex" + ".csv", quadruplex);
-                zip.file("tetrads" + ".csv", tetrads);
-                zip.file("tetradsPairs" + ".csv", tetradsPairs)
-                zip.generateAsync({ type: "blob" })
-                  .then(blob => saveAs(blob,'data.zip'));
+                  var zip =new JSZip();
+                  let quadruplex = this.generateFile([this.csvData])
+                  let tetrads = this.generateFile(this.tetradsTable)
+                  let tetradsPairs = this.generateFile(this.tetradsPairsTable)
+                  let nucleotides = this.generateFile(this.nucleotideChiValues);
+                  let loops = this.generateFile(this.quadruplexLoops);
 
+                  zip.file("3d_structure.png", this._3d_structure);
+                  zip.file("2d_structure_varna.svg", this._2d_structure_varna);
+                  zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
+                  zip.file("3d_structure_layers.svg", this._3d_layers);
+                  zip.file("quadruplex" + ".csv", quadruplex);
+                  zip.file("tetrads" + ".csv", tetrads);
+                  zip.file("tetrads_pairs" + ".csv", tetradsPairs)
+                  zip.file("nucleotides_in_quadruplex" + ".csv", nucleotides)
+                  zip.file("quadruplex_loops" + ".csv", loops)
+                  zip.generateAsync({ type: "blob" })
+                    .then(blob => saveAs(blob,'data.zip'));
+
+                });
               });
           });
       });
@@ -193,4 +220,24 @@ interface TetradPairsInformations {
   twist: number;
   rise: number;
   direction: string;
+}
+
+interface NucleotideChiValues{
+  tetrad_id: number;
+  n1_chi: number;
+  n1_glycosidic_bond: string;
+  n2_chi: number;
+  n2_glycosidic_bond: string;
+  n3_chi: number;
+  n3_glycosidic_bond: string;
+  n4_chi: number;
+  n4_glycosidic_bond: string;
+}
+
+interface QuadruplexLoops{
+  id: string;
+  short_sequence: string;
+  full_sequence: string;
+  loop_type: string;
+  loop_length: number;
 }

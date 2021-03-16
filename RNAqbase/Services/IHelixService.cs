@@ -12,6 +12,7 @@ namespace RNAqbase.Services
 		Task<List<HelicesWithoutVisualizations>> GetAllHelices();
         Task<HelixReference> GetHelixReferenceById(int id);
         Task<MemoryStream> GetHelix3dVisualization(int id);
+        Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id);
 
-    }
+	}
 }

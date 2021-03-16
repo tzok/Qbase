@@ -85,6 +85,36 @@ namespace RNAqbase.Repository
 						AND id <> @TetradId;", new {QuadruplexId = quadruplexId, TetradId = tetradId});
 			}
 		}
+		
+		public async Task<TetradNucleotides> GetTetradNucleotides(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				var result = await connection.QueryAsync<TetradNucleotides>
+				(@"
+					SELECT 
+					n1.full_name as n1_full_name, 
+					n1.chi as n1_chi, 
+					n1.glycosidic_bond as n1_glycosidic_bond,
+					n2.full_name as n2_full_name, 
+					n2.chi as n2_chi, 
+					n2.glycosidic_bond as n2_glycosidic_bond,
+					n3.full_name as n3_full_name, 
+					n3.chi as n3_chi, 
+					n3.glycosidic_bond as n3_glycosidic_bond,
+					n4.full_name as n4_full_name, 
+					n4.chi as n4_chi, 
+					n4.glycosidic_bond as n4_glycosidic_bond
+					FROM tetrad t
+					JOIN nucleotide n1 on t.nt1_id = n1.id
+					JOIN nucleotide n2 on t.nt2_id = n2.id
+					JOIN nucleotide n3 on t.nt3_id = n3.id
+					JOIN nucleotide n4 on t.nt4_id = n4.id
+					WHERE t.id =  @Id;", new { Id = id });
+				return result.FirstOrDefault();
+			}
+		}
 
 		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId)
 		{

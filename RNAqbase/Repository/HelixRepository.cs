@@ -58,6 +58,34 @@ namespace RNAqbase.Repository
             }
         }
 
+        public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
+        {
+	        using (var connection = Connection)
+	        {
+		        connection.Open();
+
+		        return await connection.QueryAsync<NucleotidesChiValues>(
+			        (@"
+						SELECT t.id as tetrad_id,
+						n1.chi as n1_chi, 
+						n2.chi as n2_chi, 
+						n3.chi as n3_chi,
+						n4.chi as n4_chi,
+						n1.glycosidic_bond as n1_glycosidic_bond,
+						n2.glycosidic_bond as n2_glycosidic_bond,
+						n3.glycosidic_bond as n3_glycosidic_bond,
+						n4.glycosidic_bond as n4_glycosidic_bond
+						FROM helix_quadruplex hq
+						JOIN tetrad t on t.quadruplex_id = hq.quadruplex_id
+						JOIN nucleotide n1 on t.nt1_id = n1.id
+						JOIN nucleotide n2 on t.nt2_id = n2.id
+						JOIN nucleotide n3 on t.nt3_id = n3.id
+						JOIN nucleotide n4 on t.nt4_id = n4.id
+						WHERE hq.helix_id = @HelixId"),
+			        new { HelixId = id });
+	        }
+        }
+        
         public async Task<List<HelicesWithoutVisualizations>> GetAllHelices()
 	    {
 		    using (var connection = Connection)

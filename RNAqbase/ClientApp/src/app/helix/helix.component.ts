@@ -23,6 +23,7 @@ import { saveAs } from "file-saver";
 
 export class HelixComponent implements OnInit {
   _3d_structure;
+  _3d_layers;
   _2d_structure_varna;
   _2d_structure_rchie;
 
@@ -32,6 +33,7 @@ export class HelixComponent implements OnInit {
   tetradsPairsInformation: TetradPairsInformations[] = [];
   quadruplexes: QuadruplexReference[];
   quadruplexInformation: QuadruplexReference[] = [];
+  nucleotideChiValues: NucleotideChiValues[];
   helixId: number;
   sub;
 
@@ -100,6 +102,12 @@ export class HelixComponent implements OnInit {
             });
           }
           }, error => console.error(error));
+
+
+        this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Helix/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
+         this.nucleotideChiValues = result;
+        }, error => console.error(error));
+
       }, error => console.error(error));
 
     });
@@ -118,23 +126,32 @@ export class HelixComponent implements OnInit {
               .subscribe(data => {
                 this._2d_structure_rchie = data;
 
-                var zip =new JSZip();
-                let helix = this.generateFile([this.data]);
-                let quadruplex = this.generateFile(this.quadruplexInformation);
-                let tetrads = this.generateFile(this.tetradsInformation)
-                let tetradsPairs = this.generateFile(this.tetradsPairsInformation);
+                this.http.get("/static/layers/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+                  .subscribe(data => {
+                    this._3d_layers = data;
 
-                zip.file("3d_structure.png", this._3d_structure);
-                zip.file("2d_structure_varna.svg", this._2d_structure_varna);
-                zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
-                zip.file("helix" + ".csv", helix);
-                zip.file("quadruplex" +".csv", quadruplex);
-                zip.file("tetrads" + ".csv", tetrads);
-                zip.file("tetradsPairs" + ".csv", tetradsPairs)
+                  var zip =new JSZip();
+                  let helix = this.generateFile([this.data]);
+                  let quadruplex = this.generateFile(this.quadruplexInformation);
+                  let tetrads = this.generateFile(this.tetradsInformation)
+                  let tetradsPairs = this.generateFile(this.tetradsPairsInformation);
+                  let nucleotides = this.generateFile(this.nucleotideChiValues);
 
-                zip.generateAsync({ type: "blob" })
-                  .then(blob => saveAs(blob,'data.zip'));
+                  zip.file("3d_structure.png", this._3d_structure);
+                  zip.file("2d_structure_varna.svg", this._2d_structure_varna);
+                  zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
+                  zip.file("3d_structure_layers.svg", this._3d_layers);
+                  zip.file("helix" + ".csv", helix);
+                  zip.file("quadruplex" +".csv", quadruplex);
+                  zip.file("tetrads" + ".csv", tetrads);
+                  zip.file("nucleotides_in_helice" + ".csv", nucleotides)
+                  zip.file("tetrads_pairs" + ".csv", tetradsPairs)
 
+
+                  zip.generateAsync({ type: "blob" })
+                    .then(blob => saveAs(blob,'data.zip'));
+
+                  });
               });
           });
       });
@@ -232,3 +249,16 @@ interface TetradPairsInformations {
   rise: number;
   direction: string;
 }
+
+interface NucleotideChiValues{
+  tetrad_id: number;
+  n1_chi: number;
+  n1_glycosidic_bond: string;
+  n2_chi: number;
+  n2_glycosidic_bond: string;
+  n3_chi: number;
+  n3_glycosidic_bond: string;
+  n4_chi: number;
+  n4_glycosidic_bond: string;
+}
+

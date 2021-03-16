@@ -25,7 +25,15 @@ namespace RNAqbase.Controllers
 
             return Ok(await repository.FindById(id));
         }
+        
+        [HttpGet("[action]")]
+        public async Task<IActionResult>  GetTetradNucleotides(int id)
+        {
+            if (id == 0) return BadRequest();
 
+            return Ok(await repository. GetTetradNucleotides(id));
+        }
+        
         [HttpGet("[action]")]
         public async Task<IActionResult> GetTetrads()
         {

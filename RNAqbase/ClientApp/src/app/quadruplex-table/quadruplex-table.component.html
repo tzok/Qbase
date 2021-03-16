@@ -103,6 +103,24 @@
             </mat-cell>
           </ng-container>
 
+          <!-- Loop topology -->
+          <ng-container matColumnDef="loopTopology">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="loopTopology">Loop topology</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Loop topology</span>
+              {{row.loopTopology}}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Tetrad combination -->
+          <ng-container matColumnDef="tetradCombination">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="tetradCombination">Tetrad combination</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Tetrad combination</span>
+              {{row.tetradCombination}}
+            </mat-cell>
+          </ng-container>
+
           <!-- No. of tetrads Column -->
           <ng-container  matColumnDef="numberOfTetrads">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads" >No. of tetrads</mat-header-cell>

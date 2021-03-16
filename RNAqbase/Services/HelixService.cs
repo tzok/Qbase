@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using RNAqbase.Models;
@@ -48,5 +49,10 @@ namespace RNAqbase.Services
         }
         public async  Task<MemoryStream> GetHelix3dVisualization(int id) =>
 	        (await helixRepository.GetHelix3dVisualization(id));
+        
+        public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id) =>
+	        (await helixRepository.GetNucleotideChiValues(id)).ToList();
+
     }
+
 }

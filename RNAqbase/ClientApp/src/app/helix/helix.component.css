@@ -145,7 +145,8 @@ a.disabled {
 }
 
 button {
-  margin: 20px;
+  margin-top:5px;
+  margin-bottom: 20px;
   width: 200px;
   height: 50px;
   color: black;
@@ -157,6 +158,10 @@ button {
 
 button:hover{
   background: #F0F0F0;
+}
+
+button:focus {
+  outline: none;
 }
 
 .lists {

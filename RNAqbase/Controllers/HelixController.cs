@@ -35,7 +35,11 @@ namespace RNAqbase.Controllers
 	        var dataStream = await helixService.GetHelix3dVisualization(id);
 	        return File(dataStream,  "application/octet-stream", $"{id}.cif");
         }
-
-
+        
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetNucleotideChiValues(int id)
+        {
+	        return Ok(await helixService.GetNucleotideChiValues(id));
+        }
     }
 }

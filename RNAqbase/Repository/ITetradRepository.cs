@@ -8,6 +8,7 @@ namespace RNAqbase.Repository
 	public interface ITetradRepository
 	{
 		Task<TetradDescription> FindById(int id);
+		Task<TetradNucleotides> GetTetradNucleotides(int id);
 		Task<IEnumerable<TetradTable>> FindAll();
 		Task<IEnumerable<int>> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId);
 		Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId);

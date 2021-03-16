@@ -9,8 +9,7 @@ namespace RNAqbase.Repository
 	{
 		Task<List<HelicesWithoutVisualizations>> GetAllHelices();
         Task<HelixReference> GetHelixReferenceById(int id);
+        Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id);
         Task<MemoryStream> GetHelix3dVisualization(int id);
-
-
     }
 }

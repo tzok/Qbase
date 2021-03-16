@@ -15,5 +15,9 @@ namespace RNAqbase.Repository
         Task<MemoryStream> GetQuadruplex3dVisualization(int id);
         Task<string> AddEmailToDatabase(string email);
         Task<string> DeleteEmailFromDatabase(string id);
+        Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id);
+        Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id);
+
+
 	}
 }

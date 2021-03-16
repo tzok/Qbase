@@ -26,5 +26,7 @@ namespace RNAqbase.Models
         public string OnzmClass { get; set; }
         public int NumberOfTetrads { get; set; }
         public string Experiment { get; set; }
+        public string LoopTopology { get; set; }
+        public string TetradCombination { get; set; }
     }
 }

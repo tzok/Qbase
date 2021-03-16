@@ -68,7 +68,7 @@
                 <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/>
               </div>
               <div class="column">
-                <button (click)="show2dStructure('layers')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
+                <button (click)="show2dStructure('layers')" title="Click to see 2D structure"> 3D structure (Layers)</button>
                 <img src = "static/layers/{{data.id}}.svg" width="200" height="150"  alt="layers"/>
               </div>
               <div class="column">
@@ -92,7 +92,7 @@
               <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Tetrad ID</th>
               <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Sequence</th>
               <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">ONZ Class</th>
-              <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Planarity</th>
+              <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Planarity [Å]</th>
             </tr>
           </thead>
           <tbody>
@@ -123,8 +123,8 @@
           <thead>
           <tr>
             <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Tetrad pairs</th>
-            <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Twist</th>
-            <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Rise</th>
+            <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Twist [°]</th>
+            <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Rise [Å]</th>
             <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Strand direction</th>
           </tr>
           </thead>
@@ -150,6 +150,72 @@
           </tbody>
         </table>
       </div>
+        </mat-card-content>
+      </mat-card>
+
+      <br *ngIf="quadruplexLoops.length != 0">
+      <mat-card *ngIf="quadruplexLoops.length != 0">
+        <mat-card-content>
+          <div class="row ">
+            <div class="col-lg-10 col-sm-6">
+              <h5>Loops in {{data.id}}:</h5>
+            </div>
+          </div>
+          <table class="table" style="border:1px solid black;">
+            <thead>
+            <tr>
+              <th class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Loop ID</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Short sequence</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Full sequence</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Loop length</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Loop type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let l of quadruplexLoops">
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{l.id}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{l.short_sequence}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{l.full_sequence}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{l.loop_length}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{l.loop_type}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+
+      <br>
+      <mat-card>
+        <mat-card-content>
+          <div class="row ">
+            <div class="col-lg-10 col-sm-6">
+              <h5>Nucleotides in {{data.id}}:</h5>
+            </div>
+          </div>
+          <table class="table" style="border:1px solid black;">
+            <thead>
+            <tr>
+              <th class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad ID</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt1</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt2</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt3</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt4</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let n of nucleotideChiValues">
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
+                <a class = "hasTooltip" [routerLink]="['/tetrad', n.tetrad_id]">T{{n.tetrad_id}}
+                  <span> <img src = "static/pymol/T{{n.tetrad_id}}.png" width="100" height="100"  alt=""> </span>
+                </a></td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n1_chi}}° / {{n.n1_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n2_chi}}° / {{n.n2_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n3_chi}}° / {{n.n3_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n4_chi}}° / {{n.n4_glycosidic_bond}}</td>
+            </tr>
+            </tbody>
+          </table>
         </mat-card-content>
       </mat-card>
 
