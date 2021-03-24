@@ -143,7 +143,7 @@ a.disabled {
   display: inline-block;
   margin-right: 20px;
 }
-
+/*
 button {
   margin-top:5px;
   margin-bottom: 20px;
@@ -163,7 +163,7 @@ button:hover{
 button:focus {
   outline: none;
 }
-
+*/
 .lists {
   margin-top: 20px;
 }
@@ -216,6 +216,7 @@ td.threeColumnsStyle_str {
   overflow:hidden;
   align-items: center;
   justify-content:center;
+  -ms-flex: 25%; /* IE10 */
 }
 
 /* Clear floats after image containers */
@@ -225,3 +226,46 @@ td.threeColumnsStyle_str {
   display: flex;
   flex-direction: row;
 }
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: #333;
+}
+
+button {
+  background: white;
+  border: none;
+  display: inline-block;
+  padding: 10px;
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.text {
+  font-weight: bold;
+  color: black;
+  margin: 0 0 30px;
+}
+figure{
+  height: 70%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 700px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+

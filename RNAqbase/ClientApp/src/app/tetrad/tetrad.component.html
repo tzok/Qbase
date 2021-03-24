@@ -28,6 +28,7 @@
                   <th style="text-align: center; vertical-align: middle;">Experimental method</th>
                   <th style="text-align: center; vertical-align: middle;">Planarity [Å]</th>
                   <th style="text-align: center; vertical-align: middle;">ONZ class</th>
+                  <th style="text-align: center; vertical-align: middle;">Tetrad combination</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,6 +41,8 @@
                   <td style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
                   <td style="text-align: center; vertical-align: middle;">{{setTwoNumberDecimal(data.planarity)}}</td>
                   <td style="text-align: center; vertical-align: middle;">{{data.onzClass}}</td>
+                  <td style="text-align: center; vertical-align: middle;">{{data.tetradCombination}}</td>
+
                 </tr>
               </tbody>
             </table>
@@ -57,20 +60,35 @@
           <div class="tetradtable" style="margin-top: 30px">
             <div class="row">
               <div class="column">
-                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-                <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="varna"/>
+                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure">
+                  <div class="text">
+                    2D structure (VARNA)
+                  </div>
+                  <figure> <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="varna"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-                <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/>
+                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure">
+                  <div class="text">
+                    2D structure (R-chie)
+                  </div>
+                  <figure> <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-                <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/>
+                <button (click)="show3dStructure()" title="Click to see 3D structure">
+                  <div class="text">
+                    3D structure (LiteMol)
+                  </div>
+                  <figure> <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/></figure>
+                </button>
               </div>
             </div>
           </div>
           <br>
+
+
+
         </mat-card-content>
       </mat-card>
      <br>
@@ -81,14 +99,13 @@
               <table class="table" style="border:1px solid black;">
                 <thead>
                 <tr>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;"></th>
+                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Nucleotide</th>
                   <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Name</th>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Chi (value) [°]</th>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Chi (type)</th>
+                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (value) [°]</th>
+                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (type)</th>
                 </tr>
                 </thead>
                 <tbody>
-
                 <tr *ngFor="let t of tetradNucleotidesTable">
                   <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;">{{t.id}}</td>
                   <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;">{{t.full_name}}</td>

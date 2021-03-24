@@ -23,24 +23,28 @@
         <table class="table" style="border:1px solid black;">
           <thead>
             <tr>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">PDB ID</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Assembly ID</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Molecule</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Experimental method</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">Type (by no. of strands)</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">No. of tetrads</th>
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">ONZM class</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">PDB ID</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">Assembly ID</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">Molecule</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">Experimental method</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">Type (by no. of strands)</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">No. of tetrads</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">ONZM class</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">Loop topology</th>
+              <th class = nineColumnsStyle style="text-align: center; vertical-align: middle;">Tetrad combination</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "static/pymol/{{data.pdbIdentifier}}-assembly-{{data.assemblyId}}.png" width="200" height="150"  alt=""> </span> </a></td>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.typeOfStrands}}</td>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">{{data.onzmClass}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "static/pymol/{{data.pdbIdentifier}}-assembly-{{data.assemblyId}}.png" width="200" height="150"  alt=""> </span> </a></td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.typeOfStrands}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.onzmClass}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.loopTopology}}</td>
+              <td class = nineColumnsStyle style="text-align: center; vertical-align: middle;">{{data.tetradCombination}}</td>
             </tr>
           </tbody>
         </table>
@@ -57,23 +61,32 @@
             <h5> 2D structure (dot-bracket):</h5>
             <p class="dotbracket">{{data.dot_bracket}}</p>
           </div>
-          <div class="tetradtable" style="margin-top: 30px">
+
+          <div style="margin-top: 30px">
             <div class="row">
               <div class="column">
-                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-                <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="varna"/>
+                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure">
+                  <div class="text">2D structure (VARNA)</div>
+                  <figure> <img src = "static/varna/{{data.id}}.svg" width="160px" height="160px" alt="varna"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-                <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/>
+                <button (click)="show2dStructure('rchie' )" title="Click to see 2D structure">
+                  <div class="text">2D structure (R-chie)</div>
+                  <figure> <img src = "static/rchie/{{data.id}}.svg" width="160px" height="150px"  alt="r-chie"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show2dStructure('layers')" title="Click to see 2D structure"> 3D structure (Layers)</button>
-                <img src = "static/layers/{{data.id}}.svg" width="200" height="150"  alt="layers"/>
+                <button (click)="show2dStructure('layers' )" title="Click to see 3D structure">
+                  <div class="text">3D structure (Layers)</div>
+                  <figure> <img src = "static/layers/{{data.id}}.svg" width="180px" height="150px"  alt="layers"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-                <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/>
+                <button (click)="show3dStructure()" title="Click to see 3D structure">
+                  <div class="text">3D structure (LiteMol)</div>
+                  <figure> <img src = "static/pymol/{{data.id}}.png" width="180px" height="130px"  alt="litemol"/></figure>
+                </button>
               </div>
             </div>
           </div>
@@ -85,7 +98,7 @@
       <mat-card>
         <mat-card-content>
       <h5>Tetrads in {{data.id}}:</h5>
-      <div class="quadruplextable">
+      <div>
         <table class="table"style="border:1px solid black;">
           <thead>
             <tr>
@@ -118,7 +131,7 @@
       <mat-card>
         <mat-card-content>
       <h5>Tetrad pairs in {{data.id}}:</h5>
-      <div class="quadruplextable">
+      <div>
         <table class="table" style="border:1px solid black;">
           <thead>
           <tr>
@@ -196,22 +209,22 @@
             <thead>
             <tr>
               <th class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad ID</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt1</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt2</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt3</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt4</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 1</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 2</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 3</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 4</th>
 
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let n of nucleotideChiValues">
               <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-                <a class = "hasTooltip" [routerLink]="['/tetrad', n.tetrad_id]">T{{n.tetrad_id}}
-                  <span> <img src = "static/pymol/T{{n.tetrad_id}}.png" width="100" height="100"  alt=""> </span>
+                <a class = "hasTooltip" [routerLink]="['/tetrad', n.tetrad_id.slice(1)]">{{n.tetrad_id}}
+                  <span> <img src = "static/pymol/{{n.tetrad_id}}.png" width="100" height="100"  alt=""> </span>
                 </a></td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n1_chi}}° / {{n.n1_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n2_chi}}° / {{n.n2_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n3_chi}}° / {{n.n3_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n1_chi | number: '1.0-2'}}° / {{n.n1_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n2_chi | number: '1.0-2'}}° / {{n.n2_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n3_chi | number: '1.0-2'}}° / {{n.n3_glycosidic_bond}}</td>
               <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n4_chi}}° / {{n.n4_glycosidic_bond}}</td>
             </tr>
             </tbody>

@@ -83,6 +83,9 @@ export class QuadruplexComponent implements OnInit {
                 }
                   this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Quadruplex/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
                     this.nucleotideChiValues = result;
+                    for (let val of this.nucleotideChiValues){
+                      val.tetrad_id = 'T' + val.tetrad_id;
+                    }
                   }, error => console.error(error));
 
                 this.http.get<QuadruplexLoops[]>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexLoops?id=' + '' + this.data.id.slice(1)).subscribe(result => {
@@ -190,10 +193,11 @@ interface Quadruplex {
   type: string;
   sequence: string;
   onzmClass: string;
-  structure3D: string;
   quadruplexesInTheSamePdb: any;
   tetrads: any;
   dot_bracket: string;
+  loopTopology: string;
+  tetradCombination: string;
 }
 
 interface Tetrad {
@@ -223,7 +227,7 @@ interface TetradPairsInformations {
 }
 
 interface NucleotideChiValues{
-  tetrad_id: number;
+  tetrad_id: any;
   n1_chi: number;
   n1_glycosidic_bond: string;
   n2_chi: number;

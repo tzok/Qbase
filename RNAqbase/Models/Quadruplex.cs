@@ -28,7 +28,8 @@ namespace RNAqbase.Models
 		public int NumberOfTetrads { get; set; }
 		public string Experiment { get; set; }
 		public List<int> Tetrads { get; set; }
-		public string ChiAngle { get; set; }
 		public string PdbDeposition { get; set; }
+		public string LoopTopology { get; set; }
+		public string TetradCombination { get; set; }
 	}
 }

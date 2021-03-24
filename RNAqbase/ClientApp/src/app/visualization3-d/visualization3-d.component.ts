@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {runInThisContext} from "vm";
 
 
 @Component({
@@ -12,19 +13,29 @@ export class Visualization3DComponent implements OnInit {
   pdbId: string;
   url: string;
   liteMolPlugin;
+  type = 'BallsAndSticks';
 
   constructor(public dialogRef: MatDialogRef<Visualization3DComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit() {
-    console.log(this.data.url);
-    console.log(this.pdbId);
     this.pdbId = this.data.pdbId;
     this.url = this.data.url;
+    console.log(this.url);
     this.show3DVisualization();
   }
 
+  changeType(type: string)
+  {
+    this.type = type;
+    console.log(this.type);
+
+  }
+
+
   show3DVisualization(){
+    console.log(this.type);
+
     const plugin = LiteMol.Plugin.create({
       target: '#litemol',
       layoutState: {
@@ -33,6 +44,7 @@ export class Visualization3DComponent implements OnInit {
         LiteMol.Bootstrap.Components.CollapsedControlsLayout.Landscape,
       },
       viewportBackground: '#fff',
+      allowAnalytics: true
     });
 
     const Transformer = LiteMol.Bootstrap.Entity.Transformer;
@@ -55,12 +67,13 @@ export class Visualization3DComponent implements OnInit {
       )
       .then(Transformer.Molecule.CreateVisual, {
         style: LiteMol.Bootstrap.Visualization.Molecule.Default.ForType.get(
-          'BallsAndSticks'
-        ),
+          this.type
+        )
       });
     plugin.applyTransform(t);
 
   }
+
 }
 
 interface DialogData {

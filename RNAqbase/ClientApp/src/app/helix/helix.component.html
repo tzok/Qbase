@@ -49,29 +49,38 @@
         </mat-card-content>
       </mat-card>
       <br>
+
       <mat-card>
         <mat-card-content>
           <div>
             <h5> 2D structure (dot-bracket):</h5>
             <p class="dotbracket">{{data.dot_bracket}}</p>
           </div>
-          <div class="tetradtable" style="margin-top: 30px">
+          <div style="margin-top: 30px">
             <div class="row">
               <div class="column">
-                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure"> 2D structure (VARNA)</button>
-                <img src = "static/varna/{{data.id}}.svg" width="220" height="140"  alt="varna"/>
+                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure">
+                  <div class="text">2D structure (VARNA)</div>
+                  <figure> <img src = "static/varna/{{data.id}}.svg" width="180px" height="120px" alt="varna"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure"> 2D structure (R-chie)</button>
-                <img src = "static/rchie/{{data.id}}.svg" width="200" height="140"  alt="r-chie"/>
+                <button (click)="show2dStructure('rchie' )" title="Click to see 2D structure">
+                  <div class="text">2D structure (R-chie)</div>
+                  <figure> <img src = "static/rchie/{{data.id}}.svg" width="180px" height="150px"  alt="r-chie"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show2dStructure('layers')" title="Click to see 2D structure"> 3D structure (Layers)</button>
-                <img src = "static/layers/{{data.id}}.svg" width="200" height="140"  alt="layers"/>
+                <button (click)="show2dStructure('layers' )" title="Click to see 3D structure">
+                  <div class="text">3D structure (Layers)</div>
+                  <figure> <img src = "static/layers/{{data.id}}.svg" width="180px" height="150px"  alt="layers"/></figure>
+                </button>
               </div>
               <div class="column">
-                <button (click)="show3dStructure()" title="Click to see 3D structure"> 3D structure (LiteMol)</button>
-                <img src = "static/pymol/{{data.id}}.png" width="200" height="140"  alt="litemol"/>
+                <button (click)="show3dStructure()" title="Click to see 3D structure">
+                  <div class="text">3D structure (LiteMol)</div>
+                  <figure> <img src = "static/pymol/{{data.id}}.png" width="180px" height="130px"  alt="litemol"/></figure>
+                </button>
               </div>
             </div>
           </div>
@@ -212,23 +221,23 @@
             <thead>
             <tr>
               <th class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad ID</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt1</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt2</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt3</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">nt4</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 1</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 2</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 3</th>
+              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 4</th>
 
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let n of nucleotideChiValues">
               <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-                <a class = "hasTooltip" [routerLink]="['/tetrad', n.tetrad_id]">T{{n.tetrad_id}}
-                  <span> <img src = "static/pymol/T{{n.tetrad_id}}.png" width="100" height="100"  alt=""> </span>
+                <a class = "hasTooltip" [routerLink]="['/tetrad', n.tetrad_id.slice(1)]">{{n.tetrad_id}}
+                  <span> <img src = "static/pymol/{{n.tetrad_id}}.png" width="100" height="100"  alt=""> </span>
                 </a></td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n1_chi}}° / {{n.n1_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n2_chi}}° / {{n.n2_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n3_chi}}° / {{n.n3_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n4_chi}}° / {{n.n4_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n1_chi | number: '1.0-2'}}° / {{n.n1_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n2_chi | number: '1.0-2'}}° / {{n.n2_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n3_chi | number: '1.0-2'}}° / {{n.n3_glycosidic_bond}}</td>
+              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n4_chi | number: '1.0-2'}}° / {{n.n4_glycosidic_bond}}</td>
             </tr>
             </tbody>
           </table>

@@ -3,6 +3,7 @@
     max-width: 100%;
     overflow-x: scroll;
   }
+
 }
 
 .mat-table {
@@ -51,6 +52,14 @@
     font-weight: normal;*/
   }
 }
+.row{
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  padding: 0 4px;
+  margin-top: 10px;
+}
 
 .container {
   min-height: 100%;
@@ -82,7 +91,6 @@ p {
   font-size: large;
   line-height: 1.5;
 }
-
 
 .dotbracket {
   font-family: "Courier New", Courier, monospace;
@@ -123,6 +131,7 @@ a.disabled {
   margin-right: 20px;
 }
 
+/*
 button {
   margin-top:5px;
   margin-bottom: 20px;
@@ -143,7 +152,7 @@ button:hover{
 button:focus {
   outline: none;
 }
-
+*/
 .lists {
   margin-top: 20px;
 }
@@ -165,8 +174,8 @@ a.mat-button {
   width: 25% ;
 }
 
-.sevenColumnsStyle {
-  width: 14.28%;
+.nineColumnsStyle {
+  width: 11.11%;
 }
 
 .hasTooltip span {
@@ -190,7 +199,6 @@ td.threeColumnsStyle {
   border:none;
 }
 
-/* Three image containers (use 25% for four, and 50% for two, etc) */
 .column {
   align-content: center;
   text-align: center;
@@ -206,11 +214,46 @@ td.threeColumnsStyle {
   align-items: center;
   justify-content:center;
 }
-
 /* Clear floats after image containers */
-.row::after {
-  grid-column-gap: 10px;
-  grid-template-columns: repeat(4, 1fr);
-  display: flex;
-  flex-direction: row;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background: #333;
+}
+
+button {
+  background: white;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.text {
+  font-weight: bold;
+  color: black;
+  margin: 0 0 30px;
+}
+figure{
+  height: 70%;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 700px) {
+  .column {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
 }

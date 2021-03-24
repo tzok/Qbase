@@ -23,6 +23,8 @@ namespace RNAqbase.Models
         public float Planarity { get; set; }
         public List<int> TetradsInTheSameQuadruplex { get; set; }
         public List<int> TetradsInTheSamePdb { get; set; }
+        public string TetradCombination { get; set; }
+
 
         [JsonIgnore]
         public int QuadruplexIdAsInt { get; set; }

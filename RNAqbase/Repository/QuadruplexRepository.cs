@@ -49,6 +49,9 @@ namespace RNAqbase.Repository
 							q.id AS Id,
 							q.onzm AS OnzmClass,
 							p.identifier AS PdbIdentifier,
+						    q.loop_class as LoopTopology,
+							STRING_AGG(DISTINCT(qg.gba_quadruplex_class)::text,', ') AS TetradCombination,
+						    to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 							n1.pdb_id AS PdbId,
 							q.dot_bracket AS Dot_bracket,
 							p.assembly AS AssemblyId,
@@ -64,6 +67,7 @@ namespace RNAqbase.Repository
 							 END 
 							 as TypeOfStrands
 						FROM QUADRUPLEX q
+						JOIN QUADRUPLEX_GBA qg on qg.quadruplex_id = q.id
 						JOIN TETRAD t ON q.id = t.quadruplex_id
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
 						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id

@@ -13,7 +13,8 @@ namespace RNAqbase.Models
         public string Molecule { get; set; }
         public string Sequence { get; set; }
         public string OnzClass { get; set; }
- 
+        public string TetradCombination { get; set; }
+
         [JsonIgnore]
         public int QuadruplexIdAsInt { get; set; }
 

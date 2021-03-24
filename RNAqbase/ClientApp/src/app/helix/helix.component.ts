@@ -4,9 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material';
 import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
-import { ArcdiagramComponent } from '../arcdiagram/arcdiagram.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
-import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import * as svg from 'save-svg-as-png';
@@ -106,6 +104,9 @@ export class HelixComponent implements OnInit {
 
         this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Helix/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
          this.nucleotideChiValues = result;
+          for (let val of this.nucleotideChiValues){
+            val.tetrad_id = 'T' + val.tetrad_id;
+          }
         }, error => console.error(error));
 
       }, error => console.error(error));
@@ -251,7 +252,7 @@ interface TetradPairsInformations {
 }
 
 interface NucleotideChiValues{
-  tetrad_id: number;
+  tetrad_id: any;
   n1_chi: number;
   n1_glycosidic_bond: string;
   n2_chi: number;

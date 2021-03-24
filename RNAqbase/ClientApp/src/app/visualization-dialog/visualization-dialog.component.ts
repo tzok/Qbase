@@ -44,6 +44,15 @@ export class VisualizationDialogComponent implements OnInit {
   }
 
 
+  zoom_in() {
+    this.zoomHeight += 10;
+    this.zoomWidth += 10;
+  }
+  zoom_out(){
+    this.zoomHeight -= 10;
+    this.zoomWidth -= 10;
+  }
+
 }
 
 interface DialogData {

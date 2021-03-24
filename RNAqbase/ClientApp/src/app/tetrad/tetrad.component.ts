@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
-import { VisualizationComponent } from '../visualization/visualization.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import * as svg from 'save-svg-as-png';
@@ -67,25 +66,25 @@ export class TetradComponent implements OnInit {
               this.http.get<TetradNucleotides>(this.baseUrl + 'api/Tetrad/GetTetradNucleotides?Id=' + this.tetradId).subscribe(result => {
                 this.tetradNucleotides = result;
                 this.tetradNucleotidesTable.push({
-                      id: "nt1",
+                      id: "Nucleotide 1",
                       full_name: this.tetradNucleotides.n1_full_name,
                       chi: this.tetradNucleotides.n1_chi,
                       glycosidic_bond: this.tetradNucleotides.n1_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
-                  id: "nt2",
+                  id: "Nucleotide 2",
                   full_name: this.tetradNucleotides.n2_full_name,
                   chi: this.tetradNucleotides.n2_chi,
                   glycosidic_bond: this.tetradNucleotides.n2_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
-                  id: "nt3",
+                  id: "Nucleotide 3",
                   full_name: this.tetradNucleotides.n3_full_name,
                   chi: this.tetradNucleotides.n3_chi,
                   glycosidic_bond: this.tetradNucleotides.n3_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
-                  id: "nt4",
+                  id: "Nucleotide 4",
                   full_name: this.tetradNucleotides.n4_full_name,
                   chi: this.tetradNucleotides.n4_chi,
                   glycosidic_bond: this.tetradNucleotides.n4_glycosidic_bond
@@ -179,6 +178,7 @@ interface Tetrad {
   tetradsInTheSamePdb: any;
   experiment: string;
   dot_bracket: string;
+  tetradCombination: string;
 }
 
 interface TetradNucleotides{

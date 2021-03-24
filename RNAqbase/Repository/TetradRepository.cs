@@ -34,7 +34,8 @@ namespace RNAqbase.Repository
 						CONCAT(n1.chain, n2.chain, n3.chain, n4.chain) as ""Strands"",
 						t.onz as ""OnzClass"",
 						t.planarity_deviation as ""Planarity"",
-						(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = t.quadruplex_id) as ""TetradsInQuadruplex""
+						(SELECT count(*) from tetrad tcount where tcount.quadruplex_id = t.quadruplex_id) as ""TetradsInQuadruplex"", 
+						t.gba_tetrad_class as ""TetradCombination""
 					FROM tetrad t
 						JOIN nucleotide n1 on t.nt1_id = n1.id
 						JOIN nucleotide n2 on t.nt2_id = n2.id
@@ -60,7 +61,8 @@ namespace RNAqbase.Repository
 						COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
 						COALESCE(n1.molecule, 'Other') as ""Molecule"",
 						COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
-						t.onz as ""OnzClass""
+						t.onz as ""OnzClass"", 
+						t.gba_tetrad_class as ""TetradCombination""
 					FROM tetrad t
 						JOIN quadruplex q on t.quadruplex_id = q.id
 						JOIN nucleotide n1 on t.nt1_id = n1.id
