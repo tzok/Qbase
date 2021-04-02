@@ -1,8 +1,12 @@
-<!--
-<div>
-  <button (click)="changeType('BallsAndSticks')">Save</button>
-
-</div>
--->
-
-<div id="litemol" style="width: 1000px; height: 600px; margin-top: 1px; position: relative"></div>
+<form>
+  <mat-form-field appearance="fill">
+    <mat-label>Structure type</mat-label>
+    <mat-select [(ngModel)]="selectedValue" disableOptionCentering name="type" placeholder="type"
+                (selectionChange)="ChangeType($event.value)">
+      <mat-option *ngFor="let type of types" [value]="type.value">
+        {{type.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<div id="litemol" style="width: 1000px; height: 600px; position: relative"></div>

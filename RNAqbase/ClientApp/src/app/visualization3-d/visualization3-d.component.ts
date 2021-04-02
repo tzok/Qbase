@@ -13,7 +13,18 @@ export class Visualization3DComponent implements OnInit {
   pdbId: string;
   url: string;
   liteMolPlugin;
-  type = 'BallsAndSticks';
+  type = 'Surface';
+  t: any;
+  plugin: any;
+  Transformer: any;
+  selectedValue: string;
+
+  types: Type[] = [
+    {value: 'BallsAndSticks', viewValue: 'BallsAndSticks'},
+    {value: 'Surface', viewValue: 'Surface'},
+    {value: 'VDWBalls', viewValue: 'VDWBalls'}
+  ];
+
 
   constructor(public dialogRef: MatDialogRef<Visualization3DComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -25,32 +36,14 @@ export class Visualization3DComponent implements OnInit {
     this.show3DVisualization();
   }
 
-  changeType(type: string)
-  {
-    this.type = type;
-    console.log(this.type);
-
+  ChangeType(type: string){
+    this.addStructure(this.Transformer, this.plugin, type)
   }
 
 
-  show3DVisualization(){
-    console.log(this.type);
-
-    const plugin = LiteMol.Plugin.create({
-      target: '#litemol',
-      layoutState: {
-        hideControls: true,
-        collapsedControlsLayout:
-        LiteMol.Bootstrap.Components.CollapsedControlsLayout.Landscape,
-      },
-      viewportBackground: '#fff',
-      allowAnalytics: true
-    });
-
-    const Transformer = LiteMol.Bootstrap.Entity.Transformer;
-
-    const t = plugin.createTransform();
-    t.add(plugin.root, Transformer.Data.Download, {
+  addStructure(Transformer: any, plugin: any, type: string){
+    this.t = this.plugin.createTransform();
+    this.t.add(plugin.root, Transformer.Data.Download, {
       url: this.url,
       type: 'String',
       id: this.pdbId,
@@ -67,16 +60,40 @@ export class Visualization3DComponent implements OnInit {
       )
       .then(Transformer.Molecule.CreateVisual, {
         style: LiteMol.Bootstrap.Visualization.Molecule.Default.ForType.get(
-          this.type
+          type
         )
       });
-    plugin.applyTransform(t);
+    plugin.applyTransform(this.t);
 
   }
 
+
+  show3DVisualization() {
+    this.plugin = LiteMol.Plugin.create({
+      target: '#litemol',
+      layoutState: {
+        hideControls: true,
+        collapsedControlsLayout:
+        LiteMol.Bootstrap.Components.CollapsedControlsLayout.Landscape,
+      },
+      viewportBackground: '#fff',
+      allowAnalytics: true
+    });
+
+    this.Transformer = LiteMol.Bootstrap.Entity.Transformer;
+    this.addStructure(this.Transformer, this.plugin, 'BallsAndSticks')
+  }
 }
+
+
 
 interface DialogData {
   pdbId: string;
   url: string;
 }
+
+interface Type {
+  value: string;
+  viewValue: string;
+}
+
