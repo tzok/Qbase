@@ -1,12 +1,16 @@
-.mat-table {
-  overflow: auto;
-  /*max-height: 500px;*/
-}
 
 .mat-column-id, .mat-column-pdbId, .mat-column-pdbDeposition, .mat-column-assemblyId, .mat-column-molecule, .mat-column-type_strand, .mat-column-numberOfQudaruplexes, .mat-column-numberOfTetrads{
   flex: 0 0 10%;
 }
 
+
+.mat-table {
+  overflow: auto;
+  width: 100%;
+}
+.centre {
+  text-align: center
+}
 
 .mobile-label {
   display: none;
@@ -16,34 +20,30 @@
   border: none;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 1700px) {
   .mat-cell:first-child {
-    /*padding-left: 0;*/
+    padding-left: 0;
   }
 
   .mat-header-row {
     /*display: none;*/
+    min-width: 1700px;
+
   }
 
   .mat-header-cell {
     width: 90px;
-  }
+    text-align: right !important;
 
-  .mat-cell {
-    overflow: scroll;
   }
 
   .mat-table {
-    display: flex;
-    flex-wrap: wrap;
+    /*display: flex;
+    flex-wrap: wrap;*/
   }
 
   .mat-row {
-    overflow: auto;
-    min-width: 850px;
-    /*flex: 1 0 100%;
-    align-items: start;
-    padding: 8px 10px;*/
+    min-width: 1700px;
   }
 
   .mobile-label {

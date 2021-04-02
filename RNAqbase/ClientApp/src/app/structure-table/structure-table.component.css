@@ -1,11 +1,15 @@
-.mat-table {
-  overflow: auto;
-  /*max-height: 500px;*/
-}
+
 .mat-column-pdbIdentifier, .mat-column-pdbDeposition, .mat-column-assemblyId, .mat-column-molecule,  .mat-column-experimentalMethod, .mat-column-structure2D{
   flex: 0 0 11%;
 }
 
+.mat-table {
+  overflow: auto;
+  width: 100%;
+}
+.centre {
+  text-align: center
+}
 
 .mobile-label {
   display: none;
@@ -15,35 +19,30 @@
   border: none;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 1700px) {
   .mat-cell:first-child {
-    /*padding-left: 0;*/
+    padding-left: 0;
   }
 
   .mat-header-row {
     /*display: none;*/
+    min-width: 1700px;
+
   }
+
   .mat-header-cell {
-    width: 95px;
-  }
-  .mat-cell {
-    overflow: scroll;
-    padding-left: 15px;
+    width: 90px;
+    text-align: right !important;
+
   }
 
   .mat-table {
-    display: flex;
-    flex-wrap: wrap;
+    /*display: flex;
+    flex-wrap: wrap;*/
   }
 
   .mat-row {
-    overflow: auto;
-    min-width: 800px;
-    flex-wrap: wrap;
-
-    /*flex: 1 0 100%;
-    align-items: start;
-    padding: 8px 10px;*/
+    min-width: 1700px;
   }
 
   .mobile-label {
