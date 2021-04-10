@@ -8,5 +8,14 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field appearance="fill" style="margin-left: 20px;">
+    <mat-label>Coloring</mat-label>
+    <mat-select [(ngModel)]="selectedValue" disableOptionCentering name="coloring" placeholder="coloring"
+                (selectionChange)="ChangeColoring($event.value)">
+      <mat-option *ngFor="let color of coloring" [value]="color.value">
+        {{color.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
 <div id="litemol" style="width: 1000px; height: 600px; position: relative"></div>
