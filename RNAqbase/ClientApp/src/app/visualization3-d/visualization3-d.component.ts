@@ -82,11 +82,11 @@ export class Visualization3DComponent implements OnInit {
       .then(Transformer.Molecule.CreateVisual, {
         style: {
           ...LiteMol.Bootstrap.Visualization.Molecule.Default.ForType.get(this.type),
-          theme:
+         theme:
             {
               template: this.theme,
               colors: this.theme.colors,
-              transparency: this.theme.transparency,
+              transparency:  { alpha: 1 },
               interactive: true
             }
         }
