@@ -31,7 +31,7 @@ import {MatCardModule} from "@angular/material/card";
 import {ChartsModule } from 'ng2-charts';
 import {MatSelectModule} from "@angular/material/select";
 import { NewsletterComponent } from './newsletter/newsletter.component';
-
+import {PinchZoomModule} from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [
@@ -94,7 +94,8 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
         MatSelectModule,
       BrowserModule,
       BrowserAnimationsModule,
-      FormsModule
+      FormsModule,
+      PinchZoomModule,
     ],
   providers: [],
   bootstrap: [AppComponent],

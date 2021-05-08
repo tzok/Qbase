@@ -1,14 +1,28 @@
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-
+<!--
 <div class="box">
   <div>
-  <ul>
-    <li><a class="btn zoom" (click)="zoom_in()" style="float: left;"><i class="fas fa-search-plus"></i></a></li>
-    <li><a class="btn zoom-out" (click)="zoom_out()" style="float: left;"><i class="fas fa-search-minus"></i></a></li>
-    <li style="float:right"> <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn clss" target="_self" download>Download as PNG</a></li>
-  </ul>
+    <ul>
+       <li style="float:right"> <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn clss" target="_self" download>Download as PNG</a></li>
+    </ul>
   </div>
-    <img  class="center" [style.width]="zoomWidth+'%'" [style.height]="zoomHeight+'%'" src = 'static/{{type}}/{{id}}.svg' id="{{id}}" alt="2d_structure">
+  <div class="container">
+    <input type="checkbox" id="zoomCheck">
+    <label for="zoomCheck">
+      <img  class="center" [style.width]="zoomWidth+'%'" [style.height]="zoomHeight+'%'" src = 'static/{{type}}/{{id}}.svg' id="{{id}}" alt="2d_structure">
+    </label>
+  </div>
+</div>
+-->
+<div class="box">
+  <div style="margin-bottom: 50px">
+    <ul>
+      <li style="float:right"> <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn" target="_self" download>Download as PNG</a></li>
+    </ul>
+  </div>
+
+<div style="overflow: hidden; border: 2px solid #000;">
+  <img id="scene" #scene height="550px" [style.width]="width2" src='static/{{type}}/{{id}}.svg' alt="2d_structure">
+
 </div>
 
-
+</div>

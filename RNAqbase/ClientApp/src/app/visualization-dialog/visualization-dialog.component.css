@@ -1,6 +1,6 @@
 .box{
-  width: 600px;
-  height: 500px;
+  width: 900px;
+  height: 700px;
   text-align:center;
   margin-bottom: 30px;
 }
@@ -46,6 +46,21 @@ li a {
   text-decoration: none;
 }
 
+li a:hover {
+  color: inherit;
+}
+
 li:focus {
   outline: none;
+}
+body {
+  user-select: none;
+  -moz-user-select: none;
+}
+.btn:active,
+.btn:focus,
+.btn:focus:active {
+  background-image: none;
+  outline: 0;
+  box-shadow: none;
 }
