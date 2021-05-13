@@ -264,7 +264,6 @@ namespace RNAqbase.Repository
 				connection.Open();
 				var ids = await connection.QueryAsync(
 					@"
-						INSERT INTO email (email)
 						INSERT INTO newsletter (email)
                          VALUES (@email)", new {@email = email});
 				return (null);
