@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -276,7 +277,6 @@ namespace RNAqbase.Repository
 			{
 				connection.Open();
 				Guid id_uuid = new Guid(id);
-				Console.WriteLine(id);
 				var ids = await connection.QueryAsync(
 					@"
 					DELETE FROM newsletter
@@ -336,12 +336,21 @@ namespace RNAqbase.Repository
 			where quadruplex.id = @id) ",
 					new {id = quadruplexId});
 				
+				var coordinatesLoop= await connection.QueryAsync<string>
+				(@" 
+					SELECT coordinates from nucleotide where id IN 
+					(select nucleotide_id from loop
+					join loop_nucleotide on loop.id = loop_nucleotide.loop_id
+					where loop.quadruplex_id = @id);",
+					new {id = quadruplexId});
+				
 				var coordinates = new CoordinatesQuadruplex();
 				
 				coordinates.C1 = coordinates1Query.ToArray();
 				coordinates.C2 = coordinates2Query.ToArray();
 				coordinates.C3 = coordinates3Query.ToArray();
 				coordinates.C4 = coordinates4Query.ToArray();
+				coordinates.LoopNucleotideCoordinates = coordinatesLoop.ToArray();
 				
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);

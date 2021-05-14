@@ -49,7 +49,7 @@ export class HelixComponent implements OnInit {
       this.helixId = +params.get('helixId');
 
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
-
+        console.log(result);
         this.data = result;
         this.data.id = 'H' + this.data.id;
 

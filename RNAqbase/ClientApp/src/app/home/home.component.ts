@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
       this.http.get<string>(this.baseUrl + '' +
         'api/Quadruplex/AddEmailToDatabase?email=' +
         '' + email_val.email).subscribe(result => {
-      }, error => console.error(error));
+      }, error => null);
     });
   }
 

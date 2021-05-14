@@ -47,7 +47,6 @@ export class Visualization3DComponent implements OnInit {
   ngOnInit() {
     this.pdbId = this.data.pdbId;
     this.url = this.data.url;
-    console.log(this.url);
     this.show3DVisualization();
   }
 

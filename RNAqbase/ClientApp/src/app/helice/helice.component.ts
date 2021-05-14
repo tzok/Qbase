@@ -31,6 +31,7 @@ export class HeliceComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
+      console.log(result);
         this.csvData = JSON.parse(JSON.stringify(result));
         for (let val of this.csvData){
           val.id =  'H' + val.id;

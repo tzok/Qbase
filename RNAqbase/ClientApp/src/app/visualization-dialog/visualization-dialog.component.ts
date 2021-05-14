@@ -12,7 +12,7 @@ import panzoom from "panzoom";
 export class VisualizationDialogComponent implements OnInit {
   id: any;
   type: any;
-  width2 = 'auto';
+  width = 'auto';
   public svgPic: any;
   svg: SafeHtml;
 
@@ -34,7 +34,7 @@ export class VisualizationDialogComponent implements OnInit {
 
     if( this.id.startsWith('H') && this.type!="layers")
     {
-      this.width2 = '100%';
+      this.width = '100%';
     }
   }
 
@@ -78,7 +78,6 @@ export class VisualizationDialogComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
     this.zoomLevels = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
     this.currentZoomLevel = this.zoomLevels[4];
     this.panZoomController = panzoom(this.scene.nativeElement);

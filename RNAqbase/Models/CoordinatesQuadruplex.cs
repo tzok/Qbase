@@ -9,6 +9,8 @@ namespace RNAqbase.Models
         public string[] C2 { get; set; }
         public string[] C3 { get; set; }
         public string[] C4 { get; set; }
+        
+        public string[] LoopNucleotideCoordinates { get; set; }
 
         public string CoordinatesAsString
         {
@@ -39,7 +41,7 @@ _atom_site.type_symbol
 _atom_site.pdbx_formal_charge
 					");
 
-                for (int i = 0; i < C1.Length; i++)
+                for (var i = 0; i < C1.Length; i++)
                 {
 	                if (C1.Length!=0)
 						sb.Append(C1[i] + '\n');
@@ -47,9 +49,12 @@ _atom_site.pdbx_formal_charge
 		                sb.Append(C2[i] + '\n');
 	                if (C3.Length!=0)
 		                sb.Append(C3[i] + '\n');
-	                if (C4.Length!=0)
+	                if (C4.Length != 0)
 		                sb.Append(C4[i] + '\n');
                 }
+                for (var i = 0; i < LoopNucleotideCoordinates.Length; i++)
+	                if (LoopNucleotideCoordinates.Length != 0)
+		                sb.Append(LoopNucleotideCoordinates[i] + '\n');
                 
                 return sb.ToString();
             }
