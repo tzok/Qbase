@@ -6,11 +6,9 @@
         <h2>ONQUADRO</h2>
       </div>
     </section>
-
     <br>
       <mat-card>
         <mat-card-content>
-
       <p align="justify">
         <b>ONQUADRO</b> database collects tetrads, quadruplexes, and G4-helices
         found in PDB-deposited structures of nucleic acids. It stores their sequences, secondary and
@@ -18,16 +16,12 @@
         rise and twist parameters, ONZ classification, Webba da Silva geometric formalism, dot-bracket encoding, arc
         diagrams, etc. Graphical 2D and 3D views complement their characteristics.
       </p>
-
     </mat-card-content>
     </mat-card>
-
-<br/>
-
+    <br/>
     <mat-card>
       <mat-card-content>
     <section>
-
       <div class="row">
         <div class="column">
           <a href="/tetrads"><img class="picture" src="home/tetrad-trim.png" /></a>
@@ -58,10 +52,8 @@
         </div>
       </div>
     </section>
-
       </mat-card-content>
     </mat-card>
-
     <br>
     <mat-card>
       <mat-card-content>
@@ -73,7 +65,6 @@
             <p> <b>+{{update.addedHelixCount}}</b> Helices </p>
             <p> <b>+{{update.addedStructureCount}}</b> Structures </p>
           </div>
-
           <div class="column2">
           <div style="display: block;">
             <canvas baseChart
@@ -85,7 +76,6 @@
             </canvas>
           </div>
           </div>
-
           <p style = "text-align: left; color: darkgray; margin-left: 50px; ">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -93,21 +83,14 @@
             </svg>
             Database is updated every <b>Thursday</b></p>
         </div>
-
       </mat-card-content>
     </mat-card>
     <br>
-
-
     <mat-card>
       <mat-card-content>
-
           <p class = "center">Enter your e-mail address and subscribe to our newsletter to get an email when something new will be added to ONQUADRO!</p>
-
         <body style = "text-align: center;">
-
         <form class="form-inline" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
-
             <input type="email"
                    name="email"
                    ngModel
@@ -115,9 +98,7 @@
                    #emailWithPattern="ngModel"
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                    required>
-
             <button type="submit" [disabled]="form.invalid">Submit</button>
-
           <div>
             <p *ngIf="emailWithPattern.errors?.pattern">
               Your e-mail address is wrong!
@@ -125,26 +106,11 @@
             </p>
             <p *ngIf ="email_added && !emailWithPattern.errors?.pattern">You are a new subscriber!</p>
           </div>
-
-
           </form>
         </body>
-
-
       </mat-card-content>
     </mat-card>
-
     <br>
-
   </main>
-
 </div>
 </div>
-
-<!--
-CREATE TABLE email
-(
-    id               SERIAL PRIMARY KEY,
-    email      TEXT  NOT NULL
-);
--->

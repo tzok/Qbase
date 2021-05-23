@@ -12,9 +12,7 @@
         <div class="col-lg-10 col-sm-6">
           <h5><b>G4Helix ID: {{data.id}}</b></h5>
         </div>
-
         <div class=" col-lg-2 col-sm-6 saveDataButton">
-
         <a class="mat-button" (click) = downloadZip()>Save tables</a>
         </div>
       </div>
@@ -49,7 +47,6 @@
         </mat-card-content>
       </mat-card>
       <br>
-
       <mat-card>
         <mat-card-content>
           <div>
@@ -154,13 +151,10 @@
 
         </mat-card-content>
       </mat-card>
-
       <br />
-
       <mat-card>
         <mat-card-content>
     <h5>Tetrad pairs in {{data.id}}:</h5>
-
     <div class="quadruplextable">
       <table class="table" style="border:1px solid black;">
         <thead>
@@ -173,9 +167,7 @@
           </tr>
         </thead>
         <tbody>
-
           <tr *ngFor="let t of tetradsPairsInformation">
-
             <td
               class="fiveColumnsStyle"
               style="text-align: center; vertical-align: middle;"
@@ -188,14 +180,11 @@
                 {{t.TetradId}}  <span> <img src = "static/pymol/{{t.TetradId}}.png" width="100" height="100" alt=""> </span>
               </a>
             </td>
-
-
             <td *ngIf="t.quadruplex_id != null && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
               <a class = "hasTooltip"[routerLink]="['/quadruplex', t.quadruplex_id.slice(1)]">
                 {{t.quadruplex_id}} <span> <img src = "static/pymol/{{t.quadruplex_id}}.png" width="200" height="150" alt=""> </span>
               </a>
             </td>
-
             <td *ngIf="t.quadruplex_id == null && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" >-</td>
             <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.twist | number: '1.0-2'}}</td>
             <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.rise | number: '1.0-2'}}</td>
@@ -220,7 +209,6 @@
               <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 2</th>
               <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 3</th>
               <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 4</th>
-
             </tr>
             </thead>
             <tbody>

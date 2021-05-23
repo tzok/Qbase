@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CiteUsComponent } from './citeUs/citeUs.component';
-import { ContactComponent } from './contact/contact.component';
 import { HelpComponent } from './help/help.component';
 import { AboutComponent } from './about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,7 +39,6 @@ import {PinchZoomModule} from 'ngx-pinch-zoom';
     HomeComponent,
     AboutComponent,
     CiteUsComponent,
-    ContactComponent,
     HelpComponent,
     StructureTableComponent,
     TetradTabelComponent,

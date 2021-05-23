@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace RNAqbase.Models
 {
-    public class HelicesWithoutVisualizations
+    public class HelixTable
     {
         public string Id { get; set; }
         public string PdbId { get; set; }

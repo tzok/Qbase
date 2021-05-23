@@ -30,7 +30,6 @@
               </a>
             </mat-cell>
           </ng-container>
-
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbId">
@@ -43,7 +42,6 @@
               </a>
             </mat-cell>
           </ng-container>
-
           <!-- PDB deposition  Column -->
           <ng-container matColumnDef="pdbDeposition">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
@@ -51,7 +49,6 @@
               {{row.pdbDeposition}}
             </mat-cell>
           </ng-container>
-
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
@@ -76,7 +73,6 @@
               {{truncate(row.sequence)}}
             </mat-cell>
           </ng-container>
-
           <!-- No. of strands Column -->
           <ng-container matColumnDef="type_strand">
             <mat-header-cell *matHeaderCellDef mat-sort-header="typeOfStrands">Type (by no. of strands)</mat-header-cell>
@@ -93,7 +89,6 @@
               {{row.type}}
             </mat-cell>
           </ng-container>
-
           <!-- ONZ Column -->
           <ng-container matColumnDef="onzmClass">
             <mat-header-cell *matHeaderCellDef mat-sort-header="onzmClass">ONZM Class</mat-header-cell>
@@ -102,8 +97,6 @@
               {{row.onzmClass}}
             </mat-cell>
           </ng-container>
-
-
           <!-- No. of tetrads Column -->
           <ng-container  matColumnDef="numberOfTetrads">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads" >No. of tetrads</mat-header-cell>
@@ -112,7 +105,6 @@
               {{row.numberOfTetrads}}
             </mat-cell>
           </ng-container>
-
           <!-- Loop topology -->
           <ng-container matColumnDef="loopTopology">
             <mat-header-cell *matHeaderCellDef mat-sort-header="loopTopology">Loop topology</mat-header-cell>
@@ -121,7 +113,6 @@
               {{row.loopTopology}}
             </mat-cell>
           </ng-container>
-
           <!-- Tetrad combination -->
           <ng-container matColumnDef="tetradCombination">
             <mat-header-cell *matHeaderCellDef mat-sort-header="tetradCombination">Tetrad combination</mat-header-cell>

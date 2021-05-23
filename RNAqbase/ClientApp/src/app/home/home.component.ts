@@ -14,7 +14,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 
 export class HomeComponent implements OnInit {
-
   sub;
   count: componentsCount;
   update: updateInfotmations;
@@ -44,7 +43,6 @@ export class HomeComponent implements OnInit {
       }]
     },
 
-    // We use these empty structures as placeholders for dynamic theming.
     plugins: {
       datalabels: {
         backgroundColor: () => 'white',
@@ -75,7 +73,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-
       this.http.get<updateInfotmations>(this.baseUrl + 'api/Statistics/GetUpdate').subscribe(result => {
         this.update = result;
 

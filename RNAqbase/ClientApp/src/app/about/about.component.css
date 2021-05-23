@@ -1,15 +1,12 @@
 body {
 }
-
 .container {
   min-height: 100%
 }
-
 main {
   padding-top: 30px;
   height: auto;
 }
-
 .text-rectangle {
   text-align: center;
   background-color: #45A29E;
@@ -17,13 +14,11 @@ main {
   margin-top: 10px;
   padding: 5px;
 }
-
 p {
   font-size: 18px;
   line-height: 1.5;
   margin: 2px;
 }
-
 .photo {
   margin-top: 10px;
   margin-bottom: 50px;
@@ -38,20 +33,15 @@ p {
 .row{
   justify-content: center;
 }
-
 img {
   width: 160px;
   height: 180px;
-
 }
-
 .description {
   margin-bottom: 30px;
   text-align: center;
   font-size: large;
 }
-
 a {
   color: #45A29E;
 }
-

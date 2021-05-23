@@ -7,7 +7,7 @@ using RNAqbase.Enums;
 
 namespace RNAqbase.Models
 {
-    public class QuadruplexesWithoutVisualizations
+    public class QuadruplexTable
     {
         [JsonIgnore]
         public StrandDirection StrandDirection { get; set; }

@@ -94,13 +94,13 @@ namespace RNAqbase.Repository
 			}
 		}
 
-		public async Task<List<QuadruplexesWithoutVisualizations>> GetAllQuadruplexes()
+		public async Task<List<QuadruplexTable>> GetAllQuadruplexes()
 		{
 			using (var connection = Connection)
 			{
 				connection.Open();
 
-				return (await connection.QueryAsync<QuadruplexesWithoutVisualizations>(
+				return (await connection.QueryAsync<QuadruplexTable>(
                     @"
 						SELECT
 						MAX(q.id) AS Id,

@@ -42,7 +42,6 @@ export class VisualizationDialogComponent implements OnInit {
     const isSmooth = false;
     const scale = this.currentZoomLevel;
 
-
     if (scale) {
       const transform = this.panZoomController.getTransform();
       const deltaX = transform.x;
@@ -56,8 +55,8 @@ export class VisualizationDialogComponent implements OnInit {
         this.panZoomController.zoomTo(offsetX, offsetY, scale);
       }
     }
-
   }
+
   zoomToggle(zoomIn: boolean) {
     const idx = this.zoomLevels.indexOf(this.currentZoomLevel);
     if (zoomIn) {
@@ -82,7 +81,6 @@ export class VisualizationDialogComponent implements OnInit {
     this.currentZoomLevel = this.zoomLevels[4];
     this.panZoomController = panzoom(this.scene.nativeElement);
   }
-
 }
 
 interface DialogData {

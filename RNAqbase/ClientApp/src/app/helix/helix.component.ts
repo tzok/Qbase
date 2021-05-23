@@ -41,21 +41,16 @@ export class HelixComponent implements OnInit {
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private dialog: MatDialog)
-    { }
+    private dialog: MatDialog) {}
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.helixId = +params.get('helixId');
-
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
-        console.log(result);
         this.data = result;
         this.data.id = 'H' + this.data.id;
-
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id.slice(1)).subscribe(result => {
           this.tetrads = result;
-
           for (let val of result) {
             if(val.tetrad2_id != 0) {
               let quadruplex = null;
@@ -71,7 +66,6 @@ export class HelixComponent implements OnInit {
               });
             }
           }
-
           for (let val of result) {
             this.tetradsInformation.push({
               id: 'T' + val.id,
@@ -101,16 +95,13 @@ export class HelixComponent implements OnInit {
           }
           }, error => console.error(error));
 
-
         this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Helix/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
          this.nucleotideChiValues = result;
           for (let val of this.nucleotideChiValues){
             val.tetrad_id = 'T' + val.tetrad_id;
           }
         }, error => console.error(error));
-
       }, error => console.error(error));
-
     });
   }
 
@@ -147,8 +138,6 @@ export class HelixComponent implements OnInit {
                   zip.file("tetrads" + ".csv", tetrads);
                   zip.file("nucleotides_in_helice" + ".csv", nucleotides)
                   zip.file("tetrads_pairs" + ".csv", tetradsPairs)
-
-
                   zip.generateAsync({ type: "blob" })
                     .then(blob => saveAs(blob,'data.zip'));
 
@@ -157,6 +146,7 @@ export class HelixComponent implements OnInit {
           });
       });
   }
+
   generateFile(data: any) {
     const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
     const header = Object.keys(data[0]);
@@ -189,8 +179,6 @@ export class HelixComponent implements OnInit {
   setTwoNumberDecimal(num) {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
-
-
 }
 
 interface HelixReference {
@@ -205,7 +193,6 @@ interface HelixReference {
   numberOfQudaruplexes: number;
   numberOfTetrads: number;
   dot_bracket: string;
-
 }
 
 interface QuadruplexReference {
@@ -262,4 +249,3 @@ interface NucleotideChiValues{
   n4_chi: number;
   n4_glycosidic_bond: string;
 }
-

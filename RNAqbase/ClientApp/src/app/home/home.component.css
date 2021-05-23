@@ -8,7 +8,6 @@ main {
 .row {
   margin-top: 10px;
 }
-
 .text-rectangle {
   text-align: center;
   background-color: #45A29E;
@@ -16,7 +15,6 @@ main {
   margin-top: 10px;
   padding: 5px;
 }
-
 p {
   font-size: 18px;
   line-height: 1.5;
@@ -32,21 +30,16 @@ img {
   width: 200px;
   height: 220px;
 }
-
 h3 {
   font-size: 40px;
   color: #45A29E;
 }
-
 a:hover {
   text-decoration: none;
 }
-
-
 h3:hover {
   color: darkgreen;
 }
-
 .row {
   display: -ms-flexbox; /* IE10 */
   display: flex;
@@ -56,8 +49,6 @@ h3:hover {
   margin-top: 10px;
 
 }
-
-/* Create four equal columns that sits next to each other */
 .column {
   -ms-flex: 25%; /* IE10 */
   flex: 25%;
@@ -67,14 +58,12 @@ h3:hover {
   text-align: center;
   margin-bottom: 10px;
 }
-
 .column img {
   vertical-align: middle;
   width: 200px;
   height: 200px;
   text-align: center;
 }
-
 .column2 {
   -ms-flex: 50%; /* IE10 */
   flex: 50%;
@@ -83,41 +72,29 @@ h3:hover {
   margin-top: 10px;
   text-align: center;
 }
-
 .column2 img {
   vertical-align: middle;
   width: 200px;
   height: 200px;
   text-align: center;
 }
-
 .center {
   text-align: center;
-
-
 }
-
-/* Style the form - display items horizontally */
 .form-inline {
   flex-flow: row wrap;
   display: inline-block;
   margin-bottom: 30px;
-
 }
-
 body {
   text-align: center;
 }
 form {
   display: inline-block;
 }
-
-/* Add some margins for each label */
 .form-inline label {
   margin: 5px 10px 5px 0;
 }
-
-/* Style the input fields */
 .form-inline input {
   vertical-align: middle;
   margin: 5px 10px 5px 0;
@@ -126,32 +103,24 @@ form {
   border: 1px solid #ddd;
   width: 400px;
 }
-
-/* Style the submit button */
 .form-inline button {
   padding: 10px 20px;
   background-color: dodgerblue;
   border: 1px solid #ddd;
   color: white;
 }
-
 .form-inline button:hover {
   background-color: royalblue;
 }
-
-/* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
 @media (max-width: 800px) {
   .form-inline input {
     margin: 10px 0;
   }
-
   .form-inline {
     flex-direction: column;
     align-items: stretch;
   }
 }
-
-/* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 1000px) {
   .column {
     -ms-flex: 50%;
@@ -159,15 +128,12 @@ form {
     max-width: 50%;
   }
 }
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .column {
     -ms-flex: 100%;
     flex: 100%;
     max-width: 100%;
   }}
-
 @media screen and (max-width: 1600px) {
   .column2 {
     -ms-flex: 50%;
@@ -175,8 +141,6 @@ form {
     max-width: 50%;
   }
 }
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 1200px) {
   .column2 {
     -ms-flex: 100%;

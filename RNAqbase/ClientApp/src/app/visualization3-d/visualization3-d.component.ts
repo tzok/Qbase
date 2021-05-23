@@ -10,7 +10,6 @@ import {Template} from "@angular/compiler/src/render3/r3_ast";
   styleUrls: ['./visualization3-d.component.css']
 })
 export class Visualization3DComponent implements OnInit {
-
   pdbId: string;
   url: string;
   liteMolPlugin;
@@ -22,7 +21,6 @@ export class Visualization3DComponent implements OnInit {
   selectedValue: string;
   style:any;
   theme = LiteMol.Bootstrap.Visualization.Molecule.Default.Themes.filter(t => t.name === 'Element Symbol' )[0]
-
 
   types: Option[] = [
     {value: 'BallsAndSticks', viewValue: 'BallsAndSticks'},
@@ -93,7 +91,6 @@ export class Visualization3DComponent implements OnInit {
       });
     plugin.applyTransform(this.t);
   }
-
 
   show3DVisualization() {
     this.plugin = LiteMol.Plugin.create({

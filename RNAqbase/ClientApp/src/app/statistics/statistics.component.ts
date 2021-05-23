@@ -121,19 +121,14 @@ export class StatisticsComponent implements OnInit {
         this.pieChartLabels_tableOne_sequence = label;
         this.barChartLabels = label;
 
-
         this.barChartData.push({data: dna, label: 'DNA', stack:'a'})
         this.barChartData.push({data: rna, label: 'RNA', stack:'a'})
         this.barChartData.push({data: other, label: 'Other', stack:'a'})
-
-
         this.doughnutChartLabels = ['DNA','RNA','Other']
 
         for(let val of result){
           this.doughnutChartData.push([val.dna, val.rna, val.other]);
         }
-
-
 
         this.topologyBaseTableOne = cleanedResult;
 

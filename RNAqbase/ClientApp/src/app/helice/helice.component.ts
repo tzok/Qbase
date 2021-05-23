@@ -31,7 +31,6 @@ export class HeliceComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
-      console.log(result);
         this.csvData = JSON.parse(JSON.stringify(result));
         for (let val of this.csvData){
           val.id =  'H' + val.id;
@@ -48,12 +47,10 @@ export class HeliceComponent implements OnInit {
           const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
           return dataStr.indexOf(transformedFilter) != -1;
         }
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
       this.filteredDataLength = this.dataSource.data.length;
-
       },
       error => console.error(error));
   }
@@ -62,7 +59,6 @@ export class HeliceComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.filteredDataLength = this.dataSource.filteredData.length;
-
   }
 
   isAllSelected() {
@@ -70,7 +66,6 @@ export class HeliceComponent implements OnInit {
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
-
 
   masterToggle() {
     this.isAllSelected() ?

@@ -15,10 +15,7 @@
         <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
         <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
       </div>
-
       <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
-
-
         <!-- Id Column a [routerLink]="['/helix', row.id]"-->
         <div class="col-sm-8">
           <ng-container matColumnDef="id">
@@ -32,8 +29,6 @@
               </a>
             </mat-cell>
           </ng-container>
-
-
           <!-- PDB ID Column -->
           <ng-container matColumnDef="pdbId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbId">
@@ -46,7 +41,6 @@
               </a>
             </mat-cell>
           </ng-container>
-
           <!-- PDB deposition  Column -->
           <ng-container matColumnDef="pdbDeposition">
             <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
@@ -54,7 +48,6 @@
               {{row.pdbDeposition}}
             </mat-cell>
           </ng-container>
-
           <!-- Assembly ID Column -->
           <ng-container matColumnDef="assemblyId">
             <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
@@ -71,7 +64,6 @@
               {{row.molecule}}
             </mat-cell>
           </ng-container>
-
           <!-- Sequence Column -->
           <ng-container matColumnDef="sequence">
             <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence</mat-header-cell>
@@ -80,7 +72,6 @@
               {{truncate(row.sequence)}}
             </mat-cell>
           </ng-container>
-
           <!-- No. of strands Column -->
           <ng-container matColumnDef="type_strand">
             <mat-header-cell *matHeaderCellDef mat-sort-header="typeOfStrands">Type (by no. of strands)</mat-header-cell>

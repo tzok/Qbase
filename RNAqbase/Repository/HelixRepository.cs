@@ -85,13 +85,13 @@ namespace RNAqbase.Repository
 	        }
         }
         
-        public async Task<List<HelicesWithoutVisualizations>> GetAllHelices()
+        public async Task<List<HelixTable>> GetAllHelices()
 	    {
 		    using (var connection = Connection)
 		    {
 			    connection.Open();
 
-			    return (await connection.QueryAsync<HelicesWithoutVisualizations>(
+			    return (await connection.QueryAsync<HelixTable>(
                     @"SELECT DISTINCT ON(h.id)
 							h.id AS Id,        
 							p.identifier AS PdbId,

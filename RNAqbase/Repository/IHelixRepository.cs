@@ -7,7 +7,7 @@ namespace RNAqbase.Repository
 {
 	public interface IHelixRepository
 	{
-		Task<List<HelicesWithoutVisualizations>> GetAllHelices();
+		Task<List<HelixTable>> GetAllHelices();
         Task<HelixReference> GetHelixReferenceById(int id);
         Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id);
         Task<MemoryStream> GetHelix3dVisualization(int id);

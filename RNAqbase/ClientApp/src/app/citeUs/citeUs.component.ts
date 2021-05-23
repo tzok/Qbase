@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './citeUs.component.html',
   styleUrls: ['./citeUs.component.css']
 })
-export class CiteUsComponent {
-
-}
+export class CiteUsComponent {}

@@ -9,7 +9,6 @@ td
   height: 50px;
   width: 50px;
 }
-
 .mat-select-panel {
   transform: translate(-2px, 44px) !important;
   font-family: Lato,sans-serif;
@@ -26,20 +25,16 @@ td
   overflow: auto;
   /*max-height: 500px;*/
 }
-
 .mobile-label {
   display: none;
 }
-
 .cdk-column-select {
   border: none;
 }
-
 @media(max-width: 600px) {
   .mat-cell:first-child {
     /*padding-left: 0;*/
   }
-
   .mat-header-row {
     /*display: none;*/
   }
@@ -49,12 +44,10 @@ td
   .mat-cell {
     overflow:scroll;
   }
-
   .mat-table {
     display: flex;
     flex-wrap: wrap;
   }
-
   .mat-row {
     overflow: auto;
     min-width: 850px;
@@ -62,60 +55,49 @@ td
     align-items: start;
     padding: 8px 10px;*/
   }
-
   .mobile-label {
     /*display: none;
     font-weight: normal;*/
   }
 }
-
 .container {
   min-height: 100%;
   text-align: left;
 }
-
 main {
   margin-top: 10px;
   height: auto;
   padding-top: 20px;
 }
-
 .table {
   margin-top: 40px;
   padding: 15px;
   text-align: left;
 }
-
-
 p {
   font-size: large;
   line-height: 1.5;
   margin: 5px;
 }
-
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
   padding: 16px;
   text-align: center;
   background-color: #d6d8db;
 }
-
 .p2{
   font-size: x-large;
   line-height: 1.5;
   margin: 5px;
   text-align: center;
 }
-
 a {
   color: #45A29E;
 }
-
 a.disabled {
   pointer-events: none;
   cursor: default;
 }
-
 a.mat-button {
   border-style: solid;
   border-width: 2px;
@@ -129,16 +111,13 @@ a.mat-button {
   margin-right: 550px;
   margin-left: 5px;
 }
-
 .statictext {
   display: inline-block;
   margin-right: 20px;
 }
-
 tr:last-child {
   font-weight: bold;
 }
-
 .mat-button {
   border-style: solid;
   border-width: 2px;
@@ -147,7 +126,6 @@ tr:last-child {
   background-color: #45A29E;
   color: white;
 }
-
 .text-rectangle {
   text-align: center;
   background-color: #45A29E;
@@ -155,7 +133,6 @@ tr:last-child {
   margin-top: 10px;
   padding: 5px;
 }
-
 .saveDataButton {
   text-align: right;
 }

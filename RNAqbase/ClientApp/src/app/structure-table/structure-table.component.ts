@@ -90,7 +90,6 @@ export class StructureTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.pdbId + 1}`;
   }
 
-
   showStructure(type: any, id: any) {
     let dialogRef = this.dialog.open(VisualizationDialogComponent, {
       data: { type: type, id: id },

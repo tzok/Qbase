@@ -1,21 +1,12 @@
-@media screen and (max-width: 600px) {
-  .tetradtable {
-    max-width: 100%;
-    overflow-x: scroll;
-  }
-}
-
 .container {
   min-height: 100%;
   text-align: left;
 }
-
 main {
   margin-top: 10px;
   height: auto;
   padding-top: 20px;
 }
-
 .text-rectangle {
   text-align: center;
   background-color: #45A29E;
@@ -23,47 +14,9 @@ main {
   margin-top: 10px;
   padding: 5px;
 }
-
-
-p {
-  font-size: large;
-  line-height: 1.5;
-  margin: 10px;
-}
-
-structure {
-  display: inline-block;
-  margin: 10px;
-}
-
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: none;
-}
-
-th {
-  border-style: solid;
-  text-align: center;
-  border-bottom: none;
-}
-
-tr {
-  border-style: solid;
-}
-
-td {
-  border-style: solid;
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-}
-
 a {
   color: #45A29E;
 }
-
 a.button {
   color: black;
   text-transform: uppercase;

@@ -4,8 +4,7 @@
     <div class="text-rectangle">
       <h2>Statistics</h2>
     </div>
-
-<br>
+    <br>
     <mat-card-content>
       <mat-card>
     <div>
@@ -20,31 +19,21 @@
           <mat-option value="ELTetradoableTwo">ONZM class coverage by unimolecular quadruplexes</mat-option>
           <mat-option value="ELTetradoableThereA">ONZM class coverage by bimolecular quadruplexes</mat-option>
           <mat-option value="ELTetradoableThereB">ONZM class coverage by tetramolecular quadruplexes</mat-option>
-
         </mat-select>
       </mat-form-field>
-
     </div>
-
-
     <!-- Number of tetrads by sequence and molecule type START -->
-
-
     <div *ngIf="selected == 'topologyBaseTableOne'">
       <mat-card-content>
         <mat-card>
-
         <div class="row">
       <div class="col-lg-10 col-sm-6">
           <b><p>Number of tetrads by sequence and molecule type<p></b>
       </div>
-
       <div class=" col-lg-2 col-sm-6 saveDataButton">
-
         <a class="mat-button" csvLink [data]="topologyBaseTableOne">Save table</a>
       </div>
     </div>
-
     <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
@@ -70,15 +59,10 @@
           <iframe style = "width:95%; height:800px" frameBorder="0" src="onquadro_plots/number_of_tetrads_by_sequence_and_molecule_type.html"></iframe>
         </mat-card>
       </mat-card-content>
-
-
-
     </div>
-
     <!-- Number of tetrads by sequence and molecule type END -->
 
     <!-- Number of quadruplexes composed of 2–12 tetrads START-->
-
     <div *ngIf="selected == 'topologyBaseTableTwo' && topologyBaseTableTwo">
       <mat-card-content>
         <mat-card>
@@ -86,13 +70,10 @@
       <div class="col-lg-10 col-sm-6">
         <b><p>Number of quadruplexes composed of 2–12 tetrads</p></b>
       </div>
-
       <div class=" col-lg-2 col-sm-6 saveDataButton">
-
         <a class="mat-button" csvLink [data]="topologyBaseTableTwo">Save table</a>
       </div>
     </div>
-
     <div class="col responsive-table">
       <table class="table" style="border:1px solid black;" >
         <thead>
