@@ -169,6 +169,7 @@ interface Tetrad {
   quadruplexId: any;
   pdbId: number;
   pdbIdentifier: string;
+  title: string;
   assemblyId: number;
   molecule: string;
   sequence: string;

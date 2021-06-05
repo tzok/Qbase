@@ -14,11 +14,8 @@ namespace RNAqbase.Services
 		Task<List<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId);
         Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id);
         Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId);
-        Task<string> AddEmailToDatabase(string email);
-        Task<string> DeleteEmailFromDatabase(string id);
         Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id);
         Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id);
-
-
+        Task<IEnumerable<Ions>> GetIons(int id);
 	}
 }

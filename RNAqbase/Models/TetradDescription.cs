@@ -14,6 +14,7 @@ namespace RNAqbase.Models
         public string QuadruplexId => TetradsInQuadruplex > 1 ? QuadruplexIdAsInt.ToString() : "99999999";
         public int PdbId { get; set; }
         public string PdbIdentifier { get; set; }
+        public string Title { get; set; }
         public int AssemblyId { get; set; }
         public string Dot_bracket { get; set; }
         public string Molecule { get; set; }

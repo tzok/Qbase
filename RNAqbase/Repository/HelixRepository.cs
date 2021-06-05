@@ -26,6 +26,7 @@ namespace RNAqbase.Repository
 						h.id AS Id,     
 						h.dot_bracket AS Dot_bracket,
 						p.identifier AS PdbIdentifier,
+                        p.title AS Title,
 						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 						p.assembly AS AssemblyId,
 						max(q_view.molecule) AS Molecule,
@@ -50,7 +51,7 @@ namespace RNAqbase.Repository
 					JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 					JOIN PDB p ON n1.pdb_id = p.id
 					where h.id = @HelixId
-					GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment"),
+					GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, p.title, n1.molecule, p.experiment"),
                 new { HelixId = id });
 
                 return helix;
@@ -93,7 +94,8 @@ namespace RNAqbase.Repository
 
 			    return (await connection.QueryAsync<HelixTable>(
                     @"SELECT DISTINCT ON(h.id)
-							h.id AS Id,        
+							h.id AS Id,       
+    						string_agg(DISTINCT(q.id)::text, ',') as QuadruplexesIds,
 							p.identifier AS PdbId,
 							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 							p.assembly AS AssemblyId,
@@ -123,9 +125,6 @@ namespace RNAqbase.Repository
                         ")).ToList();
 		    }
 	}
-        
-       
-        
         
         public async Task<MemoryStream> GetHelix3dVisualization(int id)
 		{

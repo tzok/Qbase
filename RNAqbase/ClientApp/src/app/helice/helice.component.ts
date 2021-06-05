@@ -24,21 +24,40 @@ export class HeliceComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
-    'sequence', 'type_strand', 'numberOfQudaruplexes', 'numberOfTetrads', 'select'
+    'sequence', 'type_strand', 'numberOfQudaruplexes', 'quadruplexId', 'numberOfTetrads', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
-        this.csvData = JSON.parse(JSON.stringify(result));
-        for (let val of this.csvData){
-          val.id =  'H' + val.id;
-        }
         this.dataSource = new MatTableDataSource(result);
+
+        for (let val of result){
+          val.quadruplexesIds =  Array.from(new Set( val.quadruplexesIds.split(',') ))
+        }
+
+        this.csvData = JSON.parse(JSON.stringify(result));
         for(let val of result){
           val.helix_id = 'H' + val.id;
         }
+
+        for (let val of this.csvData){
+          for (let i = 0; i < val.quadruplexesIds.length; i++) {
+            val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
+          }
+        }
+        for (let val of this.csvData){
+          val.id =  'H' + val.id;
+        }
+
+        for (let val of result) {
+          val.quadruplexesIds = JSON.parse(JSON.stringify(val.quadruplexesIds));
+          for (let i = 0; i < val.quadruplexesIds.length; i++) {
+            val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
+          }
+        }
+
         this.dataSource.filterPredicate = (data: Helix, filter: string): boolean => {
           const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
             return (currentTerm + (data as { [key: string]: any })[key] + '◬');
@@ -89,6 +108,7 @@ export class HeliceComponent implements OnInit {
 interface Helix {
   id: string;
   helix_id: any;
+  quadruplexesIds: any;
   pdbId: string;
   assemblyId: number;
   molecule: string;

@@ -185,6 +185,7 @@ interface HelixReference {
   id: string;
   pdbId: string;
   pdbIdentifier: string;
+  title: string;
   assemblyId: number;
   molecule: string;
   experiment: string

@@ -1,5 +1,13 @@
-.mat-column-id, .mat-column-pdbId, .mat-column-pdbDeposition, .mat-column-assemblyId, .mat-column-molecule, .mat-column-type_strand, .mat-column-numberOfQudaruplexes, .mat-column-numberOfTetrads{
-  flex: 0 0 10%;
+.mat-column-id, .mat-column-pdbId, .mat-column-assemblyId, .mat-column-molecule{
+  flex: 0 0 8%;
+}
+
+.mat-column-quadruplexId, .mat-column-pdbDeposition, .mat-column-type_strand, .mat-column-numberOfQudaruplexes, .mat-column-numberOfTetrads{
+  flex: 0 0 9%;
+}
+.mat-column-sequence{
+  flex: 0 0 20%;
+
 }
 .mat-table {
   overflow: auto;

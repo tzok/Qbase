@@ -26,6 +26,7 @@ export class QuadruplexComponent implements OnInit {
   tetradsPairsTable: TetradPairsInformations[] = [];
   nucleotideChiValues: NucleotideChiValues[];
   quadruplexLoops: QuadruplexLoops[] = [];
+  ions: Ions[] = []
   quadruplexId: string;
   sub;
 
@@ -92,13 +93,18 @@ export class QuadruplexComponent implements OnInit {
                   this.quadruplexLoops = result;
                   let counter = 1;
                   for (let val of this.quadruplexLoops) {
-                      val.id = 'L' + counter.toString()
-                      val.loop_length = val.short_sequence.length;
-                      counter = counter + 1;
+                    val.id = 'L' + counter.toString()
+                    val.loop_length = val.short_sequence.length;
+                    counter = counter + 1;
                   }
                 }, error => console.error(error));
-
+                this.http.get<Ions[]>(this.baseUrl + '' + 'api/Quadruplex/GetIons?id=' + '' + this.data.pdbId).subscribe(result => {
+                  this.ions = result;
+                  console.log(this.ions);
                 }, error => console.error(error));
+
+
+              }, error => console.error(error));
             }, error => console.error(error));
         }, error => console.error(error));
     });
@@ -183,6 +189,7 @@ interface Quadruplex {
   id: any;
   pdbId: number;
   pdbIdentifier: string;
+  title: string;
   assemblyId: number;
   molecule: string;
   experiment: string;
@@ -242,4 +249,9 @@ interface QuadruplexLoops{
   full_sequence: string;
   loop_type: string;
   loop_length: number;
+}
+
+interface Ions{
+  count: number;
+  ion: string;
 }

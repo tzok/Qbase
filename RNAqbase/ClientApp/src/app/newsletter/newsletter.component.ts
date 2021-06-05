@@ -28,7 +28,7 @@ export class NewsletterComponent implements OnInit {
   });
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.http.get<string>(this.baseUrl + '' +
-        'api/Quadruplex/DeleteEmailFromDatabase?id=' +
+        'api/Newsletter/DeleteEmailFromDatabase?id=' +
         '' + this.id).subscribe(result => {
       }, error => console.error(error));
     });

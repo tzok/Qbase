@@ -18,6 +18,7 @@ namespace RNAqbase.Models
 		public string Id { get; set; }
 		public string OnzmClass { get; set; }
 		public string PdbIdentifier { get; set; }
+		public string Title { get; set; }
 		public int PdbId { get; set; }
 		public string Dot_bracket { get; set; }
 		public int AssemblyId { get; set; }

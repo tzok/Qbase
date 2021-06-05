@@ -59,19 +59,6 @@ namespace RNAqbase.Controllers
 		}
 
 		[HttpGet("[action]")]
-		public async Task<IActionResult> AddEmailToDatabase(string email)
-		{
-			return Ok(await quadruplexService.AddEmailToDatabase(email));
-		}
-
-		[HttpGet("[action]")]
-		public async Task<IActionResult> DeleteEmailFromDatabase(string id)
-		{
-			return Ok(await quadruplexService.DeleteEmailFromDatabase(id));
-		}
-
-
-		[HttpGet("[action]")]
 		public async Task<IActionResult> GetQuadruplex3dVisualizationMethod(int id)
 		{
 			var dataStream = await quadruplexService.GetQuadruplex3dVisualization(id);
@@ -88,6 +75,12 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetQuadruplexLoops(int id)
 		{
 			return Ok(await quadruplexService.GetQuadruplexLoops(id));
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetIons(int id)
+		{
+			return Ok(await quadruplexService.GetIons(id));
 		}
 
 	}

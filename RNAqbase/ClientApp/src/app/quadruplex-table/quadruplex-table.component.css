@@ -1,10 +1,14 @@
 .mat-column-id, .mat-column-pdbDeposition,
-.mat-column-type_strand, .mat-column-type_onzm, .mat-column-tetradCombination{
+.mat-column-type_onzm, .mat-column-tetradCombination{
+  flex: 0 0 8%;
+  /*word-break: break-all;*/
+}
+.mat-column-type_strand{
   flex: 0 0 9%;
   /*word-break: break-all;*/
 }
-.mat-column-pdbId, .mat-column-molecule,.mat-column-onzmClass, .mat-column-numberOfTetrads, .mat-column-loopTopology, .mat-column-assemblyId{
-  flex: 0 0 6%;
+.mat-column-pdbId, .mat-column-molecule,.mat-column-onzmClass, .mat-column-numberOfTetrads, .mat-column-loopTopology, .mat-column-assemblyId, .mat-column-ion{
+  flex: 0 0 5.5%;
   /*word-break: break-all;*/
 }
 .mat-column-sequence{

@@ -24,7 +24,7 @@ export class QuadruplexTableComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
-    'sequence', 'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
+    'sequence', 'ion', 'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
@@ -91,6 +91,7 @@ interface Quadruplex {
   id: string;
   quadruplex_id: any;
   loopTopology: string;
+  ion: string;
   tetradCombination: string;
   pdbId: string;
   assemblyId: number;

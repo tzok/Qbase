@@ -35,16 +35,13 @@ namespace RNAqbase.Services
         public async  Task<MemoryStream> GetQuadruplex3dVisualization(int id) =>
 	        (await quadruplexRepository.GetQuadruplex3dVisualization(id));
         
-        public async  Task<string> AddEmailToDatabase(string email) =>
-	        (await quadruplexRepository.AddEmailToDatabase(email));
-        public async  Task<string> DeleteEmailFromDatabase(string id) =>
-	        (await quadruplexRepository.DeleteEmailFromDatabase(id));
-
         public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id) =>
 	        (await quadruplexRepository.GetNucleotideChiValues(id)).ToList();
 
         public async Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id) =>
 	        (await quadruplexRepository.GetQuadruplexLoops(id)).ToList();
         
+        public async Task<IEnumerable<Ions>> GetIons(int id) =>
+	        (await quadruplexRepository.GetIons(id)).ToList();
 	}
 }

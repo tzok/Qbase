@@ -13,10 +13,10 @@ namespace RNAqbase.Repository
 		Task<List<Structure>> GetAllStructures();
         Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id);
         Task<MemoryStream> GetQuadruplex3dVisualization(int id);
-        Task<string> AddEmailToDatabase(string email);
-        Task<string> DeleteEmailFromDatabase(string id);
         Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id);
         Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id);
+        Task<IEnumerable<Ions>> GetIons(int id);
+
 
 
 	}

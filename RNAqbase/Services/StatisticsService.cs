@@ -23,7 +23,6 @@ namespace RNAqbase.Services
 			this.cache = cache;
 		}
 
-
 		public async Task<List<Statistics>> GetTopologyBaseTetradViewTableOne()
 		{
 			if (!cache.TryGetValue(nameof(GetTopologyBaseTetradViewTableOne), out List<Statistics> result))

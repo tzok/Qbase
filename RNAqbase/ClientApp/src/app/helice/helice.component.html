@@ -88,6 +88,16 @@
               {{row.numberOfQudaruplexes}}
             </mat-cell>
           </ng-container>
+          <!-- Quadruplex Id Column -->
+          <ng-container matColumnDef="quadruplexId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplex_id">Quadruplex ID</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Quadruplex ID</span>
+              <a *ngFor="let t of row.quadruplexesIds; " [routerLink]="['/quadruplex', t.slice(1)]">
+                <a class = "hasTooltip"><p style="font-size: 14px;"> {{t}} </p> <span> <img src = "static/pymol/{{t}}.png" width="200" height="150"  alt=""> </span></a>
+              </a>
+            </mat-cell>
+          </ng-container>
           <!-- No. of tetrads Column -->
           <ng-container matColumnDef="numberOfTetrads">
             <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfTetrads">No. of tetrads</mat-header-cell>

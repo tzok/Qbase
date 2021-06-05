@@ -49,6 +49,7 @@ namespace RNAqbase.Repository
 						SELECT DISTINCT ON (q.id)
 							q.id AS Id,
 							q.onzm AS OnzmClass,
+						   	p.title as Title,
 							p.identifier AS PdbIdentifier,
 						    q.loop_class as LoopTopology,
 							STRING_AGG(DISTINCT(qg.gba_quadruplex_class)::text,', ') AS TetradCombination,
@@ -77,7 +78,7 @@ namespace RNAqbase.Repository
 						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 						JOIN PDB p ON n1.pdb_id = p.id
 						WHERE q.id = @QuadruplexId
-						GROUP BY q.id, q.onzm, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment;",
+						GROUP BY q.id, q.onzm, p.identifier, p.title, n1.pdb_id, p.assembly, n1.molecule, p.experiment;",
 					
 					new {QuadruplexId = id});
 
@@ -103,40 +104,58 @@ namespace RNAqbase.Repository
 				return (await connection.QueryAsync<QuadruplexTable>(
                     @"
 						SELECT
-						MAX(q.id) AS Id,
-						q.loop_class as LoopTopology,
-						STRING_AGG(DISTINCT(qg.gba_quadruplex_class)::text,', ') AS TetradCombination,
-						MAX(q.onzm) AS OnzmClass,
-						to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
-						MAX(p.identifier) AS PdbId,
-						MAX(p.assembly) AS AssemblyId,
-						MAX(q_view.molecule) AS Molecule,
-						STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
-						COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
-						COUNT(t.id) AS NumberOfTetrads,
-						MAX(p.experiment) AS experiment,
-						CASE
-								WHEN max(q_view.chains) = 1 THEN 'unimolecular'
-								WHEN max(q_view.chains) = 2 THEN  'bimolecular'
-								ELSE 'tetramolecular'
-						 END 
-						 as TypeOfStrands
-					FROM QUADRUPLEX q
-					JOIN QUADRUPLEX_GBA qg on qg.quadruplex_id = q.id
-					JOIN TETRAD t ON q.id = t.quadruplex_id
-					JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
-					JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-					JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
-					JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
-					JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
-					JOIN PDB p ON n1.pdb_id = p.id
-					GROUP BY q.id
-					HAVING COUNT(t.id) > 1")).ToList();
+							MAX(q.id) AS Id,
+							q.loop_class as LoopTopology,
+							STRING_AGG(DISTINCT(qg.gba_quadruplex_class)::text,', ') AS TetradCombination,
+							MAX(q.onzm) AS OnzmClass,
+							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+							MAX(p.identifier) AS PdbId,
+							string_agg(DISTINCT(ion.name)::text, ', ') as Ion,
+							MAX(p.assembly) AS AssemblyId,
+							MAX(q_view.molecule) AS Molecule,
+							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
+							COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
+							COUNT(t.id) AS NumberOfTetrads,
+							MAX(p.experiment) AS experiment,
+							CASE
+									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
+									WHEN max(q_view.chains) = 2 THEN  'bimolecular'
+									ELSE 'tetramolecular'
+							 END 
+							 as TypeOfStrands
+						FROM QUADRUPLEX q
+						JOIN QUADRUPLEX_GBA qg on qg.quadruplex_id = q.id
+						JOIN TETRAD t ON q.id = t.quadruplex_id
+						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+						JOIN NUCLEOTIDE n2 ON t.nt2_id = n2.id
+						JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
+						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
+						JOIN PDB p ON n1.pdb_id = p.id
+						JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+						JOIN ion ON ion.id = pdb_ion.ion_id
+						GROUP BY q.id
+						HAVING COUNT(t.id) > 1")).ToList();
 			}
 		}
-		
-		
-		
+
+		public async Task<IEnumerable<Ions>> GetIons(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<Ions>(
+					@"
+						SELECT 
+							ion.name as Ion,
+							pdb_ion.count as Count
+						FROM ion
+						JOIN pdb_ion on ion.id = pdb_ion.ion_id
+						WHERE pdb_ion.pdb_id = @id
+						", new {id = id});
+			}
+		}
+
 		public async Task<List<Structure>> GetAllStructures()
 		{
 			using (var connection = Connection)
@@ -158,7 +177,8 @@ namespace RNAqbase.Repository
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
 						JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
 						JOIN PDB p ON n1.pdb_id = p.id
-						GROUP BY p.identifier, p.assembly")).ToList();
+						GROUP BY p.identifier, p.assembly
+						order by p.identifier desc")).ToList();
 			}
 		}		
 		

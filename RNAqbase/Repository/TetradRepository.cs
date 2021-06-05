@@ -26,6 +26,7 @@ namespace RNAqbase.Repository
 						t.quadruplex_id as ""QuadruplexIdAsInt"", 
 						t.dot_bracket as ""Dot_bracket"",
 						pdb1.identifier as ""PdbIdentifier"", 
+						pdb1.title as ""Title"",
 						pdb1.id as ""PdbId"", 
 						pdb1.experiment as ""Experiment"",
 						COALESCE(pdb1.assembly, 0) as ""AssemblyId"",

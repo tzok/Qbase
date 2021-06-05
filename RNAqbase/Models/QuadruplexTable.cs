@@ -12,11 +12,11 @@ namespace RNAqbase.Models
         [JsonIgnore]
         public StrandDirection StrandDirection { get; set; }
 
-        [JsonIgnore]
-        public int TypeCount { get; set; }
+        [JsonIgnore] public int TypeCount { get; set; }
 
         public string Id { get; set; }
         public string PdbId { get; set; }
+        public string Ion { get; set; }
         public string PdbDeposition { get; set; }
         public int AssemblyId { get; set; }
         public string Molecule { get; set; }

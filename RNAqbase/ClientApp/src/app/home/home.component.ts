@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
     this.email_added = true;
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.http.get<string>(this.baseUrl + '' +
-        'api/Quadruplex/AddEmailToDatabase?email=' +
+        'api/Newsletter/AddEmailToDatabase?email=' +
         '' + email_val.email).subscribe(result => {
       }, error => null);
     });
