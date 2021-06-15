@@ -17,8 +17,10 @@ export class HomeComponent implements OnInit {
   sub;
   count: componentsCount;
   update: updateInfotmations;
+  info: info;
   email_added = false;
   model: any = {};
+  error_state = false;
 
   colors: Color[] = [
     {backgroundColor: "#45A29E"}
@@ -109,12 +111,14 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(email_val) {
-    this.email_added = true;
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
-      this.http.get<string>(this.baseUrl + '' +
+      this.http.get<info>(this.baseUrl + '' +
         'api/Newsletter/AddEmailToDatabase?email=' +
         '' + email_val.email).subscribe(result => {
-      }, error => null);
+          this.email_added=true;
+          this.error_state=false;
+
+      }, error => this.error_state=true);
     });
   }
 
@@ -138,3 +142,6 @@ interface updateInfotmations {
   pdbRelease: string;
 }
 
+interface info {
+  info: string;
+}

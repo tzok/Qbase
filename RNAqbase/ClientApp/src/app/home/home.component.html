@@ -100,7 +100,7 @@
                    required>
             <button type="submit" [disabled]="form.invalid">Submit</button>
           <div>
-            <p *ngIf="emailWithPattern.errors?.pattern">
+            <p *ngIf="emailWithPattern.errors?.pattern || error_state">
               Your e-mail address is wrong!
               {{wrong_email()}}
             </p>

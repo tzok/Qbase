@@ -7,7 +7,7 @@ namespace RNAqbase.Repository
 {
     public interface INewsletterRepository
     {
-        Task<string> AddEmailToDatabase(string email);
+        Task<Info> AddEmailToDatabase(string email);
         Task<string> DeleteEmailFromDatabase(string id);
     }
 }

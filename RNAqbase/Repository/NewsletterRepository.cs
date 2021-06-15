@@ -18,7 +18,7 @@ namespace RNAqbase.Repository
 		{
 		}
 
-		public async Task<string> AddEmailToDatabase(string email)
+		public async Task<Info> AddEmailToDatabase(string email)
 		{
 			using (var connection = Connection)
 			{
@@ -27,7 +27,10 @@ namespace RNAqbase.Repository
 					@"
 						INSERT INTO newsletter (email)
                          VALUES (@email)", new {@email = email});
-				return ("newsletter");
+				
+				var info = new Info();
+				info.Information = "done";
+				return info;
 			}
 		}
 		
