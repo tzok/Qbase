@@ -79,6 +79,7 @@
             <mat-cell *matCellDef="let row">
               <span class="mobile-label" >Ion</span>
               {{row.ion}}
+              <a *ngIf='row.ion==null'>-</a>
             </mat-cell>
           </ng-container>
           <!-- No. of strands Column -->

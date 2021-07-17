@@ -31,6 +31,7 @@ import {ChartsModule } from 'ng2-charts';
 import {MatSelectModule} from "@angular/material/select";
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import {PinchZoomModule} from 'ngx-pinch-zoom';
+import { CounterModule } from 'ngx-counter';
 
 @NgModule({
   declarations: [
@@ -57,8 +58,7 @@ import {PinchZoomModule} from 'ngx-pinch-zoom';
         BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
         HttpClientModule,
         FormsModule,
-
-        RouterModule.forRoot([
+      RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
             {path: '', redirectTo: '/home', pathMatch: 'full'},
             {path: 'about', component: AboutComponent},
@@ -94,6 +94,7 @@ import {PinchZoomModule} from 'ngx-pinch-zoom';
       BrowserAnimationsModule,
       FormsModule,
       PinchZoomModule,
+      CounterModule.forRoot()
     ],
   providers: [],
   bootstrap: [AppComponent],

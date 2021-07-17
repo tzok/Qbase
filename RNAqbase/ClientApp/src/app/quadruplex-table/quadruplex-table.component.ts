@@ -47,6 +47,7 @@ export class QuadruplexTableComponent implements OnInit {
           const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
           return dataStr.indexOf(transformedFilter) != -1;
         }
+        console.log(this.dataSource.data)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;

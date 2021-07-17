@@ -115,7 +115,7 @@ namespace RNAqbase.Repository
 							MAX(q_view.molecule) AS Molecule,
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 							COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
-							COUNT(t.id) AS NumberOfTetrads,
+							COUNT(DISTINCT(t.id)) AS NumberOfTetrads,
 							MAX(p.experiment) AS experiment,
 							CASE
 									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
@@ -132,8 +132,8 @@ namespace RNAqbase.Repository
 						JOIN NUCLEOTIDE n3 ON t.nt3_id = n3.id
 						JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 						JOIN PDB p ON n1.pdb_id = p.id
-						JOIN pdb_ion ON p.id = pdb_ion.pdb_id
-						JOIN ion ON ion.id = pdb_ion.ion_id
+						LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+						LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 						GROUP BY q.id
 						HAVING COUNT(t.id) > 1")).ToList();
 			}
@@ -276,36 +276,7 @@ namespace RNAqbase.Repository
 					new { Id = id });
 			}
 		}
-
 		
-		public async Task<string> AddEmailToDatabase(string email)
-		{
-			using (var connection = Connection)
-			{
-				connection.Open();
-				var ids = await connection.QueryAsync(
-					@"
-						INSERT INTO newsletter (email)
-                         VALUES (@email)", new {@email = email});
-				return (null);
-			}
-		}
-		
-		public async Task<string> DeleteEmailFromDatabase(string id)
-		{
-			using (var connection = Connection)
-			{
-				connection.Open();
-				Guid id_uuid = new Guid(id);
-				var ids = await connection.QueryAsync(
-					@"
-					DELETE FROM newsletter
-					WHERE id = @id;", new {@id = id_uuid});
-			}
-
-			return(null);
-		}
-
 		
 		public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
 		{

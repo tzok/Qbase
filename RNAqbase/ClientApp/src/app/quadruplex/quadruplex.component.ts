@@ -155,8 +155,10 @@ export class QuadruplexComponent implements OnInit {
                   let tetradsPairs = this.generateFile(this.tetradsPairsTable)
                   let nucleotides = this.generateFile(this.nucleotideChiValues);
                   let loops = this.generateFile(this.quadruplexLoops);
-                  let ions = this.generateFile(this.ions);
-
+                  if(this.ions.length!=0) {
+                    let ions = this.generateFile(this.ions);
+                    zip.file("ions" + ".csv", ions)
+                  }
                   zip.file("3d_structure.png", this._3d_structure);
                   zip.file("2d_structure_varna.svg", this._2d_structure_varna);
                   zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
@@ -166,7 +168,6 @@ export class QuadruplexComponent implements OnInit {
                   zip.file("tetrads_pairs" + ".csv", tetradsPairs)
                   zip.file("nucleotides_in_quadruplex" + ".csv", nucleotides)
                   zip.file("quadruplex_loops" + ".csv", loops)
-                    zip.file("ions" + ".csv", ions)
                   zip.generateAsync({ type: "blob" })
                     .then(blob => saveAs(blob,'data.zip'));
 

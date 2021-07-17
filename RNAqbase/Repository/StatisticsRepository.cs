@@ -251,6 +251,97 @@ WHERE chains = 4;")).ToList();
 	}
 }
 
+/*
+ * select count(*) as Total, s2.Loop_length, s2.Loop_type from (
+SELECT 
+	LENGTH(STRING_AGG(COALESCE(n.short_name, ''), '')) as Loop_length,
+	l.loop_type as Loop_type
+	FROM quadruplex q
+	JOIN loop l on q.id = l.quadruplex_id
+	JOIN loop_nucleotide ln on l.id = ln.loop_id
+	JOIN nucleotide n on ln.nucleotide_id = n.id
+	GROUP BY l.id) as s2
+	group by s2.Loop_length, s2.Loop_type
+	order by Total
+ */
 
 
+/*
+ * select count(*) as Total, gba_quadruplex_class from QUADRUPLEX_GBA group by gba_quadruplex_class order by gba_quadruplex_class;
 
+ */
+
+/*
+ * SELECT
+	count(*) as Total,
+	loop_class
+FROM quadruplex 
+group by loop_class
+order by loop_class
+ */
+
+/*
+SELECT 
+	min(t.planarity_deviation) as min_planarity, max(t.planarity_deviation) as max_planarity,
+	min(tp.rise) as min_rise, max(tp.rise) as max_rise,
+	min(tp.twist) as min_twist, max(tp.twist) as max_twist
+FROM tetrad t
+	LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
+*/
+
+/*
+	
+SELECT 
+	min(chi) as min_chi, 
+	max(chi) as max_chi, 
+	glycosidic_bond as glycosidic_bond, 
+	onzm as onzm
+ 	from( (SELECT 
+	q.onzm as onzm,
+	n1.chi as chi,
+    n1.glycosidic_bond as glycosidic_bond
+	FROM tetrad t 
+	JOIN quadruplex q on q.id = t.quadruplex_id
+	JOIN nucleotide n1 on t.nt1_id = n1.id)
+UNION ALL
+	(SELECT 
+	 q.onzm as onzm,
+	n2.chi as chi,
+    n2.glycosidic_bond as glycosidic_bond
+	FROM tetrad t 
+	JOIN quadruplex q on q.id = t.quadruplex_id
+	JOIN nucleotide n2 on t.nt2_id = n2.id)
+UNION ALL
+	(SELECT 
+	 q.onzm as onzm,
+	n3.chi as chi,
+    n3.glycosidic_bond as glycosidic_bond
+	FROM tetrad t 
+	JOIN quadruplex q on q.id = t.quadruplex_id
+	JOIN nucleotide n3 on t.nt3_id = n3.id)
+UNION ALL
+	(SELECT 
+	 q.onzm as onzm,
+	n4.chi as chi,
+    n4.glycosidic_bond as glycosidic_bond
+	FROM tetrad t 
+	JOIN quadruplex q on q.id = t.quadruplex_id
+	JOIN nucleotide n4 on t.nt4_id = n4.id)) as t
+group by glycosidic_bond, onzm
+
+*/
+
+/*
+ * select *, count(*) as total from (SELECT
+	MAX(q.onzm) AS OnzmClass,
+	string_agg(DISTINCT(ion.name)::text, ', ') as Ion,
+	pdb_ion.count as pdb_ion_count
+FROM QUADRUPLEX q
+JOIN TETRAD t ON q.id = t.quadruplex_id
+JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+JOIN PDB p ON n1.pdb_id = p.id
+JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+JOIN ion ON ion.id = pdb_ion.ion_id
+GROUP BY q.id, Count) as t
+group by t.OnzmClass, t.ion, t.pdb_ion_count
+*/
