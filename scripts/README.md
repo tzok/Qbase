@@ -25,7 +25,7 @@ install.packages(‘RPostgres’)
 
 # How to Run
 ```r
-Rscript statistics_plots.R
+Rscript onquadro_statistics.R
 ```
 # How to find output plots
 
