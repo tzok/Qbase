@@ -1,5 +1,5 @@
-# statistics_plots.R
- statistics_plots.R script connects with the database and generates plots for [statistics](http://onquadro.cs.put.poznan.pl/statistics) page.
+# onquadro_statistics.R.R
+ onquadro_statistics.R.R script connects with the database and generates plots for [statistics](http://onquadro.cs.put.poznan.pl/statistics) page.
 
 
 # Requirements
