@@ -66,26 +66,30 @@ export class TetradComponent implements OnInit {
               this.http.get<TetradNucleotides>(this.baseUrl + 'api/Tetrad/GetTetradNucleotides?Id=' + this.tetradId).subscribe(result => {
                 this.tetradNucleotides = result;
                 this.tetradNucleotidesTable.push({
-                      id: "Nucleotide 1",
+                      id: "1",
                       full_name: this.tetradNucleotides.n1_full_name,
+                      short_name: this.tetradNucleotides.n1_short_name,
                       chi: this.tetradNucleotides.n1_chi,
                       glycosidic_bond: this.tetradNucleotides.n1_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
-                  id: "Nucleotide 2",
+                  id: "2",
                   full_name: this.tetradNucleotides.n2_full_name,
+                  short_name: this.tetradNucleotides.n2_short_name,
                   chi: this.tetradNucleotides.n2_chi,
                   glycosidic_bond: this.tetradNucleotides.n2_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
-                  id: "Nucleotide 3",
+                  id: "3",
                   full_name: this.tetradNucleotides.n3_full_name,
+                  short_name: this.tetradNucleotides.n3_short_name,
                   chi: this.tetradNucleotides.n3_chi,
                   glycosidic_bond: this.tetradNucleotides.n3_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
-                  id: "Nucleotide 4",
+                  id: "4",
                   full_name: this.tetradNucleotides.n4_full_name,
+                  short_name: this.tetradNucleotides.n4_short_name,
                   chi: this.tetradNucleotides.n4_chi,
                   glycosidic_bond: this.tetradNucleotides.n4_glycosidic_bond
                 });
@@ -184,15 +188,19 @@ interface Tetrad {
 
 interface TetradNucleotides{
   n1_full_name: string;
+  n1_short_name: string;
   n1_chi: number;
   n1_glycosidic_bond: string;
   n2_full_name: string;
+  n2_short_name: string;
   n2_chi: number;
   n2_glycosidic_bond: string;
   n3_full_name: string;
+  n3_short_name: string;
   n3_chi: number;
   n3_glycosidic_bond: string;
   n4_full_name: string;
+  n4_short_name: string;
   n4_chi: number;
   n4_glycosidic_bond: string;
 }
@@ -200,6 +208,7 @@ interface TetradNucleotides{
 interface TetradNucleotidesTable{
   id: string;
   full_name: string;
+  short_name: string;
   chi: number;
   glycosidic_bond: string;
 }

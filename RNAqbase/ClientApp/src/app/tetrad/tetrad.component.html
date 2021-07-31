@@ -98,18 +98,20 @@
               <table class="table" style="border:1px solid black;">
                 <thead>
                 <tr>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;"></th>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Name</th>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (value) [°]</th>
-                  <th class = fourColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (type)</th>
+                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Number</th>
+                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Symbol</th>
+                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Full name</th>
+                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (value) [°]</th>
+                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (type)</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let t of tetradNucleotidesTable">
-                  <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;">{{t.id}}</td>
-                  <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;">{{t.full_name}}</td>
-                  <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;">{{t.chi | number: '1.0-2'}}</td>
-                  <td class = fourColumnsStyle style="text-align: center; vertical-align: middle;">{{t.glycosidic_bond}}</td>
+                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.id}}</td>
+                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.short_name}}</td>
+                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.full_name}}</td>
+                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.chi | number: '1.0-2'}}</td>
+                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.glycosidic_bond}}</td>
                 </tr>
                 </tbody>
               </table>

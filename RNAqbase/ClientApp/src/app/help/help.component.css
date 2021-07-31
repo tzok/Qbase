@@ -39,6 +39,7 @@ p {
   font-size: medium;
   line-height: 1.5;
   margin: 10px;
+  text-align: justify;
 }
 .description{
   text-align: center;

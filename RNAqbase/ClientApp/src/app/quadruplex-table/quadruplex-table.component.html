@@ -82,6 +82,15 @@
               <a *ngIf='row.ion==null'>-</a>
             </mat-cell>
           </ng-container>
+          <!-- Ion charge -->
+          <ng-container matColumnDef="ion_charge">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="ion_charge">Ionic charge</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="mobile-label" >Ionic charge</span>
+              {{row.ion_charge}}
+              <a *ngIf='row.ion_charge==null'>-</a>
+            </mat-cell>
+          </ng-container>
           <!-- No. of strands Column -->
           <ng-container matColumnDef="type_strand">
             <mat-header-cell *matHeaderCellDef mat-sort-header="typeOfStrands">Type (by no. of strands)</mat-header-cell>

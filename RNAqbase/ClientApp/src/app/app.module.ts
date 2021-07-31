@@ -32,6 +32,7 @@ import {MatSelectModule} from "@angular/material/select";
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import {PinchZoomModule} from 'ngx-pinch-zoom';
 import { CounterModule } from 'ngx-counter';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { CounterModule } from 'ngx-counter';
         BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
         HttpClientModule,
         FormsModule,
-      RouterModule.forRoot([
+        RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
             {path: '', redirectTo: '/home', pathMatch: 'full'},
             {path: 'about', component: AboutComponent},
@@ -90,11 +91,12 @@ import { CounterModule } from 'ngx-counter';
         MatCardModule,
         ChartsModule,
         MatSelectModule,
-      BrowserModule,
-      BrowserAnimationsModule,
-      FormsModule,
-      PinchZoomModule,
-      CounterModule.forRoot()
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        PinchZoomModule,
+        CounterModule.forRoot(),
+        MatTabsModule
     ],
   providers: [],
   bootstrap: [AppComponent],

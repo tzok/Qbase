@@ -98,15 +98,19 @@ namespace RNAqbase.Repository
 				(@"
 					SELECT 
 					n1.full_name as n1_full_name, 
+					n1.short_name as n1_short_name,
 					n1.chi as n1_chi, 
 					n1.glycosidic_bond as n1_glycosidic_bond,
 					n2.full_name as n2_full_name, 
+					n2.short_name as n2_short_name,
 					n2.chi as n2_chi, 
 					n2.glycosidic_bond as n2_glycosidic_bond,
 					n3.full_name as n3_full_name, 
+					n3.short_name as n3_short_name,
 					n3.chi as n3_chi, 
 					n3.glycosidic_bond as n3_glycosidic_bond,
 					n4.full_name as n4_full_name, 
+					n4.short_name as n4_short_name,
 					n4.chi as n4_chi, 
 					n4.glycosidic_bond as n4_glycosidic_bond
 					FROM tetrad t

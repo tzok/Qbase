@@ -17,6 +17,7 @@ namespace RNAqbase.Models
         public string Id { get; set; }
         public string PdbId { get; set; }
         public string Ion { get; set; }
+        public string Ion_charge { get; set; }
         public string PdbDeposition { get; set; }
         public int AssemblyId { get; set; }
         public string Molecule { get; set; }

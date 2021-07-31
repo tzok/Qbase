@@ -201,7 +201,7 @@
       <mat-card>
         <mat-card-content>
           <div>
-              <h5>Nucleotides in {{data.id}}:</h5>
+              <h5>Chi angle value and type in each nucleotide included within {{data.id}}:</h5>
           </div>
           <table class="table" style="border:1px solid black;">
             <thead>
@@ -240,12 +240,14 @@
             <thead>
             <tr>
               <th style="text-align: center; vertical-align: middle;">Ion</th>
+              <th style="text-align: center; vertical-align: middle;">Charge</th>
               <th style = "text-align: center; vertical-align: middle;">Count</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let l of ions">
               <td style="text-align: center; vertical-align: middle;">{{l.ion}}</td>
+              <td style="text-align: center; vertical-align: middle;">{{l.ion_charge}}</td>
               <td style="text-align: center; vertical-align: middle;">{{l.count}}</td>
             </tr>
             </tbody>

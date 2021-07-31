@@ -15,25 +15,20 @@ namespace RNAqbase
 		{
 			Configuration = configuration;
 		}
-
 		public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddMemoryCache();
-			services.AddTransient<IEmailService, EmailService>();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
 			services.AddTransient<ITetradRepository, TetradRepository>();
+			services.AddTransient<INewsletterRepository, NewsletterRepository>();
 			services.AddTransient<IQuadruplexRepository, QuadruplexRepository>();
 			services.AddTransient<IHelixService, HelixService>();
 			services.AddTransient<IHelixRepository, HelixRepository>();
 			services.AddTransient<IStatisticsService, StatisticsService>();
 			services.AddTransient<IStatisticsRepository, StatisticsRepository>();
-
-
-			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
@@ -42,7 +37,6 @@ namespace RNAqbase
 			services.AddSingleton(Configuration);
 		}
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 		{
 			if (env.IsDevelopment())
@@ -52,7 +46,6 @@ namespace RNAqbase
 			else
 			{
 				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 
@@ -69,11 +62,7 @@ namespace RNAqbase
 
 			app.UseSpa(spa =>
 			{
-				// To learn more about options for serving an Angular SPA from ASP.NET Core,
-				// see https://go.microsoft.com/fwlink/?linkid=864501
-
 				spa.Options.SourcePath = "ClientApp";
-
 				if (env.IsDevelopment())
 				{
 					spa.UseAngularCliServer(npmScript: "start");

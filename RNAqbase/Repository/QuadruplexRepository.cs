@@ -111,6 +111,7 @@ namespace RNAqbase.Repository
 							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 							MAX(p.identifier) AS PdbId,
 							string_agg(DISTINCT(ion.name)::text, ', ') as Ion,
+						    string_agg(DISTINCT(ion.charge)::text, ', ') as Ion_charge,  
 							MAX(p.assembly) AS AssemblyId,
 							MAX(q_view.molecule) AS Molecule,
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
@@ -148,6 +149,7 @@ namespace RNAqbase.Repository
 					@"
 						SELECT 
 							ion.name as Ion,
+						      ion.charge as Ion_charge,
 							pdb_ion.count as Count
 						FROM ion
 						JOIN pdb_ion on ion.id = pdb_ion.ion_id

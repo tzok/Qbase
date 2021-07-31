@@ -257,4 +257,5 @@ interface QuadruplexLoops{
 interface Ions{
   count: number;
   ion: string;
+  ion_charge: string;
 }
