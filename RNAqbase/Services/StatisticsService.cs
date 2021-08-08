@@ -130,5 +130,96 @@ namespace RNAqbase.Services
 			return result;
 		}
 		
+		public async Task<List<Statistics>> ion_distribution_o_plus()
+		{
+			if (!cache.TryGetValue(nameof(ion_distribution_o_plus), out List<Statistics> result))
+			{
+				result = await statisticsRepository.ion_distribution_o_plus();
+
+				cache.Set(nameof(ion_distribution_o_plus), result, Cache);
+			}
+
+			return result;
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_o_minus()
+		{
+			if (!cache.TryGetValue(nameof(ion_distribution_o_minus), out List<Statistics> result))
+			{
+				result = await statisticsRepository.ion_distribution_o_minus();
+
+				cache.Set(nameof(ion_distribution_o_minus), result, Cache);
+			}
+
+			return result;
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_n_plus()
+		{
+			if (!cache.TryGetValue(nameof(ion_distribution_n_plus), out List<Statistics> result))
+			{
+				result = await statisticsRepository.ion_distribution_n_plus();
+
+				cache.Set(nameof(ion_distribution_n_plus), result, Cache);
+			}
+
+			return result;
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_n_minus()
+		{
+			if (!cache.TryGetValue(nameof(ion_distribution_n_minus), out List<Statistics> result))
+			{
+				result = await statisticsRepository.ion_distribution_n_minus();
+
+				cache.Set(nameof(ion_distribution_n_minus), result, Cache);
+			}
+
+			return result;
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_z_plus()
+		{
+			if (!cache.TryGetValue(nameof(ion_distribution_z_plus), out List<Statistics> result))
+			{
+				result = await statisticsRepository.ion_distribution_z_plus();
+
+				cache.Set(nameof(ion_distribution_z_plus), result, Cache);
+			}
+
+			return result;
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_z_minus()
+		{
+			if (!cache.TryGetValue(nameof(ion_distribution_z_minus), out List<Statistics> result))
+			{
+				result = await statisticsRepository.ion_distribution_z_minus();
+
+				cache.Set(nameof(ion_distribution_z_minus), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> gba_da_silva()
+		{
+			if (!cache.TryGetValue(nameof(gba_da_silva), out List<Statistics> result))
+			{
+				result = await statisticsRepository.gba_da_silva();
+
+				cache.Set(nameof(gba_da_silva), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> loop_da_silva()
+		{
+			if (!cache.TryGetValue(nameof(loop_da_silva), out List<Statistics> result))
+			{
+				result = await statisticsRepository.loop_da_silva();
+
+				cache.Set(nameof(loop_da_silva), result, Cache);
+			}
+			return result;
+		}
+
 	}
 }

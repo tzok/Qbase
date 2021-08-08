@@ -78,6 +78,61 @@ namespace RNAqbase.Controllers
 			
 			return Ok(a);
 		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> ion_distribution_o_plus()
+		{
+			var a = await statisticsService.ion_distribution_o_plus();
+			return Ok(a);
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> ion_distribution_o_minus()
+		{
+			var a = await statisticsService.ion_distribution_o_minus();
+			return Ok(a);
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> ion_distribution_n_plus()
+		{
+			var a = await statisticsService.ion_distribution_n_plus();
+			return Ok(a);
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> ion_distribution_n_minus()
+		{
+			var a = await statisticsService.ion_distribution_n_minus();
+			return Ok(a);
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> ion_distribution_z_plus()
+		{
+			var a = await statisticsService.ion_distribution_z_plus();
+			return Ok(a);
+		}
+		
+		[HttpGet("[action]")]
+		public async Task<IActionResult> ion_distribution_z_minus()
+		{
+			var a = await statisticsService.ion_distribution_z_minus();
+			return Ok(a);
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> gba_da_silva()
+		{
+			var a = await statisticsService.gba_da_silva();
+			return Ok(a);
+		}
+		[HttpGet("[action]")]
+		public async Task<IActionResult> loop_da_silva()
+		{
+			var a = await statisticsService.loop_da_silva();
+			return Ok(a);
+		}
 
 	}
 }

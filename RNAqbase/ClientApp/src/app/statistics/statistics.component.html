@@ -234,8 +234,31 @@
                       <a class="mat-button" href="onquadro_plots/ion_o_plus_treemap.html" download="plot.html">Save plot</a>
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_o_plus_treemap.html"></iframe>
-
                   </mat-tab>
+
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="ion_o_plus_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr style="font-weight: normal">
+                          <th style="text-align: center; vertical-align: middle;">Ion</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of ion_o_plus_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </mat-tab>
+
                 </mat-tab-group>
 
               </mat-card>
@@ -259,8 +282,31 @@
                       <a class="mat-button" href="onquadro_plots/ion_o_minus_treemap.html" download="plot.html">Save plot</a>
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_o_minus_treemap.html"></iframe>
-
                   </mat-tab>
+
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="ion_o_minus_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr style="font-weight: normal">
+                          <th style="text-align: center; vertical-align: middle;">Ion</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of ion_o_minus_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </mat-tab>
+
                 </mat-tab-group>
 
 
@@ -287,6 +333,30 @@
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_n_plus_treemap.html"></iframe>
                   </mat-tab>
+
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="ion_n_plus_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr style="font-weight: normal">
+                          <th style="text-align: center; vertical-align: middle;">Ion</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of ion_n_plus_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </mat-tab>
+
                 </mat-tab-group>
 
                </mat-card>
@@ -311,8 +381,31 @@
                       <a class="mat-button" href="onquadro_plots/ion_n_minus_treemap.html" download="plot.html">Save plot</a>
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_n_minus_treemap.html"></iframe>
-
                   </mat-tab>
+
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="ion_n_minus_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr style="font-weight: normal">
+                          <th style="text-align: center; vertical-align: middle;">Ion</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of ion_n_minus_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </mat-tab>
+
                 </mat-tab-group>
 
                   </mat-card>
@@ -338,6 +431,28 @@
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_ion_z_plus_treemap.html"></iframe>
                   </mat-tab>
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="ion_z_plus_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr style="font-weight: normal">
+                          <th style="text-align: center; vertical-align: middle;">Ion</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of ion_z_plus_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </mat-tab>
                 </mat-tab-group>
                  </mat-card>
             </mat-card-content>
@@ -361,6 +476,28 @@
                     <a class="mat-button" href="onquadro_plots/ion_ion_z_minus_treemap.html" download="plot.html">Save plot</a>
                   </div>
                   <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_ion_z_minus_treemap.html"></iframe>
+                  </mat-tab>
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="ion_z_minus_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr style="font-weight: normal">
+                          <th style="text-align: center; vertical-align: middle;">Ion</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of ion_z_minus_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </mat-tab>
                 </mat-tab-group>
 
@@ -684,7 +821,29 @@
                       <a class="mat-button" href="onquadro_plots/GBA_da_Silva_treemap.html" download="plot.html">Save plot</a>
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/GBA_da_Silva_treemap.html"></iframe>
+                  </mat-tab>
 
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="gba_da_silva_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr>
+                          <th style="text-align: center; vertical-align: middle;">GBA Class</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of gba_da_silva_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.gba_class}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </mat-tab>
                 </mat-tab-group>
 
@@ -713,7 +872,29 @@
                       <a class="mat-button" href="onquadro_plots/loop_da_Silva_treemap.html" download="plot.html">Save plot</a>
                     </div>
                     <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/loop_da_Silva_treemap.html"></iframe>
+                  </mat-tab>
 
+                  <mat-tab label="Tabular Data">
+                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                      <a class="mat-button" csvLink [data]="loop_da_silva_table">Save table</a>
+                    </div>
+                    <br>
+                    <div class="col responsive-table">
+                      <table class="table" style="border:1px solid black;" >
+                        <thead>
+                        <tr>
+                          <th style="text-align: center; vertical-align: middle;">Loop Class</th>
+                          <th style="text-align: center; vertical-align: middle;">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let t of loop_da_silva_table" style="font-weight: normal">
+                          <td style="text-align: center; vertical-align: middle;">{{t.loop_class}}</td>
+                          <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </mat-tab>
                 </mat-tab-group>
 

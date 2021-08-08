@@ -25,6 +25,7 @@ export class TetradComponent implements OnInit {
   csvData: Tetrad;
   tetradNucleotides: TetradNucleotides;
   tetradNucleotidesTable: TetradNucleotidesTable[] = [];
+  ions: Ions[] = []
   tetradId: number;
   sub;
 
@@ -63,6 +64,10 @@ export class TetradComponent implements OnInit {
                 this.data.tetradsInTheSameQuadruplex = [];
                 this.csvData.tetradsInTheSameQuadruplex = '';
               }
+              this.http.get<Ions[]>(this.baseUrl + '' + 'api/Tetrad/GetIons?id=' + '' + this.tetradId).subscribe(result => {
+                this.ions = result;
+
+              }, error => console.error(error));
               this.http.get<TetradNucleotides>(this.baseUrl + 'api/Tetrad/GetTetradNucleotides?Id=' + this.tetradId).subscribe(result => {
                 this.tetradNucleotides = result;
                 this.tetradNucleotidesTable.push({
@@ -144,11 +149,14 @@ export class TetradComponent implements OnInit {
                  var zip =new JSZip();
                  let tetrad = this.generateFile([this.csvData])
                  let nucleotides = this.generateFile(this.tetradNucleotidesTable)
+                 let ions = this.generateFile(this.ions)
                  zip.file("3d_structure.png", this._3d_structure);
                  zip.file("2d_structure_varna.svg", this._2d_structure_varna);
                  zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
                  zip.file("tetrad" + ".csv", tetrad);
                  zip.file("tetradNucleotides" + ".csv", nucleotides)
+                 zip.file("ions" + ".csv",ions )
+
                  zip.generateAsync({ type: "blob" })
                    .then(blob => saveAs(blob,'data.zip'));
 
@@ -211,5 +219,12 @@ interface TetradNucleotidesTable{
   short_name: string;
   chi: number;
   glycosidic_bond: string;
+}
+
+interface Ions{
+  ion: string;
+  ion_charge: string;
+  symbol: string;
+  full_name: string;
 }
 

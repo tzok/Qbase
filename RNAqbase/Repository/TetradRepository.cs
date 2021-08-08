@@ -55,23 +55,28 @@ namespace RNAqbase.Repository
 				connection.Open();
 				return await connection.QueryAsync<TetradTable>
 				(@"
-					SELECT t.id, 
-						t.quadruplex_id as ""QuadruplexId"", 
-						pdb1.identifier as ""PdbId"", 
-						to_char(pdb1.release_date::date, 'YYYY-MM-DD') as ""PdbDeposition"",
-						COALESCE(pdb1.assembly, 0) as ""AssemblyId"",
-						COALESCE(n1.molecule, 'Other') as ""Molecule"",
-						COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), '') as ""Sequence"",
-						t.onz as ""OnzClass"", 
-						t.gba_tetrad_class as ""TetradCombination""
-					FROM tetrad t
-						JOIN quadruplex q on t.quadruplex_id = q.id
-						JOIN nucleotide n1 on t.nt1_id = n1.id
-						JOIN nucleotide n2 on t.nt2_id = n2.id
-						JOIN nucleotide n3 on t.nt3_id = n3.id
-						JOIN nucleotide n4 on t.nt4_id = n4.id
-						JOIN pdb pdb1 on n1.pdb_id = pdb1.id
-					ORDER BY t.id;");
+					SELECT max(t.id) as id, 
+	t.quadruplex_id as QuadruplexId, 
+	max(pdb1.identifier) as PdbId, 
+	to_char(max(pdb1.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
+	COALESCE(max(pdb1.assembly), 0) as AssemblyId,
+	COALESCE(max(n1.molecule), 'Other') as Molecule,
+	COALESCE((max(n1.short_name))||(max(n2.short_name))||(max(n3.short_name))||(max(n4.short_name)), '') as Sequence,
+	t.onz as OnzClass, 
+	t.gba_tetrad_class as TetradCombination,
+	string_agg(DISTINCT(i.name)::text, ', ') as Ion,
+	string_agg(DISTINCT(i.charge)::text, ', ') as Ion_charge
+	FROM tetrad t
+	JOIN quadruplex q on t.quadruplex_id = q.id
+	JOIN nucleotide n1 on t.nt1_id = n1.id
+	JOIN nucleotide n2 on t.nt2_id = n2.id
+	JOIN nucleotide n3 on t.nt3_id = n3.id
+	JOIN nucleotide n4 on t.nt4_id = n4.id
+	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
+	left JOIN ion_channel ic on t.id = ic.tetrad_id
+	left JOIN ion i on i.id = ic.ion_id
+	group by t.id
+	ORDER BY t.id");
 			}
 		}
 
@@ -220,5 +225,34 @@ namespace RNAqbase.Repository
 				return stream;
 			}
 		}
+		
+		
+		public async Task<IEnumerable<Ions_tetrad>> GetIons(int id)
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+				return await connection.QueryAsync<Ions_tetrad>(
+					@"
+						SELECT 
+	ion.name as Ion,
+	ion.charge as Ion_charge,
+	nucleotide.short_name as Symbol,
+	nucleotide.full_name as Full_name
+	FROM tetrad t
+	JOIN quadruplex q on t.quadruplex_id = q.id
+	JOIN nucleotide n1 on t.nt1_id = n1.id
+	JOIN pdb pdb1 on n1.pdb_id = pdb1.id
+	left JOIN ion_channel ic on t.id = ic.tetrad_id
+	left JOIN ion on ion.id = ic.ion_id
+	left JOIN ion_outside on ion.id = ion_outside.ion_id
+	left JOIN nucleotide on ion_outside.nucleotide_id = nucleotide.id
+	where t.id = @id
+	group by ion.name, ion.charge, nucleotide.short_name, nucleotide.full_name
+
+						", new {id = id});
+			}
+		}
+		
 	}
 }

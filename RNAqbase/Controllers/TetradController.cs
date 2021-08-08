@@ -80,6 +80,13 @@ namespace RNAqbase.Controllers
 	        
 	        return File(dataStream, "application/octet-stream", $"{tetradId}.cif");
         }
+        
+        		
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetIons(int id)
+        {
+            return Ok(await repository.GetIons(id));
+        }
 
     }
 }

@@ -23,6 +23,15 @@ export class StatisticsComponent implements OnInit {
   ELTetradoableTwo: ElTetradoTetradViewTableTwo[];
   ELTetradoableThereA: ElTetradoTetradViewTableThereA[];
   ELTetradoableThereB: ElTetradoTetradViewTableThereB[];
+  ion_o_plus_table: ion[];
+  ion_o_minus_table: ion[];
+  ion_n_plus_table: ion[];
+  ion_n_minus_table: ion[];
+  ion_z_plus_table: ion[];
+  ion_z_minus_table: ion[];
+  gba_da_silva_table: gba_da_silva[];
+  loop_da_silva_table: loop_da_silva[];
+
   sub;
   selected = 'topologyBaseTableOne';
   selected2 = 'topologyBaseTableTwo';
@@ -156,28 +165,118 @@ export class StatisticsComponent implements OnInit {
         this.ELTetradoableThereB = cleanedResult;
       }, error => console.error(error));
     }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<ion[]>(this.baseUrl + 'api/Statistics/ion_distribution_o_plus').subscribe(result => {
+        let cleanedResult:  ion[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            ion: val.ion,
+            total: val.total
+          });
+        }
+        this.ion_o_plus_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<ion[]>(this.baseUrl + 'api/Statistics/ion_distribution_o_minus').subscribe(result => {
+        let cleanedResult:  ion[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            ion: val.ion,
+            total: val.total
+          });
+        }
+        this.ion_o_minus_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<ion[]>(this.baseUrl + 'api/Statistics/ion_distribution_n_plus').subscribe(result => {
+        let cleanedResult:  ion[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            ion: val.ion,
+            total: val.total
+          });
+        }
+        this.ion_n_plus_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<ion[]>(this.baseUrl + 'api/Statistics/ion_distribution_n_minus').subscribe(result => {
+        let cleanedResult:  ion[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            ion: val.ion,
+            total: val.total
+          });
+        }
+        this.ion_n_minus_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<ion[]>(this.baseUrl + 'api/Statistics/ion_distribution_z_plus').subscribe(result => {
+        let cleanedResult:  ion[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            ion: val.ion,
+            total: val.total
+          });
+        }
+        this.ion_z_plus_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<ion[]>(this.baseUrl + 'api/Statistics/ion_distribution_z_minus').subscribe(result => {
+        let cleanedResult:  ion[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            ion: val.ion,
+            total: val.total
+          });
+        }
+        this.ion_z_minus_table = cleanedResult;
+        console.log(this.ion_z_minus_table)
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<gba_da_silva[]>(this.baseUrl + 'api/Statistics/gba_da_silva').subscribe(result => {
+        let cleanedResult:  gba_da_silva[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            gba_class: val.gba_class,
+            total: val.total
+          });
+        }
+        this.gba_da_silva_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error))
+
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<loop_da_silva[]>(this.baseUrl + 'api/Statistics/loop_da_silva').subscribe(result => {
+        let cleanedResult:  loop_da_silva[] = [];
+        for (let val of result){
+          cleanedResult.push({
+            loop_class: val.loop_class,
+            total: val.total
+          });
+        }
+        this.loop_da_silva_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
   }
 
 
 }
 
-interface Table{
-  sequence: string;
-  dna: number;
-  rna: number;
-  other: number;
-  total: number;
-  numberOfTetrads: string;
-  onz: string;
-  unimolecular: number;
-  bimolecular: number;
-  tetramolecular: number;
-  onzm: string;
-  plus: number;
-  minus: number;
-  star: number;
-  chains: string;
-}
 
 interface TopologyBaseTetradViewTableOne{
   sequence: string;
@@ -233,4 +332,19 @@ interface ElTetradoTetradViewTableThereB{
   minus: number;
   star: number;
   total: number;
+}
+
+interface ion{
+  ion: string;
+  total: number;
+}
+
+interface gba_da_silva{
+  total: number;
+  gba_class: string;
+}
+
+interface loop_da_silva{
+  total: number;
+  loop_class: string;
 }

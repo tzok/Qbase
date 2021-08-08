@@ -99,6 +99,25 @@
               {{row.sequence}}
             </mat-cell>
           </ng-container>
+          <!--ion -->
+          <ng-container matColumnDef="ion">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="ion">Ion</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.ion}}
+              <a *ngIf='row.ion==null'>-</a>
+
+            </mat-cell>
+          </ng-container>
+          <!--ionic charge -->
+          <ng-container matColumnDef="ion_charge">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="ion_charge">Ionic charge</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.ion_charge}}
+              <a *ngIf='row.ion_charge==null'>-</a>
+
+            </mat-cell>
+          </ng-container>
+
           <!-- ONZ Column -->
           <ng-container matColumnDef="onzClass">
             <mat-header-cell *matHeaderCellDef mat-sort-header="onzClass">ONZ Class</mat-header-cell>

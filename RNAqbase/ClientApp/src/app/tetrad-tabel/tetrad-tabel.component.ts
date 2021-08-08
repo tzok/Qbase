@@ -22,7 +22,7 @@ export class TetradTabelComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule',
-    'sequence', 'onzClass', 'tetradCombination', 'select'];
+    'sequence', 'ion','ion_charge', 'onzClass', 'tetradCombination', 'select'];
 
   constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
   }
@@ -96,6 +96,8 @@ interface Tetrad {
   assemblyId: number;
   molecule: string;
   sequence: string;
+  ion: string;
+  ion_charge: string;
   onzClass: string;
   pdbDeposition: string;
   select: boolean;

@@ -14,6 +14,8 @@ namespace RNAqbase.Models
         public string Sequence { get; set; }
         public string OnzClass { get; set; }
         public string TetradCombination { get; set; }
+        public string ion { get; set; }
+        public string ion_charge { get; set; }
 
         [JsonIgnore]
         public int QuadruplexIdAsInt { get; set; }

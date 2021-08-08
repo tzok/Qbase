@@ -100,7 +100,6 @@ export class QuadruplexComponent implements OnInit {
                 }, error => console.error(error));
                 this.http.get<Ions[]>(this.baseUrl + '' + 'api/Quadruplex/GetIons?id=' + '' + this.data.pdbId).subscribe(result => {
                   this.ions = result;
-                  console.log(this.ions);
                 }, error => console.error(error));
 
 

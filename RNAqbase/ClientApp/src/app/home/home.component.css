@@ -80,6 +80,7 @@ h3:hover {
 }
 .center {
   text-align: center;
+
 }
 .form-inline {
   flex-flow: row wrap;
@@ -147,3 +148,5 @@ form {
     flex: 100%;
     max-width: 100%;
   }}
+
+

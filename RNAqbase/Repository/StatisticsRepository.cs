@@ -248,100 +248,175 @@ WHERE chains = 4;")).ToList();
 				
 			}
 		}
+		
+		public async Task<List<Statistics>> ion_distribution_o_plus()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+						ion.name as Ion,
+						count(*) as Total
+					  FROM QUADRUPLEX q
+					  JOIN TETRAD t ON q.id = t.quadruplex_id
+					  JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					  JOIN PDB p ON n1.pdb_id = p.id
+					  JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+					  JOIN ion ON ion.id = pdb_ion.ion_id
+					  where onz = 'O+'
+					  GROUP BY ion
+					  order by total;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> ion_distribution_o_minus()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+						ion.name as Ion,
+						count(*) as Total
+					  FROM QUADRUPLEX q
+					  JOIN TETRAD t ON q.id = t.quadruplex_id
+					  JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					  JOIN PDB p ON n1.pdb_id = p.id
+					  JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+					  JOIN ion ON ion.id = pdb_ion.ion_id
+					  where onz = 'O-'
+					  GROUP BY ion
+					  order by total;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> ion_distribution_n_plus()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+						ion.name as Ion,
+						count(*) as Total
+					  FROM QUADRUPLEX q
+					  JOIN TETRAD t ON q.id = t.quadruplex_id
+					  JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					  JOIN PDB p ON n1.pdb_id = p.id
+					  JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+					  JOIN ion ON ion.id = pdb_ion.ion_id
+					  where onz = 'N+'
+					  GROUP BY ion
+					  order by total;")).ToList();
+			}
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_n_minus()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+						ion.name as Ion,
+						count(*) as Total
+					  FROM QUADRUPLEX q
+					  JOIN TETRAD t ON q.id = t.quadruplex_id
+					  JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					  JOIN PDB p ON n1.pdb_id = p.id
+					  JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+					  JOIN ion ON ion.id = pdb_ion.ion_id
+					  where onz = 'N-'
+					  GROUP BY ion
+					  order by total;")).ToList();
+			}
+		}
+		
+		public async Task<List<Statistics>> ion_distribution_z_plus()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+						ion.name as Ion,
+						count(*) as Total
+					  FROM QUADRUPLEX q
+					  JOIN TETRAD t ON q.id = t.quadruplex_id
+					  JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					  JOIN PDB p ON n1.pdb_id = p.id
+					  JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+					  JOIN ion ON ion.id = pdb_ion.ion_id
+					  where onz = 'Z+'
+					  GROUP BY ion
+					  order by total;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> ion_distribution_z_minus()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+						ion.name as Ion,
+						count(*) as Total
+					  FROM QUADRUPLEX q
+					  JOIN TETRAD t ON q.id = t.quadruplex_id
+					  JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
+					  JOIN PDB p ON n1.pdb_id = p.id
+					  JOIN pdb_ion ON p.id = pdb_ion.pdb_id
+					  JOIN ion ON ion.id = pdb_ion.ion_id
+					  where onz = 'Z-'
+					  GROUP BY ion
+					  order by total;")).ToList();
+			}
+		}
+
+		public async Task<List<Statistics>> gba_da_silva()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"select count(*) as Total, s1.TetradCombination as gba_class 
+						  from (SELECT
+  							STRING_AGG(DISTINCT(qg.gba_quadruplex_class)::text,', ') AS TetradCombination
+						  FROM QUADRUPLEX q
+						  JOIN QUADRUPLEX_GBA qg on qg.quadruplex_id = q.id
+						  group by q.id) as s1
+						  group by s1.TetradCombination;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> loop_da_silva()
+		{
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT
+							count(*) as Total,
+							loop_class
+						FROM quadruplex 
+						where loop_class not in ('n/a') 
+						group by loop_class
+						UNION
+						SELECT
+							count(*) as Total,
+							q.loop_class as loop_class
+						FROM QUADRUPLEX q
+						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
+						where q.loop_class in ('n/a') and q_view.chains in ('1')
+						GROUP BY q.loop_class, q_view.chains;")).ToList();
+			}
+		}
+		
 	}
 }
-
-/*
- * select count(*) as Total, s2.Loop_length, s2.Loop_type from (
-SELECT 
-	LENGTH(STRING_AGG(COALESCE(n.short_name, ''), '')) as Loop_length,
-	l.loop_type as Loop_type
-	FROM quadruplex q
-	JOIN loop l on q.id = l.quadruplex_id
-	JOIN loop_nucleotide ln on l.id = ln.loop_id
-	JOIN nucleotide n on ln.nucleotide_id = n.id
-	GROUP BY l.id) as s2
-	group by s2.Loop_length, s2.Loop_type
-	order by Total
- */
-
-
-/*
- * select count(*) as Total, gba_quadruplex_class from QUADRUPLEX_GBA group by gba_quadruplex_class order by gba_quadruplex_class;
-
- */
-
-/*
- * SELECT
-	count(*) as Total,
-	loop_class
-FROM quadruplex 
-group by loop_class
-order by loop_class
- */
-
-/*
-SELECT 
-	min(t.planarity_deviation) as min_planarity, max(t.planarity_deviation) as max_planarity,
-	min(tp.rise) as min_rise, max(tp.rise) as max_rise,
-	min(tp.twist) as min_twist, max(tp.twist) as max_twist
-FROM tetrad t
-	LEFT JOIN tetrad_pair tp on t.id = tp.tetrad1_id
-*/
-
-/*
-	
-SELECT 
-	min(chi) as min_chi, 
-	max(chi) as max_chi, 
-	glycosidic_bond as glycosidic_bond, 
-	onzm as onzm
- 	from( (SELECT 
-	q.onzm as onzm,
-	n1.chi as chi,
-    n1.glycosidic_bond as glycosidic_bond
-	FROM tetrad t 
-	JOIN quadruplex q on q.id = t.quadruplex_id
-	JOIN nucleotide n1 on t.nt1_id = n1.id)
-UNION ALL
-	(SELECT 
-	 q.onzm as onzm,
-	n2.chi as chi,
-    n2.glycosidic_bond as glycosidic_bond
-	FROM tetrad t 
-	JOIN quadruplex q on q.id = t.quadruplex_id
-	JOIN nucleotide n2 on t.nt2_id = n2.id)
-UNION ALL
-	(SELECT 
-	 q.onzm as onzm,
-	n3.chi as chi,
-    n3.glycosidic_bond as glycosidic_bond
-	FROM tetrad t 
-	JOIN quadruplex q on q.id = t.quadruplex_id
-	JOIN nucleotide n3 on t.nt3_id = n3.id)
-UNION ALL
-	(SELECT 
-	 q.onzm as onzm,
-	n4.chi as chi,
-    n4.glycosidic_bond as glycosidic_bond
-	FROM tetrad t 
-	JOIN quadruplex q on q.id = t.quadruplex_id
-	JOIN nucleotide n4 on t.nt4_id = n4.id)) as t
-group by glycosidic_bond, onzm
-
-*/
-
-/*
- * select *, count(*) as total from (SELECT
-	MAX(q.onzm) AS OnzmClass,
-	string_agg(DISTINCT(ion.name)::text, ', ') as Ion,
-	pdb_ion.count as pdb_ion_count
-FROM QUADRUPLEX q
-JOIN TETRAD t ON q.id = t.quadruplex_id
-JOIN NUCLEOTIDE n1 ON t.nt1_id = n1.id
-JOIN PDB p ON n1.pdb_id = p.id
-JOIN pdb_ion ON p.id = pdb_ion.pdb_id
-JOIN ion ON ion.id = pdb_ion.ion_id
-GROUP BY q.id, Count) as t
-group by t.OnzmClass, t.ion, t.pdb_ion_count
-*/

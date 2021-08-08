@@ -17,6 +17,9 @@
 		public int Minus { get; set; }
 		public int Star { get; set; }
 		public string Chains { get; set; }
+		public string Ion { get; set; }
+		public string gba_class { get; set; }
+		public string loop_class { get; set; }
 
 	}
 }
