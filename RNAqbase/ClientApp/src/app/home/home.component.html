@@ -22,32 +22,31 @@
     <mat-card>
       <mat-card-content>
     <section>
-      <p class = "center">Click on one of the options below to see tetrads, quadruplexes, G4-helixes, or structures collected in the database.</p>
-      <hr style="height:1px; background-color:lightgrey;">
+      <p class = "center">Click on one of the options below to see the list of entries.</p>
       <div class="row">
         <div class="column">
-          <a href="/tetrads"><img class="picture" src="home/tetrad-trim.png" /></a>
+          <a href="/tetrads"><img class="picture" src="home/tetrad-trim.png" title="Click to see the list of tetrads" /></a>
           <a href="/tetrads">
             <h3>Tetrads</h3>
           </a>
         </div>
 
         <div class="column">
-          <a href="/quadruplexes"><img class="picture" src="home/quadruplex-trim.png" /></a>
+          <a href="/quadruplexes"><img class="picture" src="home/quadruplex-trim.png" title="Click to see the list of quadruplexes"/></a>
           <a href="/quadruplexes">
             <h3>Quadruplexes</h3>
           </a>
         </div>
 
         <div class="column">
-          <a href="/helices"><img class="picture" src="home/1eeg-trim.png" /></a>
+          <a href="/helices"><img class="picture" src="home/1eeg-trim.png" title="Click to see the list of helices"/></a>
           <a href="/helices">
             <h3>G4Helices</h3>
           </a>
         </div>
 
         <div class="column">
-          <a href="/structures"><img class="picture" src="home/structure.gif" /></a>
+          <a href="/structures"><img class="picture" src="home/structure.gif" title="Click to see the list of structures"/></a>
           <a href="/structures">
             <h3>Structures</h3>
           </a>
@@ -92,8 +91,6 @@
     <mat-card>
       <mat-card-content>
           <p class = "center">Enter your e-mail address and subscribe to our newsletter to get an email when something new will be added to ONQUADRO!</p>
-        <hr style="height:1px; background-color:lightgrey">
-
         <body style = "text-align: center;">
         <form class="form-inline" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
             <input type="email"

@@ -242,7 +242,6 @@ export class StatisticsComponent implements OnInit {
           });
         }
         this.ion_z_minus_table = cleanedResult;
-        console.log(this.ion_z_minus_table)
       }, error => console.error(error));
     }, error => console.error(error));
 

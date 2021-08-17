@@ -122,11 +122,16 @@ form {
     align-items: stretch;
   }
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .column {
     -ms-flex: 50%;
     flex: 50%;
     max-width: 50%;
+  }
+  .column2 {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 600px) {
@@ -134,19 +139,10 @@ form {
     -ms-flex: 100%;
     flex: 100%;
     max-width: 100%;
-  }}
-@media screen and (max-width: 1600px) {
-  .column2 {
-    -ms-flex: 50%;
-    flex: 50%;
-    max-width: 50%;
+  }
+  .form-inline input {
+    width: 100%;
   }
 }
-@media screen and (max-width: 1200px) {
-  .column2 {
-    -ms-flex: 100%;
-    flex: 100%;
-    max-width: 100%;
-  }}
 
 

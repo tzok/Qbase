@@ -855,7 +855,7 @@
               <mat-card>
                 <div class="row">
                   <div class="col-lg-10 col-sm-6">
-                    <p> <b>The Webba da Silva class distribution based loop topology</b></p>
+                    <p> <b>The Webba da Silva class distribution based on loop topology</b></p>
                   </div>
                 </div>
 
@@ -908,6 +908,17 @@
 
           <div *ngIf="selected2 == 'LoopLength'">
             <mat-card-content>
+              <mat-card>
+                <div class="row">
+                  <div class="col-lg-10 col-sm-6">
+                    <p> <b>Loop length distribution</b></p>
+                  </div>
+                </div>
+                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                  <a class="mat-button" href="onquadro_plots/loop_length.html" download="plot.html">Save plot</a>
+                </div>
+                <iframe style = "width:95%; height:800px " frameBorder="0" src="onquadro_plots/loop_length.html"></iframe>
+              </mat-card>
               <mat-card>
                 <div class="row">
                   <div class="col-lg-10 col-sm-6">

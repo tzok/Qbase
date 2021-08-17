@@ -28,21 +28,14 @@ export class HomeComponent implements OnInit {
 
   public barChartOptions: any = {
     responsive: true,
-    tooltips: {
-      mode: 'label'
-
-    },
 
     legend: {display: false},
     scales: {
-      yAxes: [{
-        ticks: {
-          steps: 10,
-          stepValue: 10,
-          max: 1800,
-          min: 0
+      yAxes: [
+        {
+          display: false
         }
-      }]
+      ]
     },
 
     plugins: {

@@ -64,3 +64,17 @@ body {
   outline: 0;
   box-shadow: none;
 }
+
+@media screen and (max-height: 900px) {
+  .scene{
+    height: 300px;
+  }
+  .box{
+    width: 700px;
+    height: 400px;
+    text-align:center;
+    margin-bottom: 30px;
+  }
+}
+
+
