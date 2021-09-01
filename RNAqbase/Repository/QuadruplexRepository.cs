@@ -60,7 +60,7 @@ namespace RNAqbase.Repository
 							MAX(q_view.molecule) AS Molecule,
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 						    COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
-							COUNT(t.id) AS NumberOfTetrads,
+							COUNT(DISTINCT(t.id)) AS NumberOfTetrads,
 							p.experiment AS Experiment,
 							CASE
 									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
