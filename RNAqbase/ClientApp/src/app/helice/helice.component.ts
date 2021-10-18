@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { SelectionModel } from '@angular/cdk/collections';
-import { CsvModule } from '@ctrl/ngx-csv';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {HttpClient} from '@angular/common/http';
+import {SelectionModel} from '@angular/cdk/collections';
+import {CsvModule} from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'app-helice',
@@ -23,32 +23,33 @@ export class HeliceComponent implements OnInit {
   sort: MatSort;
 
   displayedColumns = [
-    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
+    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment',
     'sequence', 'type_strand', 'numberOfQudaruplexes', 'quadruplexId', 'numberOfTetrads', 'select'
   ];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  }
 
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
         this.dataSource = new MatTableDataSource(result);
 
-        for (let val of result){
-          val.quadruplexesIds =  Array.from(new Set( val.quadruplexesIds.split(',') ))
+        for (let val of result) {
+          val.quadruplexesIds = Array.from(new Set(val.quadruplexesIds.split(',')))
         }
 
         this.csvData = JSON.parse(JSON.stringify(result));
-        for(let val of result){
+        for (let val of result) {
           val.helix_id = 'H' + val.id;
         }
 
-        for (let val of this.csvData){
+        for (let val of this.csvData) {
           for (let i = 0; i < val.quadruplexesIds.length; i++) {
             val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
           }
         }
-        for (let val of this.csvData){
-          val.id =  'H' + val.id;
+        for (let val of this.csvData) {
+          val.id = 'H' + val.id;
         }
 
         for (let val of result) {
@@ -66,10 +67,10 @@ export class HeliceComponent implements OnInit {
           const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
           return dataStr.indexOf(transformedFilter) != -1;
         }
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.areButtonsHidden = false;
-      this.filteredDataLength = this.dataSource.data.length;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.areButtonsHidden = false;
+        this.filteredDataLength = this.dataSource.data.length;
       },
       error => console.error(error));
   }
@@ -112,6 +113,7 @@ interface Helix {
   pdbId: string;
   assemblyId: number;
   molecule: string;
+  experiment: string;
   sequence: string;
   typeOfStrands: string;
   numberOfQudaruplexes: number;
