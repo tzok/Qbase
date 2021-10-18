@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { SelectionModel } from '@angular/cdk/collections';
-import { CsvModule } from '@ctrl/ngx-csv';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {HttpClient} from '@angular/common/http';
+import {SelectionModel} from '@angular/cdk/collections';
+import {CsvModule} from '@ctrl/ngx-csv';
 
 @Component({
   selector: 'quadruplex-table',
@@ -23,20 +23,21 @@ export class QuadruplexTableComponent implements OnInit {
   sort: MatSort;
 
   displayedColumns = [
-    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule',
-    'sequence', 'ion','ion_charge', 'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
+    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment',
+    'sequence', 'ion', 'ion_charge', 'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
   ];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  }
 
   ngOnInit() {
     this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
         this.csvData = JSON.parse(JSON.stringify(result));
-        for (let val of this.csvData){
-          val.id =  'Q' + val.id;
+        for (let val of this.csvData) {
+          val.id = 'Q' + val.id;
         }
         this.dataSource = new MatTableDataSource(result);
-        for(let val of result){
+        for (let val of result) {
           val.quadruplex_id = 'Q' + val.id;
         }
         this.dataSource.filterPredicate = (data: Quadruplex, filter: string): boolean => {
@@ -47,10 +48,10 @@ export class QuadruplexTableComponent implements OnInit {
           const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
           return dataStr.indexOf(transformedFilter) != -1;
         }
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.areButtonsHidden = false;
-      this.filteredDataLength = this.dataSource.data.length;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.areButtonsHidden = false;
+        this.filteredDataLength = this.dataSource.data.length;
       },
       error => console.error(error));
 
@@ -81,7 +82,7 @@ export class QuadruplexTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
- truncate(source) {
+  truncate(source) {
     let size = 30;
     return source.length > size ? source.slice(0, size - 1) + "…" : source;
   }
@@ -97,6 +98,7 @@ interface Quadruplex {
   pdbId: string;
   assemblyId: number;
   molecule: string;
+  experiment: string;
   sequence: string;
   typeOfStrands: string;
   type: string;

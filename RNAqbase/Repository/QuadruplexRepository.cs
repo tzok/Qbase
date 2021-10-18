@@ -114,6 +114,7 @@ namespace RNAqbase.Repository
 						    string_agg(DISTINCT(ion.charge)::text, ', ') as Ion_charge,  
 							MAX(p.assembly) AS AssemblyId,
 							MAX(q_view.molecule) AS Molecule,
+						    MAX(p.experiment) AS Experiment,
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 							COUNT(DISTINCT SUBSTRING(t.onz::TEXT FROM 1 FOR 1)) AS TypeCount,
 							COUNT(DISTINCT(t.id)) AS NumberOfTetrads,
