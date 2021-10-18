@@ -1,15 +1,15 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material';
-import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
-import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import {Component, OnInit, Inject, Input} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute} from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatTableDataSource} from '@angular/material';
+import {Visualization3DComponent} from '../visualization3-d/visualization3-d.component';
+import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import * as svg from 'save-svg-as-png';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import { saveAs } from "file-saver";
+import {saveAs} from "file-saver";
 
 
 @Component({
@@ -41,7 +41,8 @@ export class HelixComponent implements OnInit {
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private dialog: MatDialog) {}
+    private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
@@ -52,14 +53,14 @@ export class HelixComponent implements OnInit {
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id.slice(1)).subscribe(result => {
           this.tetrads = result;
           for (let val of result) {
-            if(val.tetrad2_id != 0) {
+            if (val.tetrad2_id != 0) {
               let quadruplex = null;
               if (val.quadruplex_id == val.quadruplex_pair_id)
                 quadruplex = 'Q' + val.quadruplex_id;
               this.tetradsPairsInformation.push({
                 TetradId: 'T' + val.id,
                 TetradPairId: 'T' + val.tetrad2_id,
-                quadruplex_id:  quadruplex,
+                quadruplex_id: quadruplex,
                 twist: val.twist,
                 rise: val.rise,
                 direction: val.direction
@@ -93,11 +94,11 @@ export class HelixComponent implements OnInit {
               onzmClass: val.onzmClass
             });
           }
-          }, error => console.error(error));
+        }, error => console.error(error));
 
         this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Helix/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
-         this.nucleotideChiValues = result;
-          for (let val of this.nucleotideChiValues){
+          this.nucleotideChiValues = result;
+          for (let val of this.nucleotideChiValues) {
             val.tetrad_id = 'T' + val.tetrad_id;
           }
         }, error => console.error(error));
@@ -106,40 +107,40 @@ export class HelixComponent implements OnInit {
   }
 
   downloadZip(): void {
-    this.http.get("/static/pymol/" + this.data.id + ".png", { responseType: "arraybuffer" })
+    this.http.get("/static/pymol/" + this.data.id + ".png", {responseType: "arraybuffer"})
       .subscribe(data => {
         this._3d_structure = data;
 
-        this.http.get("/static/varna/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+        this.http.get("/static/varna/" + this.data.id + ".svg", {responseType: "arraybuffer"})
           .subscribe(data => {
             this._2d_structure_varna = data;
 
-            this.http.get("/static/rchie/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+            this.http.get("/static/rchie/" + this.data.id + ".svg", {responseType: "arraybuffer"})
               .subscribe(data => {
                 this._2d_structure_rchie = data;
 
-                this.http.get("/static/layers/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+                this.http.get("/static/layers/" + this.data.id + ".svg", {responseType: "arraybuffer"})
                   .subscribe(data => {
                     this._3d_layers = data;
 
-                  var zip =new JSZip();
-                  let helix = this.generateFile([this.data]);
-                  let quadruplex = this.generateFile(this.quadruplexInformation);
-                  let tetrads = this.generateFile(this.tetradsInformation)
-                  let tetradsPairs = this.generateFile(this.tetradsPairsInformation);
-                  let nucleotides = this.generateFile(this.nucleotideChiValues);
+                    var zip = new JSZip();
+                    let helix = this.generateFile([this.data]);
+                    let quadruplex = this.generateFile(this.quadruplexInformation);
+                    let tetrads = this.generateFile(this.tetradsInformation)
+                    let tetradsPairs = this.generateFile(this.tetradsPairsInformation);
+                    let nucleotides = this.generateFile(this.nucleotideChiValues);
 
-                  zip.file("3d_structure.png", this._3d_structure);
-                  zip.file("2d_structure_varna.svg", this._2d_structure_varna);
-                  zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
-                  zip.file("3d_structure_layers.svg", this._3d_layers);
-                  zip.file("helix" + ".csv", helix);
-                  zip.file("quadruplex" +".csv", quadruplex);
-                  zip.file("tetrads" + ".csv", tetrads);
-                  zip.file("nucleotides_in_helice" + ".csv", nucleotides)
-                  zip.file("tetrads_pairs" + ".csv", tetradsPairs)
-                  zip.generateAsync({ type: "blob" })
-                    .then(blob => saveAs(blob,'data.zip'));
+                    zip.file("3d_structure.png", this._3d_structure);
+                    zip.file("2d_structure_varna.svg", this._2d_structure_varna);
+                    zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
+                    zip.file("3d_structure_layers.svg", this._3d_layers);
+                    zip.file("helix" + ".csv", helix);
+                    zip.file("quadruplex" + ".csv", quadruplex);
+                    zip.file("tetrads" + ".csv", tetrads);
+                    zip.file("nucleotides_in_helice" + ".csv", nucleotides)
+                    zip.file("tetrads_pairs" + ".csv", tetradsPairs)
+                    zip.generateAsync({type: "blob"})
+                      .then(blob => saveAs(blob, 'data.zip'));
 
                   });
               });
@@ -154,7 +155,7 @@ export class HelixComponent implements OnInit {
     csv.unshift(header.join(','));
     let csvArray = csv.join('\r\n');
 
-    return  new Blob([csvArray], {type: 'text/csv' })
+    return new Blob([csvArray], {type: 'text/csv'})
   }
 
   ngOnDestroy() {
@@ -172,13 +173,22 @@ export class HelixComponent implements OnInit {
 
   show2dStructure(type: any) {
     let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-      data: { type: type, id: this.data.id },
+      data: {type: type, id: this.data.id},
     });
   }
 
   setTwoNumberDecimal(num) {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
+
+  truncate(source) {
+    let size = 30;
+    let result = source.slice(0, 4);
+    for (let i = 4; i < source.length; i += 4) {
+      result += ',' + source.slice(i, i + 4);
+    }
+    return result.length > size ? result.slice(0, size - 1) + "…" : result;
+  }
 }
 
 interface HelixReference {
@@ -239,7 +249,7 @@ interface TetradPairsInformations {
   direction: string;
 }
 
-interface NucleotideChiValues{
+interface NucleotideChiValues {
   tetrad_id: any;
   n1_chi: number;
   n1_glycosidic_bond: string;

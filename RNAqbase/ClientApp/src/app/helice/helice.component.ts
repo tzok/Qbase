@@ -102,7 +102,11 @@ export class HeliceComponent implements OnInit {
 
   truncate(source) {
     let size = 30;
-    return source.length > size ? source.slice(0, size - 1) + "…" : source;
+    let result = source.slice(0, 4);
+    for (let i = 4; i < source.length; i += 4) {
+      result += ',' + source.slice(i, i + 4);
+    }
+    return result.length > size ? result.slice(0, size - 1) + "…" : result;
   }
 }
 

@@ -97,7 +97,7 @@
         <thead>
           <tr>
             <th class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
-            <th class = "threeColumnsStyle" style = "text-align: center; vertical-align: middle;">Sequence</th>
+            <th class = "threeColumnsStyle" style = "text-align: center; vertical-align: middle;">Sequence of tetrads</th>
             <th class = "threeColumnsStyle" style = "text-align: center; vertical-align: middle;">ONZM Class</th>
 
           </tr>
@@ -108,7 +108,7 @@
               <a class = "hasTooltip" [routerLink]="['/quadruplex', q.id]">Q{{q.id}}
                 <span> <img src = "static/pymol/Q{{q.id}}.png" width="200" height="150"  alt=""> </span>
             </a></td>
-            <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.sequence}}</td>
+            <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{truncate(q.sequence)}}</td>
             <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.onzmClass}}</td>
           </tr>
         </tbody>
