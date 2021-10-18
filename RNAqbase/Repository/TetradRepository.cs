@@ -61,6 +61,7 @@ namespace RNAqbase.Repository
 	to_char(max(pdb1.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 	COALESCE(max(pdb1.assembly), 0) as AssemblyId,
 	COALESCE(max(n1.molecule), 'Other') as Molecule,
+	COALESCE(max(pdb1.experiment)) as Experiment,
 	COALESCE((max(n1.short_name))||(max(n2.short_name))||(max(n3.short_name))||(max(n4.short_name)), '') as Sequence,
 	t.onz as OnzClass, 
 	t.gba_tetrad_class as TetradCombination,

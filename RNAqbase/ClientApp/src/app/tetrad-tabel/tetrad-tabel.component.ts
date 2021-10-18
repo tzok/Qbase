@@ -21,8 +21,8 @@ export class TetradTabelComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule',
-    'sequence', 'ion','ion_charge', 'onzClass', 'tetradCombination', 'select'];
+  displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule', 'experiment',
+    'sequence', 'ion', 'ion_charge', 'onzClass', 'tetradCombination', 'select'];
 
   constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
   }
@@ -31,7 +31,7 @@ export class TetradTabelComponent implements OnInit {
     this.http.get<Tetrad[]>(this.baseUrl + 'api/Tetrad/GetTetrads').subscribe(result => {
       this.csvData = JSON.parse(JSON.stringify(result));
 
-      for (let val of this.csvData){
+      for (let val of this.csvData) {
         val.id = 'T' + val.id.toString();
         val.quadruplexId = 'Q' + val.quadruplexId.toString();
       }
@@ -95,6 +95,7 @@ interface Tetrad {
   pdbId: string;
   assemblyId: number;
   molecule: string;
+  experiment: string;
   sequence: string;
   ion: string;
   ion_charge: string;

@@ -11,6 +11,7 @@ namespace RNAqbase.Models
         public string PdbDeposition { get; set; }
         public int AssemblyId { get; set; }
         public string Molecule { get; set; }
+        public string Experiment { get; set; }
         public string Sequence { get; set; }
         public string OnzClass { get; set; }
         public string TetradCombination { get; set; }
