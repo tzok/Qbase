@@ -44,14 +44,7 @@ export class QuadruplexTableComponent implements OnInit {
         for (let val of result) {
           val.quadruplex_id = 'Q' + val.id;
         }
-        this.dataSource.filterPredicate = (data: Quadruplex, filter: string): boolean => {
-          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
-            return (currentTerm + (data as { [key: string]: any })[key] + '◬');
-          }, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-          const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-          return dataStr.indexOf(transformedFilter) != -1;
-        }
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.id != null && data.id.toString().toUpperCase().includes(filter.toUpperCase()));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.areButtonsHidden = false;

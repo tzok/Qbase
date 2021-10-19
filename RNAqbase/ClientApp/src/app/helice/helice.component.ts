@@ -3,6 +3,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import {SelectionModel} from '@angular/cdk/collections';
 import {CsvModule} from '@ctrl/ngx-csv';
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-helice',
@@ -25,6 +26,10 @@ export class HeliceComponent implements OnInit {
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment',
     'sequence', 'type_strand', 'numberOfQudaruplexes', 'quadruplexId', 'numberOfTetrads', 'select'
+  ];
+  columnNames = [
+    'G4Helix ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Sequence of tetrads',
+    'Type (by no. of strands)', 'No. of quadruplexes', 'Quadruplex ID', 'No. of tetrads'
   ];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -59,14 +64,7 @@ export class HeliceComponent implements OnInit {
           }
         }
 
-        this.dataSource.filterPredicate = (data: Helix, filter: string): boolean => {
-          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
-            return (currentTerm + (data as { [key: string]: any })[key] + '◬');
-          }, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-          const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-          return dataStr.indexOf(transformedFilter) != -1;
-        }
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.helix_id != null && data.helix_id.toString().toUpperCase().includes(filter.toUpperCase()));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.areButtonsHidden = false;
@@ -107,6 +105,47 @@ export class HeliceComponent implements OnInit {
       result += ',' + source.slice(i, i + 4);
     }
     return result.length > size ? result.slice(0, size - 1) + "…" : result;
+  }
+
+  changeFilterPredicate($event: MatSelectChange) {
+    switch ($event.value) {
+      case 'id':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.helix_id != null && data.helix_id.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbId':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbDeposition':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.pdbDeposition != null && data.pdbDeposition.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'assemblyId':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.assemblyId != null && data.assemblyId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'molecule':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.molecule != null && data.molecule.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'experiment':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.experiment != null && data.experiment.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'sequence':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.sequence != null && data.sequence.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'type_strand':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.typeOfStrands != null && data.typeOfStrands.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'numberOfQudaruplexes':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.numberOfQudaruplexes != null && data.numberOfQudaruplexes.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'quadruplexId':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.quadruplexesIds != null && data.quadruplexesIds.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'numberOfTetrads':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.numberOfTetrads != null && data.numberOfTetrads.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+    }
+
+    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
   }
 }
 
