@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {HttpClient} from '@angular/common/http';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
 import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'structure-table',
@@ -25,47 +26,44 @@ export class StructureTableComponent implements OnInit {
 
   displayedColumns = [
     'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
-    'experimentalMethod', 'quadruplexId', 'structure2D','structure3D', 'select'
+    'experimentalMethod', 'quadruplexId', 'structure2D', 'structure3D', 'select'
+  ];
+  columnNames = [
+    'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Quadruplex ID'
   ];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures').subscribe(result => {
         this.dataSource = new MatTableDataSource(result);
-        for (let val of result){
-          val.quadruplex_id =  Array.from(new Set( val.quadruplex_id.split(',') ))
+        for (let val of result) {
+          val.quadruplex_id = Array.from(new Set(val.quadruplex_id.split(',')))
         }
 
         this.csvData = JSON.parse(JSON.stringify(result));
-        for (let val of this.csvData){
+        for (let val of this.csvData) {
           for (let i = 0; i < val.quadruplex_id.length; i++) {
             val.quadruplex_id[i] = 'Q' + val.quadruplex_id[i];
           }
         }
 
-      for (let val of result) {
-        val.quadruplex_idetifier = JSON.parse(JSON.stringify(val.quadruplex_id));
-        for (let i = 0; i < val.quadruplex_id.length; i++) {
-          val.quadruplex_idetifier[i] = 'Q' + val.quadruplex_id[i];
+        for (let val of result) {
+          val.quadruplex_idetifier = JSON.parse(JSON.stringify(val.quadruplex_id));
+          for (let i = 0; i < val.quadruplex_id.length; i++) {
+            val.quadruplex_idetifier[i] = 'Q' + val.quadruplex_id[i];
+          }
         }
-      }
 
-        this.dataSource.filterPredicate = (data: Structure, filter: string): boolean => {
-          const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
-            return (currentTerm + (data as { [key: string]: any })[key] + '◬');
-          }, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-          const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-          return dataStr.indexOf(transformedFilter) != -1;
-        }
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.areButtonsHidden = false;
-      this.filteredDataLength = this.dataSource.data.length;
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.areButtonsHidden = false;
+        this.filteredDataLength = this.dataSource.data.length;
       },
       error => console.error(error));
-      }
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -92,7 +90,7 @@ export class StructureTableComponent implements OnInit {
 
   showStructure(type: any, id: any) {
     let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-      data: { type: type, id: id },
+      data: {type: type, id: id},
     });
   }
 
@@ -103,6 +101,32 @@ export class StructureTableComponent implements OnInit {
         url: this.baseUrl + 'api/pdb/GetVisualization3dById?pdbid=' + pdbId + '&assembly=' + assembly
       }
     });
+  }
+
+  changeFilterPredicate($event: MatSelectChange) {
+    switch ($event.value) {
+      case 'pdbIdentifier':
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbDeposition':
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.pdbDeposition != null && data.pdbDeposition.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'assemblyId':
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.assemblyId != null && data.assemblyId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'molecule':
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.molecule != null && data.molecule.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'experimentalMethod':
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.experiment != null && data.experiment.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'quadruplexId':
+        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.quadruplex_idetifier != null && data.quadruplex_idetifier.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+    }
+
+    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
   }
 }
 

@@ -1,119 +1,133 @@
 <div style=" background: #F0F0F0; height: 100%">
-<div class="container">
-  <main>
-    <div class="mat-elevation-z8 table">
-      <div class="text-rectangle">
-        <h2>List of structures: {{filteredDataLength}} items</h2>
-        <div class="statictext">
-          <span>Search the table:</span>
-        </div>
-        <div class="inputtext">
-          <mat-form-field>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
-          </mat-form-field>
-        </div>
-        <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
-        <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink [data]="selection.selected">Save selected rows</a>
-      </div>
-      <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
-        <!--Pdb Id Column -->
-        <div class="col-sm-8">
-          <ng-container matColumnDef="pdbIdentifier">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbId">PDB ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
-              <a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{row.pdbId}}">
-                {{row.pdbId}} <span> <img src = "static/pymol/{{row.pdbId}}-assembly-{{row.assemblyId}}.png" width="200" height="150"  alt=""> </span>
-              </a>
-            </mat-cell>
-          </ng-container>
-          <!-- PDB deposition  Column -->
-          <ng-container matColumnDef="pdbDeposition">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              {{row.pdbDeposition}}
-            </mat-cell>
-          </ng-container>
-          <!-- Assembly ID Column -->
-          <ng-container matColumnDef="assemblyId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Assembly ID</span>
-              {{row.assemblyId}}
-            </mat-cell>
-          </ng-container>
-          <!-- Molecule Column -->
-          <ng-container matColumnDef="molecule">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="molecule">Molecule</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Molecule</span>
-              {{row.molecule}}
-            </mat-cell>
-          </ng-container>
-          <!-- Experimental method Column -->
-          <ng-container matColumnDef="experimentalMethod">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="experiment">Experimental Method</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Experimental Method</span>
-              {{row.experiment}}
-            </mat-cell>
-          </ng-container>
-          <!-- Quadruplex Id Column -->
-          <ng-container matColumnDef="quadruplexId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplex_id">Quadruplex ID</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">Quadruplex ID</span>
-              <a *ngFor="let t of row.quadruplex_idetifier; " [routerLink]="['/quadruplex', t.slice(1)]">
-                <a class = "hasTooltip"><p style="font-size: 14px;"> {{t}} </p> <span> <img src = "static/pymol/{{t}}.png" width="200" height="150"  alt=""> </span></a>
-              </a>
-            </mat-cell>
-          </ng-container>
-          <!-- Structure 2D Column -->
-          <ng-container matColumnDef="structure2D">
-            <mat-header-cell *matHeaderCellDef> 2D structure</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">2D structure</span>
-              <button (click)="showStructure('varna', row.pdbId+'-assembly-'+row.assemblyId)">View</button>
-            </mat-cell>
-          </ng-container>
-          <!-- Structure 3D Column -->
-          <ng-container matColumnDef="structure3D">
-            <mat-header-cell *matHeaderCellDef> 3D structure</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <span class="mobile-label">3D structure</span>
-              <button (click)="show3DStructure(row.pdbId, row.assemblyId)">View</button>
-            </mat-cell>
-          </ng-container>
-          <!-- Checkbox Column -->
-          <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle() : null"
-                            [checked]="selection.hasValue() && isAllSelected()"
-                            [indeterminate]="selection.hasValue() && !isAllSelected()"
-                            [aria-label]="checkboxLabel()">
-              </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-              <span class="mobile-label">Select:</span>
-              <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="$event ? selection.toggle(row) : null"
-                            [checked]="selection.isSelected(row)"
-                            [aria-label]="checkboxLabel(row)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </div>
-      </mat-table>
+  <div class="container">
+    <main>
+      <div class="mat-elevation-z8 table">
+        <div class="text-rectangle">
+          <h2>List of structures: {{filteredDataLength}} items</h2>
+          <div class="statictext">
+            <span>Search the table:</span>
+          </div>
 
-      <mat-paginator #paginator
-                     [length]="dataSource.data.length"
-                     [pageIndex]="0"
-                     [pageSize]="10"
-                     [pageSizeOptions]="[10, 25, 50, 100]">
-      </mat-paginator>
-    </div>
-  </main>
-</div>
+          <mat-form-field appearance="fill">
+            <mat-select value="pdbIdentifier" (selectionChange)="changeFilterPredicate($event)">
+              <mat-option *ngFor="let column of columnNames; index as i" [value]="displayedColumns[i]">
+                {{column}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="inputtext">
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
+            </mat-form-field>
+          </div>
+          <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
+          <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink
+             [data]="selection.selected">Save selected rows</a>
+        </div>
+        <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+          <!--Pdb Id Column -->
+          <div class="col-sm-8">
+            <ng-container matColumnDef="pdbIdentifier">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="pdbId">PDB ID</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
+                <a class="hasTooltip" target="_blank" rel="noopener noreferrer"
+                   href="https://www.rcsb.org/structure/{{row.pdbId}}">
+                  {{row.pdbId}} <span> <img src="static/pymol/{{row.pdbId}}-assembly-{{row.assemblyId}}.png" width="200"
+                                            height="150" alt=""> </span>
+                </a>
+              </mat-cell>
+            </ng-container>
+            <!-- PDB deposition  Column -->
+            <ng-container matColumnDef="pdbDeposition">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="pdbDeposition">PDB Deposition</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{row.pdbDeposition}}
+              </mat-cell>
+            </ng-container>
+            <!-- Assembly ID Column -->
+            <ng-container matColumnDef="assemblyId">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="assemblyId">Assembly ID</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Assembly ID</span>
+                {{row.assemblyId}}
+              </mat-cell>
+            </ng-container>
+            <!-- Molecule Column -->
+            <ng-container matColumnDef="molecule">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="molecule">Molecule</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Molecule</span>
+                {{row.molecule}}
+              </mat-cell>
+            </ng-container>
+            <!-- Experimental method Column -->
+            <ng-container matColumnDef="experimentalMethod">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="experiment">Experimental Method</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Experimental Method</span>
+                {{row.experiment}}
+              </mat-cell>
+            </ng-container>
+            <!-- Quadruplex Id Column -->
+            <ng-container matColumnDef="quadruplexId">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="quadruplex_id">Quadruplex ID</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Quadruplex ID</span>
+                <a *ngFor="let t of row.quadruplex_idetifier; " [routerLink]="['/quadruplex', t.slice(1)]">
+                  <a class="hasTooltip"><p style="font-size: 14px;"> {{t}} </p> <span> <img src="static/pymol/{{t}}.png"
+                                                                                            width="200" height="150"
+                                                                                            alt=""> </span></a>
+                </a>
+              </mat-cell>
+            </ng-container>
+            <!-- Structure 2D Column -->
+            <ng-container matColumnDef="structure2D">
+              <mat-header-cell *matHeaderCellDef> 2D structure</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">2D structure</span>
+                <button (click)="showStructure('varna', row.pdbId+'-assembly-'+row.assemblyId)">View</button>
+              </mat-cell>
+            </ng-container>
+            <!-- Structure 3D Column -->
+            <ng-container matColumnDef="structure3D">
+              <mat-header-cell *matHeaderCellDef> 3D structure</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="mobile-label">3D structure</span>
+                <button (click)="show3DStructure(row.pdbId, row.assemblyId)">View</button>
+              </mat-cell>
+            </ng-container>
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()"
+                              [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <span class="mobile-label">Select:</span>
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)"
+                              [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </div>
+        </mat-table>
+
+        <mat-paginator #paginator
+                       [length]="dataSource.data.length"
+                       [pageIndex]="0"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[10, 25, 50, 100]">
+        </mat-paginator>
+      </div>
+    </main>
+  </div>
 </div>
