@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DomSanitizer} from "@angular/platform-browser";
 import {MatDialog} from "@angular/material/dialog";
+import {MatSelectChange} from "@angular/material/select";
 
 
 @Component({
@@ -23,6 +24,8 @@ export class TetradTabelComponent implements OnInit {
 
   displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule', 'experiment',
     'sequence', 'ion', 'ion_charge', 'onzClass', 'tetradCombination', 'select'];
+  columnNames = ['Tetrad ID', 'Quadruplex ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule',
+    'Experimental method', 'Sequence', 'Ion', 'Ionic charge', 'ONZ Class', 'Tetrad Combination'];
 
   constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
   }
@@ -44,14 +47,7 @@ export class TetradTabelComponent implements OnInit {
         val.quadruplexId = 'Q' + val.quadruplexId.toString();
       }
 
-      this.dataSource.filterPredicate = (data: Tetrad, filter: string): boolean => {
-        const dataStr = Object.keys(data).reduce((currentTerm: string, key: string) => {
-          return (currentTerm + (data as { [key: string]: any })[key] + '◬');
-        }, '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-        const transformedFilter = filter.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        return dataStr.indexOf(transformedFilter) != -1;
-      }
+      this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || data.id.toString().toUpperCase().includes(filter.toUpperCase());
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -87,6 +83,49 @@ export class TetradTabelComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+  changeFilterPredicate($event: MatSelectChange) {
+    switch ($event.value) {
+      case 'id':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.id != null && data.id.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'quadruplexId':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.quadruplexId != null && data.quadruplexId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbId':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbDeposition':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.pdbDeposition != null && data.pdbDeposition.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'assemblyId':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.assemblyId != null && data.assemblyId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'molecule':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.molecule != null && data.molecule.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'experiment':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.experiment != null && data.experiment.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'sequence':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.sequence != null && data.sequence.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'ion':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.ion != null && data.ion.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'ion_charge':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.ion_charge != null && data.ion_charge.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'onzClass':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.onzClass != null && data.onzClass.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'tetradCombination':
+        this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.tetradCombination != null && data.tetradCombination.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+    }
+
+    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
+  }
 }
 
 interface Tetrad {

@@ -8,6 +8,15 @@
           <div class="statictext">
             <span>Search the table:</span>
           </div>
+
+          <mat-form-field appearance="fill">
+            <mat-select value="id" (selectionChange)="changeFilterPredicate($event)">
+              <mat-option *ngFor="let column of columnNames; index as i" [value]="displayedColumns[i]">
+                {{column}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div class="inputtext">
             <mat-form-field>
               <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
