@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {HttpClient} from '@angular/common/http';
 import {SelectionModel} from '@angular/cdk/collections';
-import {CsvModule} from '@ctrl/ngx-csv';
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'quadruplex-table',
@@ -10,7 +10,6 @@ import {CsvModule} from '@ctrl/ngx-csv';
   styleUrls: ['./quadruplex-table.component.css']
 })
 export class QuadruplexTableComponent implements OnInit {
-
   selection = new SelectionModel<Quadruplex>(true, []);
   dataSource = new MatTableDataSource<Quadruplex>();
   csvData: Quadruplex[] = [];
@@ -23,9 +22,14 @@ export class QuadruplexTableComponent implements OnInit {
   sort: MatSort;
 
   displayedColumns = [
-    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment',
-    'sequence', 'ion', 'ion_charge', 'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
+    'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment', 'sequence', 'ion', 'ion_charge',
+    'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
   ];
+  columnNames = [
+    'Quadruplex ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method',
+    'Sequence of tetrads', 'Ion', 'Ionic charge', 'Type (by no. of strands)', 'Type (by ONZM)', 'ONZM Class',
+    'No. of tetrads', 'Loop topology', 'Tetrad combination'
+  ]
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }
@@ -89,6 +93,59 @@ export class QuadruplexTableComponent implements OnInit {
       result += ',' + source.slice(i, i + 4);
     }
     return result.length > size ? result.slice(0, size - 1) + "…" : result;
+  }
+
+  changeFilterPredicate($event: MatSelectChange) {
+    switch ($event.value) {
+      case 'id':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.id != null && data.id.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbId':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'pdbDeposition':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.pdbDeposition != null && data.pdbDeposition.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'assemblyId':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.assemblyId != null && data.assemblyId.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'molecule':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.molecule != null && data.molecule.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'experiment':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.experiment != null && data.experiment.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'sequence':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.sequence != null && data.sequence.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'ion':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.ion != null && data.ion.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'ion_charge':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.ion_charge != null && data.ion_charge.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'type_strand':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.typeOfStrands != null && data.typeOfStrands.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'type_onzm':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.type != null && data.type.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'onzmClass':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.onzmClass != null && data.onzmClass.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'numberOfTetrads':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.numberOfTetrads != null && data.numberOfTetrads.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'loopTopology':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.loopTopology != null && data.loopTopology.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+      case 'tetradCombination':
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.tetradCombination != null && data.tetradCombination.toString().toUpperCase().includes(filter.toUpperCase()));
+        break;
+    }
+
+    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
+    this.filteredDataLength = this.dataSource.filteredData.length;
   }
 }
 
