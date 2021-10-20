@@ -33,6 +33,7 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
 import {PinchZoomModule} from 'ngx-pinch-zoom';
 import { CounterModule } from 'ngx-counter';
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import {MatTabsModule} from "@angular/material/tabs";
         FormsModule,
         PinchZoomModule,
         CounterModule.forRoot(),
-        MatTabsModule
+        MatTabsModule,
+        MatButtonModule
     ],
   providers: [],
   bootstrap: [AppComponent],

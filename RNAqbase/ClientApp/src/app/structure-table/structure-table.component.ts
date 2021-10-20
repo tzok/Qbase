@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewChild, Inject} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
 import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
 import {MatSelectChange} from "@angular/material/select";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'structure-table',
@@ -18,6 +19,7 @@ export class StructureTableComponent implements OnInit {
   csvData: Structure[] = [];
   areButtonsHidden: boolean = true;
   filteredDataLength = this.dataSource.data.length;
+  query: string = null;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
@@ -32,37 +34,43 @@ export class StructureTableComponent implements OnInit {
     'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Quadruplex ID'
   ];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures').subscribe(result => {
-        this.dataSource = new MatTableDataSource(result);
-        for (let val of result) {
-          val.quadruplex_id = Array.from(new Set(val.quadruplex_id.split(',')))
-        }
-
-        this.csvData = JSON.parse(JSON.stringify(result));
-        for (let val of this.csvData) {
-          for (let i = 0; i < val.quadruplex_id.length; i++) {
-            val.quadruplex_id[i] = 'Q' + val.quadruplex_id[i];
+    this.route.queryParamMap.subscribe(params => {
+      if (params.has('query')) {
+        this.query = params.get('query');
+      }
+      this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures',
+        {'params': new HttpParams().set('query', this.query)}).subscribe(result => {
+          this.dataSource = new MatTableDataSource(result);
+          for (let val of result) {
+            val.quadruplex_id = Array.from(new Set(val.quadruplex_id.split(',')))
           }
-        }
 
-        for (let val of result) {
-          val.quadruplex_idetifier = JSON.parse(JSON.stringify(val.quadruplex_id));
-          for (let i = 0; i < val.quadruplex_id.length; i++) {
-            val.quadruplex_idetifier[i] = 'Q' + val.quadruplex_id[i];
+          this.csvData = JSON.parse(JSON.stringify(result));
+          for (let val of this.csvData) {
+            for (let i = 0; i < val.quadruplex_id.length; i++) {
+              val.quadruplex_id[i] = 'Q' + val.quadruplex_id[i];
+            }
           }
-        }
 
-        this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.areButtonsHidden = false;
-        this.filteredDataLength = this.dataSource.data.length;
-      },
-      error => console.error(error));
+          for (let val of result) {
+            val.quadruplex_idetifier = JSON.parse(JSON.stringify(val.quadruplex_id));
+            for (let i = 0; i < val.quadruplex_id.length; i++) {
+              val.quadruplex_idetifier[i] = 'Q' + val.quadruplex_id[i];
+            }
+          }
+
+          this.dataSource.filterPredicate = (data: Structure, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.areButtonsHidden = false;
+          this.filteredDataLength = this.dataSource.data.length;
+        },
+        error => console.error(error))
+    });
   }
 
   applyFilter(event: Event) {

@@ -3,7 +3,9 @@
     <main>
       <div class="mat-elevation-z8 table">
         <div class="text-rectangle">
-          <h2>List of structures: {{filteredDataLength}} items</h2>
+          <h2 *ngIf="query != null && query.trim().length > 0">List of structures associated with keyword
+            "{{query}}": {{filteredDataLength}} items</h2>
+          <h2 *ngIf="query == null || query.trim().length == 0">List of structures: {{filteredDataLength}} items</h2>
           <div class="statictext">
             <span>Search the table:</span>
           </div>

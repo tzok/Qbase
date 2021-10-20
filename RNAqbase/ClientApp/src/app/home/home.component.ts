@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ChartOptions, ChartType, ChartDataSets} from 'chart.js';
 import {Label, Color} from 'ng2-charts';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -64,6 +64,7 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient,
               @Inject('BASE_URL') private baseUrl: string,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private dialog: MatDialog) {
   }
 
@@ -137,6 +138,10 @@ export class HomeComponent implements OnInit {
 
   wrong_email() {
     this.email_added = false;
+  }
+
+  search(form: any) {
+    this.router.navigate(['/structures'], {queryParams: {'query': form.query}});
   }
 }
 
