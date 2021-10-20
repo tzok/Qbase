@@ -18,7 +18,7 @@ namespace RNAqbase.Models
         public string Sequence { get; set; }
         public string TypeOfStrands { get; set; }
         public int NumberOfTetrads { get; set; }
-        public int NumberOfQudaruplexes { get; set; }
+        public int NumberOfQuadruplexes { get; set; }
         public string Experiment { get; set; }
     }
 }

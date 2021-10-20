@@ -25,7 +25,7 @@ export class HeliceComponent implements OnInit {
 
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment',
-    'sequence', 'type_strand', 'numberOfQudaruplexes', 'quadruplexId', 'numberOfTetrads', 'select'
+    'sequence', 'type_strand', 'numberOfQuadruplexes', 'quadruplexId', 'numberOfTetrads', 'select'
   ];
   columnNames = [
     'G4Helix ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Sequence of tetrads',
@@ -41,6 +41,7 @@ export class HeliceComponent implements OnInit {
 
         for (let val of result) {
           val.quadruplexesIds = Array.from(new Set(val.quadruplexesIds.split(',')))
+          val.sequence = this.truncate(val.sequence);
         }
 
         this.csvData = JSON.parse(JSON.stringify(result));
@@ -137,8 +138,8 @@ export class HeliceComponent implements OnInit {
       case 'type_strand':
         this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.typeOfStrands != null && data.typeOfStrands.toString().toUpperCase().includes(filter.toUpperCase()));
         break;
-      case 'numberOfQudaruplexes':
-        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.numberOfQudaruplexes != null && data.numberOfQudaruplexes.toString().toUpperCase().includes(filter.toUpperCase()));
+      case 'numberOfQuadruplexes':
+        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.numberOfQuadruplexes != null && data.numberOfQuadruplexes.toString().toUpperCase().includes(filter.toUpperCase()));
         break;
       case 'quadruplexId':
         this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.quadruplexesIds != null && data.quadruplexesIds.toString().toUpperCase().includes(filter.toUpperCase()));
@@ -162,7 +163,7 @@ interface Helix {
   experiment: string;
   sequence: string;
   typeOfStrands: string;
-  numberOfQudaruplexes: number;
+  numberOfQuadruplexes: number;
   numberOfTetrads: number;
   pdbDeposition: string;
 }

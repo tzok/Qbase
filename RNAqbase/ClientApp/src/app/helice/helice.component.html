@@ -95,7 +95,7 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header="sequence">Sequence of tetrads</mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <span class="mobile-label">Sequence of tetrads</span>
-                {{truncate(row.sequence)}}
+                {{row.sequence}}
               </mat-cell>
             </ng-container>
             <!-- No. of strands Column -->
@@ -108,12 +108,12 @@
               </mat-cell>
             </ng-container>
             <!-- numberOfQuadruplex Column -->
-            <ng-container matColumnDef="numberOfQudaruplexes">
-              <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfQudaruplexes">No. of quadruplexes
+            <ng-container matColumnDef="numberOfQuadruplexes">
+              <mat-header-cell *matHeaderCellDef mat-sort-header="numberOfQuadruplexes">No. of quadruplexes
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <span class="mobile-label">No. of quadruplexes</span>
-                {{row.numberOfQudaruplexes}}
+                {{row.numberOfQuadruplexes}}
               </mat-cell>
             </ng-container>
             <!-- Quadruplex Id Column -->

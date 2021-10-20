@@ -1,234 +1,272 @@
 <div style=" background: #F0F0F0; height: 100%">
-<div class="container" *ngIf="data">
-  <main>
-    <div class="description">
-      <div class="text-rectangle">
-        <h2>G4Helix description</h2>
-      </div>
-      <br />
-      <mat-card>
-        <mat-card-content>
-      <div class="row ">
-        <div class="col-lg-10 col-sm-6">
-          <h5><b>G4Helix ID: {{data.id}}</b></h5>
-          <p>{{data.title}}</p>
+  <div class="container" *ngIf="data">
+    <main>
+      <div class="description">
+        <div class="text-rectangle">
+          <h2>G4Helix description</h2>
         </div>
-        <div class=" col-lg-2 col-sm-6 saveDataButton">
-        <a class="mat-button" (click) = downloadZip()>Save tables</a>
-        </div>
-      </div>
-
-      <div class="helixtable">
-        <table class="table" style="border:1px solid black;"  >
-          <thead>
-            <tr >
-              <!-- <th>PDB</th> -->
-              <th class = sevenColumnsStyle style="text-align: center; vertical-align: middle;">PDB ID</th>
-              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Assembly ID</th>
-              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Molecule</th>
-              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Experimental method</th>
-              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Type (by no. of strands)</th>
-              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">No. of quadruplexes</th>
-              <th class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">No. of tetrads</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class = sevenColumnsStyle style="text-align: center; vertical-align: middle;" ><a class = "hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}  <span> <img src = "static/pymol/{{data.pdbIdentifier}}-assembly-{{data.assemblyId}}.png" width="200" height="150"  alt=""> </span> </a></td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.typeOfStrands}}</td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfQudaruplexes}}</td>
-              <td class = "sevenColumnsStyle" style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-        </mat-card-content>
-      </mat-card>
-      <br>
-      <mat-card>
-        <mat-card-content>
-          <div>
-            <h5> 2D structure (dot-bracket):</h5>
-            <p class="dotbracket">{{data.dot_bracket}}</p>
-          </div>
-          <div style="margin-top: 30px">
-            <div class="row">
-              <div class="column">
-                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure">
-                  <div class="text">2D structure (VARNA)</div>
-                  <figure> <img src = "static/varna/{{data.id}}.svg"  width="180px" height="130px" alt="varna"/></figure>
-                </button>
+        <br/>
+        <mat-card>
+          <mat-card-content>
+            <div class="row ">
+              <div class="col-lg-10 col-sm-6">
+                <h5><b>G4Helix ID: {{data.id}}</b></h5>
+                <p>{{data.title}}</p>
               </div>
-              <div class="column">
-                <button (click)="show2dStructure('rchie' )" title="Click to see 2D structure">
-                  <div class="text">2D structure (R-chie)</div>
-                  <figure> <img src = "static/rchie/{{data.id}}.svg" width="180px" height="150px"  alt="r-chie"/> </figure>
-                </button>
-              </div>
-              <div class="column">
-                <button (click)="show2dStructure('layers' )" title="Click to see 3D structure">
-                  <div class="text">3D structure (Layers)</div>
-                  <figure> <img src = "static/layers/{{data.id}}.svg" width="180px" height="150px"  alt="layers"/></figure>
-                </button>
-              </div>
-              <div class="column">
-                <button (click)="show3dStructure()" title="Click to see 3D structure">
-                  <div class="text">3D structure (LiteMol)</div>
-                  <figure> <img src = "static/pymol/{{data.id}}.png" width="180px" height="130px"  alt="litemol"/></figure>
-                </button>
+              <div class="col-lg-2 col-sm-6 saveDataButton">
+                <a class="mat-button" (click)=downloadZip()>Save tables</a>
               </div>
             </div>
-          </div>
-          <br>
-          <p style="color: darkgray">Click on the picture to see more details!</p>
-        </mat-card-content>
-      </mat-card>
-      <br />
 
-      <mat-card>
-        <mat-card-content>
-      <div>
-          <h5>Quadruplexes in {{data.id}}:</h5>
-      </div>
-      <table class="table" style="border:1px solid black;">
-        <thead>
-          <tr>
-            <th class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
-            <th class = "threeColumnsStyle" style = "text-align: center; vertical-align: middle;">Sequence of tetrads</th>
-            <th class = "threeColumnsStyle" style = "text-align: center; vertical-align: middle;">ONZM Class</th>
+            <div class="helixtable">
+              <table class="table" style="border:1px solid black;">
+                <thead>
+                <tr>
+                  <!-- <th>PDB</th> -->
+                  <th class=sevenColumnsStyle style="text-align: center; vertical-align: middle;">PDB ID</th>
+                  <th class="sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Assembly ID</th>
+                  <th class="sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Molecule</th>
+                  <th class="sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Experimental
+                    method
+                  </th>
+                  <th class="sevenColumnsStyle" style="text-align: center; vertical-align: middle;">Type (by no. of
+                    strands)
+                  </th>
+                  <th class="sevenColumnsStyle" style="text-align: center; vertical-align: middle;">No. of
+                    quadruplexes
+                  </th>
+                  <th class="sevenColumnsStyle" style="text-align: center; vertical-align: middle;">No. of tetrads</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class=sevenColumnsStyle style="text-align: center; vertical-align: middle;"><a class="hasTooltip"
+                                                                                                     target="_blank"
+                                                                                                     rel="noopener noreferrer"
+                                                                                                     href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}
+                    <span> <img src="static/pymol/{{data.pdbIdentifier}}-assembly-{{data.assemblyId}}.png" width="200"
+                                height="150" alt=""> </span> </a></td>
+                  <td class="sevenColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
+                  <td class="sevenColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
+                  <td class="sevenColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
+                  <td class="sevenColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">{{data.typeOfStrands}}</td>
+                  <td class="sevenColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">{{data.numberOfQuadruplexes}}</td>
+                  <td class="sevenColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">{{data.numberOfTetrads}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <h5> 2D structure (dot-bracket):</h5>
+              <p class="dotbracket">{{data.dot_bracket}}</p>
+            </div>
+            <div style="margin-top: 30px">
+              <div class="row">
+                <div class="column">
+                  <button (click)="show2dStructure('varna' )" title="Click to see 2D structure">
+                    <div class="text">2D structure (VARNA)</div>
+                    <figure><img src="static/varna/{{data.id}}.svg" width="180px" height="130px" alt="varna"/></figure>
+                  </button>
+                </div>
+                <div class="column">
+                  <button (click)="show2dStructure('rchie' )" title="Click to see 2D structure">
+                    <div class="text">2D structure (R-chie)</div>
+                    <figure><img src="static/rchie/{{data.id}}.svg" width="180px" height="150px" alt="r-chie"/></figure>
+                  </button>
+                </div>
+                <div class="column">
+                  <button (click)="show2dStructure('layers' )" title="Click to see 3D structure">
+                    <div class="text">3D structure (Layers)</div>
+                    <figure><img src="static/layers/{{data.id}}.svg" width="180px" height="150px" alt="layers"/>
+                    </figure>
+                  </button>
+                </div>
+                <div class="column">
+                  <button (click)="show3dStructure()" title="Click to see 3D structure">
+                    <div class="text">3D structure (LiteMol)</div>
+                    <figure><img src="static/pymol/{{data.id}}.png" width="180px" height="130px" alt="litemol"/>
+                    </figure>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br>
+            <p style="color: darkgray">Click on the picture to see more details!</p>
+          </mat-card-content>
+        </mat-card>
+        <br/>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let q of quadruplexes">
-            <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">
-              <a class = "hasTooltip" [routerLink]="['/quadruplex', q.id]">Q{{q.id}}
-                <span> <img src = "static/pymol/Q{{q.id}}.png" width="200" height="150"  alt=""> </span>
-            </a></td>
-            <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{truncate(q.sequence)}}</td>
-            <td class = "threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.onzmClass}}</td>
-          </tr>
-        </tbody>
-      </table>
-        </mat-card-content>
-      </mat-card>
-      <br />
-      <mat-card>
-        <mat-card-content>
-      <div>
-          <h5>Tetrads in {{data.id}}:</h5>
-      </div>
-      <table class="table" style="border:1px solid black;">
-        <thead>
-          <tr>
-            <th class="fiveColumnsStyle"  style="text-align: center; vertical-align: middle;">Tetrad ID</th>
-            <th class="fiveColumnsStyle"  style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Sequence</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">ONZ Class</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Planarity [Å]</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of tetrads">
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-              <a class = "hasTooltip"[routerLink]="['/tetrad', t.id]">
-                T{{t.id}} <span> <img src = "static/pymol/T{{t.id}}.png" width="100" height="100"  alt=""> </span>
-              </a>
-            </td>
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-              <a class = "hasTooltip"[routerLink]="['/quadruplex', t.quadruplex_id]">
-                Q{{t.quadruplex_id}} <span> <img src = "static/pymol/Q{{t.quadruplex_id}}.png"width="200" height="150" alt=""> </span>
-              </a>
-            </td>
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{t.sequence}}</td>
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{t.onzClass}}</td>
-            <td class = fiveColumnsStyle  style="text-align: center; vertical-align: middle;">{{setTwoNumberDecimal(t.planarity)}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <h5>Quadruplexes in {{data.id}}:</h5>
+            </div>
+            <table class="table" style="border:1px solid black;">
+              <thead>
+              <tr>
+                <th class="threeColumnsStyle" style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
+                <th class="threeColumnsStyle" style="text-align: center; vertical-align: middle;">Sequence of tetrads
+                </th>
+                <th class="threeColumnsStyle" style="text-align: center; vertical-align: middle;">ONZM Class</th>
 
-        </mat-card-content>
-      </mat-card>
-      <br />
-      <mat-card>
-        <mat-card-content>
-    <h5>Tetrad pairs in {{data.id}}:</h5>
-    <div class="quadruplextable">
-      <table class="table" style="border:1px solid black;">
-        <thead>
-          <tr>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad pairs</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Twist [°]</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Rise [Å]</th>
-            <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Strand direction</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of tetradsPairsInformation">
-            <td
-              class="fiveColumnsStyle"
-              style="text-align: center; vertical-align: middle;"
-              *ngIf="t.TetradPairId != 0">
-              <a class= "hasTooltip" [routerLink]="['/tetrad', t.TetradPairId.slice(1)]">
-                {{t.TetradPairId}}  <span> <img src = "static/pymol/{{t.TetradPairId}}.png" width="100" height="100"  alt=""> </span>
-              </a>
-              -
-              <a  class = "hasTooltip" [routerLink]="['/tetrad', t.TetradId.slice(1)]">
-                {{t.TetradId}}  <span> <img src = "static/pymol/{{t.TetradId}}.png" width="100" height="100" alt=""> </span>
-              </a>
-            </td>
-            <td *ngIf="t.quadruplex_id != null && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-              <a class = "hasTooltip"[routerLink]="['/quadruplex', t.quadruplex_id.slice(1)]">
-                {{t.quadruplex_id}} <span> <img src = "static/pymol/{{t.quadruplex_id}}.png" width="200" height="150" alt=""> </span>
-              </a>
-            </td>
-            <td *ngIf="t.quadruplex_id == null && t.TetradPairId != 0" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" >-</td>
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.twist | number: '1.0-2'}}</td>
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.rise | number: '1.0-2'}}</td>
-            <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;" *ngIf="t.TetradPairId != 0 ">{{t.direction}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-        </mat-card-content>
-      </mat-card>
-      <br>
-      <mat-card>
-        <mat-card-content>
-          <div>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let q of quadruplexes">
+                <td class="threeColumnsStyle" style="text-align: center; vertical-align: middle;">
+                  <a class="hasTooltip" [routerLink]="['/quadruplex', q.id]">Q{{q.id}}
+                    <span> <img src="static/pymol/Q{{q.id}}.png" width="200" height="150" alt=""> </span>
+                  </a></td>
+                <td class="threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.sequence}}</td>
+                <td class="threeColumnsStyle" style="text-align: center; vertical-align: middle;">{{q.onzmClass}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <br/>
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <h5>Tetrads in {{data.id}}:</h5>
+            </div>
+            <table class="table" style="border:1px solid black;">
+              <thead>
+              <tr>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad ID</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Sequence</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">ONZ Class</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Planarity [Å]</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let t of tetrads">
+                <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
+                  <a class="hasTooltip" [routerLink]="['/tetrad', t.id]">
+                    T{{t.id}} <span> <img src="static/pymol/T{{t.id}}.png" width="100" height="100" alt=""> </span>
+                  </a>
+                </td>
+                <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
+                  <a class="hasTooltip" [routerLink]="['/quadruplex', t.quadruplex_id]">
+                    Q{{t.quadruplex_id}} <span> <img src="static/pymol/Q{{t.quadruplex_id}}.png" width="200"
+                                                     height="150" alt=""> </span>
+                  </a>
+                </td>
+                <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{t.sequence}}</td>
+                <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{t.onzClass}}</td>
+                <td class=fiveColumnsStyle
+                    style="text-align: center; vertical-align: middle;">{{setTwoNumberDecimal(t.planarity)}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </mat-card-content>
+        </mat-card>
+        <br/>
+        <mat-card>
+          <mat-card-content>
+            <h5>Tetrad pairs in {{data.id}}:</h5>
+            <div class="quadruplextable">
+              <table class="table" style="border:1px solid black;">
+                <thead>
+                <tr>
+                  <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad pairs</th>
+                  <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
+                  <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Twist [°]</th>
+                  <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Rise [Å]</th>
+                  <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Strand direction</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let t of tetradsPairsInformation">
+                  <td
+                    class="fiveColumnsStyle"
+                    style="text-align: center; vertical-align: middle;"
+                    *ngIf="t.TetradPairId != 0">
+                    <a class="hasTooltip" [routerLink]="['/tetrad', t.TetradPairId.slice(1)]">
+                      {{t.TetradPairId}}  <span> <img src="static/pymol/{{t.TetradPairId}}.png" width="100" height="100"
+                                                      alt=""> </span>
+                    </a>
+                    -
+                    <a class="hasTooltip" [routerLink]="['/tetrad', t.TetradId.slice(1)]">
+                      {{t.TetradId}}  <span> <img src="static/pymol/{{t.TetradId}}.png" width="100" height="100" alt=""> </span>
+                    </a>
+                  </td>
+                  <td *ngIf="t.quadruplex_id != null && t.TetradPairId != 0" class="fiveColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">
+                    <a class="hasTooltip" [routerLink]="['/quadruplex', t.quadruplex_id.slice(1)]">
+                      {{t.quadruplex_id}} <span> <img src="static/pymol/{{t.quadruplex_id}}.png" width="200"
+                                                      height="150" alt=""> </span>
+                    </a>
+                  </td>
+                  <td *ngIf="t.quadruplex_id == null && t.TetradPairId != 0" class="fiveColumnsStyle"
+                      style="text-align: center; vertical-align: middle;">-
+                  </td>
+                  <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;"
+                      *ngIf="t.TetradPairId != 0 ">{{t.twist | number: '1.0-2'}}</td>
+                  <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;"
+                      *ngIf="t.TetradPairId != 0 ">{{t.rise | number: '1.0-2'}}</td>
+                  <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;"
+                      *ngIf="t.TetradPairId != 0 ">{{t.direction}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card>
+          <mat-card-content>
+            <div>
               <h5>Nucleotides in {{data.id}}:</h5>
-          </div>
-          <table class="table" style="border:1px solid black;">
-            <thead>
-            <tr>
-              <th class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad ID</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 1</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 2</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 3</th>
-              <th class = "fiveColumnsStyle" style = "text-align: center; vertical-align: middle;">Nucleotide 4</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let n of nucleotideChiValues">
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
-                <a class = "hasTooltip" [routerLink]="['/tetrad', n.tetrad_id.slice(1)]">{{n.tetrad_id}}
-                  <span> <img src = "static/pymol/{{n.tetrad_id}}.png" width="100" height="100"  alt=""> </span>
-                </a></td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n1_chi | number: '1.0-2'}}° / {{n.n1_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n2_chi | number: '1.0-2'}}° / {{n.n2_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n3_chi | number: '1.0-2'}}° / {{n.n3_glycosidic_bond}}</td>
-              <td class = "fiveColumnsStyle" style="text-align: center; vertical-align: middle;">{{n.n4_chi | number: '1.0-2'}}° / {{n.n4_glycosidic_bond}}</td>
-            </tr>
-            </tbody>
-          </table>
-        </mat-card-content>
-      </mat-card>
-      <br>
-    </div>
-  </main>
-</div>
+            </div>
+            <table class="table" style="border:1px solid black;">
+              <thead>
+              <tr>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Tetrad ID</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Nucleotide 1</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Nucleotide 2</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Nucleotide 3</th>
+                <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">Nucleotide 4</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let n of nucleotideChiValues">
+                <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle;">
+                  <a class="hasTooltip" [routerLink]="['/tetrad', n.tetrad_id.slice(1)]">{{n.tetrad_id}}
+                    <span> <img src="static/pymol/{{n.tetrad_id}}.png" width="100" height="100" alt=""> </span>
+                  </a></td>
+                <td class="fiveColumnsStyle"
+                    style="text-align: center; vertical-align: middle;">{{n.n1_chi | number: '1.0-2'}}°
+                  / {{n.n1_glycosidic_bond}}</td>
+                <td class="fiveColumnsStyle"
+                    style="text-align: center; vertical-align: middle;">{{n.n2_chi | number: '1.0-2'}}°
+                  / {{n.n2_glycosidic_bond}}</td>
+                <td class="fiveColumnsStyle"
+                    style="text-align: center; vertical-align: middle;">{{n.n3_chi | number: '1.0-2'}}°
+                  / {{n.n3_glycosidic_bond}}</td>
+                <td class="fiveColumnsStyle"
+                    style="text-align: center; vertical-align: middle;">{{n.n4_chi | number: '1.0-2'}}°
+                  / {{n.n4_glycosidic_bond}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <br>
+      </div>
+    </main>
+  </div>
 </div>

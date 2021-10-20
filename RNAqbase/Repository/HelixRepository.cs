@@ -34,7 +34,7 @@ namespace RNAqbase.Repository
 						STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 						COUNT(t.id) AS NumberOfTetrads,
 						p.experiment AS Experiment,
-						COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
+						COUNT(DISTINCT(q.id)) AS NumberOfQuadruplexes,
 						 CASE
 								WHEN max(q_view.chains) = 1 THEN 'unimolecular'
 								WHEN max(q_view.chains) = 2 THEN  'bimolecular'
@@ -105,7 +105,7 @@ namespace RNAqbase.Repository
 							STRING_AGG(COALESCE((n1.short_name)||(n2.short_name)||(n3.short_name)||(n4.short_name), ''), '') AS Sequence,
 							COUNT(t.id) AS NumberOfTetrads,
 							p.experiment AS Experiment,
-							COUNT(DISTINCT(q.id)) AS NumberOfQudaruplexes,
+							COUNT(DISTINCT(q.id)) AS NumberOfQuadruplexes,
 							 CASE
 									WHEN max(q_view.chains) = 1 THEN 'unimolecular'
 									WHEN max(q_view.chains) = 2 THEN  'bimolecular'

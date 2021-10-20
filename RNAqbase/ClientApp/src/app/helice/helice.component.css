@@ -2,7 +2,7 @@
   flex: 0 0 8%;
 }
 
-.mat-column-quadruplexId, .mat-column-pdbDeposition, .mat-column-type_strand, .mat-column-numberOfQudaruplexes, .mat-column-numberOfTetrads {
+.mat-column-quadruplexId, .mat-column-pdbDeposition, .mat-column-type_strand, .mat-column-numberOfQuadruplexes, .mat-column-numberOfTetrads {
   flex: 0 0 9%;
 }
 

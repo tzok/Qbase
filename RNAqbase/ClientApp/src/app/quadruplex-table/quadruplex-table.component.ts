@@ -39,10 +39,12 @@ export class QuadruplexTableComponent implements OnInit {
         this.csvData = JSON.parse(JSON.stringify(result));
         for (let val of this.csvData) {
           val.id = 'Q' + val.id;
+          val.sequence = this.truncate(val.sequence);
         }
         this.dataSource = new MatTableDataSource(result);
         for (let val of result) {
           val.quadruplex_id = 'Q' + val.id;
+          val.sequence = this.truncate(val.sequence);
         }
         this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.quadruplex_id != null && data.quadruplex_id.toString().toUpperCase().includes(filter.toUpperCase()));
         this.dataSource.paginator = this.paginator;
@@ -51,7 +53,6 @@ export class QuadruplexTableComponent implements OnInit {
         this.filteredDataLength = this.dataSource.data.length;
       },
       error => console.error(error));
-
   }
 
   applyFilter(event: Event) {

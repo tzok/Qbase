@@ -1,14 +1,11 @@
-import {Component, OnInit, Inject, Input} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
 import {Visualization3DComponent} from '../visualization3-d/visualization3-d.component';
 import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
 import * as JSZip from 'jszip';
-import * as FileSaver from 'file-saver';
-import * as svg from 'save-svg-as-png';
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {DomSanitizer} from "@angular/platform-browser";
 import {saveAs} from "file-saver";
 
 
@@ -50,6 +47,7 @@ export class HelixComponent implements OnInit {
       this.http.get<HelixReference>(this.baseUrl + 'api/Helix/GetHelixReferenceById?id=' + this.helixId).subscribe(result => {
         this.data = result;
         this.data.id = 'H' + this.data.id;
+        this.data.sequence = this.truncate(this.data.sequence);
         this.http.get<TetradReference[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetradsInHelix?id=' + '' + this.data.id.slice(1)).subscribe(result => {
           this.tetrads = result;
           for (let val of result) {
@@ -81,6 +79,7 @@ export class HelixComponent implements OnInit {
         this.http.get<QuadruplexReference[]>(this.baseUrl + '' + 'api/Quadruplex/GetListOfQuadruplex?id=' + '' + this.data.id.slice(1)).subscribe(result => {
           this.quadruplexes = result;
           for (let val of result) {
+            val.sequence = this.truncate(val.sequence);
             this.quadruplexInformation.push({
               id: 'Q' + val.id,
               pdbIdentifier: val.pdbIdentifier,
@@ -201,7 +200,7 @@ interface HelixReference {
   experiment: string
   sequence: string;
   typeOfStrands: string;
-  numberOfQudaruplexes: number;
+  numberOfQuadruplexes: number;
   numberOfTetrads: number;
   dot_bracket: string;
 }
