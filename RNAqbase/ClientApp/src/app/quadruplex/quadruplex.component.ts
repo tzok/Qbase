@@ -168,7 +168,7 @@ export class QuadruplexComponent implements OnInit {
                   zip.file("nucleotides_in_quadruplex" + ".csv", nucleotides)
                   zip.file("quadruplex_loops" + ".csv", loops)
                   zip.generateAsync({ type: "blob" })
-                    .then(blob => saveAs(blob,'data.zip'));
+                    .then(blob => saveAs(blob,'quadruplex-Q' + this.quadruplexId + '.zip'));
 
                 });
               });

@@ -25,9 +25,10 @@
               </button>
             </mat-form-field>
           </div>
-          <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
+          <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData" [filename]="'g4helices.csv'">Save
+            table</a>
           <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink
-             [data]="selection.selected">Save selected rows</a>
+             [data]="selection.selected" [filename]="'g4helices.csv'">Save selected rows</a>
         </div>
         <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
           <!-- Id Column a [routerLink]="['/helix', row.id]"-->

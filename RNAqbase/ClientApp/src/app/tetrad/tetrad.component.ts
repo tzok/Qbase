@@ -158,7 +158,7 @@ export class TetradComponent implements OnInit {
                  zip.file("ions" + ".csv",ions )
 
                  zip.generateAsync({ type: "blob" })
-                   .then(blob => saveAs(blob,'data.zip'));
+                   .then(blob => saveAs(blob,'tetrad-T' + this.tetradId + '.zip'));
 
                });
            });

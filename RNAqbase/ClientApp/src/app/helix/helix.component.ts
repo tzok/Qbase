@@ -140,7 +140,7 @@ export class HelixComponent implements OnInit {
                     zip.file("nucleotides_in_helice" + ".csv", nucleotides)
                     zip.file("tetrads_pairs" + ".csv", tetradsPairs)
                     zip.generateAsync({type: "blob"})
-                      .then(blob => saveAs(blob, 'data.zip'));
+                      .then(blob => saveAs(blob, 'g4helix-H' + this.helixId + '.zip'));
 
                   });
               });

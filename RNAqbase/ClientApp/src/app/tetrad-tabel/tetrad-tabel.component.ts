@@ -48,7 +48,6 @@ export class TetradTabelComponent implements OnInit {
       }
 
       this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || data.id.toString().toUpperCase().includes(filter.toUpperCase());
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;
