@@ -53,7 +53,7 @@ namespace RNAqbase.Repository
                     @"
 						SELECT DISTINCT ON (q.id)
 							q.id AS Id,
-							q.onzm AS OnzmClass,
+							CONCAT(q.onzm, q.subtype) AS OnzmClass,
 						   	p.title as Title,
 							p.identifier AS PdbIdentifier,
 						    q.loop_class as LoopTopology,
@@ -111,7 +111,7 @@ namespace RNAqbase.Repository
 							MAX(q.id) AS Id,
 							q.loop_class as LoopTopology,
 							STRING_AGG(DISTINCT(qg.gba_quadruplex_class)::text,', ') AS TetradCombination,
-							MAX(q.onzm) AS OnzmClass,
+							CONCAT(MAX(q.onzm), MAX(q.subtype)) AS OnzmClass,
 							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 							MAX(p.identifier) AS PdbId,
 							string_agg(DISTINCT(ion.name)::text, ', ') as Ion,
@@ -219,7 +219,7 @@ namespace RNAqbase.Repository
                     @"
 						SELECT
 							MAX(q.id) AS Id,
-							MAX(q.onzm) AS OnzmClass,
+							CONCAT(MAX(q.onzm), MAX(q.subtype)) AS OnzmClass,
 							MAX(p.identifier) AS PdbIdentifier, 
 							to_char(MAX(p.release_date)::date, 'YYYY-MM-DD') as PdbDeposition,
 							MAX(n1.pdb_id) AS PdbId,
