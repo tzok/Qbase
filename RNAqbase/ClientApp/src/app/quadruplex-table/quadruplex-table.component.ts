@@ -44,7 +44,7 @@ export class QuadruplexTableComponent implements OnInit {
         for (let val of result) {
           val.quadruplex_id = 'Q' + val.id;
         }
-        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.id != null && data.id.toString().toUpperCase().includes(filter.toUpperCase()));
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.quadruplex_id != null && data.quadruplex_id.toString().toUpperCase().includes(filter.toUpperCase()));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.areButtonsHidden = false;
@@ -56,7 +56,11 @@ export class QuadruplexTableComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.refreshTable(filterValue);
+  }
+
+  refreshTable(filter: string) {
+    this.dataSource.filter = filter.trim().toLowerCase();
     this.filteredDataLength = this.dataSource.filteredData.length;
   }
 
@@ -91,7 +95,7 @@ export class QuadruplexTableComponent implements OnInit {
   changeFilterPredicate($event: MatSelectChange) {
     switch ($event.value) {
       case 'id':
-        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.id != null && data.id.toString().toUpperCase().includes(filter.toUpperCase()));
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.quadruplex_id != null && data.quadruplex_id.toString().toUpperCase().includes(filter.toUpperCase()));
         break;
       case 'pdbId':
         this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
@@ -137,8 +141,7 @@ export class QuadruplexTableComponent implements OnInit {
         break;
     }
 
-    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
-    this.filteredDataLength = this.dataSource.filteredData.length;
+    this.refreshTable(this.dataSource.filter);
   }
 }
 

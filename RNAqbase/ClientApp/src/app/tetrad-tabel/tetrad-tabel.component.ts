@@ -55,13 +55,11 @@ export class TetradTabelComponent implements OnInit {
       this.filteredDataLength = this.dataSource.data.length;
 
     }, error => console.error(error));
-
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.filteredDataLength = this.dataSource.filteredData.length;
+    this.refreshTable(filterValue);
   }
 
   isAllSelected() {
@@ -122,8 +120,11 @@ export class TetradTabelComponent implements OnInit {
         this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.tetradCombination != null && data.tetradCombination.toString().toUpperCase().includes(filter.toUpperCase()));
         break;
     }
+    this.refreshTable(this.dataSource.filter);
+  }
 
-    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
+  refreshTable(filter: string) {
+    this.dataSource.filter = filter.trim().toLowerCase();
     this.filteredDataLength = this.dataSource.filteredData.length;
   }
 }

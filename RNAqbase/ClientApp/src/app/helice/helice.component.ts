@@ -75,7 +75,11 @@ export class HeliceComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.refreshTable(filterValue);
+  }
+
+  refreshTable(filter: string) {
+    this.dataSource.filter = filter.trim().toLowerCase();
     this.filteredDataLength = this.dataSource.filteredData.length;
   }
 
@@ -144,8 +148,7 @@ export class HeliceComponent implements OnInit {
         break;
     }
 
-    this.dataSource.filter = this.dataSource.filter.trim().toLowerCase();
-    this.filteredDataLength = this.dataSource.filteredData.length;
+    this.refreshTable(this.dataSource.filter);
   }
 }
 

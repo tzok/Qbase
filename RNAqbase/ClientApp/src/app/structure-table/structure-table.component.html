@@ -20,7 +20,11 @@
 
           <div class="inputtext">
             <mat-form-field>
-              <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters">
+              <input matInput (keyup)="applyFilter($event)" placeholder="Enter any string of characters"
+                     [(ngModel)]="value">
+              <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''; refreshTable('')">
+                <mat-icon>close</mat-icon>
+              </button>
             </mat-form-field>
           </div>
           <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData">Save table</a>
