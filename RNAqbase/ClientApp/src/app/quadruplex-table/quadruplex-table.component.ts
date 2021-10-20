@@ -30,6 +30,7 @@ export class QuadruplexTableComponent implements OnInit {
     'Sequence of tetrads', 'Ion', 'Ionic charge', 'Type (by no. of strands)', 'Type (by ONZM)', 'ONZM Class',
     'No. of tetrads', 'Loop topology', 'Tetrad combination'
   ]
+  value: any;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }

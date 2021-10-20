@@ -33,6 +33,7 @@ export class StructureTableComponent implements OnInit {
   columnNames = [
     'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Quadruplex ID'
   ];
+  value: any;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog, private route: ActivatedRoute) {
   }

@@ -26,6 +26,7 @@ export class TetradTabelComponent implements OnInit {
     'sequence', 'ion', 'ion_charge', 'onzClass', 'tetradCombination', 'select'];
   columnNames = ['Tetrad ID', 'Quadruplex ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule',
     'Experimental method', 'Sequence', 'Ion', 'Ionic charge', 'ONZ Class', 'Tetrad Combination'];
+  value: any;
 
   constructor(public sanitizer: DomSanitizer, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog) {
   }

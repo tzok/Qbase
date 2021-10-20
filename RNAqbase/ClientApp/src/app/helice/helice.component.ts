@@ -31,6 +31,7 @@ export class HeliceComponent implements OnInit {
     'G4Helix ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Sequence of tetrads',
     'Type (by no. of strands)', 'No. of quadruplexes', 'Quadruplex ID', 'No. of tetrads'
   ];
+  value: any;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }
