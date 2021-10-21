@@ -1,190 +1,190 @@
-<div style=" background: #F0F0F0; height: 100%">
+<div style="background: #f0f0f0; height: 100%">
   <div class="container" *ngIf="data && data.tetradsInTheSameQuadruplex">
     <main>
       <div class="description">
         <div class="text-rectangle">
-        <h2>Tetrad description</h2>
-      </div>
-      <br>
+          <h2>Tetrad description</h2>
+        </div>
+        <br />
         <mat-card>
           <mat-card-content>
-            <div class="row ">
-              <div class="col-lg-10 col-sm-6">
-                <h5><b>Tetrad ID: {{data.id}}</b></h5>
-                <p>{{data.title}}</p>
-              </div>
-              <div class=" col-lg-2 col-sm-6 saveDataButton">
-                <a class="mat-button" (click)=downloadZip()>Save data</a>
-              </div>
-            </div>
-
-          <div class="tetradtable">
-            <table class="table" style="border:1px solid black;">
-              <thead>
-                <tr>
-                  <th style="text-align: center; vertical-align: middle;">Quadruplex ID</th>
-                  <th style="text-align: center; vertical-align: middle;">PDB ID</th>
-                  <th style="text-align: center; vertical-align: middle;">Assembly ID</th>
-                  <th style="text-align: center; vertical-align: middle;">Molecule</th>
-                  <th style="text-align: center; vertical-align: middle;">Experimental method</th>
-                  <th style="text-align: center; vertical-align: middle;">Planarity [Å]</th>
-                  <th style="text-align: center; vertical-align: middle;">ONZ class</th>
-                  <th style="text-align: center; vertical-align: middle;">Tetrad combination</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
-                  <td style="text-align: center; vertical-align: middle;" *ngIf="data.tetradsInTheSameQuadruplex.length > 0"><a class="hasTooltip" [routerLink]="['/quadruplex', data.quadruplexId.slice(1)]">{{data.quadruplexId}}<span> <img src = "static/pymol/{{data.quadruplexId}}.png" width="200" height="150"  alt=""> </span> </a></td>
-                  <td style="text-align: center; vertical-align: middle;" ><a class="hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{data.pdbIdentifier}}">{{data.pdbIdentifier}}<span> <img src = "static/pymol/{{data.pdbIdentifier}}-assembly-{{data.assemblyId}}.png" width="200" height="150"  alt=""> </span>   </a></td>
-                  <td style="text-align: center; vertical-align: middle;">{{data.assemblyId}}</td>
-                  <td style="text-align: center; vertical-align: middle;">{{data.molecule}}</td>
-                  <td style="text-align: center; vertical-align: middle;">{{data.experiment}}</td>
-                  <td style="text-align: center; vertical-align: middle;">{{setTwoNumberDecimal(data.planarity)}}</td>
-                  <td style="text-align: center; vertical-align: middle;">{{data.onzClass}}</td>
-                  <td style="text-align: center; vertical-align: middle;">{{data.tetradCombination}}</td>
-
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <br>
-
-      <mat-card>
-        <mat-card-content>
-          <div>
-            <h5> 2D structure (dot-bracket):</h5>
-            <p class="dotbracket">{{data.dot_bracket}}</p>
-          </div>
-          <div style="margin-top: 30px;">
             <div class="row">
-              <div class="column">
-                <button (click)="show2dStructure('varna' )" title="Click to see 2D structure">
-                  <div class="text">
-                    2D structure (VARNA)
-                  </div>
-                  <figure> <img src = "static/varna/{{data.id}}.svg" width="150" height="150"  alt="varna"/></figure>
-                </button>
+              <div class="col-lg-10 col-sm-6">
+                <h5>
+                  <b>Tetrad ID: {{ data.id }}</b>
+                </h5>
+                <p>{{ data.title }}</p>
               </div>
-              <div class="column">
-                <button (click)="show2dStructure('rchie')" title="Click to see 2D structure">
-                  <div class="text">
-                    2D structure (R-chie)
-                  </div>
-                  <figure> <img src = "static/rchie/{{data.id}}.svg" width="200" height="150"  alt="r-chie"/></figure>
-                </button>
-              </div>
-              <div class="column">
-                <button (click)="show3dStructure()" title="Click to see 3D structure">
-                  <div class="text">
-                    3D structure (LiteMol)
-                  </div>
-                  <figure> <img src = "static/pymol/{{data.id}}.png" width="200" height="150"  alt="litemol"/></figure>
-                </button>
+              <div class="col-lg-2 col-sm-6 saveDataButton">
+                <a class="mat-button" (click)="downloadZip()">Save data</a>
               </div>
             </div>
-          </div>
-          <br>
-          <p style="color: darkgray">Click on the picture to see more details!</p>
-        </mat-card-content>
-      </mat-card>
-     <br>
-        <mat-card>
-          <mat-card-content>
-            <h5>Nucleotides in {{data.id}}:</h5>
-            <div class="quadruplextable">
-              <table class="table" style="border:1px solid black;">
+
+            <div class="table">
+              <table class="table" style="border: 1px solid black">
                 <thead>
-                <tr>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Number</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Symbol</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Full name</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (value) [°]</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Chi angle (type)</th>
-                </tr>
+                  <tr>
+                    <th style="text-align: center; vertical-align: middle">Quadruplex ID</th>
+                    <th style="text-align: center; vertical-align: middle">PDB ID</th>
+                    <th style="text-align: center; vertical-align: middle">Assembly ID</th>
+                    <th style="text-align: center; vertical-align: middle">Molecule</th>
+                    <th style="text-align: center; vertical-align: middle">Experimental method</th>
+                    <th style="text-align: center; vertical-align: middle">Planarity [Å]</th>
+                    <th style="text-align: center; vertical-align: middle">ONZ class</th>
+                    <th style="text-align: center; vertical-align: middle">Tetrad combination</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let t of tetradNucleotidesTable">
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.id}}</td>
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.short_name}}</td>
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.full_name}}</td>
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.chi | number: '1.0-2'}}</td>
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.glycosidic_bond}}</td>
-                </tr>
+                  <tr>
+                    <td style="text-align: center; vertical-align: middle" *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</td>
+                    <td style="text-align: center; vertical-align: middle" *ngIf="data.tetradsInTheSameQuadruplex.length > 0">
+                      <a class="hasTooltip" [routerLink]="['/quadruplex', data.quadruplexId.slice(1)]"
+                        >{{ data.quadruplexId }}<span><img src="static/pymol/{{ data.quadruplexId }}.png" width="200" height="150" alt="" /></span>
+                      </a>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle">
+                      <a class="hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{ data.pdbIdentifier }}"
+                        >{{ data.pdbIdentifier }}<span> <img src="static/pymol/{{ data.pdbIdentifier }}-assembly-{{ data.assemblyId }}.png" width="200" height="150" alt="" /> </span>
+                      </a>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle">{{ data.assemblyId }}</td>
+                    <td style="text-align: center; vertical-align: middle">{{ data.molecule }}</td>
+                    <td style="text-align: center; vertical-align: middle">{{ data.experiment }}</td>
+                    <td style="text-align: center; vertical-align: middle">{{ setTwoNumberDecimal(data.planarity) }}</td>
+                    <td style="text-align: center; vertical-align: middle">{{ data.onzClass }}</td>
+                    <td style="text-align: center; vertical-align: middle">{{ data.tetradCombination }}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </mat-card-content>
         </mat-card>
-        <br *ngIf="ions.length != 0 && ions[0].ion != null ">
+        <br />
+
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <h5>2D structure (dot-bracket):</h5>
+              <p class="dotbracket">{{ data.dot_bracket }}</p>
+            </div>
+            <div style="margin-top: 30px">
+              <div class="row">
+                <div class="column">
+                  <button (click)="show2dStructure('varna')" title="Click to see 2D structure">
+                    <div class="text">2D structure (VARNA)</div>
+                    <figure><img src="static/varna/{{ data.id }}.svg" width="150" height="150" alt="varna" /></figure>
+                  </button>
+                </div>
+                <div class="column">
+                  <button (click)="show2dStructure('rchie')" title="Click to see 2D structure">
+                    <div class="text">2D structure (R-chie)</div>
+                    <figure><img src="static/rchie/{{ data.id }}.svg" width="200" height="150" alt="r-chie" /></figure>
+                  </button>
+                </div>
+                <div class="column">
+                  <button (click)="show3dStructure()" title="Click to see 3D structure">
+                    <div class="text">3D structure (LiteMol)</div>
+                    <figure><img src="static/pymol/{{ data.id }}.png" width="200" height="150" alt="litemol" /></figure>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br />
+            <p style="color: darkgray">Click on the picture to see more details!</p>
+          </mat-card-content>
+        </mat-card>
+        <br />
+        <mat-card>
+          <mat-card-content>
+            <h5>Nucleotides in {{ data.id }}:</h5>
+            <div class="table">
+              <table class="table" style="border: 1px solid black">
+                <thead>
+                  <tr>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Number</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Symbol</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Full name</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Chi angle (value) [°]</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Chi angle (type)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let t of tetradNucleotidesTable">
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.id }}</td>
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.short_name }}</td>
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.full_name }}</td>
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.chi | number: "1.0-2" }}</td>
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.glycosidic_bond }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <br *ngIf="ions.length != 0 && ions[0].ion != null" />
         <mat-card *ngIf="ions.length != 0 && ions[0].ion != null">
           <mat-card-content>
-            <h5>Ions in {{data.id}}:</h5>
+            <h5>Ions in {{ data.id }}:</h5>
             <div class="quadruplextable">
-              <table class="table" style="border:1px solid black;">
+              <table class="table" style="border: 1px solid black">
                 <thead>
-                <tr>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Ion</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Ionic charge</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Symbol</th>
-                  <th class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">Full name</th>
-                </tr>
+                  <tr>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Ion</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Ionic charge</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Symbol</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Full name</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let t of ions">
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                  <td class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.ion_charge}}</td>
-                  <td *ngIf='t.symbol !=null' class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.symbol}}</td>
-                  <td *ngIf='t.symbol ==null' class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">-</td>
-                  <td *ngIf='t.full_name !=null' class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">{{t.full_name}}</td>
-                  <td *ngIf='t.full_name ==null' class = fiveColumnsStyle style="text-align: center; vertical-align: middle;">-</td>
-
-                </tr>
+                  <tr *ngFor="let t of ions">
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                    <td class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.ion_charge }}</td>
+                    <td *ngIf="t.symbol != null" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.symbol }}</td>
+                    <td *ngIf="t.symbol == null" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">-</td>
+                    <td *ngIf="t.full_name != null" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">{{ t.full_name }}</td>
+                    <td *ngIf="t.full_name == null" class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">-</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </mat-card-content>
         </mat-card>
-        <br>
-      <mat-card>
-        <mat-card-content>
-          <div class="lists">
-            <div class="list">
-              <p *ngIf="data.quadruplexId!='99999999'">
-                Number of tetrads in this quadruplex: <b>{{data.tetradsInTheSameQuadruplex.length + 1}}</b>
-              </p>
-            </div>
+        <br />
+        <mat-card>
+          <mat-card-content>
+            <div class="lists">
+              <div class="list">
+                <p *ngIf="data.quadruplexId != '99999999'">
+                  Number of tetrads in this quadruplex: <b>{{ data.tetradsInTheSameQuadruplex.length + 1 }}</b>
+                </p>
+              </div>
 
-            <div class="list">
-              <p *ngIf="data.quadruplexId!='99999999'">
-                Other tetrads in this quadruplex:
-                <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">T{{t}} </a>
-                <a *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</a>
-              </p>
-            </div>
+              <div class="list">
+                <p *ngIf="data.quadruplexId != '99999999'">
+                  Other tetrads in this quadruplex:
+                  <a *ngFor="let t of data.tetradsInTheSameQuadruplex" [routerLink]="['/tetrad', t]">T{{ t }} </a>
+                  <a *ngIf="data.tetradsInTheSameQuadruplex.length == 0">-</a>
+                </p>
+              </div>
 
-          <div class="lists">
-            <div class="list">
-              <p>
-                Number of tetrads in this structure: <b>{{data.tetradsInTheSamePdb.length + 1}}</b>
-              </p>
+              <div class="lists">
+                <div class="list">
+                  <p>
+                    Number of tetrads in this structure: <b>{{ data.tetradsInTheSamePdb.length + 1 }}</b>
+                  </p>
+                </div>
+                <div class="list">
+                  <p>
+                    Other tetrads in this structure:
+                    <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">T{{ t }} </a>
+                    <a *ngIf="data.tetradsInTheSamePdb.length == 0">-</a>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="list">
-              <p>
-                Other tetrads in this structure:
-                <a *ngFor="let t of data.tetradsInTheSamePdb" [routerLink]="['/tetrad', t]">T{{t}} </a>
-                <a *ngIf="data.tetradsInTheSamePdb.length == 0">-</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        </mat-card-content>
-      </mat-card>
-      <br>
-
-
+          </mat-card-content>
+        </mat-card>
+        <br />
       </div>
     </main>
   </div>

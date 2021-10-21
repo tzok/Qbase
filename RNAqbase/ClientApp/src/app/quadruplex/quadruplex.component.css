@@ -1,36 +1,43 @@
-@media screen and (max-width: 1200px) {
-  .quadruplextable {
-    max-width: 100%;
-    overflow-x: scroll;
-  }
+div.table {
+  max-width: 100%;
+  overflow-x: auto;
 }
+
 .mat-table {
   overflow: auto;
   /*max-height: 500px;*/
 }
+
 .mobile-label {
   display: none;
 }
+
 .cdk-column-select {
   border: none;
 }
-@media(max-width: 600px) {
+
+@media (max-width: 600px) {
   .mat-cell:first-child {
     /*padding-left: 0;*/
   }
+
   .mat-header-row {
     /*display: none;*/
   }
+
   .mat-header-cell {
     width: 90px;
   }
+
   .mat-cell {
-    overflow:scroll;
+    overflow: scroll;
   }
+
   .mat-table {
     display: flex;
     flex-wrap: wrap;
   }
+
   .mat-row {
     overflow: auto;
     min-width: 850px;
@@ -38,78 +45,95 @@
     align-items: start;
     padding: 8px 10px;*/
   }
+
   .mobile-label {
     /*display: none;
     font-weight: normal;*/
   }
 }
-.row{
+
+.row {
   justify-content: center;
 }
+
 .container {
   min-height: 100%;
   text-align: left;
 }
+
 main {
   margin-top: 10px;
   height: auto;
   padding-top: 20px;
 }
+
 .table {
   margin-top: 40px;
   padding: 15px;
   text-align: left;
   width: 100%;
 }
+
 .text-rectangle {
   text-align: center;
-  background-color: #45A29E;
+  background-color: #45a29e;
   color: white;
   margin-top: 10px;
   padding: 5px;
 }
+
 p {
   font-size: large;
   line-height: 1.5;
 }
+
 .dotbracket {
   font-family: "Courier New", Courier, monospace;
   margin: 5px;
   white-space: pre-wrap;
 }
+
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
   padding: 16px;
   text-align: center;
   background-color: #d6d8db;
 }
-.p2{
+
+.p2 {
   font-size: large;
   line-height: 1.5;
   text-align: center;
 }
+
 a {
-  color: #45A29E;
+  color: #45a29e;
 }
+
 a.disabled {
   pointer-events: none;
   cursor: default;
 }
+
 .inputtext {
   display: inline-block;
   margin-right: 550px;
   margin-left: 5px;
 }
+
 .statictext {
   display: inline-block;
   margin-right: 20px;
 }
+
 .lists {
   margin-top: 20px;
 }
+
 .saveDataButton {
   text-align: right;
 }
+
 a.mat-button {
   border-style: solid;
   border-width: 2px;
@@ -118,30 +142,36 @@ a.mat-button {
   color: black;
   padding: 3px;
 }
+
 .fourColumnsStyle {
-  width: 25% ;
+  width: 25%;
 }
+
 .nineColumnsStyle {
   width: 11.11%;
 }
+
 .hasTooltip span {
   display: none;
   color: #000;
   text-decoration: none;
   padding: 5px 0;
 }
+
 .hasTooltip:hover span {
   display: block;
   position: absolute;
   background-color: white;
-  border: 1px solid #CCC;
+  border: 1px solid #ccc;
   margin: 2px 10px;
   padding: 5px 0;
   z-index: 50;
 }
+
 td.threeColumnsStyle {
-  border:none;
+  border: none;
 }
+
 .column {
   align-content: center;
   text-align: center;
@@ -153,19 +183,21 @@ td.threeColumnsStyle {
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow:hidden;
+  overflow: hidden;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   margin-bottom: 10px;
-
 }
+
 * {
   box-sizing: border-box;
 }
+
 body {
   font-family: sans-serif;
   background: #333;
 }
+
 button {
   background: white;
   border: none;
@@ -176,17 +208,21 @@ button {
   height: 100%;
   text-decoration: none;
 }
+
 button:focus {
   outline: none;
 }
+
 .text {
   font-weight: bold;
   color: black;
   margin: 0 0 30px;
 }
-figure{
+
+figure {
   height: 70%;
 }
+
 @media screen and (max-width: 1200px) {
   .column {
     -ms-flex: 40%;
@@ -195,6 +231,7 @@ figure{
     text-align: center;
   }
 }
+
 @media screen and (max-width: 800px) {
   .column {
     -ms-flex: 60%;
