@@ -27,8 +27,8 @@
               </button>
             </mat-form-field>
           </div>
-          <a class="mat-button" [hidden]="areButtonsHidden" csvLink [data]="csvData" [filename]="'structures.csv'">Save
-            table</a>
+          <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="dataSource.data.length <= 0" csvLink
+             [data]="csvData" [filename]="'structures.csv'">Save table</a>
           <a class="mat-button" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0" csvLink
              [data]="selection.selected" [filename]="'structures.csv'">Save selected rows</a>
         </div>
