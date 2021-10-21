@@ -1,69 +1,85 @@
-.header{
+.header {
   text-align: center;
   margin-bottom: 10px;
   padding: 5px;
   border-bottom: 1px solid lightgray;
-  background-color: #F0F0F0;
+  background-color: #f0f0f0;
 }
+
 .container {
-  min-height: 100%
+  min-height: 100%;
 }
+
 main {
   margin-top: 10px;
   height: auto;
   padding-top: 20px;
 }
-h3{
+
+h3 {
   margin-left: 5px;
 }
-h5{
+
+h5 {
   margin-top: 20px;
   margin-left: 5px;
   font-style: italic;
 }
-ol, ul{
+
+ol,
+ul {
   font-size: medium;
 }
+
 .text-rectangle {
   text-align: center;
-  background-color: #45A29E;
+  background-color: #45a29e;
   color: white;
   margin-top: 10px;
   padding: 5px;
 }
+
 .mat-card {
   margin-bottom: 10px;
   margin-top: 20px;
 }
+
 p {
   font-size: medium;
   line-height: 1.5;
   margin: 10px;
   text-align: justify;
 }
-.description{
+
+.description {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 40px;
 }
+
 #table_of_contents ol {
-  counter-reset: item
+  counter-reset: item;
 }
+
 #table_of_contents li {
-  display: block
+  display: block;
 }
+
 #table_of_contents li:before {
-  content: counters(item, ".")".";
-  counter-increment: item
+  content: counters(item, ".") ".";
+  counter-increment: item;
 }
-mark.orange {
+
+span.orange {
   color: black;
   background: #fc8002;
 }
-mark.green {
+
+span.green {
   color: black;
   background: #80d078;
 }
+
 .dotbracket {
   font-family: "Courier New", Courier, monospace;
   white-space: pre-wrap;
@@ -71,10 +87,12 @@ mark.green {
   margin-bottom: 5px;
   margin-top: 5px;
 }
-.center_table{
+
+.center_table {
   margin-left: auto;
   margin-right: auto;
 }
+
 @media screen and (max-width: 1000px) {
   .pymol_table {
     margin-left: auto;
@@ -83,6 +101,7 @@ mark.green {
     overflow-x: scroll;
   }
 }
+
 .table {
   margin-left: auto;
   margin-right: auto;
@@ -93,16 +112,19 @@ mark.green {
   padding: 15px;
   text-align: center;
 }
-#reference_table  ol {
+
+#reference_table ol {
   counter-reset: orderedList;
   list-style: none;
   padding-left: 5px;
 }
-#reference_table  ol li:before {
+
+#reference_table ol li:before {
   content: "[" counter(orderedList) "] ";
   counter-increment: orderedList;
   padding-left: 5px;
 }
+
 .hreflink {
   scroll-margin-top: 100px;
 }
