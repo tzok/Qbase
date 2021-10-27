@@ -7,7 +7,7 @@
 
       <mat-card>
         <mat-card-content>
-          <p class="text-justify"><b>ONQUADRO</b> stores information about experimentally-determined quadruplex structures from the <a href="https://www.rcsb.org/">Protein Data Bank</a> [<a href="help#1" title="Berman, H.M., Westbrook, J., Feng, Z., Gilliland, G., Bhat, T.N., Weissig, H., Shindyalov, I.N., Bourne, P.E. 2000. The Protein Data Bank Nucleic Acids Research, 28: 235–242.">1</a>]. The data contain nucleic acid sequences, 2D and 3D structures that can be viewed at the level of tetrads, quadruplexes, helices (called G4Helices, stacking interactions of G-tetrads [<a href="help#2" title="Lu, X-J., Bussemaker H. J., Olson, W. K. 2015. DSSR: an integrated software tool for dissecting the spatial structure of RNA Nucleic Acids Research, 43, e142.">2</a>]), and whole molecules containing these motifs. We share detailed information about basic conformational parameters and topology-driven classification [<a href="help#3" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">3</a>] and provide structure visualization.</p>
+          <p class="text-justify"><b>ONQUADRO</b> stores information about experimentally determined quadruplex structures from the <a href="https://www.rcsb.org/">Protein Data Bank</a> [<a href="help#1" title="Berman, H.M., Westbrook, J., Feng, Z., Gilliland, G., Bhat, T.N., Weissig, H., Shindyalov, I.N., Bourne, P.E. 2000. The Protein Data Bank Nucleic Acids Research, 28: 235–242.">1</a>]. The data - nucleic acid sequences, 2D and 3D structures, conformational parameters, topology-driven classifications [<a href="help#3" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">3</a>], and visualizations - can be explored at the level of tetrads, quadruplexes, G4-helices, or entire molecules containing these motifs. ONQUADRO database and statistics are automatically updated every week. The newsletter informs the subscribers about all newly added structures.</p>
         </mat-card-content>
       </mat-card>
 
@@ -18,7 +18,6 @@
           </div>
           <div id="table_of_contents">
             <ol>
-              <li><a href="help#authors">Authors</a></li>
               <li><a href="help#database_contents">Database contents</a></li>
               <li>
                 <a href="help#representations">Structure representations</a>
@@ -27,15 +26,15 @@
                     <a href="help#2d_representations">2D structure representations</a>
                     <ol>
                       <li><a href="help#dot_bracket_notation">Dot-bracket notation</a></li>
-                      <li><a href="help#rchie">R-chie diagram</a></li>
-                      <li><a href="help#varna">VARNA</a></li>
+                      <li><a href="help#rchie">Arc diagram (R-chie)</a></li>
+                      <li><a href="help#varna">Classic diagram (VARNA)</a></li>
                     </ol>
                   </li>
                   <li>
                     <a href="help#3d_models">3D structure models</a>
                     <ol>
-                      <li><a href="help#litemol">LiteMol visualisation</a></li>
-                      <li><a href="help#layer">Layer diagram</a></li>
+                      <li><a href="help#litemol">Full-atom visualisation (LiteMol)</a></li>
+                      <li><a href="help#layer">Layer diagram (DrawTetrado)</a></li>
                     </ol>
                   </li>
                 </ol>
@@ -48,7 +47,7 @@
                 </ol>
               </li>
               <li>
-                <a href="help#search">Searching the data</a>
+                <a href="help#search">Browsing the data</a>
                 <ol>
                   <li><a href="help#quick">Quick database search</a></li>
                   <li><a href="help#tetrads">Tetrads</a></li>
@@ -66,27 +65,12 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card id="authors" class="hreflink">
-        <mat-card-content>
-          <div class="header">
-            <h2>Authors</h2>
-          </div>
-          <p>Tomasz Zok<sup>1</sup>, Natalia Kraszewska<sup>1</sup>, Joanna Miskiewicz<sup>1</sup>, Paulina Pielacinska<sup>1</sup>, Michal Zurkowski<sup>1</sup>, Marta Szachniuk<sup>1,2</sup></p>
-          <div style="margin-top: 20px">
-            <ol>
-              <li><a href="http://www2.cs.put.poznan.pl/en/" target="_blank" rel="noopener noreferrer">Institute of Computing Science</a>, <a href="http://ecbig.pl/" target="_blank" rel="noopener noreferrer">European Centre for Bioinformatics and Genomics</a>, <a href="https://www.put.poznan.pl" target="_blank" rel="noopener noreferrer">Poznan University of Technology</a>, 60-965 Poznan Poland</li>
-              <li><a href="https://www.ibch.poznan.pl/en/home/" target="_blank" rel="noopener noreferrer">Institute of Bioorganic Chemistry</a>, <a href="https://institution.pan.pl/" target="_blank" rel="noopener noreferrer">Polish Academy of Sciences</a>, 61-704 Poznan, Poland</li>
-            </ol>
-          </div>
-        </mat-card-content>
-      </mat-card>
-
       <mat-card id="database_contents" class="hreflink">
         <mat-card-content>
           <div class="header">
             <h2>Database contents</h2>
           </div>
-          <p><b>ONQUADRO</b> is a quadruplex database which basic functionality allows users to search, view, and download information of quadruplex structures. The database is composed of four major tables: Tetrads, Quadruplexes, G4Helices, and Molecule Structures. Each table allows descending and ascending sorting of numerical data fields and alphabetically sorting the string data fields (A-Z or Z-A). The content of the tables are described in the following sections of this document. In this database, users can find sequences, 2D and 3D structures, as well as diverse tetrad and quadruplex representations and classifications. For 2D structures ONQUADRO presents extended dot-bracket notation (called two-line dot-bracket), VARNA [<a href="help#4" title="Darty, K., Denise A., Ponty Y. 2009. VARNA: Interactive drawing and editing of the RNA secondary structure Bioinformatics, 25: 1974–1975.">4</a>] , and R-chie [<a href="help#5" title="Lai, D., Proctor, J.R., Zhu, J.Y.A., Meyer, I.M. 2012. R-chie: a web server and R package for visualizing RNA secondary structures Nucleic Acids Research, 40: e95.">5</a>] representations, and ONZM classification [<a href="help#3" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">3</a>]. All 3D structures are available to be displayed using LiteMol Viewer application [<a href="help#6" title="Sehnal, D., Deshpande, M., Varekova, R.S., Mir, S., Berka, K., Midlik, A., Pravda, L., Velankar, S., Koca, J. 2017. LiteMol suite: Interactive web-based visualization of large-scale macromolecular structure data Nature methods, 14: 1121–1122.">6</a>]. Additionally, quadruplexes and G4Helices can be viewed in a layer diagram. 3D structures quadruplexes are also associated with geometric formalism proposed by Webba da Silva group [<a href="help#7" title="Webba da Silva, M. 2007. Geometric formalism for DNA quadruplex folding Chemistry, 13: 9738–9745.">7</a>, <a href="help#8" title="Webba da Silva, M., Trajkovski, M., Sannohe, Y., Ma'ani Hessari, N., Sugiyama H., Plavec, J. 2009. Design of a G-quadruplex topology through glycosidic bond angles Angewandte Chemie International Edition, 48: 9167–9170.">8</a>, <a href="help#9" title="Dvorkin, S.A., Karsisiotis, A.I., Webba da Silva, M. 2018. Encoding canonical DNA quadruplex structure Science Advances, 4: eaat3007.">9</a>] using chi angles and loops presented within a quadruplex. All representations and classifications available in ONQUADRO are described in <a href="help#representations">Representations</a> and <a href="help#classifications">Classifications</a> sections, respectively.</p>
+          <p><b>ONQUADRO</b> database contains data organized in four groups (tables): Tetrads, Quadruplexes, G4Helices, and Molecule Structures. Each table allows descending and ascending sorting of numerical data fields and alphabetically sorting the string data fields (A-Z or Z-A). The content of the tables are described in the following sections of this document. In this database, users can find sequences, 2D and 3D structures, as well as diverse tetrad and quadruplex representations and classifications. For 2D structures ONQUADRO presents extended dot-bracket notation (called two-line dot-bracket), VARNA [<a href="help#4" title="Darty, K., Denise A., Ponty Y. 2009. VARNA: Interactive drawing and editing of the RNA secondary structure Bioinformatics, 25: 1974–1975.">4</a>] , and R-chie [<a href="help#5" title="Lai, D., Proctor, J.R., Zhu, J.Y.A., Meyer, I.M. 2012. R-chie: a web server and R package for visualizing RNA secondary structures Nucleic Acids Research, 40: e95.">5</a>] representations, and ONZM classification [<a href="help#3" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019. Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">3</a>]. All 3D structures are available to be displayed using LiteMol Viewer application [<a href="help#6" title="Sehnal, D., Deshpande, M., Varekova, R.S., Mir, S., Berka, K., Midlik, A., Pravda, L., Velankar, S., Koca, J. 2017. LiteMol suite: Interactive web-based visualization of large-scale macromolecular structure data Nature methods, 14: 1121–1122.">6</a>]. Additionally, quadruplexes and G4Helices can be viewed in a layer diagram. 3D structures quadruplexes are also associated with geometric formalism proposed by Webba da Silva group [<a href="help#7" title="Webba da Silva, M. 2007. Geometric formalism for DNA quadruplex folding Chemistry, 13: 9738–9745.">7</a>, <a href="help#8" title="Webba da Silva, M., Trajkovski, M., Sannohe, Y., Ma'ani Hessari, N., Sugiyama H., Plavec, J. 2009. Design of a G-quadruplex topology through glycosidic bond angles Angewandte Chemie International Edition, 48: 9167–9170.">8</a>, <a href="help#9" title="Dvorkin, S.A., Karsisiotis, A.I., Webba da Silva, M. 2018. Encoding canonical DNA quadruplex structure Science Advances, 4: eaat3007.">9</a>] using chi angles and loops presented within a quadruplex. All representations and classifications available in ONQUADRO are described in <a href="help#representations">Representations</a> and <a href="help#classifications">Classifications</a> sections, respectively.</p>
         </mat-card-content>
       </mat-card>
 
@@ -123,7 +107,7 @@
           </div>
           <p>More information on two-line dot-bracket notation can be found in [<a href="help#3" title="Popenda, M., Miskiewicz, J., Sarzynska, J., Zok, T., Szachniuk, M. 2019.Topology-based classification of tetrads and quadruplex structures Bioinformatics, 36: 1129–1134.">3</a>].</p>
 
-          <h5 id="rchie" class="hreflink">R-chie diagram</h5>
+          <h5 id="rchie" class="hreflink">Arc diagram (R-chie)</h5>
 
           <p>2D structure of a quadruplex can be represented by R-chie diagrams. The diagram shows the same information as the extended dot-bracket notation but in a graphical way. Each arc represents one connection between two nucleotides. Upper arcs are determined by the connection established for the first nucleotide of the first tetrad in a quadruplex (the same mechanism as in two-line dot-bracket format).</p>
           <div style="text-align: center">
@@ -131,7 +115,7 @@
           </div>
           <p class="description"><b>Figure 1.</b> R-chie diagram of quadruplex. The diagram shows connections between residues among all tetrads within the quadruplex.</p>
 
-          <h5 id="varna" class="hreflink">VARNA</h5>
+          <h5 id="varna" class="hreflink">Classic diagram (VARNA)</h5>
 
           <p>The VARNA tool was proposed by Yann Ponty’s group [<a href="help#4" title="Darty, K., Denise A., Ponty Y. 2009. VARNA: Interactive drawing and editing of the RNA secondary structure Bioinformatics, 25: 1974–1975.">4</a>]. It was designed for RNA secondary structure automated visualization. VARNA Java Applet draws 2D structures, nucleotides are embedded within circles and displayed in equal distances between the preceding and following nucleotides. All non-canonical interactions are encoded in Leontis/Westhof classification [<a href="help#11" title="Leontis, N.B., Westhof, E. 2001. Geometric nomenclature and classification of RNA base pairs RNA, 7: 499–512.">11</a>] and displayed in structure as pictograms.</p>
           <div style="text-align: center">
@@ -141,7 +125,7 @@
 
           <h3 id="3d_models" class="hreflink">3D structure models</h3>
 
-          <h5 id="litemol" class="hreflink">LiteMol visualisation</h5>
+          <h5 id="litemol" class="hreflink">Full-atom visualisation (LiteMol)</h5>
 
           <p>LiteMol Viewer [<a href="help#6" title="Sehnal, D., Deshpande, M., Varekova, R.S., Mir, S., Berka, K., Midlik, A., Pravda, L., Velankar, S., Koca, J. 2017. LiteMol suite: Interactive web-based visualization of large-scale macromolecular structure data Nature methods, 14: 1121–1122.">6</a>] is a tool for 3D molecule visualization in both web browsers and mobile devices. ONQUADRO utilizes this viewer for interactive display of tetrads, quadruplexes, and G4Helices. In these visualizations users can manipulate the structure, the type of representation (balls and sticks, VDW balls, surface, cartoon, c-𝛼 trace), colors of the background and the structure. Users can also select atoms to reveal atomic details. The adjusted and personalized view of the 3D molecule image can be directly saved to users' local machine in png format.</p>
 
@@ -168,7 +152,7 @@
 
           <p style="text-align: center; margin-top: 10px"><b>Figure 3.</b> 3D model of tetrad (top row) and quadruplex (bottom row) visualized using LiteMol application as a balls and sticks representation.</p>
 
-          <h5 id="layer" class="hreflink">Layer diagram</h5>
+          <h5 id="layer" class="hreflink">Layer diagram (DrawTetrado)</h5>
 
           <p>Layer diagram shows the 3D models of quadruplexes and G4Helices in a simplified view. Each tetrad is demonstrated as a planar rhombus with defined each nucleotide and its order number within a sequence.</p>
           <div style="text-align: center">
@@ -336,7 +320,7 @@
       <mat-card id="search" class="hreflink">
         <mat-card-content>
           <div class="header">
-            <h2>Searching the data</h2>
+            <h2>Browsing the data</h2>
           </div>
           <p>Two search tools are available for users - one in the main page, for searching through articles' information, another one after selecting one of four table views from the home page – <em>Tetrads, Quadruplexes, G4Helices,</em> or <em>Structures</em>.</p>
 
@@ -365,22 +349,11 @@
           <p style="text-align: center; margin-top: 10px"><b>Figure 8.</b> Search tool in <em>Quadruplexes</em>, using <em>Ion</em> column and <em>Ca</em> string.</p>
           <p>Only results with quadruplexes solved in presence of a calcium ion should be displayed.</p>
 
-          <p style="margin-top: 20px">Fields that can be queried with users data for each table are described in the following subsections of this document. Searched results can be downloaded directly from the ONQUADRO web page. The Save table button enables saving locally the whole table in csv format:</p>
-
-          <div style="text-align: center">
-            <img src="static/help_images/save_button.png" alt="save" />
-          </div>
-          <p style="text-align: center; margin-top: 10px"><b>Figure 9.</b> <em> Save table</em> button, available in <em>Tetrads, Quadruplexes, G4Helices</em>, and <em>Structures</em> tables.</p>
-
-          <p style="margin-top: 20px">If users have more custom download preferences, each record is available to be selected by clicking the checkbox in the last column of each table. Selected data can be downloaded by using the Save selected rows button.</p>
-          <div style="text-align: center">
-            <img src="static/help_images/save_selected_button.png" alt="save_selected" />
-          </div>
-          <p style="text-align: center; margin-top: 10px"><b>Figure 10.</b> <em> Save selected rows</em> button, available in <em>Tetrads, Quadruplexes, G4Helices</em>, and <em>Structures</em> tables.</p>
+          <p style="margin-top: 20px">Fields that can be queried with users data for each table are described in the following subsections of this document. Searched results can be downloaded directly from the ONQUADRO web page. The Save table button enables saving locally the whole table in csv format. If users have more custom download preferences, each record is available to be selected by clicking the checkbox in the last column of each table. Selected data can be downloaded by using the Save selected rows button.</p>
 
           <h5 id="tetrads" class="hreflink">Tetrads</h5>
 
-          <p>Basic building unit of a quadruplex is a tetrad, four nucleotides composed in pseudo-planar architecture. In G-quadruplexes, tetrads can be encoded as a <em>GGGG</em> string, but using ONQUADRO users can find examples of tetrads composed of different residues. <em>Tetrads</em> table allows users to browse all types of tetrads. Each tetrad has an individual <em>tetrad ID</em> value composed of <em>T</em> prefix and its own sequential number. A single tetrad is always connected with:</p>
+          <p>Tetrad is a basic building unit of a quadruplex. It is composed of four nucleotides in pseudo-planar architecture. In G-quadruplexes, tetrads are built of guanines, however, tetrads can form also from other residues. <em>Tetrads</em> table allows users to browse all tetrads stored in the ONQUADRO database. Each tetrad has an individual <em>tetrad ID</em> value composed of <em>T</em> prefix and its own sequential number. A single tetrad is always connected with:</p>
           <ul>
             <li><em>Quadruplex</em> ID, unique id of a quadruplex related to the tetrad,</li>
             <li><em>PDB ID</em>, link to PDB web page of a structure that contains the tetrad,</li>
@@ -419,7 +392,7 @@
 
           <h5 id="helices" class="hreflink">G4Helices</h5>
 
-          <p>Each helix has an individual <em>helix ID</em> value composed of the <em>H</em> prefix and its own sequential number. All stored helices are connected with the <em>PDB ID</em> which are linking the helices to the 3D PDB structure they originate from. Beside the <em>G4Helix ID</em> following attributes are displayed in the table:</p>
+          <p>G4-helix is formed by stacking interactions of G-tetrads, which are independent on backbone connectivity [<a href="help#2" title="Lu, X-J., Bussemaker H. J., Olson, W. K. 2015. DSSR: an integrated software tool for dissecting the spatial structure of RNA Nucleic Acids Research, 43, e142.">2</a>]). In ONQUADRO, each helix has an individual <em>helix ID</em> value composed of the <em>H</em> prefix and its own sequential number. All stored helices are connected with the <em>PDB ID</em> which are linking the helices to the 3D PDB structure they originate from. Beside the <em>G4Helix ID</em> following attributes are displayed in the table:</p>
           <ul>
             <li><em>PDB ID</em>, link to PDB web page of a structure that contains the tetrad,</li>
             <li><em>PDB Deposition</em>, date of deposition of the molecule,</li>
@@ -483,7 +456,7 @@
           <div class="header">
             <h2>System requirements</h2>
           </div>
-          <p><b>ONQUADRO</b> does not require any specific plugins. The latest versions of browsers are strongly recommended. Minimum browser requirements:</p>
+          <p><b>ONQUADRO</b> is operated via web browsers and does not require an installation of any specific plugins. The latest versions of browsers are strongly recommended, minimum requirements:</p>
           <div class="pymol_table">
             <table class="table" style="border: 1px solid black">
               <tr>
@@ -530,7 +503,7 @@
           <div class="header">
             <h2>Funding</h2>
           </div>
-          <p>We acknowledge support from the National Science Centre, Poland [2016/23/B/ST6/03931, 2019/35/B/ST6/03074] and the statutory funds of Poznan University of Technology.</p>
+          <p>ONQUADRO is supported by the National Science Centre, Poland [grants 2016/23/B/ST6/03931 and 2019/35/B/ST6/03074] and Poznan University of Technology (statutory funds).</p>
         </mat-card-content>
       </mat-card>
 
