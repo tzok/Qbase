@@ -100,7 +100,7 @@
         <mat-card-content>
           <p class="center">Enter your e-mail address and subscribe to our newsletter to get an email when something new will be added to ONQUADRO!</p>
           <body style="text-align: center">
-            <form class="form-inline" #form="ngForm" (ngSubmit)="onSubmit(searchForm.value)">
+            <form class="form-inline" #form="ngForm" (ngSubmit)="onSubmit(form.value)">
               <input type="email" name="email" ngModel placeholder="youremail@example.com" #emailWithPattern="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
               <button type="submit" [disabled]="searchForm.invalid">Submit</button>
               <div>

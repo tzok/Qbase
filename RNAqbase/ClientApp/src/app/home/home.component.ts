@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit(email_val) {
     this.sub = this.activatedRoute.paramMap.subscribe(() => {
-      this.http.get<info>(this.baseUrl + "" + "api/Newsletter/AddEmailToDatabase?email=" + "" + email_val.email).subscribe(
+      this.http.get<info>(this.baseUrl + "" + "api/Newsletter/AddEmailToDatabase?email=" + email_val.email).subscribe(
         (result) => {
           this.email_added = true;
           this.error_state = false;
