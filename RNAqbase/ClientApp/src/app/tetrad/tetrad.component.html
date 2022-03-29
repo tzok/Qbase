@@ -71,19 +71,19 @@
               <div class="row">
                 <div class="column">
                   <button (click)="show2dStructure('varna')" title="Click to see 2D structure">
-                    <div class="text">2D structure (VARNA)</div>
+                    <div class="text">2D structure (classic diagram)</div>
                     <figure><img src="static/varna/{{ data.id }}.svg" width="150" height="150" alt="varna" /></figure>
                   </button>
                 </div>
                 <div class="column">
                   <button (click)="show2dStructure('rchie')" title="Click to see 2D structure">
-                    <div class="text">2D structure (R-chie)</div>
+                    <div class="text">2D structure (arc diagram)</div>
                     <figure><img src="static/rchie/{{ data.id }}.svg" width="200" height="150" alt="r-chie" /></figure>
                   </button>
                 </div>
                 <div class="column">
                   <button (click)="show3dStructure()" title="Click to see 3D structure">
-                    <div class="text">3D structure (LiteMol)</div>
+                    <div class="text">3D structure (all-atom/surface model)</div>
                     <figure><img src="static/pymol/{{ data.id }}.png" width="200" height="150" alt="litemol" /></figure>
                   </button>
                 </div>

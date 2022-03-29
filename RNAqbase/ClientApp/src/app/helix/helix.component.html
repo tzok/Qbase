@@ -64,25 +64,25 @@
               <div class="row">
                 <div class="column">
                   <button (click)="show2dStructure('varna')" title="Click to see 2D structure">
-                    <div class="text">2D structure (VARNA)</div>
+                    <div class="text">2D structure (classic diagram)</div>
                     <figure><img src="static/varna/{{ data.id }}.svg" width="180px" height="130px" alt="varna" /></figure>
                   </button>
                 </div>
                 <div class="column">
                   <button (click)="show2dStructure('rchie')" title="Click to see 2D structure">
-                    <div class="text">2D structure (R-chie)</div>
+                    <div class="text">2D structure (arc diagram)</div>
                     <figure><img src="static/rchie/{{ data.id }}.svg" width="180px" height="150px" alt="r-chie" /></figure>
                   </button>
                 </div>
                 <div class="column">
                   <button (click)="show2dStructure('layers')" title="Click to see 3D structure">
-                    <div class="text">3D structure (Layers)</div>
+                    <div class="text">2.5D structure (layer diagram)</div>
                     <figure><img src="static/layers/{{ data.id }}.svg" width="180px" height="150px" alt="layers" /></figure>
                   </button>
                 </div>
                 <div class="column">
                   <button (click)="show3dStructure()" title="Click to see 3D structure">
-                    <div class="text">3D structure (LiteMol)</div>
+                    <div class="text">3D structure (all-atom/surface model)</div>
                     <figure><img src="static/pymol/{{ data.id }}.png" width="180px" height="130px" alt="litemol" /></figure>
                   </button>
                 </div>
