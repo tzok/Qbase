@@ -254,6 +254,5 @@ namespace RNAqbase.Repository
 						", new {id = id});
 			}
 		}
-		
 	}
 }
