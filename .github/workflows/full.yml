@@ -1,4 +1,4 @@
-name: Continous Integration
+name: Continuous Integration
 
 on:
   push:
@@ -34,7 +34,11 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
     - name: Install dependencies
-      run: cd RNAqbase/ClientApp npm install
+      run: 
+        cd RNAqbase/ClientApp 
+        npm install
     - name: Build Angular
-      run: cd RNAqbase/ClientApp ng install
+      run: 
+        cd RNAqbase/ClientApp 
+        ng install
     
