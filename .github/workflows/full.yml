@@ -30,6 +30,7 @@ jobs:
     - name: Test
       working-directory: RNAqbase
       run: dotnet test --no-build --verbosity normal
+      
     #angular
     - name: Setup Node.js
       uses: actions/setup-node@v3
