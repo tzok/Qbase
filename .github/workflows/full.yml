@@ -1,4 +1,4 @@
-name: .NET Build & Test
+name: Continous Integration
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    name: Build & Test All
     runs-on: windows-latest
     
     defaults:
@@ -22,9 +22,19 @@ jobs:
       with:
         dotnet-version: 2.2.x
     - name: Restore dependencies
+      working-directory: RNAqbase
       run: dotnet restore
-    - name: Build
-      
+    - name: Build C#
+      working-directory: RNAqbase
       run: dotnet build --no-restore
     - name: Test
+      working-directory: RNAqbase
       run: dotnet test --no-build --verbosity normal
+    #angular
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+    - name: Install dependencies
+      run: cd RNAqbase/ClientApp npm install
+    - name: Build Angular
+      run: cd RNAqbase/ClientApp ng install
+    
