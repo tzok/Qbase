@@ -40,9 +40,6 @@ jobs:
     - name: Build Angular
       working-directory: RNAqbase/ClientApp
       run: |
-        npm uninstall -g angular-cli
-        npm uninstall -g @angular/cli
-        npm cache clean
         npm install -g @angular/cli
-        ng install
+        ng build --prod
     
