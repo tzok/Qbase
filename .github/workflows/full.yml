@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build & Test All
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     defaults:
       run: 
