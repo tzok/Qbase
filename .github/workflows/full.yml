@@ -34,11 +34,11 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
     - name: Install dependencies
+      working-directory: RNAqbase\ClientApp
       run: 
-        cd RNAqbase/ClientApp 
         npm install
     - name: Build Angular
+      working-directory: RNAqbase\ClientApp
       run: 
-        cd RNAqbase/ClientApp 
         ng install
     
