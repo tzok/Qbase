@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore
     - name: Build C#
       working-directory: RNAqbase
-      run: dotnet build
+      run: dotnet build --no-restore
     - name: Test
       working-directory: RNAqbase
       run: dotnet test --no-build --verbosity normal
