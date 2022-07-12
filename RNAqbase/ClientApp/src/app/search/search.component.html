@@ -1,0 +1,45 @@
+<div style="background: #f0f0f0; height: 100%">
+  <div class="container">
+    <main>
+      <div class="text-rectangle">
+        <h2>ONQUADRO</h2>
+      </div>
+      <mat-card>
+        <mat-card class="search-table mat-elevation-z1">
+          <div class="header">
+            <div>
+              Search the table
+            </div>
+          </div>
+          <mat-card-content>
+            <div class="search-container mat-elevation-z0">
+              <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="attribute">
+                  <mat-header-cell *matHeaderCellDef>Attribute</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <div class="attr_header">
+                      <div>{{element.attribute}}</div>
+                    </div>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="conditions">
+                  <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
+                   <mat-cell *matCellDef="let element">
+                     <div class="condition" *ngFor="let cond of element.conditions">
+                       <div>{{cond}}</div>
+                     </div>
+                   </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </mat-card>
+      <p>
+        search works!
+      </p>
+    </main>
+  </div>
+</div>
