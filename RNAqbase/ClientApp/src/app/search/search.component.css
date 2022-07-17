@@ -36,7 +36,7 @@ main {
 }
 
 
-.condition {
+.conditionStyle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,36 +44,106 @@ main {
   height: fit-content;
   background-color: rgba(184, 224, 222, 0.4);
   border-radius: 15px 15px 15px 15px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.condition_diff {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
   margin-left: 5px;
   margin-right: 5px;
 }
-
-  .condition > div {
+  .condition_diff > .content {
     width: fit-content;
     height: fit-content;
-    /*margin-top: 5px;
-    margin-bottom: 5px;*/
-    padding: 10px;
-    margin-left: 4px;
+    background-color: rgba(184, 224, 222, 0.4);
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px;
     margin-right: 4px;
   }
+.operator_box {
+  padding: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: fit-content;
+  background-color: rgba(72, 173, 169, 0.75);
+  border-radius: 10px 0px 0px 10px;
+  height: 100%;
+  color: white;
+}
+.conditionStyle > div {
+  width: fit-content;
+  height: fit-content;
+  padding: 8px;
+  cursor: pointer;
+}
 
 .attr_header {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: fit-content;
+  width: 120px;
   height: fit-content;
   background-color: rgba(82, 183, 179, 0.3);
-  border-radius: 15px 15px 15px 15px;
+  border-radius: 10px 10px 10px 10px;
 }
 
-  .attr_header > div {
-    width: fit-content;
-    height: fit-content;
-    /*margin-top: 5px;
-    margin-bottom: 5px;*/
-    padding: 10px;
-    margin-left: 4px;
-    margin-right: 4px;
-  }
+.attr_header > div {
+  width: fit-content;
+  height: fit-content;
+  padding: 6px;
+}
+
+.mat-header-cell{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mat-row {
+  border-top: 1px solid rgba(85, 180, 176, 1);
+  border-bottom: 0px;
+}
+
+.mat-column-attribute {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex: 0 0 20%;
+  padding-left: 5px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.mat-column-conditions {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 15px;
+  border-left: 1px solid;
+  border-color: rgba(85, 180, 176, 1);
+}
+
+
+.mat-column-addable {
+  display: flex;
+  flex: 0 0 5%;
+  justify-content: center;
+  align-items: center;
+  padding-right: 0px;
+}
+
+.addable_row > div {
+  color: white;
+  font-weight: 500;
+  font-size: 18px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  height: 25px;
+  width: 25px;
+  background-color: rgba(72, 173, 169, 1);
+  border-radius: 6px 6px 6px 6px;
+}
