@@ -55,6 +55,10 @@
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
+              <div class="buttonRow">
+                <div class="buttonReset"><button mat-flat-button>Reset</button></div>
+                <div class="buttonSearch"><button mat-flat-button>Search</button></div>
+              </div>
             </div>
           </mat-card-content>
         </mat-card>

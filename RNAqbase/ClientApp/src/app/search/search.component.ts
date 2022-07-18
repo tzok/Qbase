@@ -69,7 +69,7 @@ const SEARCH_TABLE_ELEMENTS: Array<TableElements> = [
       { condition: 'tetrad comination', operator: '' }], addable: false},
   {
     attribute: 'ONZ class', isOperator: false, conditions: [
-      { condition: 'Any', operator: '' },
+      { condition: 'any', operator: '' },
       { condition: 'N-', operator: '' },
       { condition: 'Z-', operator: '' },
       { condition: 'O-', operator: '' }], addable: false},
