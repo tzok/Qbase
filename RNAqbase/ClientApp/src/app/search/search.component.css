@@ -1,4 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
+
 .container {
   min-height: 100%
 }
@@ -20,23 +21,22 @@ main {
   margin-left: 50px;
   margin-right: 50px;
   border-radius: 15px 15px 15px 15px;
- 
 }
 
-.header{
+.header {
   display: flex;
   justify-content: center;
 }
 
-.header > div {
-  font-size: 18px;
-  font-weight: bold;
-  color: #45A29E;
-  font-family: 'Inter', sans-serif;
-}
+  .header > div {
+    font-size: 18px;
+    font-weight: bold;
+    color: #45A29E;
+    font-family: 'Inter', sans-serif;
+  }
 
 
-.conditionStyle {
+.clickableCond {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,23 +48,56 @@ main {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.condition_diff {
+
+
+.operatorCondHorizontal {
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: fit-content;
   height: fit-content;
-  margin-left: 5px;
-  margin-right: 5px;
+  padding: 5px;
 }
-  .condition_diff > .content {
+
+  .operatorCondHorizontal > .conditionContent {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+    background-color: rgba(184, 224, 222, 0.4);
+    border-radius: 0px 0px 10px 10px;
+    padding: 4px;
+  }
+
+  .operatorCondHorizontal > .operatorContent {
+    padding: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(72, 173, 169, 0.75);
+    border-radius: 10px 10px 0px 0px;
+    height: fit-content;
+    color: white;
+  }
+
+  .operatorCondVertical {
+    display: flex;
+    align-items: center;
     width: fit-content;
     height: fit-content;
-    background-color: rgba(184, 224, 222, 0.4);
-    border-radius: 0px 10px 10px 0px;
-    padding: 8px;
-    margin-right: 4px;
+    padding: 5px;
   }
-.operator_box {
+
+.operatorCondVertical > .conditionContent {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgba(184, 224, 222, 0.4);
+  border-radius: 0px 10px 10px 0px;
+  padding: 8px;
+  margin-right: 4px;
+}
+
+.operatorCondVertical > .operatorContent {
   padding: 5px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -74,14 +107,15 @@ main {
   height: 100%;
   color: white;
 }
-.conditionStyle > div {
+
+.clickableCond > div {
   width: fit-content;
   height: fit-content;
   padding: 8px;
   cursor: pointer;
 }
 
-.attr_header {
+.attrLabel {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,15 +125,29 @@ main {
   border-radius: 10px 10px 10px 10px;
 }
 
-.attr_header > div {
+.addable_row > div {
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  height: 25px;
+  width: 25px;
+  background-color: rgba(72, 173, 169, 1);
+  border-radius: 6px 6px 6px 6px;
+}
+
+.attrLabel > div {
   width: fit-content;
   height: fit-content;
   padding: 6px;
 }
 
-.mat-header-cell{
-    font-size: 18px;
-    font-weight: bold;
+.mat-header-cell {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .mat-row {
@@ -117,14 +165,15 @@ main {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
 .mat-column-conditions {
   display: flex;
   flex-wrap: wrap;
   padding-left: 15px;
+  align-self: stretch;
   border-left: 1px solid;
   border-color: rgba(85, 180, 176, 1);
 }
-
 
 .mat-column-addable {
   display: flex;
@@ -132,18 +181,4 @@ main {
   justify-content: center;
   align-items: center;
   padding-right: 0px;
-}
-
-.addable_row > div {
-  color: white;
-  font-weight: 500;
-  font-size: 18px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  height: 25px;
-  width: 25px;
-  background-color: rgba(72, 173, 169, 1);
-  border-radius: 6px 6px 6px 6px;
 }

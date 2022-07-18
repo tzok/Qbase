@@ -17,7 +17,7 @@
                 <ng-container matColumnDef="attribute">
                   <mat-header-cell *matHeaderCellDef>Attribute</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <div class="attr_header">
+                    <div class="attrLabel">
                       <div>{{element.attribute}}</div>
                     </div>
                   </mat-cell>
@@ -26,14 +26,20 @@
                   <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <ng-container *ngIf="!element.isOperator">
-                      <div class="conditionStyle" *ngFor="let cond of element.conditions">
+                      <div class="clickableCond" *ngFor="let cond of element.conditions">
                         <div>{{cond.condition}}</div>
                       </div>
                     </ng-container>
-                    <ng-container *ngIf="element.isOperator">
-                      <div class="condition_diff" *ngFor="let cond of element.conditions">
-                        <div class="operator_box">{{cond.operator}}</div>
-                        <div class="content">{{cond.condition}}</div>
+                    <ng-container *ngIf="element.isOperator && element.attribute !== 'Sequence'">
+                      <div class="operatorCondVertical" *ngFor="let cond of element.conditions">
+                        <div class="operatorContent">{{cond.operator}}</div>
+                        <div class="conditionContent">{{cond.condition}}</div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="element.isOperator && element.attribute === 'Sequence'">
+                      <div class="operatorCondHorizontal" *ngFor="let cond of element.conditions">
+                        <div class="operatorContent">{{cond.operator}}</div>
+                        <div class="conditionContent">{{cond.condition}}</div>
                       </div>
                     </ng-container>
                   </mat-cell>

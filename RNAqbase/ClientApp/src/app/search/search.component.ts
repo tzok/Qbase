@@ -93,7 +93,7 @@ const SEARCH_TABLE_ELEMENTS: Array<TableElements> = [
       { condition: 'without V-Loops', operator: '' }], addable: false},
   {
     attribute: 'Sequence', isOperator: true, conditions: [
-      { condition: 'GC', operator: 'includes' },
+      { condition: 'GCGGGGGGGGG', operator: 'includes' },
       { condition: 'G', operator: "3'->5'" }], addable: true}
 ]
 
