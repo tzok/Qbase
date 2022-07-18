@@ -5,7 +5,12 @@
         <h2>ONQUADRO</h2>
       </div>
       <mat-card>
-        <mat-card class="search-table mat-elevation-z1">
+        <mat-card class="search-table mat-elevation-z2">
+          <div class="icon">
+            <button mat-icon-button>
+              ?
+            </button>
+          </div>
           <div class="header">
             <div>
               Search the table
@@ -25,8 +30,13 @@
                 <ng-container matColumnDef="conditions">
                   <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <ng-container *ngIf="!element.isOperator">
+                    <ng-container *ngIf="!element.isOperator && !element.addable">
                       <div class="clickableCond" *ngFor="let cond of element.conditions">
+                        <div>{{cond.condition}}</div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="!element.isOperator && element.addable">
+                      <div class="unclickableCond" *ngFor="let cond of element.conditions">
                         <div>{{cond.condition}}</div>
                       </div>
                     </ng-container>
@@ -47,13 +57,13 @@
                 <ng-container matColumnDef="addable">
                   <mat-header-cell *matHeaderCellDef></mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <div class="addable_row" *ngIf="element.addable">
+                    <div class="itemsAddable" *ngIf="element.addable">
                       <div>+</div>
                     </div>
                   </mat-cell>
                 </ng-container>
-              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
               <div class="buttonRow">
                 <div class="buttonReset"><button mat-flat-button>Reset</button></div>
@@ -63,9 +73,6 @@
           </mat-card-content>
         </mat-card>
       </mat-card>
-      <p>
-        search works!
-      </p>
     </main>
   </div>
 </div>
