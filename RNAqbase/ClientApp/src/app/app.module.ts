@@ -34,6 +34,7 @@ import {PinchZoomModule} from 'ngx-pinch-zoom';
 import { CounterModule } from 'ngx-counter';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -54,30 +55,32 @@ import {MatButtonModule} from "@angular/material/button";
     HeliceComponent,
     HelixComponent,
     PageNotFoundComponent,
-    NewsletterComponent
+    NewsletterComponent,
+    SearchComponent
   ],
-    imports: [
-        BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
-        HttpClientModule,
-        FormsModule,
-        RouterModule.forRoot([
-            {path: 'home', component: HomeComponent},
-            {path: '', redirectTo: '/home', pathMatch: 'full'},
-            {path: 'about', component: AboutComponent},
-            {path: 'citeUs', component: CiteUsComponent},
-            // { path: 'contact', component: ContactComponent },
-            {path: 'help', component: HelpComponent},
-            {path: 'quadruplexes', component: QuadruplexTableComponent},
-            {path: 'structures', component: StructureTableComponent},
-            {path: 'tetrads', component: TetradTabelComponent},
-            {path: 'tetrad/:tetradId', component: TetradComponent},
-            {path: 'quadruplex/:quadruplexId', component: QuadruplexComponent},
-            {path: 'statistics', component: StatisticsComponent},
-            {path: 'helices', component: HeliceComponent},
-            {path: 'helices/:helixId', component: HelixComponent},
-            {path: 'unsubscribe/:id', component: NewsletterComponent},
-            {path: '**', component: PageNotFoundComponent}
-        ]),
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot([
+        { path: 'home', component: HomeComponent },
+        { path: '', redirectTo: '/home', pathMatch: 'full' },
+        { path: 'about', component: AboutComponent },
+        { path: 'citeUs', component: CiteUsComponent },
+        // { path: 'contact', component: ContactComponent },
+        { path: 'search', component: SearchComponent },
+        { path: 'help', component: HelpComponent },
+        { path: 'quadruplexes', component: QuadruplexTableComponent },
+        { path: 'structures', component: StructureTableComponent },
+        { path: 'tetrads', component: TetradTabelComponent },
+        { path: 'tetrad/:tetradId', component: TetradComponent },
+        { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
+        { path: 'statistics', component: StatisticsComponent },
+        { path: 'helices', component: HeliceComponent },
+        { path: 'helices/:helixId', component: HelixComponent },
+        { path: 'unsubscribe/:id', component: NewsletterComponent },
+        { path: '**', component: PageNotFoundComponent }
+      ]),
         BrowserAnimationsModule,
         MatTableModule,
         MatPaginatorModule,
