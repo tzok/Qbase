@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RNAqbase.Repository;
 using RNAqbase.Services;
+using System;
 
 namespace RNAqbase
 {
@@ -19,7 +20,8 @@ namespace RNAqbase
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			TestSearch();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddMemoryCache();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
 			services.AddTransient<ITetradRepository, TetradRepository>();
@@ -35,6 +37,12 @@ namespace RNAqbase
 			});
 
 			services.AddSingleton(Configuration);
+		}
+
+		public void TestSearch()
+        {
+			SearchService searchService = new SearchService(new SearchRepository());
+			Console.Write(searchService.GetTest());
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
