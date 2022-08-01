@@ -1,4 +1,5 @@
 ﻿using RNAqbase.Models;
+using RNAqbase.Models.Search;
 using RNAqbase.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace RNAqbase.Services
 { 
     public class SearchService
     {
+        private List<IFilter> listOfFilters = new List<IFilter>();
         private readonly SearchRepository searchRepository;
         private string query =
 @"SELECT
@@ -44,8 +46,6 @@ JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
-GROUP BY q.id
-HAVING COUNT(t.id) > 1
 ";
 
         public SearchService(SearchRepository searchRepository)
@@ -55,7 +55,25 @@ HAVING COUNT(t.id) > 1
 
         public string GetTest()
         {
-            return query;
+            bool isFirst = true;
+            foreach (IFilter filter in listOfFilters) 
+            {
+                var helper = filter.JoinConditions();
+                if (helper != "")
+                {
+                    if (isFirst)
+                    {
+                        query += $"WHERE {helper} ";
+                        isFirst = false;
+                    }
+                    else 
+                    {
+                        query += $"AND {helper} ";
+                    }
+                }
+            }
+
+            return query + "GROUP BY q.id HAVING COUNT(t.id) > 1;";
         }
     }
 

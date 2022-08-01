@@ -8,7 +8,7 @@ namespace RNAqbase.Models.Search
     public interface IFilter
     {
         List<Condition> Conditions { get; set; }
-
+        string FieldInSQL { get; }
         string JoinConditions();
     }
 }
