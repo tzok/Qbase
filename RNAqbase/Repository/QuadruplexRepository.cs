@@ -106,7 +106,7 @@ namespace RNAqbase.Repository
                 connection.Open();
 
                 return (await connection.QueryAsync<QuadruplexTable>(
-                    @"
+					@"
 						SELECT
 							MAX(q.id) AS Id,
 							q.loop_class as LoopTopology,

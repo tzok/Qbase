@@ -55,6 +55,10 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 
         public string GetTest()
         {
+            PDBIDFilter pDBIDFilter = new PDBIDFilter();
+            pDBIDFilter.Conditions.Add(new Condition("", "1002"));
+            pDBIDFilter.Conditions.Add(new Condition("", "103_"));
+            string test = pDBIDFilter.JoinConditions();
             bool isFirst = true;
             foreach (IFilter filter in listOfFilters)
             {
