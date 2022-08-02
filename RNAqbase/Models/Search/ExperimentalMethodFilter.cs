@@ -11,20 +11,10 @@ namespace RNAqbase.Models.Search
         
         public ExperimentalMethodFilter()
         {
-            _fieldInSQL = "whatever"; // TOADD from SQL
+            _fieldInSQL = "experiment";
         }
-        
-        public List<Condition> Conditions 
-        {
-            get 
-            {
-                return Conditions;
-            }
-            set 
-            {
-                Conditions.Add(new Condition("", "any"));
-            }
-        }
+
+        public List<Condition> Conditions { get; set; } = new List<Condition>();
 
         public string FieldInSQL
         {
@@ -36,11 +26,10 @@ namespace RNAqbase.Models.Search
 
         public string JoinConditions()
         {
-            if (Conditions.Count == 0 ||
-                (Conditions.Count == 1 && Conditions[0].Value == "any")) 
+            if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any())
             {
                 return "";
-            } 
+            }
 
             string query = $"({FieldInSQL} IN ('{Conditions[0].Value}'";
             for(int i = 1; i < Conditions.Count; i++) 
