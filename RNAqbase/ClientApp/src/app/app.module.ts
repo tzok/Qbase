@@ -35,6 +35,12 @@ import { CounterModule } from 'ngx-counter';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
 import { SearchComponent } from './search/search.component';
+import { AddButtonComponent } from './add-button/add-button.component';
+import { AttributeCellComponent } from './attribute-cell/attribute-cell.component';
+import { CondOperatorCellComponent } from './cond-operator-cell/cond-operator-cell.component';
+import { CondCellComponent } from './cond-cell/cond-cell.component';
+import { CondClickableCellComponent } from './cond-clickable-cell/cond-clickable-cell.component';
+import { CondSeqCellComponent } from './cond-seq-cell/cond-seq-cell.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +62,13 @@ import { SearchComponent } from './search/search.component';
     HelixComponent,
     PageNotFoundComponent,
     NewsletterComponent,
-    SearchComponent
+    SearchComponent,
+    AddButtonComponent,
+    AttributeCellComponent,
+    CondOperatorCellComponent,
+    CondCellComponent,
+    CondClickableCellComponent,
+    CondSeqCellComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
