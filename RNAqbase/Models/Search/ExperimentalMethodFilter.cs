@@ -5,26 +5,13 @@ using System.Threading.Tasks;
 
 namespace RNAqbase.Models.Search
 {
-    public class ExperimentalMethodFilter : IFilter
+    public class ExperimentalMethodFilter : Filter
     {
-        private readonly string _fieldInSQL;
-        
-        public ExperimentalMethodFilter()
-        {
-            _fieldInSQL = "experiment";
-        }
+        public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
-        public List<Condition> Conditions { get; set; } = new List<Condition>();
+        public new readonly string FieldInSQL = "experiment";
 
-        public string FieldInSQL
-        {
-            get 
-            {
-                return _fieldInSQL;
-            }
-        }
-
-        public string JoinConditions()
+        public override string JoinConditions()
         {
             if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any())
             {
@@ -32,7 +19,7 @@ namespace RNAqbase.Models.Search
             }
 
             string query = $"({FieldInSQL} IN ('{Conditions[0].Value}'";
-            for(int i = 1; i < Conditions.Count; i++) 
+            for (int i = 1; i < Conditions.Count; i++)
             {
                 query += $", '{Conditions[i].Value}'";
             }
