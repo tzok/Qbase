@@ -5,28 +5,13 @@ using System.Threading.Tasks;
 
 namespace RNAqbase.Models.Search
 {
-    public class PDBIDFilter : IFilter
+    public class PDBIDFilter : Filter
     {
-        private readonly string _fieldInSQL;
+        public new readonly string FieldInSQL = "PdbId";
+        public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
-        public PDBIDFilter()
+        public override string JoinConditions()
         {
-            _fieldInSQL = "PdbId"; // TOADD from SQL
-        }
-
-        public List<Condition> Conditions { get; set; } = new List<Condition>();
-
-        public string FieldInSQL
-        {
-            get
-            {
-                return _fieldInSQL;
-            }
-        }
-
-        public string JoinConditions()
-        {
-
             string query = "(";
             for (int i = 0; i < Conditions.Count; i++)
             {

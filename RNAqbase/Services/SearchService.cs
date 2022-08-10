@@ -10,7 +10,7 @@ namespace RNAqbase.Services
 {
     public class SearchService
     {
-        private List<IFilter> listOfFilters = new List<IFilter>();
+        private List<Filter> listOfFilters = new List<Filter>();
         private readonly SearchRepository searchRepository;
         private string query =
 @"SELECT
@@ -60,7 +60,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
             pDBIDFilter.Conditions.Add(new Condition("", "103_"));
             string test = pDBIDFilter.JoinConditions();
             bool isFirst = true;
-            foreach (IFilter filter in listOfFilters)
+            foreach (Filter filter in listOfFilters)
             {
                 var helper = filter.JoinConditions();
                 if (helper != "")
