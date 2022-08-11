@@ -41,6 +41,8 @@ import { CondOperatorCellComponent } from './cond-operator-cell/cond-operator-ce
 import { CondCellComponent } from './cond-cell/cond-cell.component';
 import { CondClickableCellComponent } from './cond-clickable-cell/cond-clickable-cell.component';
 import { CondSeqCellComponent } from './cond-seq-cell/cond-seq-cell.component';
+import { ButtonComponent } from './button/button.component';
+import { TooltipButtonComponent } from './tooltip-button/tooltip-button.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { CondSeqCellComponent } from './cond-seq-cell/cond-seq-cell.component';
     CondOperatorCellComponent,
     CondCellComponent,
     CondClickableCellComponent,
-    CondSeqCellComponent
+    CondSeqCellComponent,
+    ButtonComponent,
+    TooltipButtonComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

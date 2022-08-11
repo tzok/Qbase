@@ -107,4 +107,6 @@ export class SearchComponent {
   displayedColumns: string[] = ['attribute', 'conditions', 'addable'];
   dataSource = SEARCH_TABLE_ELEMENTS;
   addableContent = '+';
+  buttonLabelSearch = 'Search';
+  buttonLabelReset = 'Reset';
 }

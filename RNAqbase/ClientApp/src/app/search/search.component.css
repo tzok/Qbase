@@ -40,21 +40,6 @@ main {
   margin-right: 80px;
 }
 
-.icon {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.mat-icon-button {
-  outline: none;
-  background-color: rgba(196, 196, 196, 1);
-  font-size: 14px;
-  font-weight: bold;
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-}
-
 .mat-header-cell {
   font-size: 18px;
   font-weight: bold;
@@ -101,23 +86,3 @@ main {
   margin-top: 35px;
   margin-bottom: 10px;
 }
-
-.buttonReset, .buttonSearch {
-  padding: 12px;
-}
-
-  .buttonReset > .mat-flat-button {
-    outline: none;
-    background-color: rgba(196, 196, 196, 1);
-    width: 120px;
-    border-radius: 12px 12px 12px 12px;
-    color: rgba(81, 80, 80, 1);
-  }
-
-
-  .buttonSearch > .mat-flat-button {
-    outline: none;
-    background-color: rgba(72, 173, 169, 1);
-    width: 120px;
-    border-radius: 12px 12px 12px 12px;
-  }

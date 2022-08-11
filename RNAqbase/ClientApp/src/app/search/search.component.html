@@ -6,11 +6,7 @@
       </div>
       <mat-card>
         <mat-card class="search-table mat-elevation-z2">
-          <div class="icon">
-            <button mat-icon-button>
-              ?
-            </button>
-          </div>
+          <app-tooltip-button></app-tooltip-button>
           <div class="header">
             <div>
               Search the table
@@ -52,8 +48,8 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
               <div class="buttonRow">
-                <div class="buttonReset"><button mat-flat-button>Reset</button></div>
-                <div class="buttonSearch"><button mat-flat-button>Search</button></div>
+                <app-button [label] = "buttonLabelReset"></app-button>
+                <app-button [label] = "buttonLabelSearch"></app-button>
               </div>
             </div>
           </mat-card-content>
