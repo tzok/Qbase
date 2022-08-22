@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-cond-clickable-cell',
@@ -8,4 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CondClickableCellComponent {
   @Input('name') elementName: string;
   @Input() content: string;
+  @Output() clicked = new EventEmitter<boolean>();
+  isClicked = false;
+
+  clickEvent() {
+    if (this.isClicked)
+    {
+      this.isClicked = false;
+      this.clicked.emit(false);
+    }
+    else
+    {
+      this.isClicked = true;
+      this.clicked.emit(true);
+    }
+  }
 }
