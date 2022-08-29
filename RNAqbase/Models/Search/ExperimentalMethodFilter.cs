@@ -7,9 +7,11 @@ namespace RNAqbase.Models.Search
 {
     public class ExperimentalMethodFilter : Filter
     {
+        public ExperimentalMethodFilter() 
+        {
+            FieldInSQL = "experiment";
+        }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
-
-        public new readonly string FieldInSQL = "experiment";
         // Query to get all elements: SELECT DISTINCT experiment FROM PDB;
         public override string JoinConditions()
         {
