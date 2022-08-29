@@ -83,7 +83,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
                 }
             }
 
-            return $"{querySB.ToString()} GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
+            return $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
         }
     }
 }
