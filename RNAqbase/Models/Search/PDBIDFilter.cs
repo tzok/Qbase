@@ -7,11 +7,19 @@ namespace RNAqbase.Models.Search
 {
     public class PDBIDFilter : Filter
     {
-        public new readonly string FieldInSQL = "PdbId";
+        public PDBIDFilter()
+        {
+            FieldInSQL = "PdbId";
+        }
+
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
         public override string JoinConditions()
         {
+            if (Conditions.Count == 0)
+            {
+                return "";
+            }
             string query = "(";
             for (int i = 0; i < Conditions.Count; i++)
             {
