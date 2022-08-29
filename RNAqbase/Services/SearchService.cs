@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace RNAqbase.Services
 {
@@ -12,7 +13,7 @@ namespace RNAqbase.Services
     {
         private List<Filter> listOfFilters = new List<Filter>();
         private readonly SearchRepository searchRepository;
-        private string query =
+        private StringBuilder querySB = new StringBuilder(
 @"SELECT
 MAX(q.id) AS Id,
 q.loop_class as LoopTopology,
@@ -46,8 +47,7 @@ JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
-";
-
+");
         public SearchService(SearchRepository searchRepository)
         {
             this.searchRepository = searchRepository;
@@ -56,23 +56,34 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
         public string GetTest()
         {
             bool isFirst = true;
+            StringBuilder queryToHavingSB = new StringBuilder("");
             foreach (Filter filter in listOfFilters)
             {
-                var helper = filter.JoinConditions();
-                if (helper != "")
+                string queryFilter = filter.JoinConditions();
+                if (queryFilter == "") 
+                {
+                    continue;
+                }
+
+                if (filter.joinType == JoinType.Having)
+                {
+                    queryToHavingSB.Append($" AND {queryFilter}");
+                }
+                else
                 {
                     if (isFirst)
                     {
-                        query += $"WHERE {helper} ";
+                        querySB.Append($"WHERE {queryFilter} ");
                         isFirst = false;
                     }
                     else
                     {
-                        query += $"AND {helper} ";
+                        querySB.Append($"AND {queryFilter} ");
                     }
                 }
             }
-            return query + "GROUP BY q.id HAVING COUNT(t.id) > 1;";
+
+            return $"{querySB.ToString()} GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
         }
     }
 }
