@@ -7,14 +7,15 @@ namespace RNAqbase.Models.Search
 {
     public class NoTetradsFilter : Filter
     {
-        NoTetradsFilter()
+        public NoTetradsFilter()
         {
             Conditions.Add(new Condition(">", "1"));
             Conditions.Add(new Condition("<", "2"));
             Conditions.Add(new Condition("=", "3"));
             Conditions.Add(new Condition("{}", "2,4"));
+            FieldInSQL = "COUNT(DISTINCT(t.id))";
+            joinType = JoinType.Having;
         }
-        public new readonly string FieldInSQL = "COUNT(DISTINCT(t.id))";
         public override List<Condition> Conditions { get; set ; } = new List<Condition>();
 
         public override string JoinConditions()
