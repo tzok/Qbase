@@ -7,7 +7,7 @@ namespace RNAqbase.Models.Search
 {
     public class TypeFilter : Filter
     {
-        public new readonly string FieldInSQL = "?";
+        public new readonly string FieldInSQL = "max(q_view.chains)";
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
         public TypeFilter()
@@ -17,15 +17,26 @@ namespace RNAqbase.Models.Search
 
         public override string JoinConditions()
         {
-            if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any())  //TODO wydzielić do klasy abstrakcyjnej? wtedy join by miało walidację i właściwy join
+            if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any()) 
             {
                 return "";
             }
 
-            string query = $"({FieldInSQL} IN ('{Conditions[0].Value}'";
+            foreach (var i in Conditions)
+            {
+                if (i.Value == "unimolecular")
+                    i.Value = "1";
+                else if (i.Value == "bimolecular")
+                    i.Value = "2";
+                else
+                    i.Value = "4";
+            }
+
+            string query = $"({FieldInSQL} IN ({Conditions[0].Value}";
             for (int i = 1; i < Conditions.Count; i++)
             {
-                query += $", '{Conditions[i].Value}'";
+
+                query += $", {Conditions[i].Value}";
             }
 
             return query + "))";

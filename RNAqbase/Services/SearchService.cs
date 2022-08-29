@@ -47,6 +47,7 @@ JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 ";
+        string havingQuery = "HAVING COUNT(t.id) > 1";
 
         public SearchService(SearchRepository searchRepository)
         {
@@ -61,18 +62,25 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
                 var helper = filter.JoinConditions();
                 if (helper != "")
                 {
-                    if (isFirst)
+                    if (filter.GetType() == typeof(TypeFilter))
                     {
-                        query += $"WHERE {helper} ";
-                        isFirst = false;
+                        havingQuery += " AND " + helper;
                     }
                     else
                     {
-                        query += $"AND {helper} ";
+                        if (isFirst)
+                        {
+                            query += $"WHERE {helper} ";
+                            isFirst = false;
+                        }
+                        else
+                        {
+                            query += $"AND {helper} ";
+                        }
                     }
                 }
             }
-            return query + "GROUP BY q.id HAVING COUNT(t.id) > 1;";
+            return query + "GROUP BY q.id " + havingQuery + ";";
         }
     }
 }
