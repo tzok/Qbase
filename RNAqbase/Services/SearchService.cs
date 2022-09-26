@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RNAqbase.Services
 {
-    public class SearchService
+    public class SearchService : ISearchService
     {
         private List<Filter> listOfFilters = new List<Filter>();
         private readonly SearchRepository searchRepository;
@@ -53,7 +53,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
             this.searchRepository = searchRepository;
         }
 
-        public string GetTest()
+        public async Task<List<QuadruplexTable>> GetAllResults()
         {
             bool isFirst = true;
             StringBuilder queryToHavingSB = new StringBuilder("");
@@ -83,7 +83,9 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
                 }
             }
 
-            return $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
+            string query =  $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
+
+            return await searchRepository.GetAllResults(query);
         }
     }
 }
