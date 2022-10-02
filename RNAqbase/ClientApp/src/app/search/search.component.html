@@ -6,11 +6,7 @@
       </div>
       <mat-card>
         <mat-card class="search-table mat-elevation-z2">
-          <div class="icon">
-            <button mat-icon-button>
-              ?
-            </button>
-          </div>
+          <app-tooltip-button></app-tooltip-button>
           <div class="header">
             <div>
               Search the table
@@ -22,52 +18,38 @@
                 <ng-container matColumnDef="attribute">
                   <mat-header-cell *matHeaderCellDef>Attribute</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <div class="attrLabel">
-                      <div>{{element.attribute}}</div>
-                    </div>
+                    <app-attribute-cell [content] = "element.attribute" [name] ="element.attribute"></app-attribute-cell>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="conditions">
                   <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <ng-container *ngIf="!element.isOperator && !element.addable">
-                      <div class="clickableCond" *ngFor="let cond of element.conditions">
-                        <div>{{cond.condition}}</div>
-                      </div>
+                      <app-cond-clickable-cell *ngFor="let cond of element.conditions" [name]="element.attribute" [content]="cond.condition"></app-cond-clickable-cell>
                     </ng-container>
                     <ng-container *ngIf="!element.isOperator && element.addable">
-                      <div class="unclickableCond" *ngFor="let cond of element.conditions">
-                        <div>{{cond.condition}}</div>
-                      </div>
+                      <app-cond-cell *ngFor="let cond of element.conditions" [name] ="element.attribute" [content] ="cond.condition"></app-cond-cell>
                     </ng-container>
                     <ng-container *ngIf="element.isOperator && element.attribute !== 'Sequence'">
-                      <div class="operatorCondVertical" *ngFor="let cond of element.conditions">
-                        <div class="operatorContent">{{cond.operator}}</div>
-                        <div class="conditionContent">{{cond.condition}}</div>
-                      </div>
+                      <app-cond-operator-cell *ngFor="let cond of element.conditions" [name] ="element.attribute" [content] = "cond.condition" [operator] ="cond.operator" ></app-cond-operator-cell>
                     </ng-container>
                     <ng-container *ngIf="element.isOperator && element.attribute === 'Sequence'">
-                      <div class="operatorCondHorizontal" *ngFor="let cond of element.conditions">
-                        <div class="operatorContent">{{cond.operator}}</div>
-                        <div class="conditionContent">{{cond.condition}}</div>
-                      </div>
+                      <app-cond-seq-cell *ngFor="let cond of element.conditions" [name] = "element.attribute" [content] = "cond.condition" [operator] = "cond.operator"></app-cond-seq-cell>
                     </ng-container>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="addable">
                   <mat-header-cell *matHeaderCellDef></mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <div class="itemsAddable" *ngIf="element.addable">
-                      <div>+</div>
-                    </div>
+                    <app-add-button *ngIf="element.addable" [content] = "addableContent" [name] ="element.attribute"></app-add-button>
                   </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
               <div class="buttonRow">
-                <div class="buttonReset"><button mat-flat-button>Reset</button></div>
-                <div class="buttonSearch"><button mat-flat-button>Search</button></div>
+                <app-button [label] = "buttonLabelReset"></app-button>
+                <app-button [label] = "buttonLabelSearch"></app-button>
               </div>
             </div>
           </mat-card-content>
