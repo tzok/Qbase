@@ -18,7 +18,6 @@ export class ButtonComponent {
 }
 
 function getResults() {
-  console.log("Konsola działa");
   this.http.get('http://localhost:5000/api/Search/GetResults')
       .subscribe(data => console.log(data));
 }

@@ -12,7 +12,7 @@ namespace RNAqbase.Services
     public class SearchService : ISearchService
     {
         private List<Filter> listOfFilters = new List<Filter>();
-        private readonly SearchRepository searchRepository;
+        private readonly ISearchRepository searchRepository;
         private StringBuilder querySB = new StringBuilder(
 @"SELECT
 MAX(q.id) AS Id,
@@ -48,7 +48,7 @@ JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 ");
-        public SearchService(SearchRepository searchRepository)
+        public SearchService(ISearchRepository searchRepository)
         {
             this.searchRepository = searchRepository;
         }
@@ -60,7 +60,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
             foreach (Filter filter in listOfFilters)
             {
                 string queryFilter = filter.JoinConditions();
-                if (queryFilter == "") 
+                if (queryFilter == "")
                 {
                     continue;
                 }
@@ -83,7 +83,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
                 }
             }
 
-            string query =  $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
+            string query = $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
 
             return await searchRepository.GetAllResults(query);
         }
