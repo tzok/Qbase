@@ -12,12 +12,13 @@ export class ButtonComponent {
   constructor(private http: HttpClient) { }
   clickEvent() {
     if (this.label = 'Search') {
-      getResults();
+      this.getResults();
     }
+  }
+    getResults() {
+      this.http.get('http://localhost:5000/api/Search/GetResults')
+        .subscribe(data => console.log(JSON.stringify(data)));
   }
 }
 
-function getResults() {
-  this.http.get('http://localhost:5000/api/Search/GetResults')
-      .subscribe(data => console.log(data));
-}
+
