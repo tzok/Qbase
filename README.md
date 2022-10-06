@@ -1,5 +1,8 @@
 # ONQUADRO Frontend
 
+![workflow](https://github.com/Rayti/onquadro-frontend-search-engine/actions/workflows/full.yml/badge.svg?branch=dev)
+
+
 ## Requirements
 
 - `aspnet-runtime-2.2`
