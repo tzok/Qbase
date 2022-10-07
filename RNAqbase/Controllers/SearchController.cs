@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using RNAqbase.BackEnd;
 using RNAqbase.Models.Search;
 using RNAqbase.Services;
 using System;
@@ -25,7 +26,8 @@ namespace RNAqbase.Controllers
 		[HttpGet("[action]")]
 		public async Task<IActionResult> GetResults()
 		{
-			return Ok(await searchService.GetAllResults());
+			List<Filter> filters = new List<Filter>();
+			return Ok(await searchService.GetAllResults(filters));
 		}
 
 		[HttpPost("[action]")]
@@ -34,17 +36,17 @@ namespace RNAqbase.Controllers
 			Request.EnableBuffering();
 			Request.Body.Position = 0;
 			string rawRequestBody = new StreamReader(Request.Body).ReadToEnd();
-			Condition condition = null;
+			List<Filter> filters;
 
 			try
             {
-				condition = JsonConvert.DeserializeObject<Condition>(rawRequestBody);
+				filters = JsonConvert.DeserializeObject<List<Filter>>(rawRequestBody, new JsonFilterConverter());
             }
-			catch
-			{
-				return BadRequest();
-			}
-			return Ok(await searchService.GetAllResults());
+            catch
+            {
+                return BadRequest();
+            }
+            return Ok(await searchService.GetAllResults(filters));
 		}
 	}
 }

@@ -15,24 +15,13 @@ namespace RNAqbase.BackEnd
         {
             // This is the important part - we can query what json properties are present
             // to figure out what type of object to construct and populate
-            
-            if (FieldExists("amount", jObject))
+            switch (jObject["Attribute"].ToString()) 
             {
-                return new Wheel();
+                case "Experimental Method":
+                    return new ExperimentalMethodFilter();
+                default:
+                    return null;
             }
-            else if (FieldExists("delay", jObject))
-            {
-                return new Break();
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        private bool FieldExists(string fieldName, JObject jObject)
-        {
-            return jObject[fieldName] != null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

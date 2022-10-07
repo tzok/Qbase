@@ -11,7 +11,6 @@ namespace RNAqbase.Services
 {
     public class SearchService : ISearchService
     {
-        private List<Filter> listOfFilters = new List<Filter>();
         private readonly ISearchRepository searchRepository;
         private StringBuilder querySB = new StringBuilder(
 @"SELECT
@@ -53,11 +52,11 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
             this.searchRepository = searchRepository;
         }
 
-        public async Task<List<QuadruplexTable>> GetAllResults()
+        public async Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters)
         {
             bool isFirst = true;
             StringBuilder queryToHavingSB = new StringBuilder("");
-            foreach (Filter filter in listOfFilters)
+            foreach (Filter filter in filters)
             {
                 string queryFilter = filter.JoinConditions();
                 if (queryFilter == "")

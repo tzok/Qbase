@@ -13,7 +13,7 @@ namespace RNAqbase.Models.Search
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
         // Query to get all elements: SELECT DISTINCT experiment FROM PDB;
-        public override string JoinConditions()
+        public override string JoinConditions() //TODO zrobić tak by gdy są zle dane nadal działało
         {
             if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any())
             {
