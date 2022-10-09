@@ -24,7 +24,7 @@ namespace RNAqbase.Controllers
 		}
 
 		[HttpGet("[action]")]
-		public async Task<IActionResult> GetResults()
+		public async Task<IActionResult> GetResults() //TO DELETE
 		{
 			List<Filter> filters = new List<Filter>();
 			return Ok(await searchService.GetAllResults(filters));
@@ -48,5 +48,12 @@ namespace RNAqbase.Controllers
             }
             return Ok(await searchService.GetAllResults(filters));
 		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetExperimentalMethod()
+		{
+			return Ok(await searchService.GetExperimentalMethod());
+		}
+
 	}
 }

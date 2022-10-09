@@ -86,5 +86,8 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 
             return await searchRepository.GetAllResults(query);
         }
+
+        public async Task<List<string>> GetExperimentalMethod() =>
+            await searchRepository.GetExperimentalMethod();
     }
 }

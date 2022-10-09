@@ -23,5 +23,15 @@ namespace RNAqbase.Repository
 				return (await connection.QueryAsync<QuadruplexTable>(query)).ToList();
 			}
 		}
+
+        public async Task<List<string>> GetExperimentalMethod() 
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT experiment FROM PDB;")).ToList();
+            }
+        }
+
     }
 }

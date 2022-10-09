@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RNAqbase.Models.Search
@@ -12,21 +13,19 @@ namespace RNAqbase.Models.Search
             FieldInSQL = "experiment";
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
-        // Query to get all elements: SELECT DISTINCT experiment FROM PDB;
-        public override string JoinConditions() //TODO zrobić tak by gdy są zle dane nadal działało
+
+        public override string JoinConditions()
         {
             if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any())
             {
                 return "";
             }
-
-            string query = $"({FieldInSQL} IN ('{Conditions[0].Value}'";
+            StringBuilder querySB = new StringBuilder($"({FieldInSQL} IN ('{Conditions[0].Value}'");
             for (int i = 1; i < Conditions.Count; i++)
             {
-                query += $", '{Conditions[i].Value}'";
+                querySB.Append($", '{Conditions[i].Value}'");
             }
-
-            return query + "))";
+            return querySB.ToString() + "))";
         }
     }
 }

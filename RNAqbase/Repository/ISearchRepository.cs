@@ -9,5 +9,6 @@ namespace RNAqbase.Repository
     public interface ISearchRepository
     {
         Task<List<QuadruplexTable>> GetAllResults(string query);
+        Task<List<string>> GetExperimentalMethod();
     }
 }

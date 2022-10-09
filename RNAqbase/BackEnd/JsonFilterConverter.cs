@@ -13,9 +13,7 @@ namespace RNAqbase.BackEnd
     {
         protected override Filter Create(Type objectType, JObject jObject)
         {
-            // This is the important part - we can query what json properties are present
-            // to figure out what type of object to construct and populate
-            switch (jObject["Attribute"].ToString()) 
+            switch (jObject["Attribute"].ToString())
             {
                 case "Experimental Method":
                     return new ExperimentalMethodFilter();
@@ -39,15 +37,9 @@ namespace RNAqbase.BackEnd
         }
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            // Load JObject from stream
             JObject jObject = JObject.Load(reader);
-
-            // Create target object based on JObject
             T target = Create(objectType, jObject);
-
-            // Populate the object properties
             serializer.Populate(jObject.CreateReader(), target);
-
             return target;
         }
     }

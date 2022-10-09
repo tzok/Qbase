@@ -16,7 +16,8 @@ export class ButtonComponent {
     }
   }
     getResults() {
-      this.http.get('http://localhost:5000/api/Search/GetResults')
+      this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
+        '[{"Attribute": "Experimental Method", "Conditions": [{ "Value": "X-Ray", "Operator": "" }]}]')
         .subscribe(data => console.log(JSON.stringify(data)));
   }
 }
