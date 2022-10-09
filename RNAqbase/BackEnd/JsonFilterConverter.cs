@@ -17,6 +17,8 @@ namespace RNAqbase.BackEnd
             {
                 case "Experimental Method":
                     return new ExperimentalMethodFilter();
+                case "ONZ class":
+                    return new ONZFilter();
                 default:
                     return null;
             }

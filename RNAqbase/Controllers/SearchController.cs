@@ -46,7 +46,13 @@ namespace RNAqbase.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await searchService.GetAllResults(filters));
+
+			if (filters == null)
+			{
+				return BadRequest();
+			}
+
+			return Ok(await searchService.GetAllResults(filters));
 		}
 
 		[HttpGet("[action]")]
@@ -55,5 +61,10 @@ namespace RNAqbase.Controllers
 			return Ok(await searchService.GetExperimentalMethod());
 		}
 
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetONZ()
+		{
+			return Ok(await searchService.GetONZ());
+		}
 	}
 }

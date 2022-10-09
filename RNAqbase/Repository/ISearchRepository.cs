@@ -10,5 +10,6 @@ namespace RNAqbase.Repository
     {
         Task<List<QuadruplexTable>> GetAllResults(string query);
         Task<List<string>> GetExperimentalMethod();
+        Task<List<string>> GetONZ();
     }
 }

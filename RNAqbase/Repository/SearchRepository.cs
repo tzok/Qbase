@@ -33,5 +33,13 @@ namespace RNAqbase.Repository
             }
         }
 
+        public async Task<List<string>> GetONZ()
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT onz FROM tetrad;")).ToList();
+            }
+        }
     }
 }
