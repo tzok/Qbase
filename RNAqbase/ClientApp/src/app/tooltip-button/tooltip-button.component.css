@@ -1,0 +1,14 @@
+div {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-icon-button {
+  outline: none;
+  background-color: rgba(196, 196, 196, 1);
+  font-size: 14px;
+  font-weight: bold;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+}

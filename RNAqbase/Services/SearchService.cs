@@ -5,14 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace RNAqbase.Services
 {
-    public class SearchService
+    public class SearchService : ISearchService
     {
-        private List<Filter> listOfFilters = new List<Filter>();
-        private readonly SearchRepository searchRepository;
-        private string query =
+        private readonly ISearchRepository searchRepository;
+        private StringBuilder querySB = new StringBuilder(
 @"SELECT
 MAX(q.id) AS Id,
 q.loop_class as LoopTopology,
@@ -46,41 +46,51 @@ JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
-";
-        string havingQuery = "HAVING COUNT(t.id) > 1";
-
-        public SearchService(SearchRepository searchRepository)
+");
+        public SearchService(ISearchRepository searchRepository)
         {
             this.searchRepository = searchRepository;
         }
 
-        public string GetTest()
+        public async Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters)
         {
             bool isFirst = true;
-            foreach (Filter filter in listOfFilters)
+            StringBuilder queryToHavingSB = new StringBuilder("");
+            foreach (Filter filter in filters)
             {
-                var helper = filter.JoinConditions();
-                if (helper != "")
+                string queryFilter = filter.JoinConditions();
+                if (queryFilter == "")
                 {
-                    if (filter.GetType() == typeof(TypeFilter))
+                    continue;
+                }
+
+                if (filter.joinType == JoinType.Having)
+                {
+                    queryToHavingSB.Append($" AND {queryFilter}");
+                }
+                else
+                {
+                    if (isFirst)
                     {
-                        havingQuery += " AND " + helper;
+                        querySB.Append($"WHERE {queryFilter} ");
+                        isFirst = false;
                     }
                     else
                     {
-                        if (isFirst)
-                        {
-                            query += $"WHERE {helper} ";
-                            isFirst = false;
-                        }
-                        else
-                        {
-                            query += $"AND {helper} ";
-                        }
+                        querySB.Append($"AND {queryFilter} ");
                     }
                 }
             }
-            return query + "GROUP BY q.id " + havingQuery + ";";
+
+            string query = $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
+
+            return await searchRepository.GetAllResults(query);
         }
+
+        public async Task<List<string>> GetExperimentalMethod() =>
+            await searchRepository.GetExperimentalMethod();
+
+        public async Task<List<string>> GetONZ() =>
+            await searchRepository.GetONZ();
     }
 }

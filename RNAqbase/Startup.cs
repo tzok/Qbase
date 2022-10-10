@@ -20,7 +20,6 @@ namespace RNAqbase
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			TestSearch();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddMemoryCache();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
@@ -31,18 +30,14 @@ namespace RNAqbase
 			services.AddTransient<IHelixRepository, HelixRepository>();
 			services.AddTransient<IStatisticsService, StatisticsService>();
 			services.AddTransient<IStatisticsRepository, StatisticsRepository>();
+			services.AddTransient<ISearchRepository, SearchRepository>();
+			services.AddTransient<ISearchService, SearchService>();
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
 
 			services.AddSingleton(Configuration);
-		}
-
-		public void TestSearch()
-        {
-			SearchService searchService = new SearchService(new SearchRepository());
-			Console.Write(searchService.GetTest());
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

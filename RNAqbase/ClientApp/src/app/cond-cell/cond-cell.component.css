@@ -1,0 +1,18 @@
+#parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgba(184, 224, 222, 0.4);
+  border-radius: 15px 15px 15px 15px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+  #parent > div {
+    width: fit-content;
+    height: fit-content;
+    padding: 8px;
+  }

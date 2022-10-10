@@ -1,0 +1,15 @@
+#parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: fit-content;
+  background-color: rgba(82, 183, 179, 0.3);
+  border-radius: 10px 10px 10px 10px;
+}
+
+  #parent > div {
+    width: fit-content;
+    height: fit-content;
+    padding: 6px;
+  }

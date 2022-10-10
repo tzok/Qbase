@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 export interface Condition {
   condition: string;
   operator: string;
@@ -105,13 +104,11 @@ const SEARCH_TABLE_ELEMENTS: Array<TableElements> = [
 })
 
 export class SearchComponent {
+  totalAngularPackages;
   displayedColumns: string[] = ['attribute', 'conditions', 'addable'];
   dataSource = SEARCH_TABLE_ELEMENTS;
-
-  /* Cells after clicked event change color based on their boolean value in array
-   * (position in array indicates specific cell; position 0 in array references "any" cell; clickable cells are static in row)
-   * Clicking cell "any" unclicks other in row
-   * When only one cell can be selected at certain time, cells should behave like radio button
-   */
+  addableContent = '+';
+  buttonLabelSearch = 'Search';
+  buttonLabelReset = 'Reset';
 
 }
