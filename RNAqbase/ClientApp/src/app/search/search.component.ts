@@ -104,9 +104,11 @@ const SEARCH_TABLE_ELEMENTS: Array<TableElements> = [
 })
 
 export class SearchComponent {
+  totalAngularPackages;
   displayedColumns: string[] = ['attribute', 'conditions', 'addable'];
   dataSource = SEARCH_TABLE_ELEMENTS;
   addableContent = '+';
   buttonLabelSearch = 'Search';
   buttonLabelReset = 'Reset';
+
 }
