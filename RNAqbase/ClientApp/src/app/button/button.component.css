@@ -1,0 +1,15 @@
+div {
+  padding: 12px;
+}
+.mat-flat-button {
+  outline: none;
+  background-color: rgba(72, 173, 169, 1);
+  width: 120px;
+  border-radius: 12px 12px 12px 12px;
+}
+
+.resetButton {
+  background-color: rgba(196, 196, 196, 1);
+  color: rgba(81, 80, 80, 1);
+}
+
