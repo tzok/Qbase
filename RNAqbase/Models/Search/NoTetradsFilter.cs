@@ -9,10 +9,6 @@ namespace RNAqbase.Models.Search
     {
         public NoTetradsFilter()
         {
-            Conditions.Add(new Condition(">", "1"));
-            Conditions.Add(new Condition("<", "2"));
-            Conditions.Add(new Condition("=", "3"));
-            Conditions.Add(new Condition("{}", "2,4"));
             FieldInSQL = "COUNT(DISTINCT(t.id))";
             joinType = JoinType.Having;
         }

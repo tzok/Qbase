@@ -21,6 +21,8 @@ namespace RNAqbase.BackEnd
                     return new ONZFilter();
                 case "PDB ID":
                     return new PDBIDFilter();
+                case "Number of tetrads":
+                    return new NoTetradsFilter();
                 default:
                     return null;
             }

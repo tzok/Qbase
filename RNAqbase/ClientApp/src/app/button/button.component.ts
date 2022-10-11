@@ -20,7 +20,8 @@ export class ButtonComponent {
         `[
         {"Attribute": "Experimental Method", "Conditions": [{ "Value": "X-Ray", "Operator": "" }]},
         {"Attribute": "ONZ class", "Conditions": [{ "Value": "N-", "Operator": "" }, { "Value": "Z-", "Operator": "" }]},
-        {"Attribute": "PDB ID", "Conditions": [{ "Value": "10", "Operator": "" }]}
+        {"Attribute": "PDB ID", "Conditions": [{ "Value": "10", "Operator": "" }]},
+        {"Attribute": "Number of tetrads", "Conditions": [{ "Value": "2", "Operator": ">" }]}
         ]`)
         .subscribe(data => console.log(JSON.stringify(data)));
   }
