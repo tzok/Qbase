@@ -4,7 +4,6 @@ using RNAqbase.Models.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RNAqbase.BackEnd
@@ -19,6 +18,8 @@ namespace RNAqbase.BackEnd
                     return new ExperimentalMethodFilter();
                 case "ONZ class":
                     return new ONZFilter();
+                case "Type (by no. of strands)":
+                    return new TypeFilter(); 
                 default:
                     return null;
             }
