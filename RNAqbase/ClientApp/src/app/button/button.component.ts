@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() label: string;
-
+  
   constructor(private http: HttpClient) { }
   clickEvent() {
     if (this.label = 'Search') {

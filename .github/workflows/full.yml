@@ -37,7 +37,7 @@ jobs:
     - name: Install dependencies
       working-directory: RNAqbase/ClientApp
       run: 
-        npm install
+        npm install --legacy-peer-deps
     - name: Build Angular
       working-directory: RNAqbase/ClientApp
       run: |
