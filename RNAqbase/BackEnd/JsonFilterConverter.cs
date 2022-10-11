@@ -4,7 +4,6 @@ using RNAqbase.Models.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RNAqbase.BackEnd
@@ -23,6 +22,8 @@ namespace RNAqbase.BackEnd
                     return new PDBIDFilter();
                 case "Number of tetrads":
                     return new NoTetradsFilter();
+                case "Type (by no. of strands)":
+                    return new TypeFilter(); 
                 default:
                     return null;
             }
