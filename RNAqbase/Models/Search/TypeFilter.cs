@@ -7,12 +7,12 @@ namespace RNAqbase.Models.Search
 {
     public class TypeFilter : Filter
     {
-        public new readonly string FieldInSQL = "max(q_view.chains)";
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
         public TypeFilter()
         {
-
+            FieldInSQL = "max(q_view.chains)";
+            joinType = JoinType.Having;
         }
 
         public override string JoinConditions()
