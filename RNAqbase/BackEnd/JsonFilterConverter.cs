@@ -19,6 +19,8 @@ namespace RNAqbase.BackEnd
                     return new ExperimentalMethodFilter();
                 case "ONZ class":
                     return new ONZFilter();
+                case "PDB ID":
+                    return new PDBIDFilter();
                 default:
                     return null;
             }

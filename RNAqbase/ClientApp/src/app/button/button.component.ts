@@ -19,7 +19,8 @@ export class ButtonComponent {
       this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
         `[
         {"Attribute": "Experimental Method", "Conditions": [{ "Value": "X-Ray", "Operator": "" }]},
-        {"Attribute": "ONZ class", "Conditions": [{ "Value": "N-", "Operator": "" }, { "Value": "Z-", "Operator": "" }]}
+        {"Attribute": "ONZ class", "Conditions": [{ "Value": "N-", "Operator": "" }, { "Value": "Z-", "Operator": "" }]},
+        {"Attribute": "PDB ID", "Conditions": [{ "Value": "10", "Operator": "" }]}
         ]`)
         .subscribe(data => console.log(JSON.stringify(data)));
   }

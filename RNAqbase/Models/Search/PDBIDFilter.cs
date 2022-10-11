@@ -9,7 +9,7 @@ namespace RNAqbase.Models.Search
     {
         public PDBIDFilter()
         {
-            FieldInSQL = "PdbId";
+            FieldInSQL = "p.identifier";
         }
 
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
@@ -23,7 +23,7 @@ namespace RNAqbase.Models.Search
             string query = "(";
             for (int i = 0; i < Conditions.Count; i++)
             {
-                query += $"({FieldInSQL} LIKE '{Conditions[i].Value}')";
+                query += $"({FieldInSQL} LIKE '{Conditions[i].Value}%')";
                 if (i != Conditions.Count - 1)
                 {
                     query += " OR ";
