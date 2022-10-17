@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TableContent } from '../table-content.enum';
 
 @Component({
   selector: 'app-button',
@@ -13,7 +14,14 @@ export class ButtonComponent {
   clickEvent() {
     if (this.label = 'Search') {
       this.getResults();
+
+      var values = Object.values(TableContent).map(v => JSON.parse(v));
+      console.log(values);
     }
+  }
+
+  parseToJSON(attr) {
+    return JSON.parse(attr);
   }
     getResults() {
       this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
