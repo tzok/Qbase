@@ -41,5 +41,14 @@ namespace RNAqbase.Repository
                 return (await connection.QueryAsync<string>("SELECT DISTINCT onz FROM tetrad;")).ToList();
             }
         }
+
+        public async Task<List<string>> GetIons()
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT name FROM Ion;")).ToList();
+            }
+        }
     }
 }

@@ -23,6 +23,8 @@ namespace RNAqbase.BackEnd
                     return new PDBIDFilter();
                 case "Number of tetrads":
                     return new NoTetradsFilter();
+                case "Ions":
+                    return new IonsFilter();
                 default:
                     return null;
             }
