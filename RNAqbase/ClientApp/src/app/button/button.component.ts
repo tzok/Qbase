@@ -23,7 +23,7 @@ export class ButtonComponent {
         {"Attribute": "PDB ID", "Conditions": [{ "Value": "10", "Operator": "" }]},
         {"Attribute": "Number of tetrads", "Conditions": [{ "Value": "1", "Operator": ">" }]},
         {"Attribute": "Type (by no. of strands)", "Conditions": [{ "Value": "tetramolecular", "Operator": "" }]},
-        {"Attribute": "Molecule Type", "Conditions": [{ "Value": "RNA", "Operator": "" }, { "Value": "DNA", "Operator": "" }]}
+        {"Attribute": "Bulges", "Conditions": [{ "Value": "with bulges", "Operator": "" }]}
         ]`)
         .subscribe(data => console.log(JSON.stringify(data)));
   }

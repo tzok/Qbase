@@ -28,6 +28,8 @@ namespace RNAqbase.BackEnd
                     return new MoleculeTypeFilter();
                 case "PDB Deposition":
                     return new PDBDepositionFilter();
+                case "Bulges":
+                    return new BulgesFilter();
                 default:
                     return null;
             }
