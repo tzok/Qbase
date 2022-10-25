@@ -8,9 +8,9 @@ import { RowElements } from '../row-elements';
 })
 
 export class RowCondAddableComponent implements OnInit {
-  rowData: Array<RowElements>;
+  rowData: RowElements;
   @Input() rowName: string;
-  @Input() rowElements: Array<RowElements>;
+  @Input() rowElements: RowElements;
 
   ngOnInit() {
     this.rowData = this.rowElements;
