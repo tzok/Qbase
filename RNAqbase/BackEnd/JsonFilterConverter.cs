@@ -26,6 +26,8 @@ namespace RNAqbase.BackEnd
                     return new TypeFilter();
                 case "Molecule Type":
                     return new MoleculeTypeFilter();
+                case "PDB Deposition":
+                    return new PDBDepositionFilter();
                 default:
                     return null;
             }
