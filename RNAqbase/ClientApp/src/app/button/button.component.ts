@@ -22,7 +22,8 @@ export class ButtonComponent {
         {"Attribute": "ONZ class", "Conditions": [{ "Value": "N-", "Operator": "" }, { "Value": "Z-", "Operator": "" }]},
         {"Attribute": "PDB ID", "Conditions": [{ "Value": "10", "Operator": "" }]},
         {"Attribute": "Number of tetrads", "Conditions": [{ "Value": "1", "Operator": ">" }]},
-        {"Attribute": "Type (by no. of strands)", "Conditions": [{ "Value": "tetramolecular", "Operator": "" }]}
+        {"Attribute": "Type (by no. of strands)", "Conditions": [{ "Value": "tetramolecular", "Operator": "" }]},
+        {"Attribute": "Bulges", "Conditions": [{ "Value": "with bulges", "Operator": "" }]}
         ]`)
         .subscribe(data => console.log(JSON.stringify(data)));
   }

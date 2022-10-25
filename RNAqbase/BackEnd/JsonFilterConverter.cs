@@ -23,7 +23,9 @@ namespace RNAqbase.BackEnd
                 case "Number of tetrads":
                     return new NoTetradsFilter();
                 case "Type (by no. of strands)":
-                    return new TypeFilter(); 
+                    return new TypeFilter();
+                case "Bulges":
+                    return new BulgesFilter();
                 default:
                     return null;
             }
