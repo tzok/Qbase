@@ -23,7 +23,9 @@ namespace RNAqbase.BackEnd
                 case "Number of tetrads":
                     return new NoTetradsFilter();
                 case "Type (by no. of strands)":
-                    return new TypeFilter(); 
+                    return new TypeFilter();
+                case "Molecule Type":
+                    return new MoleculeTypeFilter();
                 default:
                     return null;
             }

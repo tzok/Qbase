@@ -12,5 +12,6 @@ namespace RNAqbase.Services
         Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters);
         Task<List<string>> GetExperimentalMethod();
         Task<List<string>> GetONZ();
+        Task<List<string>> GetMoleculeType();
     }
 }

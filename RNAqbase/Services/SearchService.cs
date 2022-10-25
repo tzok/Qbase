@@ -92,5 +92,8 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 
         public async Task<List<string>> GetONZ() =>
             await searchRepository.GetONZ();
+
+        public async Task<List<string>> GetMoleculeType() =>
+            await searchRepository.GetMoleculeType();
     }
 }
