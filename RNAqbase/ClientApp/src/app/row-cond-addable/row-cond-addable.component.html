@@ -1,5 +1,5 @@
 <div id="parentRow">
-  <div class="conditions">
+  <div class="conditionsElem">
     <ng-container *ngFor="let cond of rowData.conditions">
       <ng-container *ngIf="!rowData.isOperator">
         <app-cond-cell [name] = "rowData.attribute" [content]= "cond.condition"></app-cond-cell>
