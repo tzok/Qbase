@@ -24,11 +24,11 @@ namespace RNAqbase.Models.Search
             StringBuilder querySB = new StringBuilder($"({FieldInSQL} ");
             if (Conditions[0].Value == "with bulges")
             {
-                querySB.Append("~ '([^.][.]{1})+$|^([.]{1}[^.])+|[^.]([.]{1}[^.])+");
+                querySB.Append("~ '.*\\n[.]{1}[^.].*|.*[^.][.]{1}[^.].*|.*[^.][.]{1}$");
             }
             else
             {
-                querySB.Append("!~ '([^.][.]{1})+$|^([.]{1}[^.])+|[^.]([.]{1}[^.])+");
+                querySB.Append("!~ '.*\\n[.]{1}[^.].*|.*[^.][.]{1}[^.].*|.*[^.][.]{1}$");
             }
 
             return querySB.ToString() + "')";
