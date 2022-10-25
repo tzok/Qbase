@@ -24,6 +24,10 @@ namespace RNAqbase.BackEnd
                     return new NoTetradsFilter();
                 case "Type (by no. of strands)":
                     return new TypeFilter();
+                case "Molecule Type":
+                    return new MoleculeTypeFilter();
+                case "PDB Deposition":
+                    return new PDBDepositionFilter();
                 case "Bulges":
                     return new BulgesFilter();
                 default:

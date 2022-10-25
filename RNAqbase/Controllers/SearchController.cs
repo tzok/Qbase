@@ -66,5 +66,11 @@ namespace RNAqbase.Controllers
 		{
 			return Ok(await searchService.GetONZ());
 		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetMoleculeType()
+		{
+			return Ok(await searchService.GetMoleculeType());
+		}
 	}
 }
