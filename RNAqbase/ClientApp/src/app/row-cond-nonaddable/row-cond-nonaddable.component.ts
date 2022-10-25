@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { RowElements } from '../row-elements';
 
 @Component({
   selector: 'app-row-cond-nonaddable',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./row-cond-nonaddable.component.css']
 })
 export class RowCondNonaddableComponent implements OnInit {
-
-  constructor() { }
+  rowData: Array<RowElements>;
+  @Input() rowName: string;
+  @Input() rowElements: Array<RowElements>;
 
   ngOnInit() {
+    this.rowData = this.rowElements;
   }
 
 }
