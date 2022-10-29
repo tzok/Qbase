@@ -1,0 +1,22 @@
+#parentRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.conditionsElem {
+  display: flex;
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+}
+
+:host {
+  display: contents;
+}

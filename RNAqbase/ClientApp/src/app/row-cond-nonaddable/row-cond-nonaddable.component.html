@@ -1,0 +1,7 @@
+<div id="parentRow">
+  <div class="conditionsElem">
+    <ng-container *ngFor="let cond of rowData.conditions">
+        <app-cond-clickable-cell [name]="rowData.attribute" [content]="cond.condition"></app-cond-clickable-cell>
+    </ng-container>
+  </div>
+</div>
