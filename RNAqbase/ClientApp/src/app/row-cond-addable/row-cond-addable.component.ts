@@ -10,6 +10,7 @@ import { RowElements } from '../row-elements';
 export class RowCondAddableComponent implements OnInit {
   rowData: RowElements;
   @Input() rowName: string;
+  @Input() rowType: string;
   @Input() rowElements: RowElements;
 
   ngOnInit() {

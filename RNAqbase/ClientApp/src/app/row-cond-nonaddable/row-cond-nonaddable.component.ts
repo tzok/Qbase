@@ -9,7 +9,9 @@ import { RowElements } from '../row-elements';
 export class RowCondNonaddableComponent implements OnInit {
   rowData: RowElements;
   @Input() rowName: string;
+  @Input() rowType: string;
   @Input() rowElements: RowElements;
+
 
   ngOnInit() {
     this.rowData = this.rowElements;
