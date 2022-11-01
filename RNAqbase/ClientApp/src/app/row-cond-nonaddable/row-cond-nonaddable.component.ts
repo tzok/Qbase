@@ -10,7 +10,7 @@ import { RowElements } from '../row-elements';
   styleUrls: ['./row-cond-nonaddable.component.css']
 })
 export class RowCondNonaddableComponent implements OnInit {
-  rowData: RowElements;
+  private rowData: RowElements;
   @Input() rowName: string;
   @Input() rowType: string;
   @Input() rowElements: RowElements;
