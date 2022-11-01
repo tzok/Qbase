@@ -18,6 +18,35 @@ export class RowCondNonaddableComponent implements OnInit {
   rowElementsStatus: ElementsFocus = {};
 
   respondClickEvent(childPckt: CondCommPckt) {
+    this.clickEventLogic(childPckt);
+    console.log(this.rowElementsStatus);
+  }
+
+
+  ngOnInit() {
+    this.rowData = this.rowElements;
+    for (let i of this.rowData.conditions) {
+        this.rowElementsStatus[i.condition] = false;
+    }
+  }
+
+  checkIfAnyClicked(): boolean {
+    let i = false;
+    for (let key in this.rowElementsStatus) {
+        i = i || this.rowElementsStatus[key];
+    }
+    return i;
+  }
+
+  unclickAll(elem: string): void {
+    for (let key in this.rowElementsStatus) {
+      if (key != elem) {
+        this.rowElementsStatus[key] = false;
+      }
+    }
+  }
+
+  private clickEventLogic(childPckt: CondCommPckt) {
     if (childPckt.clicked) {
       if (childPckt.clickInvoker == 'any') {
         this.rowElementsStatus[childPckt.clickInvoker] = childPckt.clicked;
@@ -44,30 +73,5 @@ export class RowCondNonaddableComponent implements OnInit {
         this.rowElementsStatus['any'] = true;
       }
     }
-    console.log(this.rowElementsStatus);
   }
-
-  ngOnInit() {
-    this.rowData = this.rowElements;
-    for (let i of this.rowData.conditions) {
-        this.rowElementsStatus[i.condition] = false;
-    }
-  }
-
-  checkIfAnyClicked() {
-    let i = false;
-    for (let key in this.rowElementsStatus) {
-        i = i || this.rowElementsStatus[key];
-    }
-    return i;
-  }
-
-  unclickAll(elem: string) {
-    for (let key in this.rowElementsStatus) {
-      if (key != elem) {
-        this.rowElementsStatus[key] = false;
-      }
-    }
-  }
-
 }
