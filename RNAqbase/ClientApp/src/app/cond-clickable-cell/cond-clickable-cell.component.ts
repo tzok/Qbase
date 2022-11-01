@@ -12,7 +12,7 @@ export class CondClickableCellComponent {
   @Input() content: string;
   @Input() eventReceiver: RowCommPckt;
   @Output() clicked = new EventEmitter<CondCommPckt>();
-  private isClicked: boolean = false;
+  isClicked: boolean;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['eventReceiver']) {
