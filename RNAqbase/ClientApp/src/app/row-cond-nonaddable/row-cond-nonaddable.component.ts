@@ -30,33 +30,15 @@ export class RowCondNonaddableComponent implements OnInit {
     }
   }
 
-  checkIfAnyClicked(): boolean {
-    let i = false;
-    for (let key in this.rowElementsStatus) {
-        i = i || this.rowElementsStatus[key];
-    }
-    return i;
-  }
-
-  unclickAll(elem: string): void {
-    for (let key in this.rowElementsStatus) {
-      if (key != elem) {
-        this.rowElementsStatus[key] = false;
-      }
-    }
-  }
-
   private clickEventLogic(childPckt: CondCommPckt) {
     if (childPckt.clicked) {
       if (childPckt.clickInvoker == 'any') {
-        this.rowElementsStatus[childPckt.clickInvoker] = childPckt.clicked;
-        this.unclickAll(childPckt.clickInvoker);
+        this.setValues(childPckt);
         this.msg = { clickInvoker: childPckt.clickInvoker, eventReceiver: '', typeOfRow: this.rowType };
       }
       else if (childPckt.clickInvoker != '') {
         if (this.rowType == 'radioSelect') {
-          this.rowElementsStatus[childPckt.clickInvoker] = childPckt.clicked;
-          this.unclickAll(childPckt.clickInvoker);
+          this.setValues(childPckt);
           this.msg = { clickInvoker: childPckt.clickInvoker, eventReceiver: '', typeOfRow: this.rowType };
         }
         if ((this.rowType == 'multiSelect') && (childPckt.clickInvoker != 'any')) {
@@ -71,6 +53,27 @@ export class RowCondNonaddableComponent implements OnInit {
       if (!this.checkIfAnyClicked()) {
         this.msg = { clickInvoker: 'row', eventReceiver: 'any', typeOfRow: this.rowType };
         this.rowElementsStatus['any'] = true;
+      }
+    }
+  }
+
+  private setValues(childPckt: CondCommPckt) {
+    this.rowElementsStatus[childPckt.clickInvoker] = childPckt.clicked;
+    this.unclickAll(childPckt.clickInvoker);
+  }
+
+  checkIfAnyClicked(): boolean {
+    let i = false;
+    for (let key in this.rowElementsStatus) {
+      i = i || this.rowElementsStatus[key];
+    }
+    return i;
+  }
+
+  unclickAll(elem: string): void {
+    for (let key in this.rowElementsStatus) {
+      if (key != elem) {
+        this.rowElementsStatus[key] = false;
       }
     }
   }
