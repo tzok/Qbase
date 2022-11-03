@@ -24,11 +24,11 @@
                 <ng-container matColumnDef="conditions">
                   <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <ng-container *ngIf="!element.addable">
-                      <app-row-cond-nonaddable [rowName] = "element.attribute" [rowElements] = "element"></app-row-cond-nonaddable>
+                    <ng-container *ngIf="element.rowType === 'addable'">
+                      <app-row-cond-addable [rowName]="element.attribute" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-addable>
                     </ng-container>
-                    <ng-container *ngIf="element.addable">
-                      <app-row-cond-addable [rowName]="element.attribute" [rowElements]="element"></app-row-cond-addable>
+                    <ng-container *ngIf="element.rowType !== 'addable'">
+                      <app-row-cond-nonaddable [rowName]="element.attribute" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-nonaddable>
                     </ng-container>
                   </mat-cell>
                 </ng-container>

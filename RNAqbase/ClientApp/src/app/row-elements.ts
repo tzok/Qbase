@@ -4,5 +4,5 @@ export interface RowElements {
   attribute: string;
   isOperator: boolean;
   conditions: Array<Condition>;
-  addable: boolean;
+  rowType: string;
 }
