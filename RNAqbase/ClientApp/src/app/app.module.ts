@@ -45,6 +45,11 @@ import { ButtonComponent } from './button/button.component';
 import { TooltipButtonComponent } from './tooltip-button/tooltip-button.component';
 import { RowCondAddableComponent } from './row-cond-addable/row-cond-addable.component';
 import { RowCondNonaddableComponent } from './row-cond-nonaddable/row-cond-nonaddable.component';
+import { ValueDialogComponent } from './value-dialog/value-dialog.component';
+import { ValOperDialogComponent } from './val-oper-dialog/val-oper-dialog.component';
+import { DateOperDialogComponent } from './date-oper-dialog/date-oper-dialog.component';
+import { SeqDialogComponent } from './seq-dialog/seq-dialog.component';
+import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-silva-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +81,12 @@ import { RowCondNonaddableComponent } from './row-cond-nonaddable/row-cond-nonad
     ButtonComponent,
     TooltipButtonComponent,
     RowCondAddableComponent,
-    RowCondNonaddableComponent
+    RowCondNonaddableComponent,
+    ValueDialogComponent,
+    ValOperDialogComponent,
+    DateOperDialogComponent,
+    SeqDialogComponent,
+    WebbaDaSilvaDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
