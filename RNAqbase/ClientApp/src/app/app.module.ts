@@ -43,6 +43,8 @@ import { CondClickableCellComponent } from './cond-clickable-cell/cond-clickable
 import { CondSeqCellComponent } from './cond-seq-cell/cond-seq-cell.component';
 import { ButtonComponent } from './button/button.component';
 import { TooltipButtonComponent } from './tooltip-button/tooltip-button.component';
+import { RowCondAddableComponent } from './row-cond-addable/row-cond-addable.component';
+import { RowCondNonaddableComponent } from './row-cond-nonaddable/row-cond-nonaddable.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { TooltipButtonComponent } from './tooltip-button/tooltip-button.componen
     CondClickableCellComponent,
     CondSeqCellComponent,
     ButtonComponent,
-    TooltipButtonComponent
+    TooltipButtonComponent,
+    RowCondAddableComponent,
+    RowCondNonaddableComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
