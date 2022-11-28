@@ -10,7 +10,7 @@ namespace RNAqbase.Models.Search
     {
         public BulgesFilter()
         {
-            FieldInSQL = "q.dot_bracket";
+            joinType = JoinType.Having;
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
@@ -21,17 +21,17 @@ namespace RNAqbase.Models.Search
                 return "";
             }
 
-            StringBuilder querySB = new StringBuilder($"({FieldInSQL} ");
+            StringBuilder querySB = new StringBuilder();
             if (Conditions[0].Value == "with bulges")
             {
-                querySB.Append("~ '.*\\n[.]{1}[^.].*|.*[^.][.]{1}[^.].*|.*[^.][.]{1}$");
+                querySB.Append("(is_bulge(q.dot_bracket, STRING_AGG(COALESCE((n1.full_name)||(n2.full_name)||(n3.full_name)||(n4.full_name), ''), '')))");
             }
             else
             {
-                querySB.Append("!~ '.*\\n[.]{1}[^.].*|.*[^.][.]{1}[^.].*|.*[^.][.]{1}$");
+                querySB.Append("(NOT is_bulge(q.dot_bracket, STRING_AGG(COALESCE((n1.full_name)||(n2.full_name)||(n3.full_name)||(n4.full_name), ''), '')))");
             }
 
-            return querySB.ToString() + "')";
+            return querySB.ToString();
         }
     }
 }
