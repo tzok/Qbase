@@ -30,6 +30,8 @@ namespace RNAqbase.BackEnd
                     return new PDBDepositionFilter();
                 case "Bulges":
                     return new BulgesFilter();
+                case "Sequence":
+                    return new SequenceFilter();
                 default:
                     return null;
             }
