@@ -17,7 +17,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="data" [disabled]="!(data.operator && data.value)">Add</button>
+    <button mat-button [mat-dialog-close]="data" [disabled]="!(data.operator && data.value?.trim())">Add</button>
     <button mat-button (click)="onNoClick()">Exit</button>
   </div>
 </div>
