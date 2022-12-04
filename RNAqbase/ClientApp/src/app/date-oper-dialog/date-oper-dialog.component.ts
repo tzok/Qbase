@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogData } from '../dialog-data';
 
 @Component({
   selector: 'app-date-oper-dialog',
   templateUrl: './date-oper-dialog.component.html',
   styleUrls: ['./date-oper-dialog.component.css']
 })
-export class DateOperDialogComponent implements OnInit {
+export class DateOperDialogComponent {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<DateOperDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
-  ngOnInit() {
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
