@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogData } from '../dialog-data';
 
 @Component({
   selector: 'app-seq-dialog',
   templateUrl: './seq-dialog.component.html',
   styleUrls: ['./seq-dialog.component.css']
 })
-export class SeqDialogComponent implements OnInit {
+export class SeqDialogComponent {
 
-  constructor() { }
+  constructor(
+    public dialogRef: MatDialogRef<SeqDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
-  ngOnInit() {
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
