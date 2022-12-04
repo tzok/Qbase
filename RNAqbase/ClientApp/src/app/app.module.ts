@@ -135,7 +135,15 @@ import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-si
     ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [VisualizationDialogComponent, Visualization3DComponent]
+  entryComponents: [
+    VisualizationDialogComponent,
+    Visualization3DComponent,
+    SeqDialogComponent,
+    DateOperDialogComponent,
+    WebbaDaSilvaDialogComponent,
+    ValueDialogComponent,
+    ValOperDialogComponent
+  ]
 })
 
 export class AppModule { }
