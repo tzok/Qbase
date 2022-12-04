@@ -1,0 +1,4 @@
+.formDialog {
+    display: flex;
+    flex-direction: column;
+}

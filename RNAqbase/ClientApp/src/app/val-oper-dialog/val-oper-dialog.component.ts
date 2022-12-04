@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogChoice } from '../dialog-choice';
+import { DialogData } from '../dialog-data';
 
 @Component({
   selector: 'app-val-oper-dialog',
   templateUrl: './val-oper-dialog.component.html',
   styleUrls: ['./val-oper-dialog.component.css']
 })
-export class ValOperDialogComponent implements OnInit {
+export class ValOperDialogComponent {
+  operators: string[];
+  constructor(
+    public dialogRef: MatDialogRef<ValOperDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
-  constructor() { }
-
-  ngOnInit() {
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
