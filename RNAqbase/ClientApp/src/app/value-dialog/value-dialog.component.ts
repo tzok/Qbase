@@ -8,7 +8,7 @@ import { DialogData } from '../dialog-data';
   styleUrls: ['./value-dialog.component.css']
 })
 export class ValueDialogComponent {
-  
+
   constructor(
     public dialogRef: MatDialogRef<ValueDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }

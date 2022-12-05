@@ -5,9 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import * as JSZip from 'jszip';
-import * as FileSaver from 'file-saver';
-import * as svg from 'save-svg-as-png';
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import { DomSanitizer } from "@angular/platform-browser";
 import { saveAs } from "file-saver";
 
 
@@ -51,10 +49,10 @@ export class TetradComponent implements OnInit {
             this.csvData.tetradsInTheSamePdb = result.join(";");
           }
           else {
-           this.data.tetradsInTheSamePdb = [];
+            this.data.tetradsInTheSamePdb = [];
             this.csvData.tetradsInTheSamePdb = '';
           }
-           if (this.data.quadruplexId != '-') {
+          if (this.data.quadruplexId != '-') {
             this.http.get<number[]>(this.baseUrl + 'api/Tetrad/GetOtherTetradsInTheSameQuadruplex?tetradId=' + this.tetradId + '&quadruplexId=' + this.data.quadruplexId.slice(1)).subscribe(result => {
               if (result) {
                 this.data.tetradsInTheSameQuadruplex = result;
@@ -71,11 +69,11 @@ export class TetradComponent implements OnInit {
               this.http.get<TetradNucleotides>(this.baseUrl + 'api/Tetrad/GetTetradNucleotides?Id=' + this.tetradId).subscribe(result => {
                 this.tetradNucleotides = result;
                 this.tetradNucleotidesTable.push({
-                      id: "1",
-                      full_name: this.tetradNucleotides.n1_full_name,
-                      short_name: this.tetradNucleotides.n1_short_name,
-                      chi: this.tetradNucleotides.n1_chi,
-                      glycosidic_bond: this.tetradNucleotides.n1_glycosidic_bond
+                  id: "1",
+                  full_name: this.tetradNucleotides.n1_full_name,
+                  short_name: this.tetradNucleotides.n1_short_name,
+                  chi: this.tetradNucleotides.n1_chi,
+                  glycosidic_bond: this.tetradNucleotides.n1_glycosidic_bond
                 });
                 this.tetradNucleotidesTable.push({
                   id: "2",
@@ -133,36 +131,36 @@ export class TetradComponent implements OnInit {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
 
-   downloadZip(): void {
-     this.http.get("/static/pymol/" + this.data.id + ".png", { responseType: "arraybuffer" })
-       .subscribe(data => {
-         this._3d_structure = data;
+  downloadZip(): void {
+    this.http.get("/static/pymol/" + this.data.id + ".png", { responseType: "arraybuffer" })
+      .subscribe(data => {
+        this._3d_structure = data;
 
-         this.http.get("/static/varna/" + this.data.id + ".svg", { responseType: "arraybuffer" })
-           .subscribe(data => {
-             this._2d_structure_varna = data;
+        this.http.get("/static/varna/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+          .subscribe(data => {
+            this._2d_structure_varna = data;
 
-             this.http.get("/static/rchie/" + this.data.id + ".svg", { responseType: "arraybuffer" })
-               .subscribe(data => {
-                 this._2d_structure_rchie = data;
+            this.http.get("/static/rchie/" + this.data.id + ".svg", { responseType: "arraybuffer" })
+              .subscribe(data => {
+                this._2d_structure_rchie = data;
 
-                 var zip =new JSZip();
-                 let tetrad = this.generateFile([this.csvData])
-                 let nucleotides = this.generateFile(this.tetradNucleotidesTable)
-                 let ions = this.generateFile(this.ions)
-                 zip.file("3d_structure.png", this._3d_structure);
-                 zip.file("2d_structure_varna.svg", this._2d_structure_varna);
-                 zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
-                 zip.file("tetrad" + ".csv", tetrad);
-                 zip.file("tetradNucleotides" + ".csv", nucleotides)
-                 zip.file("ions" + ".csv",ions )
+                var zip = new JSZip();
+                let tetrad = this.generateFile([this.csvData])
+                let nucleotides = this.generateFile(this.tetradNucleotidesTable)
+                let ions = this.generateFile(this.ions)
+                zip.file("3d_structure.png", this._3d_structure);
+                zip.file("2d_structure_varna.svg", this._2d_structure_varna);
+                zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
+                zip.file("tetrad" + ".csv", tetrad);
+                zip.file("tetradNucleotides" + ".csv", nucleotides)
+                zip.file("ions" + ".csv", ions)
 
-                 zip.generateAsync({ type: "blob" })
-                   .then(blob => saveAs(blob,'tetrad-T' + this.tetradId + '.zip'));
+                zip.generateAsync({ type: "blob" })
+                  .then(blob => saveAs(blob, 'tetrad-T' + this.tetradId + '.zip'));
 
-               });
-           });
-       });
+              });
+          });
+      });
   }
 
   generateFile(data: any) {
@@ -172,7 +170,7 @@ export class TetradComponent implements OnInit {
     csv.unshift(header.join(','));
     let csvArray = csv.join('\r\n');
 
-    return  new Blob([csvArray], {type: 'text/csv' })
+    return new Blob([csvArray], { type: 'text/csv' })
   }
 }
 
@@ -194,7 +192,7 @@ interface Tetrad {
   tetradCombination: string;
 }
 
-interface TetradNucleotides{
+interface TetradNucleotides {
   n1_full_name: string;
   n1_short_name: string;
   n1_chi: number;
@@ -213,7 +211,7 @@ interface TetradNucleotides{
   n4_glycosidic_bond: string;
 }
 
-interface TetradNucleotidesTable{
+interface TetradNucleotidesTable {
   id: string;
   full_name: string;
   short_name: string;
@@ -221,7 +219,7 @@ interface TetradNucleotidesTable{
   glycosidic_bond: string;
 }
 
-interface Ions{
+interface Ions {
   ion: string;
   ion_charge: string;
   symbol: string;

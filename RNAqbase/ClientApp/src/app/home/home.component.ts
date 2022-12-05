@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
 
   public barChartColors: Color[] = [{ backgroundColor: "#45A29E" }, { backgroundColor: "#57dbd5" }];
 
-  constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string, private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.sub = this.activatedRoute.paramMap.subscribe(

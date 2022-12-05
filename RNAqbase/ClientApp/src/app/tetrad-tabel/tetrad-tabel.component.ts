@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient} from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {DomSanitizer} from "@angular/platform-browser";
-import {MatDialog} from "@angular/material/dialog";
-import {MatSelectChange} from "@angular/material/select";
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { SelectionModel } from '@angular/cdk/collections';
+import { DomSanitizer } from "@angular/platform-browser";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSelectChange } from "@angular/material/select";
 
 
 @Component({

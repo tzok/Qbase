@@ -1,6 +1,6 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import panzoom from "panzoom";
 
 @Component({
@@ -32,8 +32,7 @@ export class VisualizationDialogComponent implements OnInit {
     this.id = this.data.id;
     this.type = this.data.type;
 
-    if( this.id.startsWith('H') && this.type!="layers")
-    {
+    if (this.id.startsWith('H') && this.type != "layers") {
       this.width = '100%';
     }
   }

@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient} from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {CsvModule} from '@ctrl/ngx-csv';
-import {MatSelectChange} from "@angular/material/select";
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSelectChange } from "@angular/material/select";
 
 @Component({
   selector: 'app-helice',
@@ -38,40 +37,40 @@ export class HeliceComponent implements OnInit {
 
   ngOnInit() {
     this.http.get<Helix[]>(this.baseUrl + 'api/Helix/GetHelices').subscribe(result => {
-        this.dataSource = new MatTableDataSource(result);
+      this.dataSource = new MatTableDataSource(result);
 
-        for (let val of result) {
-          val.quadruplexesIds = Array.from(new Set(val.quadruplexesIds.split(',')))
-          val.sequence = this.truncate(val.sequence);
-        }
+      for (let val of result) {
+        val.quadruplexesIds = Array.from(new Set(val.quadruplexesIds.split(',')))
+        val.sequence = this.truncate(val.sequence);
+      }
 
-        this.csvData = JSON.parse(JSON.stringify(result));
-        for (let val of result) {
-          val.helix_id = 'H' + val.id;
-        }
+      this.csvData = JSON.parse(JSON.stringify(result));
+      for (let val of result) {
+        val.helix_id = 'H' + val.id;
+      }
 
-        for (let val of this.csvData) {
-          for (let i = 0; i < val.quadruplexesIds.length; i++) {
-            val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
-          }
+      for (let val of this.csvData) {
+        for (let i = 0; i < val.quadruplexesIds.length; i++) {
+          val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
         }
-        for (let val of this.csvData) {
-          val.id = 'H' + val.id;
-        }
+      }
+      for (let val of this.csvData) {
+        val.id = 'H' + val.id;
+      }
 
-        for (let val of result) {
-          val.quadruplexesIds = JSON.parse(JSON.stringify(val.quadruplexesIds));
-          for (let i = 0; i < val.quadruplexesIds.length; i++) {
-            val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
-          }
+      for (let val of result) {
+        val.quadruplexesIds = JSON.parse(JSON.stringify(val.quadruplexesIds));
+        for (let i = 0; i < val.quadruplexesIds.length; i++) {
+          val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
         }
+      }
 
-        this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.helix_id != null && data.helix_id.toString().toUpperCase().includes(filter.toUpperCase()));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.areButtonsHidden = false;
-        this.filteredDataLength = this.dataSource.data.length;
-      },
+      this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.helix_id != null && data.helix_id.toString().toUpperCase().includes(filter.toUpperCase()));
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.areButtonsHidden = false;
+      this.filteredDataLength = this.dataSource.data.length;
+    },
       error => console.error(error));
   }
 

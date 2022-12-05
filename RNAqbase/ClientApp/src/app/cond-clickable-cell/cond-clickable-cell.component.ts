@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
+import { Component, Input, EventEmitter, Output, SimpleChanges, SimpleChange } from '@angular/core';
 import { CondCommPckt } from '../cond-comm-pckt';
 import { RowCommPckt } from '../row-comm-pckt';
 

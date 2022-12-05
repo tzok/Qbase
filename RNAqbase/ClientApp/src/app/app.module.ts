@@ -25,15 +25,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { HeliceComponent } from './helice/helice.component';
 import { HelixComponent } from './helix/helix.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import {MatIconModule} from "@angular/material/icon";
-import {MatCardModule} from "@angular/material/card";
-import {ChartsModule } from 'ng2-charts';
-import {MatSelectModule} from "@angular/material/select";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
+import { ChartsModule } from 'ng2-charts';
+import { MatSelectModule } from "@angular/material/select";
 import { NewsletterComponent } from './newsletter/newsletter.component';
-import {PinchZoomModule} from 'ngx-pinch-zoom';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { CounterModule } from 'ngx-counter';
-import {MatTabsModule} from "@angular/material/tabs";
-import {MatButtonModule} from "@angular/material/button";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatButtonModule } from "@angular/material/button";
 import { SearchComponent } from './search/search.component';
 import { AddButtonComponent } from './add-button/add-button.component';
 import { AttributeCellComponent } from './attribute-cell/attribute-cell.component';
@@ -93,46 +93,46 @@ import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-si
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-        { path: 'home', component: HomeComponent },
-        { path: '', redirectTo: '/home', pathMatch: 'full' },
-        { path: 'about', component: AboutComponent },
-        { path: 'citeUs', component: CiteUsComponent },
-        // { path: 'contact', component: ContactComponent },
-        { path: 'search', component: SearchComponent },
-        { path: 'help', component: HelpComponent },
-        { path: 'quadruplexes', component: QuadruplexTableComponent },
-        { path: 'structures', component: StructureTableComponent },
-        { path: 'tetrads', component: TetradTabelComponent },
-        { path: 'tetrad/:tetradId', component: TetradComponent },
-        { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
-        { path: 'statistics', component: StatisticsComponent },
-        { path: 'helices', component: HeliceComponent },
-        { path: 'helices/:helixId', component: HelixComponent },
-        { path: 'unsubscribe/:id', component: NewsletterComponent },
-        { path: '**', component: PageNotFoundComponent }
-      ]),
-        BrowserAnimationsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatDialogModule,
-        CsvModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatCardModule,
-        ChartsModule,
-        MatSelectModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        PinchZoomModule,
-        CounterModule.forRoot(),
-        MatTabsModule,
-        MatButtonModule
-    ],
+      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { path: 'about', component: AboutComponent },
+      { path: 'citeUs', component: CiteUsComponent },
+      // { path: 'contact', component: ContactComponent },
+      { path: 'search', component: SearchComponent },
+      { path: 'help', component: HelpComponent },
+      { path: 'quadruplexes', component: QuadruplexTableComponent },
+      { path: 'structures', component: StructureTableComponent },
+      { path: 'tetrads', component: TetradTabelComponent },
+      { path: 'tetrad/:tetradId', component: TetradComponent },
+      { path: 'quadruplex/:quadruplexId', component: QuadruplexComponent },
+      { path: 'statistics', component: StatisticsComponent },
+      { path: 'helices', component: HeliceComponent },
+      { path: 'helices/:helixId', component: HelixComponent },
+      { path: 'unsubscribe/:id', component: NewsletterComponent },
+      { path: '**', component: PageNotFoundComponent }
+    ]),
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    CsvModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatCardModule,
+    ChartsModule,
+    MatSelectModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    PinchZoomModule,
+    CounterModule.forRoot(),
+    MatTabsModule,
+    MatButtonModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
