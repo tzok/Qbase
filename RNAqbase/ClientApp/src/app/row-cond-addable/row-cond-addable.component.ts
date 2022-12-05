@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Condition } from '../condition';
 import { RowElements } from '../row-elements';
 
 @Component({
@@ -15,6 +16,11 @@ export class RowCondAddableComponent implements OnInit {
 
   ngOnInit() {
     this.rowData = this.rowElements;
+  }
+
+  addCondition(cond: Condition) {
+    this.rowData.conditions.push(cond);
+    console.log(this.rowData.conditions);
   }
 
 }
