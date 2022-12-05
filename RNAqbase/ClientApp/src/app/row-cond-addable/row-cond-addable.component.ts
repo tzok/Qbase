@@ -20,7 +20,6 @@ export class RowCondAddableComponent implements OnInit {
 
   addCondition(cond: Condition) {
     this.rowData.conditions.push(cond);
-    console.log(this.rowData.conditions);
   }
 
 }

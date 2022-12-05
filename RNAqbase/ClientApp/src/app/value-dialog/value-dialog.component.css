@@ -2,3 +2,10 @@
   display: flex;
   flex-direction: column;
 }
+
+#parent {
+  width: 400px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+}
