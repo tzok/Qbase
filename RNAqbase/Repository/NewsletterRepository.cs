@@ -20,6 +20,7 @@ namespace RNAqbase.Repository
 
 		public async Task<Info> AddEmailToDatabase(string email)
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -36,6 +37,7 @@ namespace RNAqbase.Repository
 		
 		public async Task<string> DeleteEmailFromDatabase(string id)
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
