@@ -72,5 +72,11 @@ namespace RNAqbase.Controllers
 		{
 			return Ok(await searchService.GetMoleculeType());
 		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetWebbaDaSilva()
+		{
+			return Ok(await searchService.GetWebbaDaSilva());
+		}
 	}
 }

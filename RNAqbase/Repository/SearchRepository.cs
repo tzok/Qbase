@@ -53,5 +53,14 @@ namespace RNAqbase.Repository
                 return (await connection.QueryAsync<string>("SELECT DISTINCT molecule FROM nucleotide;")).ToList();
             }
         }
+
+        public async Task<List<string>> GetWebbaDaSilva()
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT loop_progression FROM quadruplex;")).ToList();
+            }
+        }
     }
 }
