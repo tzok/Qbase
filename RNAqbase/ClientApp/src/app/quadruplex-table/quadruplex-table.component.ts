@@ -21,6 +21,7 @@ export class QuadruplexTableComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
+  defaultDisplayedColumn = 'pdbId';
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment', 'sequence', 'ion', 'ion_charge',
     'type_strand', 'type_onzm', 'onzmClass', 'numberOfTetrads', 'loopTopology', 'tetradCombination', 'select'
@@ -47,7 +48,7 @@ export class QuadruplexTableComponent implements OnInit {
           val.quadruplex_id = 'Q' + val.id;
           val.sequence = this.truncate(val.sequence);
         }
-        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.quadruplex_id != null && data.quadruplex_id.toString().toUpperCase().includes(filter.toUpperCase()));
+        this.dataSource.filterPredicate = (data: Quadruplex, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.areButtonsHidden = false;
