@@ -1,0 +1,12 @@
+.mat-icon {
+  font-size: 14px;
+  font-weight: 600;
+  width: fit-content;
+  height: fit-content;
+}
+
+div {
+  height: 18px;
+  padding: 2px;
+  cursor: pointer;
+}
