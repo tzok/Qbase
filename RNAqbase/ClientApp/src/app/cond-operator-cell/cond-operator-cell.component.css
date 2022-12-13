@@ -1,27 +1,44 @@
 #parent {
   display: flex;
-  align-items: center;
-  width: fit-content;
-  height: fit-content;
   padding: 5px;
 }
 
-#first {
+
+#operator {
   padding: 5px;
   padding-top: 8px;
   padding-bottom: 8px;
   width: fit-content;
   background-color: rgba(72, 173, 169, 0.75);
   border-radius: 10px 0px 0px 10px;
-  height: 100%;
   color: white;
 }
 
-#second {
+#content {
   width: fit-content;
-  height: fit-content;
+  background-color: rgba(184, 224, 222, 0.4);
+  padding: 8px;
+  border-radius: 0px 10px 10px 0px;
+}
+
+#delete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
   background-color: rgba(184, 224, 222, 0.4);
   border-radius: 0px 10px 10px 0px;
-  padding: 8px;
-  margin-right: 4px;
+}
+
+app-delete-button {
+  display: none;
+}
+
+#parent:hover app-delete-button {
+  display: block;
+}
+
+#parent:hover #content {
+  border-radius: 0px 0px 0px 0px;
+  padding-right: 2px;
 }
