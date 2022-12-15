@@ -7,6 +7,8 @@
   width: fit-content;
   background-color: rgba(184, 224, 222, 0.4);
   padding: 8px;
+  padding-right: 12px;
+  padding-left: 12px;
   border-radius: 10px 10px 10px 10px;
 }
 

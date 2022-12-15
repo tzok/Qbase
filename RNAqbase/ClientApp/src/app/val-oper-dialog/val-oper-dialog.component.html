@@ -9,9 +9,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="Select operator" [(ngModel)]="data.operator">
-          <mat-option *ngFor="let operator of data.operators" [value]="operator">
-            {{operator}}
-          </mat-option>
+          <mat-option *ngFor="let operator of data.operators" [value]="operator.value" [innerHTML]="operator.viewValue"></mat-option>
         </mat-select>
       </mat-form-field>
     </div>

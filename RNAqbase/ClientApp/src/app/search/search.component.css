@@ -43,16 +43,14 @@ main {
   justify-content: center;
   text-align: center;
   flex: 0 0 20%;
-  padding-left: 5px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px;
 }
 
 .mat-column-conditions {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 15px;
+  padding-left: 5px;
+  padding-right: 10px;
   align-self: stretch;
   border-left: 1px solid;
   border-color: rgba(85, 180, 176, 1);
@@ -73,4 +71,9 @@ main {
   padding: 8px;
   margin-top: 35px;
   margin-bottom: 10px;
+}
+
+.mat-header-cell {
+  padding-left: 10px;
+  padding-right: 10px;
 }
