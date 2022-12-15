@@ -20,7 +20,10 @@ export class RowCondAddableComponent implements OnInit {
   }
 
   addCondition(cond: Condition) {
-    this.rowData.conditions.push(cond);
+    if (!this.rowData.conditions.some(element => JSON.stringify(element).toLowerCase() == JSON.stringify(cond).toLowerCase()))
+      this.rowData.conditions.push(cond);
+    else
+      alert("Condition already exists!");
     this.checkCondCount();
   }
 
@@ -35,6 +38,10 @@ export class RowCondAddableComponent implements OnInit {
       this.disableAddButton = true;
     else
       this.disableAddButton = false;
+  }
+
+  isSame(element, index, array) {
+    return (JSON.stringify(element));
   }
 }
 
