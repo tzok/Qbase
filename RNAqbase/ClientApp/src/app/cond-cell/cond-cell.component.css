@@ -20,11 +20,11 @@
 }
 
 app-delete-button {
-  display: none;
+ display:none;
 }
 
 #parent:hover app-delete-button {
-  display: block;
+  display:block;
 }
 
 #parent:hover #content{
