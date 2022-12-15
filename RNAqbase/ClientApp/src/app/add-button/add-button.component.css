@@ -15,5 +15,7 @@
 }
 
 .disabled {
-  pointer-events: none;
+  color: lightgrey !important;
+  pointer-events: none !important;
+  background-color: rgba(169, 169, 169, 1) !important;
 }

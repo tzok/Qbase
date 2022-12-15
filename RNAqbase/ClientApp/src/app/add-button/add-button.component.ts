@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { isUndefined } from 'util';
 import { Condition } from '../condition';
 import { DialogChoice } from '../dialog-choice';
 import { DialogData } from '../dialog-data';
@@ -9,23 +10,40 @@ import { DialogData } from '../dialog-data';
   templateUrl: './add-button.component.html',
   styleUrls: ['./add-button.component.css']
 })
-export class AddButtonComponent {
+export class AddButtonComponent implements OnInit {
   @Input('name') elementName: string;
   @Input() content: string;
   @Input() rootAttribute: string;
   @Input() disable: boolean;
-
   @Output() newConditionEvent = new EventEmitter<Condition>();
+
+  isDisabled: boolean;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['disable']) {
+      this.disableButton(this.disable);
+    }
+  }
+
+  ngOnInit() {
+    this.isDisabled = false;
+  }
+
+  disableButton(event: boolean) {
+    this.isDisabled = event;
+  }
 
   constructor(public dialog: MatDialog) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogChoice.chooseDialog(this.rootAttribute), {
-      data: {attr: this.rootAttribute, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttribute)}
+      data: { attr: this.rootAttribute, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttribute) }
     });
 
+
     dialogRef.afterClosed().subscribe(result => {
-      this.emitAddedCondition(result);
+      if (result)
+        this.emitAddedCondition(result);
     });
   }
 

@@ -1,3 +1,3 @@
-<div id="parent" (click)="openDialog()">
+<div id="parent" [ngClass]="{'disabled': isDisabled}" (click)="openDialog()">
   <div>{{content}}</div>
 </div>

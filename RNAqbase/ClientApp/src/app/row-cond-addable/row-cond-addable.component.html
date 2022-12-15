@@ -13,6 +13,6 @@
     </ng-container>
   </div>
   <div class="addButton">
-    <app-add-button [name]="'addButton'" [content] ="'+'" [rootAttribute] ="rowName" (newConditionEvent)="addCondition($event)" [disable] ="true"></app-add-button>
+    <app-add-button [name]="'addButton'" [content] ="'+'" [rootAttribute] ="rowName" [disable] ="disableAddButton" (newConditionEvent)="addCondition($event)"></app-add-button>
   </div>
 </div>

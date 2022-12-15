@@ -5,4 +5,5 @@ export interface RowElements {
   isOperator: boolean;
   conditions: Array<Condition>;
   rowType: string;
+  maxCondCount: number;
 }
