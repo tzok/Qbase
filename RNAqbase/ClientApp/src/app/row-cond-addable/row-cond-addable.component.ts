@@ -39,9 +39,5 @@ export class RowCondAddableComponent implements OnInit {
     else
       this.disableAddButton = false;
   }
-
-  isSame(element, index, array) {
-    return (JSON.stringify(element));
-  }
 }
 
