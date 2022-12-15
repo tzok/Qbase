@@ -13,6 +13,7 @@ export class AddButtonComponent {
   @Input('name') elementName: string;
   @Input() content: string;
   @Input() rootAttribute: string;
+  @Input() disable: boolean;
 
   @Output() newConditionEvent = new EventEmitter<Condition>();
 

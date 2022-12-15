@@ -20,14 +20,14 @@
 }
 
 app-delete-button {
- display:none;
+  display: none;
 }
 
 #parent:hover app-delete-button {
-  display:block;
+  display: block;
 }
 
-#parent:hover #content{
+#parent:hover #content {
   border-radius: 10px 0px 0px 10px;
   padding-right: 2px;
 }

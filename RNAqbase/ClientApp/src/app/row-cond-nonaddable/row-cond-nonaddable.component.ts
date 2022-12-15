@@ -19,7 +19,6 @@ export class RowCondNonaddableComponent implements OnInit {
 
   respondClickEvent(childPckt: CondCommPckt) {
     this.clickEventLogic(childPckt);
-    console.log(this.rowElementsStatus);
   }
 
 

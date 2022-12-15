@@ -1,7 +1,7 @@
 <div id="parent">
-  <div id="operator">{{operator}}</div>
-  <div id="content">{{content}}</div>
+  <div id="operator">{{condData.operator}}</div>
+  <div id="content">{{condData.condition}}</div>
   <div id="delete">
-    <app-delete-button></app-delete-button>
+    <app-delete-button (buttonClickEvent)="deleteClicked($event)"></app-delete-button>
   </div>
 </div>

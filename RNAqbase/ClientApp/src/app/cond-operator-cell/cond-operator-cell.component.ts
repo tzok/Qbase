@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Condition } from '../condition';
 
 @Component({
   selector: 'app-cond-operator-cell',
@@ -7,6 +8,12 @@ import { Component, Input } from '@angular/core';
 })
 export class CondOperatorCellComponent {
   @Input('name') elementName: string;
-  @Input() content: string;
+  @Input() condData: Condition;
   @Input() operator: string;
+  @Output() deleteEvent = new EventEmitter<Condition>();
+
+  deleteClicked(event: boolean) {
+    if (event)
+      this.deleteEvent.emit(this.condData);
+  }
 }

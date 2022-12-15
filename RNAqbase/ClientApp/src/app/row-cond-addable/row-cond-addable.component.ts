@@ -21,4 +21,9 @@ export class RowCondAddableComponent implements OnInit {
   addCondition(cond: Condition) {
     this.rowData.conditions.push(cond);
   }
+
+  removeCond(cond: Condition) {
+    var index = this.rowData.conditions.indexOf(cond);
+    this.rowData.conditions.splice(index, 1);
+  }
 }

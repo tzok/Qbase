@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Condition } from '../condition';
 
 @Component({
   selector: 'app-cond-seq-cell',
@@ -8,7 +9,11 @@ import { Component, Input } from '@angular/core';
 export class CondSeqCellComponent {
 
   @Input('name') elementName: string;
-  @Input() content: string;
-  @Input() operator: string;
+  @Input() condData: Condition;
+  @Output() deleteEvent = new EventEmitter<Condition>();
 
+  deleteClicked(event: boolean) {
+    if (event)
+      this.deleteEvent.emit(this.condData);
+  }
 }

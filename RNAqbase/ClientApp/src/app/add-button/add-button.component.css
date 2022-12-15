@@ -13,3 +13,7 @@
   cursor: pointer;
   user-select: none;
 }
+
+.disabled {
+  pointer-events: none;
+}
