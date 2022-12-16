@@ -1,24 +1,16 @@
 #parent {
   display: flex;
   padding: 5px;
+  position: relative;
 }
 
 #content {
   width: fit-content;
   background-color: rgba(184, 224, 222, 0.4);
   padding: 8px;
-  padding-right: 12px;
-  padding-left: 12px;
+  padding-right: 10px;
+  padding-left: 10px;
   border-radius: 10px 10px 10px 10px;
-}
-
-#delete {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: fit-content;
-  background-color: rgba(184, 224, 222, 0.4);
-  border-radius: 0px 10px 10px 0px;
 }
 
 app-delete-button {
@@ -27,9 +19,4 @@ app-delete-button {
 
 #parent:hover app-delete-button {
   display: block;
-}
-
-#parent:hover #content {
-  border-radius: 10px 0px 0px 10px;
-  padding-right: 2px;
 }

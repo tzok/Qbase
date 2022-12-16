@@ -1,57 +1,35 @@
 #parent {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: fit-content;
-  height: fit-content;
   padding: 5px;
+  position: relative;
 }
 
-
 #operator {
-  padding: 5px;
+  padding: 10px;
   padding-top: 4px;
   padding-bottom: 4px;
   width: 100%;
   text-align: center;
   background-color: rgba(72, 173, 169, 0.75);
   border-radius: 10px 10px 0px 0px;
-  height: fit-content;
   color: white;
 }
 
 #content {
   width: 100%;
-  height: fit-content;
   text-align: center;
   background-color: rgba(184, 224, 222, 0.4);
   border-radius: 0px 0px 10px 10px;
-  padding: 4px;
-}
-
-#delete {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: fit-content;
-  background-color: rgba(184, 224, 222, 0.4);
-  border-radius: 0px 10px 10px 0px;
+  padding: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 app-delete-button {
   display: none;
 }
 
-#parent:hover + app-delete-button {
+#parent:hover app-delete-button {
   display: block;
-}
-
-#parent:hover #operator {
-  border-radius: 10px 0px 0px 0px;
-  padding-right: 2px;
-}
-
-#parent:hover #content {
-  border-radius: 0px 0px 0px 10px;
-  padding-right: 2px;
 }
