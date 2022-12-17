@@ -51,6 +51,7 @@ import { DateOperDialogComponent } from './date-oper-dialog/date-oper-dialog.com
 import { SeqDialogComponent } from './seq-dialog/seq-dialog.component';
 import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-silva-dialog.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { DeleteButtonComponent } from './delete-button/delete-button.component';
     MatInputModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatRadioModule,
     CsvModule,
     MatTooltipModule,
     MatIconModule,

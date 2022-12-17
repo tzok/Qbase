@@ -1,0 +1,34 @@
+.mat-dialog-title {
+  margin: 10px 0 10px;
+}
+
+.formDialog {
+  display: flex;
+  flex-direction: column;
+}
+
+#parent {
+  width: 350px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.mat-radio-group {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.mat-primary {
+  background-color: rgba(72, 173, 169, 1);
+  color: white;
+}

@@ -8,7 +8,7 @@ import { DialogData } from '../dialog-data';
   styleUrls: ['./webba-da-silva-dialog.component.css']
 })
 export class WebbaDaSilvaDialogComponent {
-
+  conditions: string[] = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'nineth', 'tenth'];
   constructor(
     public dialogRef: MatDialogRef<WebbaDaSilvaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }

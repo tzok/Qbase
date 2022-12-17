@@ -1,3 +1,16 @@
-<p>
-  webba-da-silva-dialog works!
-</p>
+<div id="parent">
+  <h1 mat-dialog-title>{{data.attr}}</h1>
+  <h2 mat-dialog-subtitle>Chose condition:</h2>
+  <div mat-dialog-content>
+    <p>Chose condition:</p>
+    <mat-radio-group class="example-radio-group" [(ngModel)]="data.value">
+      <mat-radio-button class="example-radio-button" *ngFor="let condition of conditions" [value]="condition">
+        {{condition}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" [disabled]="!data.value?.trim()">Add</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</div>
