@@ -9,7 +9,7 @@
 
 #parent {
   width: 325px;
-  height: 350px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -21,4 +21,9 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
+}
+
+.primary {
+  background-color: rgba(72, 173, 169, 1);
+  color: white;
 }
