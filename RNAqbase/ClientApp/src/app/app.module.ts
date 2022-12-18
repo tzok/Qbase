@@ -47,8 +47,6 @@ import { RowCondAddableComponent } from './row-cond-addable/row-cond-addable.com
 import { RowCondNonaddableComponent } from './row-cond-nonaddable/row-cond-nonaddable.component';
 import { ValueDialogComponent } from './value-dialog/value-dialog.component';
 import { ValOperDialogComponent } from './val-oper-dialog/val-oper-dialog.component';
-import { DateOperDialogComponent } from './date-oper-dialog/date-oper-dialog.component';
-import { SeqDialogComponent } from './seq-dialog/seq-dialog.component';
 import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-silva-dialog.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { MatRadioModule } from '@angular/material/radio';
@@ -86,8 +84,6 @@ import { MatRadioModule } from '@angular/material/radio';
     RowCondNonaddableComponent,
     ValueDialogComponent,
     ValOperDialogComponent,
-    DateOperDialogComponent,
-    SeqDialogComponent,
     WebbaDaSilvaDialogComponent,
     DeleteButtonComponent
   ],
@@ -142,8 +138,6 @@ import { MatRadioModule } from '@angular/material/radio';
   entryComponents: [
     VisualizationDialogComponent,
     Visualization3DComponent,
-    SeqDialogComponent,
-    DateOperDialogComponent,
     WebbaDaSilvaDialogComponent,
     ValueDialogComponent,
     ValOperDialogComponent

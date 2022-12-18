@@ -5,7 +5,7 @@
     <div class="formDialog">
       <mat-form-field>
         <mat-label>Enter condition value</mat-label>
-        <input matInput [(ngModel)]="data.value">
+        <input [type]="data.inputProperties.type" [maxlength]="data.inputProperties.maxLength" matInput [(ngModel)]="data.value">
       </mat-form-field>
     </div>
   </div>
