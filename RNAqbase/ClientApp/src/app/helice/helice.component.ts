@@ -64,13 +64,14 @@ export class HeliceComponent implements OnInit {
         for (let i = 0; i < val.quadruplexesIds.length; i++) {
           val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
         }
+      }
       this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.areButtonsHidden = false;
-        this.filteredDataLength = this.dataSource.data.length;
-      },
-      error => console.error(error));
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.areButtonsHidden = false;
+      this.filteredDataLength = this.dataSource.data.length;
+    },
+      error => console.error(error))
   }
 
   applyFilter(event: Event) {
