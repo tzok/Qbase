@@ -8,11 +8,11 @@
 }
 
 #parent {
-  width: 350px;
-  height: 400px;
+  width: 325px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -26,9 +26,10 @@
 .mat-radio-group {
   display: flex;
   flex-flow: column wrap;
+  height: 200px;
 }
 
-.mat-primary {
+.primary {
   background-color: rgba(72, 173, 169, 1);
   color: white;
 }

@@ -5,7 +5,7 @@
     <div class="formDialog">
       <mat-form-field>
         <mat-label>Enter date</mat-label>
-        <input type="date" matInput [(ngModel)]="data.value">
+        <input [type]="inputType" [maxLength]="maxLenghth" matInput [(ngModel)]="data.value">
       </mat-form-field>
       <mat-form-field>
         <mat-select placeholder="Select operator" [(ngModel)]="data.operator">

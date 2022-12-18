@@ -8,7 +8,6 @@ import { DialogData } from '../dialog-data';
   styleUrls: ['./val-oper-dialog.component.css']
 })
 export class ValOperDialogComponent {
-  operators: string[];
   constructor(
     public dialogRef: MatDialogRef<ValOperDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }

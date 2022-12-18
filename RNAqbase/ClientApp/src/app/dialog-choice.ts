@@ -1,5 +1,4 @@
-import { DateOperDialogComponent } from "./date-oper-dialog/date-oper-dialog.component";
-import { SeqDialogComponent } from "./seq-dialog/seq-dialog.component";
+import { DialogInput } from "./dialog-input";
 import { ValOperDialogComponent } from "./val-oper-dialog/val-oper-dialog.component";
 import { ValueDialogComponent } from "./value-dialog/value-dialog.component";
 import { ViewValue } from "./view-value";
@@ -11,9 +10,9 @@ export class DialogChoice {
     "PDB ID": ValueDialogComponent,
     "Keyword": ValueDialogComponent,
     "Number of tetrads": ValOperDialogComponent,
-    "PDB Deposition": DateOperDialogComponent,
+    "PDB Deposition": ValOperDialogComponent,
     "G-tract sequence": ValueDialogComponent,
-    "Sequence": SeqDialogComponent,
+    "Sequence": ValOperDialogComponent,
     "Webba da Silva": WebbaDaSilvaDialogComponent
   }
 
@@ -30,6 +29,16 @@ export class DialogChoice {
     { value: "3\'->5\'", viewValue: "3\' \&#x2794 5\'" },
     { value: "5\'->3\'", viewValue: "5\' \&#x2794 3\'" },
     { value: "begins", viewValue: "begins" }]
+  }
+
+  public static inputProperties: { [key: string]: DialogInput } = {
+    "Author Name": { type: 'text', maxLength: 220 },
+    "PDB ID": { type: 'text', maxLength: 4 },
+    "Keyword": { type: 'text', maxLength: 200 },
+    "G-tract sequence": { type: 'text', maxLength: 100 },
+    "Number of tetrads": { type: 'number', maxLength: 100 },
+    "PDB Deposition": { type: 'date', maxLength: 10 },
+    "Sequence": { type: 'text', maxLength: 200 }
   }
 
   public static decodedOperators = {
@@ -55,5 +64,9 @@ export class DialogChoice {
 
   public static decodeOperators(oper: string): string {
     return this.decodedOperators[oper];
+  }
+
+  public static chooseInputProperties(attr: string): DialogInput {
+    return this.inputProperties[attr];
   }
 }

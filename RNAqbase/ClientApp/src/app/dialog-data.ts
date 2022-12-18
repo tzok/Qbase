@@ -1,3 +1,4 @@
+import { DialogInput } from "./dialog-input";
 import { ViewValue } from "./view-value";
 
 export interface DialogData {
@@ -5,4 +6,5 @@ export interface DialogData {
   value: string;
   operator: string;
   operators: ViewValue[];
+  inputProperties: DialogInput;
 }

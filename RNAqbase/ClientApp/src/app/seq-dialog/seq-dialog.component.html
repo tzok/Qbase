@@ -15,7 +15,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-primary-button class="primary" [mat-dialog-close]="data" [disabled]="!(data.operator && data.value?.trim())">Add</button>
-    <button mat-primary-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button class="primary" [mat-dialog-close]="data" [disabled]="!(data.operator && data.value?.trim())">Add</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
   </div>
 </div>

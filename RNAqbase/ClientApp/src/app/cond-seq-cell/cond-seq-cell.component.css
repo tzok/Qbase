@@ -8,7 +8,7 @@
 #operator {
   padding: 10px;
   padding-top: 4px;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
   width: 100%;
   text-align: center;
   background-color: rgba(72, 173, 169, 0.75);
@@ -22,7 +22,7 @@
   background-color: rgba(184, 224, 222, 0.4);
   border-radius: 0px 0px 10px 10px;
   padding: 10px;
-  padding-top: 4px;
+  padding-top: 2px;
   padding-bottom: 4px;
 }
 

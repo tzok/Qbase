@@ -9,7 +9,7 @@
 
 #parent {
   width: 325px;
-  height: 350px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

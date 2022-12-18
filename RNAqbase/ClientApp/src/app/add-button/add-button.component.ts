@@ -37,7 +37,7 @@ export class AddButtonComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogChoice.chooseDialog(this.rootAttribute), {
-      data: { attr: this.rootAttribute, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttribute) }
+      data: { attr: this.rootAttribute, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttribute), inputProperties: DialogChoice.chooseInputProperties(this.rootAttribute) }
     });
 
 
