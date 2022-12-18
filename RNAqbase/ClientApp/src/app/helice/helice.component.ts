@@ -22,6 +22,7 @@ export class HeliceComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
+  defaultDisplayedColumn = 'pdbId';
   displayedColumns = [
     'id', 'pdbId', 'pdbDeposition', 'assemblyId', 'molecule', 'experiment',
     'sequence', 'type_strand', 'numberOfQuadruplexes', 'quadruplexId', 'numberOfTetrads', 'select'
@@ -63,14 +64,12 @@ export class HeliceComponent implements OnInit {
         for (let i = 0; i < val.quadruplexesIds.length; i++) {
           val.quadruplexesIds[i] = 'Q' + val.quadruplexesIds[i];
         }
-      }
-
-      this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.helix_id != null && data.helix_id.toString().toUpperCase().includes(filter.toUpperCase()));
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.areButtonsHidden = false;
-      this.filteredDataLength = this.dataSource.data.length;
-    },
+      this.dataSource.filterPredicate = (data: Helix, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.areButtonsHidden = false;
+        this.filteredDataLength = this.dataSource.data.length;
+      },
       error => console.error(error));
   }
 

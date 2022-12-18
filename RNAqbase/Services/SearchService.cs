@@ -94,5 +94,8 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 
         public async Task<List<string>> GetMoleculeType() =>
             await searchRepository.GetMoleculeType();
+
+        public async Task<List<string>> GetWebbaDaSilva() =>
+           await searchRepository.GetWebbaDaSilva();
     }
 }

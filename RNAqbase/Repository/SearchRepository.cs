@@ -17,15 +17,17 @@ namespace RNAqbase.Repository
 
         public async Task<List<QuadruplexTable>> GetAllResults(string query)
         {
-			using (var connection = Connection)
-			{
-				connection.Open();
-				return (await connection.QueryAsync<QuadruplexTable>(query)).ToList();
-			}
+            using (SshClient)
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<QuadruplexTable>(query)).ToList();
+            }
 		}
 
         public async Task<List<string>> GetExperimentalMethod() 
         {
+            using (SshClient)
             using (var connection = Connection)
             {
                 connection.Open();
@@ -35,6 +37,7 @@ namespace RNAqbase.Repository
 
         public async Task<List<string>> GetONZ()
         {
+            using (SshClient)
             using (var connection = Connection)
             {
                 connection.Open();
@@ -43,10 +46,20 @@ namespace RNAqbase.Repository
         }
         public async Task<List<string>> GetMoleculeType()
         {
+            using (SshClient)
             using (var connection = Connection)
             {
                 connection.Open();
                 return (await connection.QueryAsync<string>("SELECT DISTINCT molecule FROM nucleotide;")).ToList();
+            }
+        }
+
+        public async Task<List<string>> GetWebbaDaSilva()
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT loop_progression FROM quadruplex;")).ToList();
             }
         }
     }
