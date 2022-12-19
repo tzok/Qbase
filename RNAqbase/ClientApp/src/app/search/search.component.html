@@ -13,7 +13,7 @@
                 <ng-container matColumnDef="attribute">
                   <mat-header-cell *matHeaderCellDef>Attribute</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <app-attribute-cell [content]="element.attrName" [ID]="element.attrID"></app-attribute-cell>
+                    <app-attribute-cell [content]="element.attrName" [attrType]="element.attrType" [ID]="element.attrID"></app-attribute-cell>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="conditions">

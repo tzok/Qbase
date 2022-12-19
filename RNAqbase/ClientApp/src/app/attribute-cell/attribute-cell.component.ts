@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class AttributeCellComponent {
   @Input('ID') elementID: string;
+  @Input() attrType: string;
   @Input() content: string;
 }
