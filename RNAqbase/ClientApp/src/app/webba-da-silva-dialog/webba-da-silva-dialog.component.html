@@ -1,5 +1,5 @@
 <div id="parent">
-  <h1 mat-dialog-title>{{data.attr}}</h1>
+  <h1 mat-dialog-title>{{data.attrName}}</h1>
   <div mat-dialog-content>
     <p>Chose condition:</p>
     <div class="formDialog">
@@ -8,11 +8,6 @@
           {{condition}}
         </mat-radio-button>
       </mat-radio-group>
-      <!--<mat-form-field>
-        <mat-select placeholder="Select condition" [(ngModel)]="data.value">
-          <mat-option *ngFor="let condition of conditions" [value]="condition">{{condition}}</mat-option>
-        </mat-select>
-      </mat-form-field>-->
     </div>
   </div>
   <div mat-dialog-actions>

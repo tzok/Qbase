@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./attribute-cell.component.css']
 })
 export class AttributeCellComponent {
-  @Input('name') elementName: string;
+  @Input('ID') elementID: string;
   @Input() content: string;
 }

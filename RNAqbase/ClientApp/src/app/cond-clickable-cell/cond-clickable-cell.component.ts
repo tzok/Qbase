@@ -9,7 +9,7 @@ import { RowCommPckt } from '../row-comm-pckt';
   styleUrls: ['./cond-clickable-cell.component.css']
 })
 export class CondClickableCellComponent {
-  @Input('name') attributeName: string;
+  @Input('ID') attrID: string;
   @Input() condData: Condition;
   @Input() eventReceiver: RowCommPckt;
   @Output() clicked = new EventEmitter<CondCommPckt>();
