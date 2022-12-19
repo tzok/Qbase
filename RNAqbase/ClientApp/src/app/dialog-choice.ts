@@ -13,7 +13,8 @@ export class DialogChoice {
     "pdbDeposition": ValOperDialogComponent,
     "gtractSeq": ValueDialogComponent,
     "sequence": ValOperDialogComponent,
-    "webbaDaSilva": WebbaDaSilvaDialogComponent
+    "webbaDaSilva": WebbaDaSilvaDialogComponent,
+    "loopLen": ValOperDialogComponent
   }
 
   public static operators: { [key: string]: ViewValue[] } = {
@@ -24,6 +25,8 @@ export class DialogChoice {
     { value: "<=", viewValue: "\&#x2264" }],
     "pdbDeposition": [{ value: "=", viewValue: "=" },
     { value: ">=", viewValue: "\&#x2265" },
+      { value: "<=", viewValue: "\&#x2264" }],
+    "loopLen": [{ value: ">=", viewValue: "\&#x2265" },
     { value: "<=", viewValue: "\&#x2264" }],
     "sequence": [{ value: "includes", viewValue: "includes" },
     { value: "3\'->5\'", viewValue: "3\' \&#x2794 5\'" },
@@ -38,6 +41,7 @@ export class DialogChoice {
     "gtractSeq": { type: 'text', maxLength: 100 },
     "noOfTetrads": { type: 'number', maxLength: 100 },
     "pdbDeposition": { type: 'date', maxLength: 10 },
+    "loopLen": {type: 'number', maxLength: 300},
     "sequence": { type: 'text', maxLength: 200 }
   }
 
