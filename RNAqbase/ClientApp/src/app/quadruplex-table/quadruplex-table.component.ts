@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient} from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatSelectChange} from "@angular/material/select";
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSelectChange } from "@angular/material/select";
 
 @Component({
   selector: 'quadruplex-table',

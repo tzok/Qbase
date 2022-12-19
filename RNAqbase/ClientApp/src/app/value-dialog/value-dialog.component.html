@@ -1,0 +1,16 @@
+<div id="parent">
+  <h1 mat-dialog-title>{{data.attr}}</h1>
+  <div mat-dialog-content>
+    <p>Add new condition:</p>
+    <div class="formDialog">
+      <mat-form-field>
+        <mat-label>Enter condition value</mat-label>
+        <input [type]="data.inputProperties.type" [maxlength]="data.inputProperties.maxLength" matInput [(ngModel)]="data.value">
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button class="primary" [mat-dialog-close]="data" [disabled]="!data.value?.trim()">Add</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</div>
