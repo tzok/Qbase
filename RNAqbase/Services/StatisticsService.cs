@@ -234,6 +234,36 @@ namespace RNAqbase.Services
 			}
 			return result;
 		}
+		public async Task<List<Statistics>> experimental_method()
+		{
+			if (!cache.TryGetValue(nameof(experimental_method), out List<Statistics> result))
+			{
+				result = await statisticsRepository.experimental_method();
+
+				cache.Set(nameof(experimental_method), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> loop_progression_da_silva()
+		{
+			if (!cache.TryGetValue(nameof(loop_progression_da_silva), out List<Statistics> result))
+			{
+				result = await statisticsRepository.loop_progression_da_silva();
+
+				cache.Set(nameof(loop_progression_da_silva), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> onzm()
+		{
+			if (!cache.TryGetValue(nameof(onzm), out List<Statistics> result))
+			{
+				result = await statisticsRepository.onzm();
+
+				cache.Set(nameof(onzm), result, Cache);
+			}
+			return result;
+		}
 
 	}
 }
