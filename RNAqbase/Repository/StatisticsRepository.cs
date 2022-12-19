@@ -252,7 +252,7 @@ WHERE chains = 4;")).ToList();
 						left join quadruplex_growth_view q  on t.release_date = q.release_date
 						left join helix_growth_view h on t.release_date = h.release_date
 						left join structure_growth_view s on t.release_date = s.release_date
-						WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
+						WHERE t.release_date = (select release_date from tetrad_growth_view order by release_date desc limit 1)
 						"));
 				
 			}
