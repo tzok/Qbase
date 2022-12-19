@@ -11,7 +11,7 @@ export class ButtonComponent {
   
   constructor(private http: HttpClient) { }
   clickEvent() {
-    if (this.label = 'Search') {
+    if (this.label === 'Search') {
       this.getResults();
     }
   }
