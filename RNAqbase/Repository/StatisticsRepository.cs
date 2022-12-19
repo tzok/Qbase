@@ -252,7 +252,7 @@ WHERE chains = 4;")).ToList();
 						left join quadruplex_growth_view q  on t.release_date = q.release_date
 						left join helix_growth_view h on t.release_date = h.release_date
 						left join structure_growth_view s on t.release_date = s.release_date
-						WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
+						WHERE t.release_date = (select release_date from tetrad_growth_view order by release_date desc limit 1)
 						"));
 				
 			}
@@ -434,6 +434,46 @@ WHERE chains = 4;")).ToList();
 						GROUP BY q.loop_class, q_view.chains;")).ToList();
 			}
 		}
-		
+		public async Task<List<Statistics>> experimental_method()
+		{
+			using (SshClient)
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT DISTINCT experiment AS experimental_method, COUNT(*) as Total FROM PDB GROUP BY experiment;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> loop_progression_da_silva()
+		{
+			using (SshClient)
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT DISTINCT q.loop_progression, COUNT(*) as Total
+							FROM tetrad t
+							JOIN quadruplex q on q.id = t.quadruplex_id
+							WHERE q.loop_progression IS NOT NULL
+							GROUP BY loop_progression;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> onzm()
+		{
+			using (SshClient)
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT DISTINCT CASE 
+							WHEN SUBSTRING(onzm::TEXT, 2, 1) = 'a' THEN 'antiparallel'
+							WHEN SUBSTRING(onzm::TEXT, 2, 1) = 'p' THEN 'parallel'
+							ELSE 'hybrid' END AS onzm,
+							COUNT(*) as Total FROM quadruplex GROUP BY SUBSTRING(onzm::TEXT, 2, 1);")).ToList();
+			}
+		}
 	}
 }

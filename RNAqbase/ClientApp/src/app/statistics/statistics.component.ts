@@ -1,7 +1,13 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {ChartDataSets} from "chart.js";
+import {Color} from "ng2-charts";
+import { ChartType } from 'chart.js';
+import { MultiDataSet, Label } from 'ng2-charts';
+import { Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-statistics',
@@ -27,19 +33,35 @@ export class StatisticsComponent implements OnInit {
   ion_z_minus_table: ion[];
   gba_da_silva_table: gba_da_silva[];
   loop_da_silva_table: loop_da_silva[];
+  experimental_method_table: experimental_method[];
+  loop_progression_da_silva_table: loop_progression_da_silva[];
+  onzm_table: onzm[];
 
   sub;
   selected = 'topologyBaseTableOne';
   selected2 = 'topologyBaseTableTwo';
+  page = 0;
 
 
   constructor(private http: HttpClient,
+    private route: ActivatedRoute,
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
 
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.page = params['page'];
+      if (this.page == 0) {     
+        this.selected = params['filter'];
+      }
+      else if (this.page == 1){
+        this.selected2 = params['filter'];
+      };
+    });
+    if (this.selected === undefined) { this.selected = 'topologyBaseTableOne' };
+    if (this.selected2 === undefined) { this.selected2 = 'topologyBaseTableTwo' };
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.http.get<TopologyBaseTetradViewTableOne[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableOne').subscribe(result => {
 
@@ -254,7 +276,6 @@ export class StatisticsComponent implements OnInit {
       }, error => console.error(error));
     }, error => console.error(error))
 
-
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.http.get<loop_da_silva[]>(this.baseUrl + 'api/Statistics/loop_da_silva').subscribe(result => {
         let cleanedResult: loop_da_silva[] = [];
@@ -267,9 +288,46 @@ export class StatisticsComponent implements OnInit {
         this.loop_da_silva_table = cleanedResult;
       }, error => console.error(error));
     }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<experimental_method[]>(this.baseUrl + 'api/Statistics/experimental_method').subscribe(result => {
+        let cleanedResult: experimental_method[] = [];
+        for (let val of result) {
+          cleanedResult.push({
+            experimental_method: val.experimental_method,
+            total: val.total
+          });
+        }
+        this.experimental_method_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<loop_progression_da_silva[]>(this.baseUrl + 'api/Statistics/loop_progression_da_silva').subscribe(result => {
+        let cleanedResult: loop_progression_da_silva[] = [];
+        for (let val of result) {
+          cleanedResult.push({
+            loop_progression_da_silva: val.loop_progression_da_silva,
+            total: val.total
+          });
+        }
+        this.loop_progression_da_silva_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
+
+    this.sub = this.activatedRoute.paramMap.subscribe(params => {
+      this.http.get<onzm[]>(this.baseUrl + 'api/Statistics/onzm').subscribe(result => {
+        let cleanedResult: onzm[] = [];
+        for (let val of result) {
+          cleanedResult.push({
+            onzm: val.onzm,
+            total: val.total
+          });
+        }
+        this.onzm_table = cleanedResult;
+      }, error => console.error(error));
+    }, error => console.error(error));
   }
-
-
 }
 
 
@@ -342,4 +400,19 @@ interface gba_da_silva {
 interface loop_da_silva {
   total: number;
   loop_class: string;
+}
+
+interface experimental_method {
+  experimental_method: string;
+  total: number;
+}
+
+interface loop_progression_da_silva {
+  loop_progression_da_silva: string;
+  total: number;
+}
+
+interface onzm {
+  onzm: string;
+  total: number;
 }
