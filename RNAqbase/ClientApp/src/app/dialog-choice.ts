@@ -6,39 +6,43 @@ import { WebbaDaSilvaDialogComponent } from "./webba-da-silva-dialog/webba-da-si
 
 export class DialogChoice {
   public static modals = {
-    "Author Name": ValOperDialogComponent,
-    "PDB ID": ValueDialogComponent,
-    "Keyword": ValueDialogComponent,
-    "Number of tetrads": ValOperDialogComponent,
-    "PDB Deposition": ValOperDialogComponent,
-    "G-tract sequence": ValueDialogComponent,
-    "Sequence": ValOperDialogComponent,
-    "Webba da Silva": WebbaDaSilvaDialogComponent
+    "authorName": ValOperDialogComponent,
+    "pdbID": ValueDialogComponent,
+    "keyword": ValueDialogComponent,
+    "noOfTetrads": ValOperDialogComponent,
+    "pdbDeposition": ValOperDialogComponent,
+    "gtractSeq": ValueDialogComponent,
+    "sequence": ValOperDialogComponent,
+    "webbaDaSilva": WebbaDaSilvaDialogComponent,
+    "loopLen": ValOperDialogComponent
   }
 
   public static operators: { [key: string]: ViewValue[] } = {
-    "Author Name": [{ value: "=", viewValue: "=" },
+    "authorName": [{ value: "=", viewValue: "=" },
     { value: "!=", viewValue: "!=" }],
-    "Number of tetrads": [{ value: "=", viewValue: "=" },
+    "noOfTetrads": [{ value: "=", viewValue: "=" },
     { value: ">=", viewValue: "\&#x2265" },
     { value: "<=", viewValue: "\&#x2264" }],
-    "PDB Deposition": [{ value: "=", viewValue: "=" },
+    "pdbDeposition": [{ value: "=", viewValue: "=" },
     { value: ">=", viewValue: "\&#x2265" },
+      { value: "<=", viewValue: "\&#x2264" }],
+    "loopLen": [{ value: ">=", viewValue: "\&#x2265" },
     { value: "<=", viewValue: "\&#x2264" }],
-    "Sequence": [{ value: "includes", viewValue: "includes" },
+    "sequence": [{ value: "includes", viewValue: "includes" },
     { value: "3\'->5\'", viewValue: "3\' \&#x2794 5\'" },
     { value: "5\'->3\'", viewValue: "5\' \&#x2794 3\'" },
     { value: "begins", viewValue: "begins" }]
   }
 
   public static inputProperties: { [key: string]: DialogInput } = {
-    "Author Name": { type: 'text', maxLength: 220 },
-    "PDB ID": { type: 'text', maxLength: 4 },
-    "Keyword": { type: 'text', maxLength: 200 },
-    "G-tract sequence": { type: 'text', maxLength: 100 },
-    "Number of tetrads": { type: 'number', maxLength: 100 },
-    "PDB Deposition": { type: 'date', maxLength: 10 },
-    "Sequence": { type: 'text', maxLength: 200 }
+    "authorName": { type: 'text', maxLength: 220 },
+    "pdbID": { type: 'text', maxLength: 4 },
+    "keyword": { type: 'text', maxLength: 200 },
+    "gtractSeq": { type: 'text', maxLength: 100 },
+    "noOfTetrads": { type: 'number', maxLength: 100 },
+    "pdbDeposition": { type: 'date', maxLength: 10 },
+    "loopLen": {type: 'number', maxLength: 300},
+    "sequence": { type: 'text', maxLength: 200 }
   }
 
   public static decodedOperators = {

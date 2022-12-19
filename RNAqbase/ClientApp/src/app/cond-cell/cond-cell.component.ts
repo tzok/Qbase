@@ -7,7 +7,7 @@ import { Condition } from '../condition';
   styleUrls: ['./cond-cell.component.css']
 })
 export class CondCellComponent {
-  @Input('name') elementName: string;
+  @Input('ID') attrID: string;
   @Input() condData: Condition;
   @Output() deleteEvent = new EventEmitter<Condition>();
 

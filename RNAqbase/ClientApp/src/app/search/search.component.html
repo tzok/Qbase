@@ -13,17 +13,17 @@
                 <ng-container matColumnDef="attribute">
                   <mat-header-cell *matHeaderCellDef>Attribute</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <app-attribute-cell [content]="element.attribute" [name]="element.attribute"></app-attribute-cell>
+                    <app-attribute-cell [content]="element.attrName" [attrType]="element.attrType" [ID]="element.attrID"></app-attribute-cell>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="conditions">
                   <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <ng-container *ngIf="element.rowType === 'addable'">
-                      <app-row-cond-addable [rowName]="element.attribute" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-addable>
+                      <app-row-cond-addable [rowAttrID]="element.attrID" [rowAttrName]="element.attrName" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-addable>
                     </ng-container>
                     <ng-container *ngIf="element.rowType !== 'addable'">
-                      <app-row-cond-nonaddable [rowName]="element.attribute" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-nonaddable>
+                      <app-row-cond-nonaddable [rowAttrID]="element.attrID" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-nonaddable>
                     </ng-container>
                   </mat-cell>
                 </ng-container>

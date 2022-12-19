@@ -8,8 +8,7 @@ import { DialogChoice } from '../dialog-choice';
   styleUrls: ['./cond-seq-cell.component.css']
 })
 export class CondSeqCellComponent {
-
-  @Input('name') elementName: string;
+  @Input('ID') attrID: string;
   @Input() condData: Condition;
   @Output() deleteEvent = new EventEmitter<Condition>();
 

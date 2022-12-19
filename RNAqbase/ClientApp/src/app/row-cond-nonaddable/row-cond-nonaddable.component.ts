@@ -11,7 +11,8 @@ import { RowElements } from '../row-elements';
 })
 export class RowCondNonaddableComponent implements OnInit {
   rowData: RowElements;
-  @Input() rowName: string;
+  @Input() rowAttrID: string;
+  @Input() rowAttrName: string;
   @Input() rowType: string;
   @Input() rowElements: RowElements;
   msg = <RowCommPckt>{ clickInvoker: '', eventReceiver: '' };

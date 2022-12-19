@@ -12,5 +12,9 @@ export class SearchComponent {
   addableContent = '+';
   buttonLabelSearch = 'Search';
   buttonLabelReset = 'Reset';
-  dataSource = Object.values(TableContent).map(v => JSON.parse(v));
+  dataSource = Object.values(TableContent).map((v) => JSON.parse(v));
+
+  ngOnInit() {
+    console.log(this.dataSource);
+  }
 }

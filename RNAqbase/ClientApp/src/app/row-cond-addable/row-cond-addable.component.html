@@ -2,17 +2,17 @@
   <div class="conditionsElem">
     <ng-container *ngFor="let cond of rowData.conditions">
       <ng-container *ngIf="!rowData.isOperator">
-        <app-cond-cell [name] = "rowData.attribute" [condData] = "cond" (deleteEvent) ="removeCond($event)"></app-cond-cell>
+        <app-cond-cell [ID]="rowData.attrID" [condData]="cond" (deleteEvent)="removeCond($event)"></app-cond-cell>
       </ng-container>
-      <ng-container *ngIf="rowData.isOperator && rowData.attribute !== 'Sequence'" >
-        <app-cond-operator-cell [name] = "rowData.attribute" [condData] = "cond" (deleteEvent) ="removeCond($event)"></app-cond-operator-cell>
+      <ng-container *ngIf="rowData.isOperator && rowData.attrID !== 'sequence'">
+        <app-cond-operator-cell [ID]="rowData.attrID" [condData]="cond" (deleteEvent)="removeCond($event)"></app-cond-operator-cell>
       </ng-container>
-      <ng-container *ngIf="rowData.isOperator && rowData.attribute === 'Sequence'">
-        <app-cond-seq-cell [name] = "rowData.attribute" [condData] = "cond" (deleteEvent) ="removeCond($event)"></app-cond-seq-cell>
+      <ng-container *ngIf="rowData.isOperator && rowData.attrID === 'sequence'">
+        <app-cond-seq-cell [ID]="rowData.attrID" [condData]="cond" (deleteEvent)="removeCond($event)"></app-cond-seq-cell>
       </ng-container>
     </ng-container>
   </div>
   <div class="addButton">
-    <app-add-button [name]="'addButton'" [content] ="'+'" [rootAttribute] ="rowName" [disable] ="disableAddButton" (newConditionEvent)="addCondition($event)"></app-add-button>
+    <app-add-button [name]="'addButton'" [content]="'+'" [rootAttrName]="rowAttrName" [rootAttrID]="rowAttrID" [disable]="disableAddButton" (newConditionEvent)="addCondition($event)"></app-add-button>
   </div>
 </div>

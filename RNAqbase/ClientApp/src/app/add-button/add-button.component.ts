@@ -13,7 +13,8 @@ import { DialogData } from '../dialog-data';
 export class AddButtonComponent implements OnInit {
   @Input('name') elementName: string;
   @Input() content: string;
-  @Input() rootAttribute: string;
+  @Input() rootAttrID: string;
+  @Input() rootAttrName: string;
   @Input() disable: boolean;
   @Output() newConditionEvent = new EventEmitter<Condition>();
 
@@ -36,8 +37,8 @@ export class AddButtonComponent implements OnInit {
   constructor(public dialog: MatDialog) { }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogChoice.chooseDialog(this.rootAttribute), {
-      data: { attr: this.rootAttribute, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttribute), inputProperties: DialogChoice.chooseInputProperties(this.rootAttribute) }
+    const dialogRef = this.dialog.open(DialogChoice.chooseDialog(this.rootAttrID), {
+      data: { attrID: this.rootAttrID, attrName: this.rootAttrName, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttrID), inputProperties: DialogChoice.chooseInputProperties(this.rootAttrID) }
     });
 
 

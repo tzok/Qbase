@@ -1,7 +1,9 @@
 import { Condition } from "./condition";
 
 export interface RowElements {
-  attribute: string;
+  attrID: string;
+  attrName: string;
+  attrType: string;
   isOperator: boolean;
   conditions: Array<Condition>;
   rowType: string;
