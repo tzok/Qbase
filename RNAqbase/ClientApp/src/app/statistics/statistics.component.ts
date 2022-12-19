@@ -1,7 +1,13 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {ChartDataSets} from "chart.js";
+import {Color} from "ng2-charts";
+import { ChartType } from 'chart.js';
+import { MultiDataSet, Label } from 'ng2-charts';
+import { Params } from '@angular/router';
+
 
 @Component({
   selector: 'app-statistics',
@@ -31,15 +37,28 @@ export class StatisticsComponent implements OnInit {
   sub;
   selected = 'topologyBaseTableOne';
   selected2 = 'topologyBaseTableTwo';
+  page = 0;
 
 
   constructor(private http: HttpClient,
+    private route: ActivatedRoute,
     @Inject('BASE_URL') private baseUrl: string,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog) { }
 
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.page = params['page'];
+      if (this.page == 0) {     
+        this.selected = params['filter'];
+      }
+      else if (this.page == 1){
+        this.selected2 = params['filter'];
+      };
+    });
+    if (this.selected === undefined) { this.selected = 'topologyBaseTableOne' };
+    if (this.selected2 === undefined) { this.selected2 = 'topologyBaseTableTwo' };
     this.sub = this.activatedRoute.paramMap.subscribe(params => {
       this.http.get<TopologyBaseTetradViewTableOne[]>(this.baseUrl + 'api/Statistics/GetTopologyBaseTetradViewTableOne').subscribe(result => {
 
