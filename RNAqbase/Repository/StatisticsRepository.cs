@@ -213,7 +213,6 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<HomePagePlot> GetCountOfComponents()
 		{
-
 			using (SshClient)
 			using (var connection = Connection)
 			{

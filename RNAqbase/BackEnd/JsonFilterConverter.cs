@@ -32,6 +32,8 @@ namespace RNAqbase.BackEnd
                     return new BulgesFilter();
                 case "Loop Length":
                     return new LoopLengthFilter();
+                case "V-Loops":
+                    return new V_LoopsFilter();
                 default:
                     return null;
             }
