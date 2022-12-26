@@ -8,6 +8,7 @@ import { Visualization3DComponent } from "../visualization3-d/visualization3-d.c
 import { MatSelectChange } from "@angular/material/select";
 import { ActivatedRoute } from "@angular/router";
 
+
 @Component({
   selector: 'structure-table',
   templateUrl: './structure-table.component.html',
@@ -139,6 +140,12 @@ export class StructureTableComponent implements OnInit {
     }
 
     this.refreshTable(this.dataSource.filter);
+  }
+
+  openDialog(type: any, id: any) {
+    let dialogRef = this.dialog.open(VisualizationDialogComponent, {
+      data: { type: type, id: id },
+    });
   }
 }
 
