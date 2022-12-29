@@ -50,6 +50,8 @@ import { ValOperDialogComponent } from './val-oper-dialog/val-oper-dialog.compon
 import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-silva-dialog.component';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { SnackbarDuplicateCondComponent } from './snackbar-duplicate-cond/snackbar-duplicate-cond.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -85,7 +87,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ValueDialogComponent,
     ValOperDialogComponent,
     WebbaDaSilvaDialogComponent,
-    DeleteButtonComponent
+    DeleteButtonComponent,
+    SnackbarDuplicateCondComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -131,7 +134,8 @@ import { MatRadioModule } from '@angular/material/radio';
     PinchZoomModule,
     CounterModule.forRoot(),
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -140,7 +144,8 @@ import { MatRadioModule } from '@angular/material/radio';
     Visualization3DComponent,
     WebbaDaSilvaDialogComponent,
     ValueDialogComponent,
-    ValOperDialogComponent
+    ValOperDialogComponent,
+    SnackbarDuplicateCondComponent
   ]
 })
 

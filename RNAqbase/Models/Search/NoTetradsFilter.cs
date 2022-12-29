@@ -25,7 +25,6 @@ namespace RNAqbase.Models.Search
             for (int i = 0; i < Conditions.Count; i++)
             {
                 query += $"({FieldInSQL} {Conditions[i].Operator} {Conditions[i].Value})";
-
                 if (i != Conditions.Count - 1)
                 {
                     query += " AND ";
