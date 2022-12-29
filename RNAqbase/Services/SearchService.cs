@@ -54,6 +54,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 
         public async Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters)
         {
+            Filter.ParameterDictionary.Clear();
             bool isFirst = true;
             StringBuilder queryToHavingSB = new StringBuilder("");
             foreach (Filter filter in filters)
@@ -83,7 +84,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
             }
 
             string query = $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
-            return await searchRepository.GetAllResults(query);
+            return await searchRepository.GetAllResults(query, Filter.ParameterDictionary);
         }
 
         public async Task<List<string>> GetExperimentalMethod() =>
