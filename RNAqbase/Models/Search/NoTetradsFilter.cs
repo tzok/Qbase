@@ -20,6 +20,7 @@ namespace RNAqbase.Models.Search
             {
                 return "";
             }
+
             string query = "(";
             for (int i = 0; i < Conditions.Count; i++)
             {
@@ -35,15 +36,13 @@ namespace RNAqbase.Models.Search
                 {
                     query += $"({FieldInSQL} = {Conditions[i].Value})";
                 }
-                else if (Conditions[i].Operator == "{}")
-                {
-                    query += $"({FieldInSQL} BETWEEN {Conditions[i].Value.Split(",")[0]} AND {Conditions[i].Value.Split(",")[1]})";
-                }
+
                 if (i != Conditions.Count - 1)
                 {
-                    query += " OR ";
+                    query += " AND ";
                 }
             }
+
             return query + ")";
         }
     }
