@@ -20,16 +20,16 @@ export class ButtonComponent {
       this.buttonClickedEvent.emit({ search: false, reset: true });
     }
   }
-  getResults() {
-    this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
-      `[
-        {"Attribute": "Loop Length", "Conditions": [{ "Value": "1", "Operator": ">=" }, { "Value": "6", "Operator": "<=" }]},
-        {"Attribute": "Experimental Method", "Conditions": [{ "Value": "X-Ray", "Operator": "" }]},
-        {"Attribute": "ONZ class", "Conditions": [{ "Value": "N-", "Operator": "" }, { "Value": "Z-", "Operator": "" }]},
-        {"Attribute": "PDB ID", "Conditions": [{ "Value": "10", "Operator": "" }]},
-        {"Attribute": "Number of tetrads", "Conditions": [{ "Value": "1", "Operator": ">" }]},
-        {"Attribute": "Type (by no. of strands)", "Conditions": [{ "Value": "tetramolecular", "Operator": "" }]},
-        {"Attribute": "Bulges", "Conditions": [{ "Value": "with bulges", "Operator": "" }]}
+    getResults() {
+      this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
+        `[
+        {"attrID": "loopLen", "conditions": [{ "value": "1", "operator": ">=" }, { "value": "6", "operator": "<=" }]},
+        {"attrID": "expMethod", "conditions": [{ "value": "X-Ray", "operator": "" }]},
+        {"attrID": "onzClass", "conditions": [{ "value": "N-", "operator": "" }, { "value": "Z-", "operator": "" }]},
+        {"attrID": "pdbID", "conditions": [{ "value": "10", "operator": "" }]},
+        {"attrID": "noOfTetrads", "conditions": [{ "value": "1", "operator": ">=" }]},
+        {"attrID": "typeNoStrands", "conditions": [{ "value": "tetramolecular", "operator": "" }]},
+        {"attrID": "bulges", "conditions": [{ "value": "with bulges", "operator": "" }]}
         ]`)
       .subscribe(data => console.log(JSON.stringify(data)));
   }

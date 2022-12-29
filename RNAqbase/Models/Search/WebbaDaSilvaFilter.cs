@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace RNAqbase.Models.Search
 {
-    public class WebbaDaSilva : Filter
+    public class WebbaDaSilvaFilter : Filter
     {
-        public WebbaDaSilva()
+        public WebbaDaSilvaFilter()
         {
             FieldInSQL = "loop_progression";
         }
