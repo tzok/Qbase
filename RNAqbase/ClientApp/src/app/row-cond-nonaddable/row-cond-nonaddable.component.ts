@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { CondCommPckt } from '../cond-comm-pckt';
 import { ElementsFocus } from '../elements-focus';
 import { RowCommPckt } from '../row-comm-pckt';
@@ -15,6 +16,8 @@ export class RowCondNonaddableComponent implements OnInit {
   @Input() rowAttrName: string;
   @Input() rowType: string;
   @Input() rowElements: RowElements;
+  @Input() resetEvent: EventEmitter<any>;
+
   msg = <RowCommPckt>{ clickInvoker: '', eventReceiver: '' };
   rowElementsStatus: ElementsFocus = {};
 
@@ -22,8 +25,10 @@ export class RowCondNonaddableComponent implements OnInit {
     this.clickEventLogic(childPckt);
   }
 
-
   ngOnInit() {
+    this.resetEvent.subscribe(() => {
+      this.handleResetReq();
+    });
     this.rowData = this.rowElements;
     for (let i of this.rowData.conditions) {
       this.rowElementsStatus[i.condition] = false;
@@ -76,5 +81,11 @@ export class RowCondNonaddableComponent implements OnInit {
         this.rowElementsStatus[key] = false;
       }
     }
+  }
+
+  handleResetReq() {
+    this.rowElementsStatus['any'] = true;
+    this.unclickAll('any');
+    this.msg = { clickInvoker: 'row', eventReceiver: 'any', typeOfRow: this.rowType };
   }
 }

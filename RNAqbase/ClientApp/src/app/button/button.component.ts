@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ButtonEventRs } from '../button-event-rs';
 
 @Component({
   selector: 'app-button',
@@ -8,16 +9,20 @@ import { Component, EventEmitter, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() label: string;
-  
+  @Output() buttonClickedEvent = new EventEmitter<ButtonEventRs>();
+
   constructor(private http: HttpClient) { }
   clickEvent() {
     if (this.label === 'Search') {
       this.getResults();
     }
+    else if (this.label === 'Reset') {
+      this.buttonClickedEvent.emit({ search: false, reset: true });
+    }
   }
-    getResults() {
-      this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
-        `[
+  getResults() {
+    this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
+      `[
         {"Attribute": "Loop Length", "Conditions": [{ "Value": "1", "Operator": ">=" }, { "Value": "6", "Operator": "<=" }]},
         {"Attribute": "Experimental Method", "Conditions": [{ "Value": "X-Ray", "Operator": "" }]},
         {"Attribute": "ONZ class", "Conditions": [{ "Value": "N-", "Operator": "" }, { "Value": "Z-", "Operator": "" }]},
@@ -26,6 +31,6 @@ export class ButtonComponent {
         {"Attribute": "Type (by no. of strands)", "Conditions": [{ "Value": "tetramolecular", "Operator": "" }]},
         {"Attribute": "Bulges", "Conditions": [{ "Value": "with bulges", "Operator": "" }]}
         ]`)
-        .subscribe(data => console.log(JSON.stringify(data)));
+      .subscribe(data => console.log(JSON.stringify(data)));
   }
 }

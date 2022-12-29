@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ButtonEventRs } from '../button-event-rs';
 import { TableContent } from '../table-content.enum';
 
 @Component({
@@ -8,13 +9,25 @@ import { TableContent } from '../table-content.enum';
 })
 
 export class SearchComponent {
+  @Output() triggerReset = new EventEmitter<any>();
+  @Output() triggerSearch = new EventEmitter<any>();
   displayedColumns: string[] = ['attribute', 'conditions'];
   addableContent = '+';
   buttonLabelSearch = 'Search';
   buttonLabelReset = 'Reset';
   dataSource = Object.values(TableContent).map((v) => JSON.parse(v));
+  searchEvent: boolean;
 
   ngOnInit() {
-    console.log(this.dataSource);
+    this.searchEvent = false;
+  }
+
+  rsEvent(pckt: ButtonEventRs) {
+    if (pckt.reset) {
+      this.triggerReset.emit();
+    }
+    else if (pckt.search) {
+      this.searchEvent = true;
+    }
   }
 }

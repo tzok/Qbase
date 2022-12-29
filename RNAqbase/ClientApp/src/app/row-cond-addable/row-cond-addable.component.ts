@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Condition } from '../condition';
 import { RowElements } from '../row-elements';
 
@@ -14,8 +14,13 @@ export class RowCondAddableComponent implements OnInit {
   @Input() rowAttrName: string;
   @Input() rowType: string;
   @Input() rowElements: RowElements;
+  @Input() resetEvent: EventEmitter<any>;
   disableAddButton: boolean;
+
   ngOnInit() {
+    this.resetEvent.subscribe(() => {
+      this.handleResetReq();
+    });
     this.rowData = this.rowElements;
     this.checkCondCount();
   }
@@ -39,6 +44,11 @@ export class RowCondAddableComponent implements OnInit {
       this.disableAddButton = true;
     else
       this.disableAddButton = false;
+  }
+
+  handleResetReq() {
+    this.rowData.conditions.splice(0);
+    this.checkCondCount();
   }
 }
 
