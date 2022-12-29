@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { CondCommPckt } from '../cond-comm-pckt';
+import { Condition } from '../condition';
 import { ElementsFocus } from '../elements-focus';
+import { RowAttrPckt } from '../row-attr-pckt';
 import { RowCommPckt } from '../row-comm-pckt';
 import { RowElements } from '../row-elements';
 
@@ -17,6 +19,8 @@ export class RowCondNonaddableComponent implements OnInit {
   @Input() rowType: string;
   @Input() rowElements: RowElements;
   @Input() resetEvent: EventEmitter<any>;
+  @Input() searchEvent: EventEmitter<any>;
+  @Output() searchResponse = new EventEmitter<RowAttrPckt>();
 
   msg = <RowCommPckt>{ clickInvoker: '', eventReceiver: '' };
   rowElementsStatus: ElementsFocus = {};
@@ -29,9 +33,12 @@ export class RowCondNonaddableComponent implements OnInit {
     this.resetEvent.subscribe(() => {
       this.handleResetReq();
     });
+    this.searchEvent.subscribe(() => {
+      this.handleSearchReq();
+    });
     this.rowData = this.rowElements;
     for (let i of this.rowData.conditions) {
-      this.rowElementsStatus[i.condition] = false;
+      this.rowElementsStatus[i.value] = false;
     }
   }
 
@@ -87,5 +94,15 @@ export class RowCondNonaddableComponent implements OnInit {
     this.rowElementsStatus['any'] = true;
     this.unclickAll('any');
     this.msg = { clickInvoker: 'row', eventReceiver: 'any', typeOfRow: this.rowType };
+  }
+
+  handleSearchReq() {
+    let array: Condition[] = [];
+    for (let key in this.rowElementsStatus) {
+      if (this.rowElementsStatus[key]) {
+        array.push({ value: key, operator: "" });
+      }
+    }
+    this.searchResponse.emit({ attrID: this.rowAttrID, conditions: array });
   }
 }

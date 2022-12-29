@@ -14,23 +14,10 @@ export class ButtonComponent {
   constructor(private http: HttpClient) { }
   clickEvent() {
     if (this.label === 'Search') {
-      this.getResults();
+      this.buttonClickedEvent.emit({ search: true, reset: false });
     }
     else if (this.label === 'Reset') {
       this.buttonClickedEvent.emit({ search: false, reset: true });
     }
-  }
-    getResults() {
-      this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
-        `[
-        {"attrID": "loopLen", "conditions": [{ "value": "1", "operator": ">=" }, { "value": "6", "operator": "<=" }]},
-        {"attrID": "expMethod", "conditions": [{ "value": "X-Ray", "operator": "" }]},
-        {"attrID": "onzClass", "conditions": [{ "value": "N-", "operator": "" }, { "value": "Z-", "operator": "" }]},
-        {"attrID": "pdbID", "conditions": [{ "value": "10", "operator": "" }]},
-        {"attrID": "noOfTetrads", "conditions": [{ "value": "1", "operator": ">=" }]},
-        {"attrID": "typeNoStrands", "conditions": [{ "value": "tetramolecular", "operator": "" }]},
-        {"attrID": "bulges", "conditions": [{ "value": "with bulges", "operator": "" }]}
-        ]`)
-      .subscribe(data => console.log(JSON.stringify(data)));
   }
 }

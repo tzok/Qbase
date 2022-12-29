@@ -1,4 +1,4 @@
 export interface Condition {
-  condition: string;
+  value: string;
   operator: string;
 }

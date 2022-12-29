@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Condition } from '../condition';
+import { RowAttrPckt } from '../row-attr-pckt';
 import { RowElements } from '../row-elements';
 
 @Component({
@@ -15,11 +16,17 @@ export class RowCondAddableComponent implements OnInit {
   @Input() rowType: string;
   @Input() rowElements: RowElements;
   @Input() resetEvent: EventEmitter<any>;
+  @Input() searchEvent: EventEmitter<any>;
+  @Output() searchResponse = new EventEmitter<RowAttrPckt>();
+
   disableAddButton: boolean;
 
   ngOnInit() {
     this.resetEvent.subscribe(() => {
       this.handleResetReq();
+    });
+    this.searchEvent.subscribe(() => {
+      this.handleSearchReq();
     });
     this.rowData = this.rowElements;
     this.checkCondCount();
@@ -49,6 +56,10 @@ export class RowCondAddableComponent implements OnInit {
   handleResetReq() {
     this.rowData.conditions.splice(0);
     this.checkCondCount();
+  }
+
+  handleSearchReq() {
+    this.searchResponse.emit({ attrID: this.rowAttrID, conditions: this.rowElements.conditions });
   }
 }
 
