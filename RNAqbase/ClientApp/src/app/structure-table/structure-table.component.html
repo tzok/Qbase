@@ -29,8 +29,8 @@
               </button>
             </mat-form-field>
           </div>
-          <a class="mat-button" (click)="openDialog('varna', row.pdbId+'-assembly-'+row.assemblyId)" [hidden]="areButtonsHidden" [class.disabled]="dataSource.data.length <= 0">Save table</a>
-          <a class="mat-button" (click)="openDialog('varna', row.pdbId+'-assembly-'+row.assemblyId)" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0">Save selected rows</a>
+          <a class="mat-button" (click)="openDialog()" [hidden]="areButtonsHidden" [class.disabled]="dataSource.data.length <= 0">Save table</a>
+          <a class="mat-button" (click)="openDialog()" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0">Save selected rows</a>
         </div>
         <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
           <!--Pdb Id Column -->

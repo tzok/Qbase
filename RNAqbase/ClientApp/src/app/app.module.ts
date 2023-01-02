@@ -50,6 +50,7 @@ import { ValOperDialogComponent } from './val-oper-dialog/val-oper-dialog.compon
 import { DateOperDialogComponent } from './date-oper-dialog/date-oper-dialog.component';
 import { SeqDialogComponent } from './seq-dialog/seq-dialog.component';
 import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-silva-dialog.component';
+import { SaveFileDialogComponent } from './save-file-dialog/save-file-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-si
     ValOperDialogComponent,
     DateOperDialogComponent,
     SeqDialogComponent,
-    WebbaDaSilvaDialogComponent
+    WebbaDaSilvaDialogComponent,
+    SaveFileDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -142,7 +144,8 @@ import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-si
     DateOperDialogComponent,
     WebbaDaSilvaDialogComponent,
     ValueDialogComponent,
-    ValOperDialogComponent
+    ValOperDialogComponent,
+    SaveFileDialogComponent
   ]
 })
 

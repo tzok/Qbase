@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import { SaveFileDialogComponent } from '../save-file-dialog/save-file-dialog.component';
 import { Visualization3DComponent } from "../visualization3-d/visualization3-d.component";
 import { MatSelectChange } from "@angular/material/select";
 import { ActivatedRoute } from "@angular/router";
@@ -142,10 +143,8 @@ export class StructureTableComponent implements OnInit {
     this.refreshTable(this.dataSource.filter);
   }
 
-  openDialog(type: any, id: any) {
-    let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-      data: { type: type, id: id },
-    });
+  openDialog() {
+    let dialogRef = this.dialog.open(SaveFileDialogComponent);
   }
 }
 
