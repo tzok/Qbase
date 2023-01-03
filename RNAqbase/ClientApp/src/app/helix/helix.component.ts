@@ -1,13 +1,12 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute} from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
-import {Visualization3DComponent} from '../visualization3-d/visualization3-d.component';
-import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
+import { Component, OnInit, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Visualization3DComponent } from '../visualization3-d/visualization3-d.component';
+import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import * as JSZip from 'jszip';
-import {DomSanitizer} from "@angular/platform-browser";
-import {saveAs} from "file-saver";
-
+import { DomSanitizer } from "@angular/platform-browser";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: 'app-helix',
@@ -106,19 +105,19 @@ export class HelixComponent implements OnInit {
   }
 
   downloadZip(): void {
-    this.http.get("/static/pymol/" + this.data.id + ".png", {responseType: "arraybuffer"})
+    this.http.get("/static/pymol/" + this.data.id + ".png", { responseType: "arraybuffer" })
       .subscribe(data => {
         this._3d_structure = data;
 
-        this.http.get("/static/varna/" + this.data.id + ".svg", {responseType: "arraybuffer"})
+        this.http.get("/static/varna/" + this.data.id + ".svg", { responseType: "arraybuffer" })
           .subscribe(data => {
             this._2d_structure_varna = data;
 
-            this.http.get("/static/rchie/" + this.data.id + ".svg", {responseType: "arraybuffer"})
+            this.http.get("/static/rchie/" + this.data.id + ".svg", { responseType: "arraybuffer" })
               .subscribe(data => {
                 this._2d_structure_rchie = data;
 
-                this.http.get("/static/layers/" + this.data.id + ".svg", {responseType: "arraybuffer"})
+                this.http.get("/static/layers/" + this.data.id + ".svg", { responseType: "arraybuffer" })
                   .subscribe(data => {
                     this._3d_layers = data;
 
@@ -138,7 +137,7 @@ export class HelixComponent implements OnInit {
                     zip.file("tetrads" + ".csv", tetrads);
                     zip.file("nucleotides_in_helice" + ".csv", nucleotides)
                     zip.file("tetrads_pairs" + ".csv", tetradsPairs)
-                    zip.generateAsync({type: "blob"})
+                    zip.generateAsync({ type: "blob" })
                       .then(blob => saveAs(blob, 'g4helix-H' + this.helixId + '.zip'));
 
                   });
@@ -154,7 +153,7 @@ export class HelixComponent implements OnInit {
     csv.unshift(header.join(','));
     let csvArray = csv.join('\r\n');
 
-    return new Blob([csvArray], {type: 'text/csv'})
+    return new Blob([csvArray], { type: 'text/csv' })
   }
 
   ngOnDestroy() {
@@ -172,7 +171,7 @@ export class HelixComponent implements OnInit {
 
   show2dStructure(type: any) {
     let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-      data: {type: type, id: this.data.id},
+      data: { type: type, id: this.data.id },
     });
   }
 

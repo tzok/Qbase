@@ -1,4 +1,6 @@
 <div id="parent">
-  <div id="first">{{operator}}</div>
-  <div id="second">{{content}}</div>
+  <div id="operator" [innerHTML]="encodedOperator"></div>
+  <div id="content">{{condData.value}}</div>
+  <app-delete-button (buttonClickEvent)="deleteClicked($event)"></app-delete-button>
 </div>
+

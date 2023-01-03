@@ -133,6 +133,24 @@ namespace RNAqbase.Controllers
 			var a = await statisticsService.loop_da_silva();
 			return Ok(a);
 		}
+		[HttpGet("[action]")]
+		public async Task<IActionResult> experimental_method()
+		{
+			var a = await statisticsService.experimental_method();
+			return Ok(a);
+		}
+		[HttpGet("[action]")]
+		public async Task<IActionResult> loop_progression_da_silva()
+		{
+			var a = await statisticsService.loop_progression_da_silva();
+			return Ok(a);
+		}
+		[HttpGet("[action]")]
+		public async Task<IActionResult> onzm()
+		{
+			var a = await statisticsService.onzm();
+			return Ok(a);
+		}
 
 	}
 }

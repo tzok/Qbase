@@ -1,101 +1,8 @@
-import { Component } from '@angular/core';
-
-export interface Condition {
-  condition: string;
-  operator: string;
-}
-
-export interface TableElements {
-  attribute: string;
-  isOperator: boolean;
-  conditions: Array<Condition>;
-  addable: boolean;
-}
-
-const SEARCH_TABLE_ELEMENTS: Array<TableElements> = [
-  {
-    attribute: 'Author Name', isOperator: true, conditions: [
-      { condition: 'Kokosza', operator: '!=' },
-      { condition: 'Kremis', operator: '=' },
-      { condition: 'Matecki', operator: '=' },
-      { condition: 'Lukasiewicz', operator: '=' }], addable: true},
-  {
-    attribute: 'PDB ID', isOperator: false, conditions: [
-      { condition: '1234', operator: '' },
-      { condition: '4321', operator: '' }], addable: true},
-  {
-    attribute: 'Keyword', isOperator: false, conditions: [
-      { condition: 'Hooman', operator: '' }], addable: true},
-  {
-    attribute: 'Experimental Method', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'X-Ray', operator: '' },
-      { condition: 'NMR', operator: '' }], addable: false},
-  {
-    attribute: 'Molecule Type', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'DNA', operator: '' },
-      { condition: 'RNA', operator: '' },
-      { condition: 'other', operator: '' }], addable: false},
-  {
-    attribute: 'Type (by no. of strands)', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'unimolecular', operator: '' },
-      { condition: 'bimolecular', operator: '' },
-      { condition: 'tetramolecular', operator: '' }], addable: false},
-  {
-    attribute: 'Handedness', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'right', operator: '' },
-      { condition: 'left', operator: '' }], addable: false},
-  {
-    attribute: 'Number of tetrads', isOperator: true, conditions: [
-      { condition: '3', operator: '>' },
-      { condition: '2', operator: '<' },
-      { condition: '10', operator: '>=' }], addable: true},
-  {
-    attribute: 'Ions', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'Na', operator: '' },
-      { condition: 'K', operator: '' },
-      { condition: 'Pt', operator: '' },
-      { condition: 'Tl', operator: '' }], addable: false},
-  {
-    attribute: 'Webba da Silva', isOperator: false,  conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'web topology', operator: '' },
-      { condition: 'tetrad comination', operator: '' }], addable: false},
-  {
-    attribute: 'ONZ class', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'N-', operator: '' },
-      { condition: 'Z-', operator: '' },
-      { condition: 'O-', operator: '' }], addable: false},
-  {
-    attribute: 'PDB Deposition', isOperator: true, conditions: [
-      { condition: '2010-03-21', operator: '<' },
-      { condition: '2001-01-01', operator: '>=' }], addable: true},
-  {
-    attribute: 'G-tract sequence', isOperator: false, conditions: [
-      { condition: 'GGGG', operator: '' },
-      { condition: 'G', operator: '' }], addable: true},
-  {
-    attribute: 'Bulges', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'with bulges', operator: '' },
-      { condition: 'without bulges', operator: '' }], addable: false},
-  {
-    attribute: 'V-Loops', isOperator: false, conditions: [
-      { condition: 'any', operator: '' },
-      { condition: 'with V-Loops', operator: '' },
-      { condition: 'without V-Loops', operator: '' }], addable: false},
-  {
-    attribute: 'Sequence', isOperator: true, conditions: [
-      { condition: 'GCGGGGGGGGG', operator: 'includes' },
-      { condition: 'G', operator: "3'->5'" }], addable: true}
-]
-
-
+import { Component, EventEmitter, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ButtonEventRs } from '../button-event-rs';
+import { RowAttrPckt } from '../row-attr-pckt';
+import { TableContent } from '../table-content.enum';
 
 @Component({
   selector: 'app-search',
@@ -104,11 +11,37 @@ const SEARCH_TABLE_ELEMENTS: Array<TableElements> = [
 })
 
 export class SearchComponent {
-  totalAngularPackages;
-  displayedColumns: string[] = ['attribute', 'conditions', 'addable'];
-  dataSource = SEARCH_TABLE_ELEMENTS;
+  @Output() triggerReset = new EventEmitter<any>();
+  @Output() triggerSearch = new EventEmitter<any>();
+  displayedColumns: string[] = ['attribute', 'conditions'];
   addableContent = '+';
   buttonLabelSearch = 'Search';
   buttonLabelReset = 'Reset';
+  dataSource = Object.values(TableContent).map((v) => JSON.parse(v));
+  httpSearchData: RowAttrPckt[] = [];
 
+  constructor(private http: HttpClient) { }
+
+  rsEvent(pckt: ButtonEventRs) {
+    if (pckt.reset) {
+      this.triggerReset.emit();
+    }
+    else if (pckt.search) {
+      this.triggerSearch.emit();
+    }
+  }
+
+  collectRowElements(conds: RowAttrPckt) {
+    this.httpSearchData.push(conds);
+    if (this.httpSearchData.length === this.dataSource.length) {
+      this.getResult();
+    }
+  }
+
+  getResult() {
+    this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
+      this.httpSearchData)
+      .subscribe(data => console.log(JSON.stringify(data)));
+    this.httpSearchData.splice(0);
+  }
 }

@@ -11,10 +11,22 @@ namespace RNAqbase.Services
 	{
 		private readonly IStatisticsRepository statisticsRepository;
 		private readonly IMemoryCache cache;
+		private static DateTime dateTimeNow = DateTime.Now;
 
 		private static readonly MemoryCacheEntryOptions Cache = new MemoryCacheEntryOptions
 		{
 			AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(12)
+		};
+
+		private static readonly MemoryCacheEntryOptions CacheDatabaseStatistics = new MemoryCacheEntryOptions
+		{
+			AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(12),
+			AbsoluteExpiration = dateTimeNow
+				.AddDays((((int)DayOfWeek.Thursday - (int)dateTimeNow.DayOfWeek + 7) % 7) + 1)
+				.AddHours(dateTimeNow.Hour * -1)
+				.AddMinutes(dateTimeNow.Minute * -1)
+				.AddSeconds(dateTimeNow.Second * -1)
+
 		};
 
 		public StatisticsService(IStatisticsRepository statisticsRepository, IMemoryCache cache)
@@ -113,7 +125,8 @@ namespace RNAqbase.Services
 			{
 				result = await statisticsRepository.GetCountOfComponents();
 
-				cache.Set(nameof(GetCountOfComponents), result, Cache);
+				dateTimeNow = DateTime.Now;
+				cache.Set(nameof(GetCountOfComponents), result, CacheDatabaseStatistics);
 			}
 
 			return result;
@@ -124,7 +137,8 @@ namespace RNAqbase.Services
 			{
 				result = await statisticsRepository.GetUpdateInformations();
 
-				cache.Set(nameof(GetUpdateInformations), result, Cache);
+				dateTimeNow = DateTime.Now;
+				cache.Set(nameof(GetUpdateInformations), result, CacheDatabaseStatistics);
 			}
 
 			return result;
@@ -217,6 +231,36 @@ namespace RNAqbase.Services
 				result = await statisticsRepository.loop_da_silva();
 
 				cache.Set(nameof(loop_da_silva), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> experimental_method()
+		{
+			if (!cache.TryGetValue(nameof(experimental_method), out List<Statistics> result))
+			{
+				result = await statisticsRepository.experimental_method();
+
+				cache.Set(nameof(experimental_method), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> loop_progression_da_silva()
+		{
+			if (!cache.TryGetValue(nameof(loop_progression_da_silva), out List<Statistics> result))
+			{
+				result = await statisticsRepository.loop_progression_da_silva();
+
+				cache.Set(nameof(loop_progression_da_silva), result, Cache);
+			}
+			return result;
+		}
+		public async Task<List<Statistics>> onzm()
+		{
+			if (!cache.TryGetValue(nameof(onzm), out List<Statistics> result))
+			{
+				result = await statisticsRepository.onzm();
+
+				cache.Set(nameof(onzm), result, Cache);
 			}
 			return result;
 		}

@@ -15,30 +15,51 @@ namespace RNAqbase.Repository
         {
         }
 
-        public async Task<List<QuadruplexTable>> GetAllResults(string query)
+        public async Task<List<QuadruplexTable>> GetAllResults(string query, Dictionary<string, object> parameters)
         {
-			using (var connection = Connection)
-			{
-				connection.Open();
-				return (await connection.QueryAsync<QuadruplexTable>(query)).ToList();
-			}
+            using (SshClient)
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<QuadruplexTable>(query, parameters)).ToList();
+            }
 		}
 
         public async Task<List<string>> GetExperimentalMethod() 
         {
+            using (SshClient)
             using (var connection = Connection)
             {
                 connection.Open();
-                return (await connection.QueryAsync<string>("SELECT DISTINCT experiment FROM PDB;")).ToList();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT experiment FROM PDB WHERE experiment IS NOT NULL;")).ToList();
             }
         }
 
         public async Task<List<string>> GetONZ()
         {
+            using (SshClient)
             using (var connection = Connection)
             {
                 connection.Open();
-                return (await connection.QueryAsync<string>("SELECT DISTINCT onz FROM tetrad;")).ToList();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT onz FROM tetrad WHERE onz IS NOT NULL;")).ToList();
+            }
+        }
+        public async Task<List<string>> GetMoleculeType()
+        {
+            using (SshClient)
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT molecule FROM nucleotide WHERE molecule IS NOT NULL;")).ToList();
+            }
+        }
+
+        public async Task<List<string>> GetWebbaDaSilva()
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT loop_progression FROM quadruplex WHERE loop_progression IS NOT NULL;")).ToList();
             }
         }
 

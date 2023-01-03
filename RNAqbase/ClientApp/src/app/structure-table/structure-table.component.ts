@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
-import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
-import {MatSelectChange} from "@angular/material/select";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import { Visualization3DComponent } from "../visualization3-d/visualization3-d.component";
+import { MatSelectChange } from "@angular/material/select";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'structure-table',
@@ -26,6 +26,7 @@ export class StructureTableComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
+  defaultDisplayedColumn = 'pdbIdentifier';
   displayedColumns = [
     'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
     'experimentalMethod', 'quadruplexId', 'structure2D', 'structure3D', 'select'
@@ -44,7 +45,7 @@ export class StructureTableComponent implements OnInit {
         this.query = params.get('query');
       }
       this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures',
-        {'params': new HttpParams().set('query', this.query)}).subscribe(result => {
+        { 'params': new HttpParams().set('query', this.query) }).subscribe(result => {
           this.dataSource = new MatTableDataSource(result);
           for (let val of result) {
             val.quadruplex_id = Array.from(new Set(val.quadruplex_id.split(',')))
@@ -70,7 +71,7 @@ export class StructureTableComponent implements OnInit {
           this.areButtonsHidden = false;
           this.filteredDataLength = this.dataSource.data.length;
         },
-        error => console.error(error))
+          error => console.error(error))
     });
   }
 
@@ -103,7 +104,7 @@ export class StructureTableComponent implements OnInit {
 
   showStructure(type: any, id: any) {
     let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-      data: {type: type, id: id},
+      data: { type: type, id: id },
     });
   }
 

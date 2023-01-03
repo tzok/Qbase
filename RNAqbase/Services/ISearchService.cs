@@ -13,5 +13,7 @@ namespace RNAqbase.Services
         Task<List<string>> GetExperimentalMethod();
         Task<List<string>> GetONZ();
         Task<List<string>> GetIons();
+        Task<List<string>> GetMoleculeType();
+        Task<List<string>> GetWebbaDaSilva();
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-attribute-cell',
@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./attribute-cell.component.css']
 })
 export class AttributeCellComponent {
-  @Input('name') elementName: string;
+  @Input('ID') elementID: string;
+  @Input() attrType: string;
   @Input() content: string;
 }

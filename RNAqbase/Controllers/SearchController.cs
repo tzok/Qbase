@@ -23,13 +23,6 @@ namespace RNAqbase.Controllers
 			this.searchService = searchService;
 		}
 
-		[HttpGet("[action]")]
-		public async Task<IActionResult> GetResults() //TO DELETE
-		{
-			List<Filter> filters = new List<Filter>();
-			return Ok(await searchService.GetAllResults(filters));
-		}
-
 		[HttpPost("[action]")]
 		public async Task<IActionResult> PostAndGetResults()
 		{
@@ -71,6 +64,18 @@ namespace RNAqbase.Controllers
 		public async Task<IActionResult> GetIons()
 		{
 			return Ok(await searchService.GetIons());
+    }
+    
+    [HttpGet("[action]")]
+		public async Task<IActionResult> GetMoleculeType()
+		{
+			return Ok(await searchService.GetMoleculeType());
+		}
+
+		[HttpGet("[action]")]
+		public async Task<IActionResult> GetWebbaDaSilva()
+		{
+			return Ok(await searchService.GetWebbaDaSilva());
 		}
 	}
 }

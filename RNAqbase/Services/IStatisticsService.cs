@@ -25,7 +25,9 @@ namespace RNAqbase.Services
 		Task<List<Statistics>> ion_distribution_z_minus();
 		Task<List<Statistics>> gba_da_silva();
 		Task<List<Statistics>> loop_da_silva();
-
+		Task<List<Statistics>> experimental_method();
+		Task<List<Statistics>> loop_progression_da_silva();
+		Task<List<Statistics>> onzm();
 
 
 	}
