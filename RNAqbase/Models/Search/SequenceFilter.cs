@@ -23,20 +23,21 @@ namespace RNAqbase.Models.Search
             }
             //StringBuilder querySB = new StringBuilder($"({FieldInSQL} ");
             for (int i = 0; i < Conditions.Count; i++) {
-                if (Conditions[i].Operator == "begins") //na figmie żeby usunąć
-                {
-                    return "";
-                }
-                else if (Conditions[i].Operator == "includes")
+
+                if (Conditions[i].Operator == "includes")
                 {
                     joinType = JoinType.Where;
                     FieldInSQL = "tu dać tetrady w quadruplexie";
                     string[] permutations = GetPermutations("CGTA").ToArray();
                     IEnumerable<string> distinctPermutations = permutations.Distinct();
+                    StringBuilder querySB = new StringBuilder($"({FieldInSQL} && array[");
                     foreach (string permutation in distinctPermutations)
                     {
-                        Console.WriteLine(permutation);
+                        querySB.Append($"'{permutation}', ");
                     }
+                    querySB.Length--;
+                    querySB.Length--;
+                    return querySB.ToString() + "])";
                 }
                 else if (Conditions[i].Operator == "5'->3'")
                 {
