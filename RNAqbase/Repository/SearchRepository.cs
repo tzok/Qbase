@@ -62,5 +62,14 @@ namespace RNAqbase.Repository
                 return (await connection.QueryAsync<string>("SELECT DISTINCT loop_progression FROM quadruplex WHERE loop_progression IS NOT NULL;")).ToList();
             }
         }
+
+        public async Task<List<string>> GetIons()
+        {
+            using (var connection = Connection)
+            {
+                connection.Open();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT name FROM Ion;")).ToList();
+            }
+        }
     }
 }

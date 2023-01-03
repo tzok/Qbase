@@ -61,6 +61,12 @@ namespace RNAqbase.Controllers
 		}
 
 		[HttpGet("[action]")]
+		public async Task<IActionResult> GetIons()
+		{
+			return Ok(await searchService.GetIons());
+		}
+    
+		[HttpGet("[action]")]
 		public async Task<IActionResult> GetMoleculeType()
 		{
 			return Ok(await searchService.GetMoleculeType());

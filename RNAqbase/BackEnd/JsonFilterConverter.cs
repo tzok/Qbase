@@ -34,6 +34,8 @@ namespace RNAqbase.BackEnd
                     return new TypeFilter();
                 case "noOfTetrads":
                     return new NoTetradsFilter();
+                case "Ions":
+                    return new IonsFilter();
                 case "gtractSeq":
                     return new DummyFilter();
                 case "loopLen":

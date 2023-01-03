@@ -95,6 +95,9 @@ LEFT JOIN citation_author ON citation_id = citation.id
         public async Task<List<string>> GetONZ() =>
             await searchRepository.GetONZ();
 
+        public async Task<List<string>> GetIons() =>
+            await searchRepository.GetIons();
+            
         public async Task<List<string>> GetMoleculeType() =>
             await searchRepository.GetMoleculeType();
 
