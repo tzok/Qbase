@@ -17,24 +17,20 @@ namespace RNAqbase.Models.Search
 
         public override string JoinConditions()
         {
-            if (Conditions.Count != 1)
+            if (Conditions.Count == 0)
             {
                 return "";
             }
 
-            StringBuilder querySB = new StringBuilder($"({FieldInSQL} ");
-            if (Conditions[0].Operator == "{}")
+            StringBuilder querySB = new StringBuilder($"(");
+            for (int i = 0; i < Conditions.Count; i++)
             {
-                if (Conditions[0].Value.Split(",").Count() != 2) 
-                {
-                    return "";
-                }
+                querySB.Append($"({FieldInSQL} {Conditions[i].Operator} '{Conditions[i].Value}'::date)");
 
-                querySB.Append($"BETWEEN '{Conditions[0].Value.Split(",")[0]}'::date AND '{Conditions[0].Value.Split(",")[1]}'::date");
-            }
-            else 
-            {
-                querySB.Append($"{Conditions[0].Operator} '{Conditions[0].Value}'::date");
+                if (i != Conditions.Count - 1)
+                {
+                    querySB.Append(" AND ");
+                }
             }
 
             return querySB.ToString() + ")";

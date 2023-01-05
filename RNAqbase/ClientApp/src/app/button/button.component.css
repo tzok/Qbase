@@ -9,7 +9,7 @@ div {
 }
 
 .resetButton {
-  background-color: rgba(196, 196, 196, 1);
-  color: rgba(81, 80, 80, 1);
+  background-color: rgba(196, 196, 196, 1) !important;
+  color: rgba(81, 80, 80, 1) !important;
 }
 

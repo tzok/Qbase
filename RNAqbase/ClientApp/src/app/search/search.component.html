@@ -2,33 +2,28 @@
   <div class="container">
     <main>
       <div class="text-rectangle">
-        <h2>ONQUADRO</h2>
+        <h2>Search</h2>
       </div>
       <mat-card>
         <mat-card class="search-table mat-elevation-z2">
           <app-tooltip-button></app-tooltip-button>
-          <div class="header">
-            <div>
-              Search the table
-            </div>
-          </div>
           <mat-card-content>
             <div class="search-container mat-elevation-z0">
               <mat-table #table [dataSource]="dataSource">
                 <ng-container matColumnDef="attribute">
                   <mat-header-cell *matHeaderCellDef>Attribute</mat-header-cell>
                   <mat-cell *matCellDef="let element">
-                    <app-attribute-cell [content]="element.attribute" [name]="element.attribute"></app-attribute-cell>
+                    <app-attribute-cell [content]="element.attrName" [attrType]="element.attrType" [ID]="element.attrID"></app-attribute-cell>
                   </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="conditions">
                   <mat-header-cell *matHeaderCellDef>Conditions</mat-header-cell>
                   <mat-cell *matCellDef="let element">
                     <ng-container *ngIf="element.rowType === 'addable'">
-                      <app-row-cond-addable [rowName]="element.attribute" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-addable>
+                      <app-row-cond-addable [rowAttrID]="element.attrID" [rowAttrName]="element.attrName" [rowElements]="element" [rowType]="element.rowType" [resetEvent]="triggerReset" [searchEvent]="triggerSearch" (searchResponse)="collectRowElements($event)"></app-row-cond-addable>
                     </ng-container>
                     <ng-container *ngIf="element.rowType !== 'addable'">
-                      <app-row-cond-nonaddable [rowName]="element.attribute" [rowElements]="element" [rowType]="element.rowType"></app-row-cond-nonaddable>
+                      <app-row-cond-nonaddable [rowAttrID]="element.attrID" [rowElements]="element" [rowType]="element.rowType" [resetEvent]="triggerReset" [searchEvent]="triggerSearch" (searchResponse)="collectRowElements($event)"></app-row-cond-nonaddable>
                     </ng-container>
                   </mat-cell>
                 </ng-container>
@@ -36,8 +31,8 @@
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
               <div class="buttonRow">
-                <app-button [label]="buttonLabelReset"></app-button>
-                <app-button [label]="buttonLabelSearch"></app-button>
+                <app-button [label]="buttonLabelReset" (buttonClickedEvent)="rsEvent($event)"></app-button>
+                <app-button [label]="buttonLabelSearch" (buttonClickedEvent)="rsEvent($event)"></app-button>
               </div>
             </div>
           </mat-card-content>

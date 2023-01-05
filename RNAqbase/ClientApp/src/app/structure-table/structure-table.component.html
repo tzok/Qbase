@@ -11,7 +11,7 @@
           </div>
 
           <mat-form-field appearance="fill">
-            <mat-select value="pdbIdentifier" (selectionChange)="changeFilterPredicate($event)">
+            <mat-select value="pdbIdentifier" [(value)]="defaultDisplayedColumn" (selectionChange)="changeFilterPredicate($event)">
               <mat-option *ngFor="let column of columnNames; index as i" [value]="displayedColumns[i]">
                 {{column}}
               </mat-option>

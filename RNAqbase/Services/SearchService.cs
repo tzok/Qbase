@@ -46,6 +46,8 @@ JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
+LEFT JOIN citation ON citation.pdb_id = p.id
+LEFT JOIN citation_author ON citation_id = citation.id
 ");
         public SearchService(ISearchRepository searchRepository)
         {
@@ -54,6 +56,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 
         public async Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters)
         {
+            Filter.ParameterDictionary.Clear();
             bool isFirst = true;
             StringBuilder queryToHavingSB = new StringBuilder("");
             foreach (Filter filter in filters)
@@ -83,7 +86,7 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
             }
 
             string query = $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
-            return await searchRepository.GetAllResults(query);
+            return await searchRepository.GetAllResults(query, Filter.ParameterDictionary);
         }
 
         public async Task<List<string>> GetExperimentalMethod() =>
@@ -92,7 +95,13 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
         public async Task<List<string>> GetONZ() =>
             await searchRepository.GetONZ();
 
+        public async Task<List<string>> GetIons() =>
+            await searchRepository.GetIons();
+            
         public async Task<List<string>> GetMoleculeType() =>
             await searchRepository.GetMoleculeType();
+
+        public async Task<List<string>> GetWebbaDaSilva() =>
+           await searchRepository.GetWebbaDaSilva();
     }
 }

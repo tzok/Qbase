@@ -12,30 +12,48 @@ namespace RNAqbase.BackEnd
     {
         protected override Filter Create(Type objectType, JObject jObject)
         {
-            switch (jObject["Attribute"].ToString())
+            switch (jObject["attrID"].ToString())
             {
-                case "Experimental Method":
-                    return new ExperimentalMethodFilter();
-                case "ONZ class":
-                    return new ONZFilter();
-                case "PDB ID":
+                case "pdbID":
                     return new PDBIDFilter();
-                case "Number of tetrads":
-                    return new NoTetradsFilter();
-                case "Type (by no. of strands)":
-                    return new TypeFilter();
-                case "Molecule Type":
-                    return new MoleculeTypeFilter();
-                case "PDB Deposition":
+                case "authorName":
+                    return new AuthorFilter();
+                case "pdbDeposition":
                     return new PDBDepositionFilter();
-                case "Bulges":
+                case "keyword":
+                    return new DummyFilter();
+                case "expMethod":
+                    return new ExperimentalMethodFilter();
+                case "molType":
+                    return new MoleculeTypeFilter();
+                case "sequence":
+                    return new DummyFilter();
+                case "ions":
+                    return new DummyFilter();
+                case "typeNoStrands":
+                    return new TypeFilter();
+                case "noOfTetrads":
+                    return new NoTetradsFilter();
+                case "Ions":
+                    return new IonsFilter();
+                case "gtractSeq":
+                    return new DummyFilter();
+                case "loopLen":
+                    return new LoopLengthFilter();
+                case "bulges":
                     return new BulgesFilter();
+                case "vLoops":
+                    return new V_LoopsFilter();
+                case "webbaDaSilva":
+                    return new WebbaDaSilvaFilter();
+                case "onzClass":
+                    return new ONZFilter();
                 case "Sequence Of Tetrads":
                     return new SequenceOfTetradsFilter();
                 case "Sequence Of Quadruplex":
                     return new SequenceOfQuadruplexFilter();
                 default:
-                    return null;
+                    return new DummyFilter();
             }
         }
 

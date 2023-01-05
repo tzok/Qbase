@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
 import * as JSZip from 'jszip';
 import { DomSanitizer } from '@angular/platform-browser';
-import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
+import { Visualization3DComponent } from "../visualization3-d/visualization3-d.component";
 import { saveAs } from "file-saver";
 
 @Component({
@@ -46,66 +46,66 @@ export class QuadruplexComponent implements OnInit {
         this.data.id = 'Q' + this.data.id;
         this.csvData = JSON.parse(JSON.stringify(this.data));
 
-        this.http.get<number[]>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexesByPdbId?pdbId=' + this.data.pdbId +'&quadruplexId=' + this.quadruplexId).subscribe(result => {
-            if (result) {
-                this.data.quadruplexesInTheSamePdb = result;
-                this.csvData.quadruplexesInTheSamePdb = result.join(';');
+        this.http.get<number[]>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexesByPdbId?pdbId=' + this.data.pdbId + '&quadruplexId=' + this.quadruplexId).subscribe(result => {
+          if (result) {
+            this.data.quadruplexesInTheSamePdb = result;
+            this.csvData.quadruplexesInTheSamePdb = result.join(';');
+          }
+          else this.data.quadruplexesInTheSamePdb = [];
+          this.http.get<Tetrad[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetrads?id=' + '' + this.quadruplexId).subscribe(result => {
+            this.tetrads = result;
+
+            this.data.tetrads = this.tetrads.map(({ id }) => id);
+            this.csvData.tetrads = this.data.tetrads.join(';');
+            for (let val of result) {
+              val.id = 'T' + val.id;
+              val.tetrad2_id = 'T' + val.tetrad2_id;
+            }
+
+            for (let val of result) {
+              if (val.tetrad2_id.slice(1) != 0) {
+                this.tetradsPairsTable.push({
+                  TetradId: val.id,
+                  TetradPairId: val.tetrad2_id,
+                  twist: val.twist,
+                  rise: val.rise,
+                  direction: val.direction
+                });
               }
-              else this.data.quadruplexesInTheSamePdb = [];
-              this.http.get<Tetrad[]>(this.baseUrl + '' + 'api/Tetrad/GetListOfTetrads?id=' + '' + this.quadruplexId).subscribe(result => {
-                  this.tetrads = result;
+            }
 
-                this.data.tetrads = this.tetrads.map(({ id }) => id);
-                this.csvData.tetrads = this.data.tetrads.join(';');
-                  for (let val of result) {
-                    val.id = 'T' + val.id;
-                    val.tetrad2_id = 'T' + val.tetrad2_id;
-                  }
-
-                  for (let val of result) {
-                    if (val.tetrad2_id.slice(1) != 0) {
-                      this.tetradsPairsTable.push({
-                        TetradId: val.id,
-                        TetradPairId: val.tetrad2_id,
-                        twist: val.twist,
-                        rise: val.rise,
-                        direction: val.direction
-                      });
-                    }
-                  }
-
-                for (let val of result) {
-                    this.tetradsTable.push({
-                      id: val.id,
-                      sequence: val.sequence,
-                      onzClass: val.onzClass,
-                      planarity: val.planarity
-                    });
-                }
-                  this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Quadruplex/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
-                    this.nucleotideChiValues = result;
-                    for (let val of this.nucleotideChiValues){
-                      val.tetrad_id = 'T' + val.tetrad_id;
-                    }
-                  }, error => console.error(error));
-
-                this.http.get<QuadruplexLoops[]>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexLoops?id=' + '' + this.data.id.slice(1)).subscribe(result => {
-                  this.quadruplexLoops = result;
-                  let counter = 1;
-                  for (let val of this.quadruplexLoops) {
-                    val.id = 'L' + counter.toString()
-                    val.loop_length = val.short_sequence.length;
-                    counter = counter + 1;
-                  }
-                }, error => console.error(error));
-                this.http.get<Ions[]>(this.baseUrl + '' + 'api/Quadruplex/GetIons?id=' + '' + this.data.pdbId).subscribe(result => {
-                  this.ions = result;
-                }, error => console.error(error));
-
-
-              }, error => console.error(error));
+            for (let val of result) {
+              this.tetradsTable.push({
+                id: val.id,
+                sequence: val.sequence,
+                onzClass: val.onzClass,
+                planarity: val.planarity
+              });
+            }
+            this.http.get<NucleotideChiValues[]>(this.baseUrl + '' + 'api/Quadruplex/GetNucleotideChiValues?id=' + '' + this.data.id.slice(1)).subscribe(result => {
+              this.nucleotideChiValues = result;
+              for (let val of this.nucleotideChiValues) {
+                val.tetrad_id = 'T' + val.tetrad_id;
+              }
             }, error => console.error(error));
+
+            this.http.get<QuadruplexLoops[]>(this.baseUrl + '' + 'api/Quadruplex/GetQuadruplexLoops?id=' + '' + this.data.id.slice(1)).subscribe(result => {
+              this.quadruplexLoops = result;
+              let counter = 1;
+              for (let val of this.quadruplexLoops) {
+                val.id = 'L' + counter.toString()
+                val.loop_length = val.short_sequence.length;
+                counter = counter + 1;
+              }
+            }, error => console.error(error));
+            this.http.get<Ions[]>(this.baseUrl + '' + 'api/Quadruplex/GetIons?id=' + '' + this.data.pdbId).subscribe(result => {
+              this.ions = result;
+            }, error => console.error(error));
+
+
+          }, error => console.error(error));
         }, error => console.error(error));
+      }, error => console.error(error));
     });
   }
   ngOnDestroy() {
@@ -148,29 +148,29 @@ export class QuadruplexComponent implements OnInit {
                   .subscribe(data => {
                     this._3d_layers = data;
 
-                  var zip =new JSZip();
-                  let quadruplex = this.generateFile([this.csvData])
-                  let tetrads = this.generateFile(this.tetradsTable)
-                  let tetradsPairs = this.generateFile(this.tetradsPairsTable)
-                  let nucleotides = this.generateFile(this.nucleotideChiValues);
-                  let loops = this.generateFile(this.quadruplexLoops);
-                  if(this.ions.length!=0) {
-                    let ions = this.generateFile(this.ions);
-                    zip.file("ions" + ".csv", ions)
-                  }
-                  zip.file("3d_structure.png", this._3d_structure);
-                  zip.file("2d_structure_varna.svg", this._2d_structure_varna);
-                  zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
-                  zip.file("3d_structure_layers.svg", this._3d_layers);
-                  zip.file("quadruplex" + ".csv", quadruplex);
-                  zip.file("tetrads" + ".csv", tetrads);
-                  zip.file("tetrads_pairs" + ".csv", tetradsPairs)
-                  zip.file("nucleotides_in_quadruplex" + ".csv", nucleotides)
-                  zip.file("quadruplex_loops" + ".csv", loops)
-                  zip.generateAsync({ type: "blob" })
-                    .then(blob => saveAs(blob,'quadruplex-Q' + this.quadruplexId + '.zip'));
+                    var zip = new JSZip();
+                    let quadruplex = this.generateFile([this.csvData])
+                    let tetrads = this.generateFile(this.tetradsTable)
+                    let tetradsPairs = this.generateFile(this.tetradsPairsTable)
+                    let nucleotides = this.generateFile(this.nucleotideChiValues);
+                    let loops = this.generateFile(this.quadruplexLoops);
+                    if (this.ions.length != 0) {
+                      let ions = this.generateFile(this.ions);
+                      zip.file("ions" + ".csv", ions)
+                    }
+                    zip.file("3d_structure.png", this._3d_structure);
+                    zip.file("2d_structure_varna.svg", this._2d_structure_varna);
+                    zip.file("2d_structure_rchie.svg", this._2d_structure_rchie);
+                    zip.file("3d_structure_layers.svg", this._3d_layers);
+                    zip.file("quadruplex" + ".csv", quadruplex);
+                    zip.file("tetrads" + ".csv", tetrads);
+                    zip.file("tetrads_pairs" + ".csv", tetradsPairs)
+                    zip.file("nucleotides_in_quadruplex" + ".csv", nucleotides)
+                    zip.file("quadruplex_loops" + ".csv", loops)
+                    zip.generateAsync({ type: "blob" })
+                      .then(blob => saveAs(blob, 'quadruplex-Q' + this.quadruplexId + '.zip'));
 
-                });
+                  });
               });
           });
       });
@@ -183,7 +183,7 @@ export class QuadruplexComponent implements OnInit {
     csv.unshift(header.join(','));
     let csvArray = csv.join('\r\n');
 
-    return  new Blob([csvArray], {type: 'text/csv' })
+    return new Blob([csvArray], { type: 'text/csv' })
   }
 }
 
@@ -233,7 +233,7 @@ interface TetradPairsInformations {
   direction: string;
 }
 
-interface NucleotideChiValues{
+interface NucleotideChiValues {
   tetrad_id: any;
   n1_chi: number;
   n1_glycosidic_bond: string;
@@ -245,7 +245,7 @@ interface NucleotideChiValues{
   n4_glycosidic_bond: string;
 }
 
-interface QuadruplexLoops{
+interface QuadruplexLoops {
   id: string;
   short_sequence: string;
   full_sequence: string;
@@ -253,7 +253,7 @@ interface QuadruplexLoops{
   loop_length: number;
 }
 
-interface Ions{
+interface Ions {
   count: number;
   ion: string;
   ion_charge: string;
