@@ -12,7 +12,6 @@ namespace RNAqbase.Models.Search
         public SequenceOfQuadruplexFilter()
         {
             FieldInSQL = "q.dot_bracket";
-            joinType = JoinType.Having;
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
@@ -41,18 +40,19 @@ namespace RNAqbase.Models.Search
                 {"N", "ACGTU"},
                 {"-", "-"}
             };
-            //StringBuilder querySB = new StringBuilder($"({FieldInSQL} ");
+            StringBuilder querySB = new StringBuilder("");
             for (int i = 0; i < Conditions.Count; i++)
             {
-                StringBuilder querySB = new StringBuilder($"({FieldInSQL} ~ '");
-                foreach (var letter in Conditions[i].Value)
-                {
-                    querySB.Append($"[{codes[letter.ToString()]}]");
-                }
-                return querySB.ToString() + "')";
-
+                querySB.Append($"{codes[Conditions[i].Value.ToString()]}|");
             }
-            return "";
+
+            foreach (string key in codes.Keys)
+            {
+                querySB.Replace(key, codes[key]);
+            }
+            querySB.Length--;
+            querySB.Insert(0, $"((SELECT * FROM remove_dots({FieldInSQL})) ~* '");
+            return querySB + "')";
         }
     }
 }

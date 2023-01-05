@@ -58,13 +58,13 @@ namespace RNAqbase.Models.Search
                     querySB.Append($"{permutation}|");
                 }
             }
-            
+         
             foreach (string key in codes.Keys)
             {
                 querySB.Replace(key, codes[key]);
             }
             querySB.Length--;
-            querySB.Insert(0, $"'({FieldInSQL} ~* '");
+            querySB.Insert(0, $"({FieldInSQL} ~* '");
             return querySB + "')";
         }
         public static IEnumerable<string> GetPermutations(string input)
