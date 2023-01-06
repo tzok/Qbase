@@ -21,7 +21,7 @@ namespace RNAqbase.BackEnd
                 case "pdbDeposition":
                     return new PDBDepositionFilter();
                 case "keyword":
-                    return new DummyFilter();
+                    return new KeywordFilter();
                 case "expMethod":
                     return new ExperimentalMethodFilter();
                 case "molType":
