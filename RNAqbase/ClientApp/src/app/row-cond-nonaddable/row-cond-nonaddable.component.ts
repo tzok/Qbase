@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { forEach } from 'jszip';
+import { AttrHttpGetService } from '../attr-http-get.service';
 import { CondCommPckt } from '../cond-comm-pckt';
 import { Condition } from '../condition';
 import { ElementsFocus } from '../elements-focus';
@@ -22,6 +24,8 @@ export class RowCondNonaddableComponent implements OnInit {
   @Input() searchEvent: EventEmitter<any>;
   @Output() searchResponse = new EventEmitter<RowAttrPckt>();
 
+  constructor(private httpService: AttrHttpGetService) { }
+
   msg = <RowCommPckt>{ clickInvoker: '', eventReceiver: '' };
   rowElementsStatus: ElementsFocus = {};
 
@@ -37,6 +41,9 @@ export class RowCondNonaddableComponent implements OnInit {
       this.handleSearchReq();
     });
     this.rowData = this.rowElements;
+    if (this.rowData.conditions.length === 1) {
+      this.setRowData();
+    }
     for (let i of this.rowData.conditions) {
       this.rowElementsStatus[i.value] = false;
     }
@@ -104,5 +111,13 @@ export class RowCondNonaddableComponent implements OnInit {
       }
     }
     this.searchResponse.emit({ attrID: this.rowAttrID, conditions: array });
+  }
+
+  setRowData() {
+    this.httpService.getData(this.rowAttrID).subscribe(result => {
+      for (let i in result) {
+        this.rowData.conditions.push({value: result[i].trim(), operator: '' });
+      }
+    });
   }
 }
