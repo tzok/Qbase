@@ -16,5 +16,4 @@ export class WebbaDaSilvaDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

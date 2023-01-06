@@ -54,12 +54,16 @@ LEFT JOIN citation_author ON citation_id = citation.id
             this.searchRepository = searchRepository;
         }
 
-        public async Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters)
+        public async Task<List<QuadruplexTable>> GetAllResults()
         {
             Filter.ParameterDictionary.Clear();
             bool isFirst = true;
             StringBuilder queryToHavingSB = new StringBuilder("");
-            foreach (Filter filter in filters)
+            if (Filter.Filters == null) 
+            {
+                return await searchRepository.GetAllResults($"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1)", Filter.ParameterDictionary);
+            }
+            foreach (Filter filter in Filter.Filters)
             {
                 string queryFilter = filter.JoinConditions();
                 if (queryFilter == "")

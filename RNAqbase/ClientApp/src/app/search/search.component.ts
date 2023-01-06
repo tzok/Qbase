@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ButtonEventRs } from '../button-event-rs';
 import { RowAttrPckt } from '../row-attr-pckt';
 import { TableContent } from '../table-content.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +21,7 @@ export class SearchComponent {
   dataSource = Object.values(TableContent).map((v) => JSON.parse(v));
   httpSearchData: RowAttrPckt[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router, @Inject('BASE_URL') private baseUrl: string) { }
 
   rsEvent(pckt: ButtonEventRs) {
     if (pckt.reset) {
@@ -34,14 +35,15 @@ export class SearchComponent {
   collectRowElements(conds: RowAttrPckt) {
     this.httpSearchData.push(conds);
     if (this.httpSearchData.length === this.dataSource.length) {
-      this.getResult();
+      this.postFilters();
     }
   }
 
-  getResult() {
-    this.http.post('http://localhost:5000/api/Search/PostAndGetResults',
-      this.httpSearchData)
-      .subscribe(data => console.log(JSON.stringify(data)));
+  postFilters() {
+    this.http.post(this.baseUrl + 'api/Search/PostFilters',
+      this.httpSearchData).subscribe(result => {
+        this.router.navigate(['/quadruplexes'], { queryParams: { r: 'search' } });
+      });
     this.httpSearchData.splice(0);
   }
 }
