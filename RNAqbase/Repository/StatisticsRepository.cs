@@ -23,7 +23,11 @@ namespace RNAqbase.Repository
 
 				return (await connection.QueryAsync<Statistics>(
 					@"
-					SELECT sequence,
+					SELECT
+					(select string_agg(a, '') 
+					from (
+					  select unnest(regexp_split_to_array(sequence, '')) as a 
+					  order by a) s) as sequence,
 					SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
 					SUM(CASE tv.molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
 					SUM(CASE tv.molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
@@ -31,7 +35,10 @@ namespace RNAqbase.Repository
 					FROM tetrad_view tv
 					JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
 					WHERE qv.count > 1
-					GROUP BY sequence
+					GROUP BY (select string_agg(a, '') 
+					from (
+					  select unnest(regexp_split_to_array(sequence, '')) as a 
+					  order by a) s)
 					UNION ALL
 					SELECT 'Total',
 					SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
