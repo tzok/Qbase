@@ -12,7 +12,8 @@ export class DialogChoice {
     "noOfTetrads": ValOperDialogComponent,
     "pdbDeposition": ValOperDialogComponent,
     "gtractSeq": ValueDialogComponent,
-    "sequence": ValOperDialogComponent,
+    "seqOfTetrads": ValueDialogComponent,
+    "seqOfQuad": ValueDialogComponent,
     "webbaDaSilva": WebbaDaSilvaDialogComponent,
     "loopLen": ValOperDialogComponent
   }
@@ -42,7 +43,8 @@ export class DialogChoice {
     "noOfTetrads": { type: 'number', maxLength: 100 },
     "pdbDeposition": { type: 'date', maxLength: 10 },
     "loopLen": {type: 'number', maxLength: 300},
-    "sequence": { type: 'text', maxLength: 200 }
+    "seqOfTetrads": { type: 'text', maxLength: 4 },
+    "seqOfQuad": { type: 'text', maxLength: 200 }
   }
 
   public static decodedOperators = {

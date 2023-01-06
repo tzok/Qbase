@@ -45,7 +45,6 @@ export class QuadruplexTableComponent implements OnInit {
           this.http.get<Quadruplex[]>(this.baseUrl + 'api/Search/GetResults').subscribe(result => {
             this.csvData = JSON.parse(JSON.stringify(result));
             this.rawResult = result;
-            console.log("im from search");
             this.setTableValues();
           },
             error => console.error(error));
@@ -55,7 +54,6 @@ export class QuadruplexTableComponent implements OnInit {
         this.http.get<Quadruplex[]>(this.baseUrl + 'api/Quadruplex/GetQuadruplexes').subscribe(result => {
           this.csvData = JSON.parse(JSON.stringify(result));
           this.rawResult = result;
-          console.log("im from home");
           this.setTableValues();
         },
           error => console.error(error));
