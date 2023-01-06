@@ -26,8 +26,6 @@ namespace RNAqbase.BackEnd
                     return new ExperimentalMethodFilter();
                 case "molType":
                     return new MoleculeTypeFilter();
-                case "sequence":
-                    return new DummyFilter();
                 case "ions":
                     return new DummyFilter();
                 case "typeNoStrands":
@@ -48,6 +46,10 @@ namespace RNAqbase.BackEnd
                     return new WebbaDaSilvaFilter();
                 case "onzClass":
                     return new ONZFilter();
+                case "seqOfTetrads":
+                    return new SequenceOfTetradsFilter();
+                case "seqOfQuad":
+                    return new SequenceOfQuadruplexFilter();
                 default:
                     return new DummyFilter();
             }
