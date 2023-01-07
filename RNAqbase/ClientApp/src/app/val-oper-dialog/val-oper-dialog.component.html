@@ -5,17 +5,17 @@
     <div class="formDialog">
       <mat-form-field>
         <mat-label>Enter condition value</mat-label>
-        <input [type]="data.inputProperties.type" [maxlength]="data.inputProperties.maxLength" matInput [(ngModel)]="data.value">
+        <input [type]="data.inputProperties.type" [maxlength]="data.inputProperties.maxLength" matInput [(ngModel)]="value">
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Select operator" [(ngModel)]="data.operator">
+        <mat-select placeholder="Select operator" [(ngModel)]="operator">
           <mat-option *ngFor="let operator of data.operators" [value]="operator.value" [innerHTML]="operator.viewValue"></mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="primary" [mat-dialog-close]="data" [disabled]="!(data.operator && data.value?.trim())">Add</button>
+    <button mat-raised-button class="primary" (click)="onAddClick()" [disabled]="!(operator && value?.trim())">Add</button>
     <button mat-raised-button (click)="onNoClick()">Cancel</button>
   </div>
 </div>
