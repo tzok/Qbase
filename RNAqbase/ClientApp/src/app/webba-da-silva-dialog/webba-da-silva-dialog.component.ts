@@ -10,18 +10,21 @@ import { DialogData } from '../dialog-data';
 })
 export class WebbaDaSilvaDialogComponent {
   conditions: string[] = [];
+  selectedConditions = {};
   constructor(
     public dialogRef: MatDialogRef<WebbaDaSilvaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private httpService: AttrHttpGetService) { }
 
   ngOnInit() {
-    this.httpService.getData('webbaDaSilva').subscribe(result => {
+    //'webbaDaSilva'
+    this.httpService.getData('ions').subscribe(result => {
       for (let i in result) {
         this.conditions.push(result[i].trim());
       }
     });
   }
   onNoClick(): void {
+    console.log(this.selectedConditions);
     this.dialogRef.close();
   }
 

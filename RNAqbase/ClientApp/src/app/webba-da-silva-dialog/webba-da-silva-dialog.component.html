@@ -3,11 +3,9 @@
   <div mat-dialog-content>
     <p>Chose condition:</p>
     <div class="formDialog">
-      <mat-radio-group class="example-radio-group" [(ngModel)]="data.value">
-        <mat-radio-button class="example-radio-button" *ngFor="let condition of conditions" [value]="condition">
+      <mat-checkbox *ngFor="let condition of conditions" [(ngModel)]="selectedConditions[condition]" disableRipple>
           {{condition}}
-        </mat-radio-button>
-      </mat-radio-group>
+      </mat-checkbox>
     </div>
   </div>
   <div mat-dialog-actions>
