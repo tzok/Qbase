@@ -23,35 +23,40 @@ namespace RNAqbase.Models.Search
                 return "";
             }
             var codes = new Dictionary<string, string>(){
-                {"A", "A"},
-                {"C", "C"},
-                {"G", "G"},
-                {"T", "T"},
-                {"U", "U"},
-                {"R", "[AG]"},
-                {"Y", "[CTU]"},
-                {"K", "[GTU]"},
-                {"M", "[AC]"},
-                {"S", "[CG]"},
-                {"W", "[ATU]"},
-                {"B", "[CGTU]"},
-                {"D", "[AGTU]"},
-                {"H", "[ACTU]"},
-                {"V", "[ACG]"},
-                {"N", "[ACGTU]"},
+                {"A", "[Aa]"},
+                {"C", "[Cc]"},
+                {"G", "[Gg]"},
+                {"T", "[Tt]"},
+                {"U", "[Uu]"},
+                {"R", "[AGag]"},
+                {"Y", "[CTUctu]"},
+                {"K", "[GTUgtu]"},
+                {"M", "[ACac]"},
+                {"S", "[CGcg]"},
+                {"W", "[ATUatu]"},
+                {"B", "[CGTUcgtu]"},
+                {"D", "[AGTUagtu]"},
+                {"H", "[ACTUactu]"},
+                {"V", "[ACGacg]"},
+                {"N", "[ACGTUacgtu]"},
                 {"-", "-"}
             };
             StringBuilder querySB = new StringBuilder("");
             for (int i = 0; i < Conditions.Count; i++)
             {
-                if (Conditions[i].Value.Length == 2)
+                var condition = Conditions[i].Value.ToUpper();
+                if (condition.Length == 1)
                 {
-                    Conditions[i].Value += "NN";
+                    condition += "NNN";
                 }
-                else if (Conditions[i].Value.Length == 3){
-                    Conditions[i].Value += "N";
+                else if (condition.Length == 2)
+                {
+                    condition += "NN";
                 }
-                string[] permutations = GetPermutations(Conditions[i].Value).ToArray();
+                else if (condition.Length == 3){
+                    condition += "N";
+                }
+                string[] permutations = GetPermutations(condition).ToArray();
                 IEnumerable<string> distinctPermutations = permutations.Distinct();
                 foreach (string permutation in distinctPermutations)
                 {
