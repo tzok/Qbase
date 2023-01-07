@@ -16,7 +16,7 @@ export class AddButtonComponent implements OnInit {
   @Input() rootAttrID: string;
   @Input() rootAttrName: string;
   @Input() disable: boolean;
-  @Output() newConditionEvent = new EventEmitter<Condition>();
+  @Output() newConditionEvent = new EventEmitter<Condition[]>();
 
   isDisabled: boolean;
 
@@ -38,7 +38,7 @@ export class AddButtonComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogChoice.chooseDialog(this.rootAttrID), {
-      data: { attrID: this.rootAttrID, attrName: this.rootAttrName, value: "", operator: "", operators: DialogChoice.chooseOperators(this.rootAttrID), inputProperties: DialogChoice.chooseInputProperties(this.rootAttrID) }
+      data: { attrID: this.rootAttrID, attrName: this.rootAttrName, conditions: [], operators: DialogChoice.chooseOperators(this.rootAttrID), inputProperties: DialogChoice.chooseInputProperties(this.rootAttrID) }
     });
 
 
@@ -49,6 +49,7 @@ export class AddButtonComponent implements OnInit {
   }
 
   emitAddedCondition(data: DialogData) {
-    this.newConditionEvent.emit({ value: data.value, operator: data.operator });
+    console.log(data);
+    this.newConditionEvent.emit(data.conditions);
   }
 }
