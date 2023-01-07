@@ -31,13 +31,11 @@ namespace RNAqbase.BackEnd
                 case "seqOfQuad":
                     return new SequenceOfQuadruplexFilter();
                 case "ions":
-                    return new DummyFilter();
+                    return new IonsFilter();
                 case "typeNoStrands":
                     return new TypeFilter();
                 case "noOfTetrads":
                     return new NoTetradsFilter();
-                case "Ions":
-                    return new IonsFilter();
                 case "gtractSeq":
                     return new DummyFilter();
                 case "loopLen":

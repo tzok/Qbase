@@ -63,9 +63,11 @@ namespace RNAqbase.Models.Search
             {
                 querySB.Replace(key, codes[key]);
             }
+
             querySB.Length--;
-            querySB.Insert(0, $"({FieldInSQL} ~* '");
-            return querySB + "')";
+            string query = $"({FieldInSQL} ~* @{ParameterDictionary.Count})";
+            ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{querySB}");
+            return query;
         }
         public static IEnumerable<string> GetPermutations(string input)
         {

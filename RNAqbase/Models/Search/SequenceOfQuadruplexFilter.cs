@@ -51,8 +51,10 @@ namespace RNAqbase.Models.Search
                 querySB.Replace(key, codes[key]);
             }
             querySB.Length--;
-            querySB.Insert(0, $"((SELECT * FROM remove_dots({FieldInSQL})) ~* '");
-            return querySB + "')";
+            string query = $"((SELECT * FROM remove_dots({FieldInSQL})) ~* @{ParameterDictionary.Count})";
+            ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{querySB}");
+            return query;
+
         }
     }
 }
