@@ -36,12 +36,14 @@ export class RowCondAddableComponent implements OnInit {
     this.checkCondCount();
   }
 
-  addCondition(cond: Condition) {
-    if (!this.rowData.conditions.some(element => JSON.stringify(element).toLowerCase() == JSON.stringify(cond).toLowerCase()))
-      this.rowData.conditions.push(cond);
-    else
-      this.openSnackBar();
-    this.checkCondCount();
+  addConditions(conds: Condition[]) {
+    for (let cond of conds) {
+      if (!this.rowData.conditions.some(element => JSON.stringify(element).toLowerCase() == JSON.stringify(cond).toLowerCase()))
+        this.rowData.conditions.push(cond);
+      else
+        this.openSnackBar();
+      this.checkCondCount();
+    }
   }
 
   removeCond(cond: Condition) {
