@@ -25,10 +25,13 @@ namespace RNAqbase.Models.Search
 
             if (authorNotLike.Any())
             {
-                query += $"{FieldInSQL} NOT IN ('{authorNotLike[0].Value}'";
+                query += $"{FieldInSQL} NOT IN (@{ParameterDictionary.Count}";
+                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[0].Value}");
+
                 for (int i = 1; i < authorNotLike.Count; i++)
                 {
-                    query += $", '{authorNotLike[i].Value}'";
+                    query += $", @{ParameterDictionary.Count}";
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value}");
                 }
             }
 
@@ -39,10 +42,12 @@ namespace RNAqbase.Models.Search
                     query += ") AND ";
                 }
 
-                query += $"{FieldInSQL} IN ('{authorLike[0].Value}'";
+                query += $"{FieldInSQL} IN (@{ParameterDictionary.Count}";
+                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[0].Value}");
                 for (int i = 1; i < authorLike.Count; i++)
                 {
-                    query += $", \"'{authorLike[i].Value}'\"";
+                    query += $", \"@{ParameterDictionary.Count}\"";
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value}");
                 }
             }
 
