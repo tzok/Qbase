@@ -11,6 +11,7 @@ import { DialogData } from '../dialog-data';
 export class WebbaDaSilvaDialogComponent {
   conditions: string[] = [];
   selectedConditions = {};
+
   constructor(
     public dialogRef: MatDialogRef<WebbaDaSilvaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private httpService: AttrHttpGetService) { }
@@ -24,8 +25,18 @@ export class WebbaDaSilvaDialogComponent {
     });
   }
   onNoClick(): void {
-    console.log(this.selectedConditions);
     this.dialogRef.close();
   }
 
+  onAddClick(): void {
+    for (let val in this.selectedConditions) {
+      if (this.selectedConditions[val])
+        this.data.conditions.push({value:val, operator: ''})
+    }
+    this.dialogRef.close(this.data);
+  }
+
+  buttonState(): boolean {
+    return !Object.values(this.selectedConditions).some(x => x === true)
+  }
 }
