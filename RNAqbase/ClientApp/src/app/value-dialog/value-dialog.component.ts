@@ -8,6 +8,7 @@ import { DialogData } from '../dialog-data';
   styleUrls: ['./value-dialog.component.css']
 })
 export class ValueDialogComponent {
+  value: string;
 
   constructor(
     public dialogRef: MatDialogRef<ValueDialogComponent>,
@@ -15,5 +16,10 @@ export class ValueDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onAddClick(): void {
+    this.data.conditions.push({ value: this.value, operator: '' });
+    this.dialogRef.close(this.data);
   }
 }
