@@ -41,12 +41,11 @@ export class RowCondNonaddableComponent implements OnInit {
       this.handleSearchReq();
     });
     this.rowData = this.rowElements;
-    if (this.rowData.conditions.length === 1) {
+    if (this.rowData.conditions.length === 1)
       this.setRowData();
-    }
-    for (let i of this.rowData.conditions) {
-      this.rowElementsStatus[i.value] = false;
-    }
+    else
+      for (let i of this.rowData.conditions)
+        this.rowElementsStatus[i.value] = false;
   }
 
   private clickEventLogic(childPckt: CondCommPckt) {
@@ -115,9 +114,10 @@ export class RowCondNonaddableComponent implements OnInit {
 
   setRowData() {
     this.httpService.getData(this.rowAttrID).subscribe(result => {
-      for (let i in result) {
-        this.rowData.conditions.push({value: result[i].trim(), operator: '' });
-      }
+      for (let i in result)
+        this.rowData.conditions.push({ value: result[i].trim(), operator: '' });
+      for (let i of this.rowData.conditions)
+        this.rowElementsStatus[i.value] = false;
     });
   }
 }

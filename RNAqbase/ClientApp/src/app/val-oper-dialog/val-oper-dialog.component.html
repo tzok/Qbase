@@ -15,7 +15,7 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button class="primary" (click)="onAddClick()" [disabled]="!(operator && value?.trim())">Add</button>
+    <button mat-raised-button class="primary" (click)="onAddClick()" [disabled]="buttonState()">Add</button>
     <button mat-raised-button (click)="onNoClick()">Cancel</button>
   </div>
 </div>
