@@ -16,7 +16,6 @@ export class ValOperDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   onNoClick(): void {
-    console.log(this.data.conditions);
     this.dialogRef.close(false);
   }
 

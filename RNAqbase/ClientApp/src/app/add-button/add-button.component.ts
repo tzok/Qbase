@@ -49,7 +49,6 @@ export class AddButtonComponent implements OnInit {
   }
 
   emitAddedCondition(data: DialogData) {
-    console.log(data);
     this.newConditionEvent.emit(data.conditions);
   }
 }
