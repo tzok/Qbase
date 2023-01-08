@@ -14,6 +14,7 @@ import { SnackbarDuplicateCondComponent } from '../snackbar-duplicate-cond/snack
 export class RowCondAddableComponent implements OnInit {
   rowData: RowElements;
   @Input() rowAttrID: string;
+  @Input() rowAttrType: string;
   @Input() rowAttrName: string;
   @Input() rowType: string;
   @Input() rowElements: RowElements;

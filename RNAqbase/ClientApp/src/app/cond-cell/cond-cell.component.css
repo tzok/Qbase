@@ -13,6 +13,14 @@
   border-radius: 10px 10px 10px 10px;
 }
 
+.struct {
+  background-color: rgba(184, 224, 222, 0.4) !important;
+}
+
+.meta {
+  background-color: rgba(254, 234, 172, 0.35) !important;
+}
+
 app-delete-button {
   display: none;
 }

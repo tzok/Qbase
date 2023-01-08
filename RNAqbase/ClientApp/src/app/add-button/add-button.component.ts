@@ -14,6 +14,7 @@ export class AddButtonComponent implements OnInit {
   @Input('name') elementName: string;
   @Input() content: string;
   @Input() rootAttrID: string;
+  @Input() rootAttrType: string;
   @Input() rootAttrName: string;
   @Input() disable: boolean;
   @Output() newConditionEvent = new EventEmitter<Condition[]>();
@@ -50,5 +51,12 @@ export class AddButtonComponent implements OnInit {
 
   emitAddedCondition(data: DialogData) {
     this.newConditionEvent.emit(data.conditions);
+  }
+
+  attrTypeCheck() {
+    if (this.rootAttrType === 'meta')
+      return true;
+    else
+      return false;
   }
 }

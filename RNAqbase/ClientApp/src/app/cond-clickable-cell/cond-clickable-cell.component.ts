@@ -10,6 +10,7 @@ import { RowCommPckt } from '../row-comm-pckt';
 })
 export class CondClickableCellComponent {
   @Input('ID') attrID: string;
+  @Input() attrType: string;
   @Input() condData: Condition;
   @Input() eventReceiver: RowCommPckt;
   @Output() clicked = new EventEmitter<CondCommPckt>();
@@ -63,5 +64,12 @@ export class CondClickableCellComponent {
       const pckt = <CondCommPckt>{ clickInvoker: this.condData.value, clicked: true };
       this.clicked.emit(pckt);
     }
+  }
+
+  attrTypeCheck() {
+    if (this.attrType === 'meta')
+      return true;
+    else
+      return false;
   }
 }

@@ -8,6 +8,7 @@ import { Condition } from '../condition';
 })
 export class CondCellComponent {
   @Input('ID') attrID: string;
+  @Input() attrType: string;
   @Input() condData: Condition;
   @Output() deleteEvent = new EventEmitter<Condition>();
 

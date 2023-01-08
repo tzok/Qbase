@@ -28,9 +28,7 @@ export class DialogChoice {
     { value: ">=", viewValue: "\&#x2265" },
     { value: "<=", viewValue: "\&#x2264" }],
     "loopLen": [{ value: ">=", viewValue: "\&#x2265" },
-      { value: "<=", viewValue: "\&#x2264" }],
-    "seqOfTetrads": [{ value: "includes", viewValue: "includes" }],
-    "seqOfQuad": [{ value: "5\'->3\'", viewValue: "5\'->3\'"}]
+      { value: "<=", viewValue: "\&#x2264" }]
   }
 
   public static inputProperties: { [key: string]: DialogInput } = {
