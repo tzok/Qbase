@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { DialogChoice } from '../dialog-choice';
 import { DialogData } from '../dialog-data';
 
 @Component({
@@ -19,7 +20,7 @@ export class ValueDialogComponent {
   }
 
   onAddClick(): void {
-    this.data.conditions.push({ value: this.value, operator: '' });
+    this.data.conditions.push({ value: this.value, operator: DialogChoice.chooseOperators(this.data.attrID)[0].value });
     this.dialogRef.close(this.data);
   }
 
