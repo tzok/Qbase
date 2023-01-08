@@ -61,7 +61,7 @@ export class DialogChoice {
 
   public static chooseOperators(attr: string): ViewValue[] {
     let component = this.operators[attr];
-    return component;
+    return component || [{value: '', viewValue: ''}];
   }
 
   public static decodeOperators(oper: string): string {
