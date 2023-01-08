@@ -1,3 +1,3 @@
-<div id="parent" [ngClass]="{'clicked': isClicked, attrType}" (click)="clickEvent()">
+<div id="parent" [ngClass]="{'clicked': isClicked, 'meta': attrTypeCheck(), 'struct' : !attrTypeCheck()}"  (click)="clickEvent()">
   <div>{{condData.value}}</div>
 </div>

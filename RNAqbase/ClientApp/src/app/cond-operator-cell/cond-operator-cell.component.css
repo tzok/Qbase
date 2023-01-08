@@ -8,18 +8,32 @@
   padding: 8px;
   padding-left: 6px;
   padding-right: 6px;
-  background-color: rgba(72, 173, 169, 0.75);
   border-radius: 10px 0px 0px 10px;
   color: white;
 }
 
+  #operator.struct {
+    background-color: rgba(72, 173, 169, 0.75) !important;
+  }
+
+  #operator.meta {
+    background-color: rgba(239, 200, 99, 0.75) !important;
+  }
+
 #content {
-  background-color: rgba(184, 224, 222, 0.4);
   padding: 8px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 0px 10px 10px 0px;
 }
+
+  #content.struct {
+    background-color: rgba(184, 224, 222, 0.4) !important;
+  }
+
+  #content.meta {
+    background-color: rgba(254, 234, 172, 0.35) !important;
+  }
 
 app-delete-button {
   display: none;

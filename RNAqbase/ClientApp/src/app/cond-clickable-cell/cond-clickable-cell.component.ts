@@ -65,4 +65,11 @@ export class CondClickableCellComponent {
       this.clicked.emit(pckt);
     }
   }
+
+  attrTypeCheck() {
+    if (this.attrType === 'meta')
+      return true;
+    else
+      return false;
+  }
 }
