@@ -29,8 +29,8 @@
               </button>
             </mat-form-field>
           </div>
-          <a class="mat-button" (click)="openDialog()" [hidden]="areButtonsHidden" [class.disabled]="dataSource.data.length <= 0">Save table</a>
-          <a class="mat-button" (click)="openDialog()" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0">Save selected rows</a>
+          <a class="mat-button" (click)="openDialog(csvData)" [hidden]="areButtonsHidden" [class.disabled]="dataSource.data.length <= 0">Save table</a>
+          <a class="mat-button" (click)="openDialog(selection.selected)" [hidden]="areButtonsHidden" [class.disabled]="selection.selected.length <= 0">Save selected rows</a>
         </div>
         <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
           <!--Pdb Id Column -->
@@ -41,8 +41,10 @@
                 <span class="mobile-label">PDB ID<sup matTooltip="Click ID to visit PDB record">&#9432;</sup></span>
                 <a class="hasTooltip" target="_blank" rel="noopener noreferrer"
                    href="https://www.rcsb.org/structure/{{row.pdbId}}">
-                  {{row.pdbId}} <span> <img src="static/pymol/{{row.pdbId}}-assembly-{{row.assemblyId}}.png" width="200"
-                                            height="150" alt=""> </span>
+                  {{row.pdbId}} <span>
+                    <img src="static/pymol/{{row.pdbId}}-assembly-{{row.assemblyId}}.png" width="200"
+                         height="150" alt="">
+                  </span>
                 </a>
               </mat-cell>
             </ng-container>
@@ -83,9 +85,13 @@
               <mat-cell *matCellDef="let row">
                 <span class="mobile-label">Quadruplex ID</span>
                 <a *ngFor="let t of row.quadruplex_idetifier; " [routerLink]="['/quadruplex', t.slice(1)]">
-                  <a class="hasTooltip"><p style="font-size: 14px;"> {{t}} </p> <span> <img src="static/pymol/{{t}}.png"
-                                                                                            width="200" height="150"
-                                                                                            alt=""> </span></a>
+                  <a class="hasTooltip">
+                    <p style="font-size: 14px;"> {{t}} </p> <span>
+                      <img src="static/pymol/{{t}}.png"
+                           width="200" height="150"
+                           alt="">
+                    </span>
+                  </a>
                 </a>
               </mat-cell>
             </ng-container>

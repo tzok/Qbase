@@ -8,6 +8,8 @@ import { SaveFileDialogComponent } from '../save-file-dialog/save-file-dialog.co
 import { Visualization3DComponent } from "../visualization3-d/visualization3-d.component";
 import { MatSelectChange } from "@angular/material/select";
 import { ActivatedRoute } from "@angular/router";
+import { saveAs } from "file-saver";
+import * as JSZip from 'jszip';
 
 
 @Component({
@@ -144,20 +146,48 @@ export class StructureTableComponent implements OnInit {
     this.refreshTable(this.dataSource.filter);
   }
 
-  openDialog() {
+  openDialog(data: any) {
     let dialogRef = this.dialog.open(SaveFileDialogComponent, { data: { checked: false } });
     dialogRef.afterClosed().subscribe(
       result => {
         if (result != null) {
           this.checked = result;
-          this.saveData();
+          this.downloadZIP(data);
         }
       })
   }
 
-  saveData() {
-    let x = 3;
-    let y = 4;
+  downloadZIP(data: any) {
+    var zip = new JSZip();
+    let structures = this.generateFile(data);
+
+    if (this.checked) {
+      data.forEach(row => {
+        this.http.get("/static/varna/" + row.pdbId + '-assembly-' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
+          .subscribe(data => {
+            zip.file("2d_structure_varna" + row.pdbId + ".svg", data);
+
+            this.http.get("/api/pdb/GetVisualization3dById?pdbid=" + row.pdbId + "&assembly=" + row.assemblyId, { responseType: "arraybuffer" })
+              .subscribe(data => {
+                zip.file("3d_structure" + row.pdbId + ".cif", data);
+              });
+          });
+      });
+    }
+
+    zip.file("structures" + ".csv", structures);
+    zip.generateAsync({ type: "blob" })
+      .then(blob => saveAs(blob, 'structures.zip'));
+  }
+
+  generateFile(data: any) {
+    const replacer = (key, value) => value === null ? '' : value;
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(';'));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    return new Blob([csvArray], { type: 'text/csv' })
   }
 }
 
