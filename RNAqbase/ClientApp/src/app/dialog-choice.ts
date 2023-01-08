@@ -26,36 +26,32 @@ export class DialogChoice {
     { value: "<=", viewValue: "\&#x2264" }],
     "pdbDeposition": [{ value: "=", viewValue: "=" },
     { value: ">=", viewValue: "\&#x2265" },
-      { value: "<=", viewValue: "\&#x2264" }],
-    "loopLen": [{ value: ">=", viewValue: "\&#x2265" },
     { value: "<=", viewValue: "\&#x2264" }],
-    "sequence": [{ value: "includes", viewValue: "includes" },
-    { value: "3\'->5\'", viewValue: "3\' \&#x2794 5\'" },
-    { value: "5\'->3\'", viewValue: "5\' \&#x2794 3\'" },
-    { value: "begins", viewValue: "begins" }]
+    "loopLen": [{ value: ">=", viewValue: "\&#x2265" },
+      { value: "<=", viewValue: "\&#x2264" }],
+    "seqOfTetrads": [{ value: "includes", viewValue: "includes" }],
+    "seqOfQuad": [{ value: "5\'->3\'", viewValue: "5\'->3\'"}]
   }
 
   public static inputProperties: { [key: string]: DialogInput } = {
-    "authorName": { type: 'text', maxLength: 220 },
-    "pdbID": { type: 'text', maxLength: 4 },
-    "keyword": { type: 'text', maxLength: 200 },
-    "gtractSeq": { type: 'text', maxLength: 100 },
-    "noOfTetrads": { type: 'number', maxLength: 100 },
-    "pdbDeposition": { type: 'date', maxLength: 10 },
-    "loopLen": {type: 'number', maxLength: 300},
-    "seqOfTetrads": { type: 'text', maxLength: 4 },
-    "seqOfQuad": { type: 'text', maxLength: 200 }
+    "authorName": { type: 'text', minLength: 1, maxLength: 220 },
+    "pdbID": { type: 'text', minLength: 1, maxLength: 4 },
+    "keyword": { type: 'text', minLength: 1, maxLength: 200 },
+    "gtractSeq": { type: 'text', minLength: 1, maxLength: 100 },
+    "noOfTetrads": { type: 'number', minLength: 1, maxLength: 100 },
+    "pdbDeposition": { type: 'date', minLength: 1, maxLength: 10 },
+    "loopLen": { type: 'number', minLength: 0, maxLength: 300 },
+    "seqOfTetrads": { type: 'text', minLength: 2, maxLength: 4 },
+    "seqOfQuad": { type: 'text', minLength: 1, maxLength: 200 }
   }
 
   public static decodedOperators = {
     ">=": "\&#x2265",
     "<=": "\&#x2264",
-    "3\'->5\'": "3\' \&#x2794 5\'",
     "5\'->3\'": "5\' \&#x2794 3\'",
     "=": "=",
     "!=": "!=",
-    "includes": "includes",
-    "begins": "begins"
+    "includes": "includes"
   }
 
   public static chooseDialog(attr: string): any {
@@ -65,7 +61,7 @@ export class DialogChoice {
 
   public static chooseOperators(attr: string): ViewValue[] {
     let component = this.operators[attr];
-    return component;
+    return component || [{value: '', viewValue: ''}];
   }
 
   public static decodeOperators(oper: string): string {
