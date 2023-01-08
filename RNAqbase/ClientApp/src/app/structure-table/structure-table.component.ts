@@ -36,6 +36,7 @@ export class StructureTableComponent implements OnInit {
     'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Quadruplex ID'
   ];
   value: any;
+  checked: boolean;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog, private route: ActivatedRoute) {
   }
@@ -144,7 +145,19 @@ export class StructureTableComponent implements OnInit {
   }
 
   openDialog() {
-    let dialogRef = this.dialog.open(SaveFileDialogComponent);
+    let dialogRef = this.dialog.open(SaveFileDialogComponent, { data: { checked: false } });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result != null) {
+          this.checked = result;
+          this.saveData();
+        }
+      })
+  }
+
+  saveData() {
+    let x = 3;
+    let y = 4;
   }
 }
 
