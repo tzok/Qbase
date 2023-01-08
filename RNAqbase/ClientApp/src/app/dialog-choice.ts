@@ -28,11 +28,9 @@ export class DialogChoice {
     { value: ">=", viewValue: "\&#x2265" },
     { value: "<=", viewValue: "\&#x2264" }],
     "loopLen": [{ value: ">=", viewValue: "\&#x2265" },
-    { value: "<=", viewValue: "\&#x2264" }],
-    "sequence": [{ value: "includes", viewValue: "includes" },
-    { value: "3\'->5\'", viewValue: "3\' \&#x2794 5\'" },
-    { value: "5\'->3\'", viewValue: "5\' \&#x2794 3\'" },
-    { value: "begins", viewValue: "begins" }]
+      { value: "<=", viewValue: "\&#x2264" }],
+    "seqOfTetrads": [{ value: "includes", viewValue: "includes" }],
+    "seqOfQuad": [{ value: "5\'->3\'", viewValue: "5\'->3\'"}]
   }
 
   public static inputProperties: { [key: string]: DialogInput } = {
@@ -50,12 +48,10 @@ export class DialogChoice {
   public static decodedOperators = {
     ">=": "\&#x2265",
     "<=": "\&#x2264",
-    "3\'->5\'": "3\' \&#x2794 5\'",
     "5\'->3\'": "5\' \&#x2794 3\'",
     "=": "=",
     "!=": "!=",
-    "includes": "includes",
-    "begins": "begins"
+    "includes": "includes"
   }
 
   public static chooseDialog(attr: string): any {
