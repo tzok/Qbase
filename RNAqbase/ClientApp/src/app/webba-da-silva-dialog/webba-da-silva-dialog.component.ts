@@ -17,8 +17,7 @@ export class WebbaDaSilvaDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData, private httpService: AttrHttpGetService) { }
 
   ngOnInit() {
-    //'webbaDaSilva'
-    this.httpService.getData('ions').subscribe(result => {
+    this.httpService.getData('webbaDaSilva').subscribe(result => {
       for (let i in result) {
         this.conditions.push(result[i].trim());
       }
