@@ -20,11 +20,20 @@ export class ValueDialogComponent {
   }
 
   onAddClick(): void {
-    this.data.conditions.push({ value: this.value, operator: DialogChoice.chooseOperators(this.data.attrID)[0].value });
+    this.data.conditions.push({ value: this.value, operator: this.chooseOperator(this.data.attrID) });
     this.dialogRef.close(this.data);
   }
 
   buttonState(): boolean {
     return !(this.value.trim().length >= this.data.inputProperties.minLength);
+  }
+
+  chooseOperator(attrId: string) : string{
+    if (attrId === 'seqseqOfTetrads')
+      return "includes"
+    else if (attrId === 'seqOfQuad')
+      return "5\'->3\'";
+    else
+      return "";
   }
 }
