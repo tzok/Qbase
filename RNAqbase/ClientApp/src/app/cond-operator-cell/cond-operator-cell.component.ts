@@ -9,6 +9,7 @@ import { DialogChoice } from '../dialog-choice';
 })
 export class CondOperatorCellComponent implements OnInit {
   @Input('ID') attrID: string;
+  @Input() attrType: string;
   @Input() condData: Condition;
   @Output() deleteEvent = new EventEmitter<Condition>();
 

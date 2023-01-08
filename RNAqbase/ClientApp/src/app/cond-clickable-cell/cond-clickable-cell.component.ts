@@ -10,6 +10,7 @@ import { RowCommPckt } from '../row-comm-pckt';
 })
 export class CondClickableCellComponent {
   @Input('ID') attrID: string;
+  @Input() attrType: string;
   @Input() condData: Condition;
   @Input() eventReceiver: RowCommPckt;
   @Output() clicked = new EventEmitter<CondCommPckt>();

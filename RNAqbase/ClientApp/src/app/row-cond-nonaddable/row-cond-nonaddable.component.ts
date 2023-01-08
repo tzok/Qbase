@@ -17,6 +17,7 @@ import { RowElements } from '../row-elements';
 export class RowCondNonaddableComponent implements OnInit {
   rowData: RowElements;
   @Input() rowAttrID: string;
+  @Input() rowAttrType: string;
   @Input() rowAttrName: string;
   @Input() rowType: string;
   @Input() rowElements: RowElements;
