@@ -23,7 +23,9 @@ namespace RNAqbase.Models.Search
             string query = "(";
             for (int i = 0; i < Conditions.Count; i++)
             {
-                query += $"({FieldInSQL} ~* '^{Conditions[i].Value}')";
+                query += $"({FieldInSQL} ~* @{ParameterDictionary.Count})";
+                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"^{Conditions[i].Value}");
+
                 if (i != Conditions.Count - 1)
                 {
                     query += " OR ";

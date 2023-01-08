@@ -22,28 +22,29 @@ namespace RNAqbase.Models.Search
                 return "";
             }
             var codes = new Dictionary<string, string>(){
-                {"A", "A"},
-                {"C", "C"},
-                {"G", "G"},
-                {"T", "T"},
-                {"U", "U"},
-                {"R", "[AG]"},
-                {"Y", "[CTU]"},
-                {"K", "[GTU]"},
-                {"M", "[AC]"},
-                {"S", "[CG]"},
-                {"W", "[ATU]"},
-                {"B", "[CGTU]"},
-                {"D", "[AGTU]"},
-                {"H", "[ACTU]"},
-                {"V", "[ACG]"},
-                {"N", "[ACGTU]"},
+                {"A", "[Aa]"},
+                {"C", "[Cc]"},
+                {"G", "[Gg]"},
+                {"T", "[Tt]"},
+                {"U", "[Uu]"},
+                {"R", "[AGag]"},
+                {"Y", "[CTUctu]"},
+                {"K", "[GTUgtu]"},
+                {"M", "[ACac]"},
+                {"S", "[CGcg]"},
+                {"W", "[ATUatu]"},
+                {"B", "[CGTUcgtu]"},
+                {"D", "[AGTUagtu]"},
+                {"H", "[ACTUactu]"},
+                {"V", "[ACGacg]"},
+                {"N", "[ACGTUacgtu]"},
                 {"-", "-"}
             };
             StringBuilder querySB = new StringBuilder("");
             for (int i = 0; i < Conditions.Count; i++)
             {
-                querySB.Append($"{codes[Conditions[i].Value.ToString()]}|");
+                var condition = Conditions[i].Value.ToUpper();
+                querySB.Append($"{condition}|");
             }
 
             foreach (string key in codes.Keys)
@@ -51,8 +52,10 @@ namespace RNAqbase.Models.Search
                 querySB.Replace(key, codes[key]);
             }
             querySB.Length--;
-            querySB.Insert(0, $"((SELECT * FROM remove_dots({FieldInSQL})) ~* '");
-            return querySB + "')";
+            string query = $"((SELECT * FROM remove_dots({FieldInSQL})) ~* @{ParameterDictionary.Count})";
+            ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{querySB}");
+            return query;
+
         }
     }
 }
