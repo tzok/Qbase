@@ -47,7 +47,7 @@ JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 LEFT JOIN citation ON citation.pdb_id = p.id
-LEFT JOIN citation_author ON citation_id = citation.id
+LEFT JOIN citation_author author ON author.citation_id = citation.id
 ");
         public SearchService(ISearchRepository searchRepository)
         {

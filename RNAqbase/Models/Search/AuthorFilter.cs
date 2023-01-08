@@ -9,7 +9,7 @@ namespace RNAqbase.Models.Search
     {        
         public AuthorFilter()
         {
-            FieldInSQL = "name";
+            FieldInSQL = "author.name";
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
         public override string JoinConditions()
