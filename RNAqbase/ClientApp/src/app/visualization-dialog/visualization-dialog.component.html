@@ -1,12 +1,18 @@
 <div class="box">
   <div style="margin-bottom: 50px">
     <ul>
-      <li style="float:right"> <a style="float: right;  border: 1px solid #000;" href='static/{{type}}/{{id}}.svg' class="btn" target="_self" download>Download image</a></li>
+      <li style="float:right">
+        <div>
+          Name: 
+          <input style="margin:auto" value="{{id}}" id="name">
+        </div>
+        <a style="float: right;  border: 1px solid #000; margin: 5px 0px 0px 0px" class="btn" (click)="downloadPhoto()">Download image</a>
+      </li>
     </ul>
   </div>
 
-<div style="overflow: hidden; border: 2px solid #000;">
-  <img class = "scene" id="scene" #scene height="500px" [style.width]="width" src='static/{{type}}/{{id}}.svg' alt="2d_structure">
-</div>
+  <div style="overflow: hidden; border: 2px solid #000;">
+    <img class="scene" id="scene" #scene height="500px" [style.width]="width" src='static/{{type}}/{{id}}.svg' alt="2d_structure">
+  </div>
 
 </div>

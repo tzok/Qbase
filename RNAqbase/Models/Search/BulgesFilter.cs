@@ -10,7 +10,6 @@ namespace RNAqbase.Models.Search
     {
         public BulgesFilter()
         {
-            joinType = JoinType.Having;
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
@@ -21,16 +20,23 @@ namespace RNAqbase.Models.Search
                 return "";
             }
 
-            StringBuilder querySB = new StringBuilder();
+            StringBuilder querySB = new StringBuilder(@"(SELECT COUNT(*)
+FROM quadruplex q2
+JOIN loop l on q2.id = l.quadruplex_id
+JOIN loop_nucleotide ln on l.id = ln.loop_id
+JOIN nucleotide n on ln.nucleotide_id = n.id
+WHERE q2.id = q.id
+GROUP BY l.id) ");
             if (Conditions[0].Value == "with bulges")
             {
-                querySB.Append("(is_bulge(q.dot_bracket, STRING_AGG(COALESCE((n1.full_name)||(n2.full_name)||(n3.full_name)||(n4.full_name), ''), '')))");
+                querySB.Append("!= ");
             }
             else
             {
-                querySB.Append("(NOT is_bulge(q.dot_bracket, STRING_AGG(COALESCE((n1.full_name)||(n2.full_name)||(n3.full_name)||(n4.full_name), ''), '')))");
+                querySB.Append("= ");
             }
-
+            querySB.Append(@"(SELECT COUNT(*)
+FROM REGEXP_MATCHES((REGEXP_SPLIT_TO_ARRAY(q.dot_bracket, '[.]*\\n[.]*'))[2], '(?<![.-])([.]+)(?![.-])', 'g'))");
             return querySB.ToString();
         }
     }

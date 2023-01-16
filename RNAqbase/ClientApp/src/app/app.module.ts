@@ -47,9 +47,11 @@ import { RowCondAddableComponent } from './row-cond-addable/row-cond-addable.com
 import { RowCondNonaddableComponent } from './row-cond-nonaddable/row-cond-nonaddable.component';
 import { ValueDialogComponent } from './value-dialog/value-dialog.component';
 import { ValOperDialogComponent } from './val-oper-dialog/val-oper-dialog.component';
-import { DateOperDialogComponent } from './date-oper-dialog/date-oper-dialog.component';
-import { SeqDialogComponent } from './seq-dialog/seq-dialog.component';
 import { WebbaDaSilvaDialogComponent } from './webba-da-silva-dialog/webba-da-silva-dialog.component';
+import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { SnackbarDuplicateCondComponent } from './snackbar-duplicate-cond/snackbar-duplicate-cond.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SaveFileDialogComponent } from './save-file-dialog/save-file-dialog.component';
 
 @NgModule({
@@ -85,9 +87,9 @@ import { SaveFileDialogComponent } from './save-file-dialog/save-file-dialog.com
     RowCondNonaddableComponent,
     ValueDialogComponent,
     ValOperDialogComponent,
-    DateOperDialogComponent,
-    SeqDialogComponent,
     WebbaDaSilvaDialogComponent,
+    DeleteButtonComponent,
+    SnackbarDuplicateCondComponent,
     SaveFileDialogComponent
   ],
   imports: [
@@ -121,6 +123,7 @@ import { SaveFileDialogComponent } from './save-file-dialog/save-file-dialog.com
     MatInputModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatRadioModule,
     CsvModule,
     MatTooltipModule,
     MatIconModule,
@@ -133,18 +136,18 @@ import { SaveFileDialogComponent } from './save-file-dialog/save-file-dialog.com
     PinchZoomModule,
     CounterModule.forRoot(),
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     VisualizationDialogComponent,
     Visualization3DComponent,
-    SeqDialogComponent,
-    DateOperDialogComponent,
     WebbaDaSilvaDialogComponent,
     ValueDialogComponent,
     ValOperDialogComponent,
+    SnackbarDuplicateCondComponent,
     SaveFileDialogComponent
   ]
 })

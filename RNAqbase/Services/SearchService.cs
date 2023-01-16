@@ -46,17 +46,25 @@ JOIN NUCLEOTIDE n4 ON t.nt4_id = n4.id
 JOIN PDB p ON n1.pdb_id = p.id
 LEFT JOIN pdb_ion ON p.id = pdb_ion.pdb_id
 LEFT JOIN ion ON ion.id = pdb_ion.ion_id
+LEFT JOIN citation ON citation.pdb_id = p.id
+LEFT JOIN citation_author author ON author.citation_id = citation.id
 ");
         public SearchService(ISearchRepository searchRepository)
         {
             this.searchRepository = searchRepository;
         }
 
-        public async Task<List<QuadruplexTable>> GetAllResults(List<Filter> filters)
+        public async Task<List<QuadruplexTable>> GetAllResults()
         {
+            Filter.ParameterDictionary.Clear();
             bool isFirst = true;
+            string keyword = "";
             StringBuilder queryToHavingSB = new StringBuilder("");
-            foreach (Filter filter in filters)
+            if (Filter.Filters == null) 
+            {
+                return await searchRepository.GetAllResults($"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1)", Filter.ParameterDictionary, "");
+            }
+            foreach (Filter filter in Filter.Filters)
             {
                 string queryFilter = filter.JoinConditions();
                 if (queryFilter == "")
@@ -82,8 +90,13 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
                 }
             }
 
+            if (Filter.Filters.Any(filter => filter.GetType() == typeof(KeywordFilter) && filter.Conditions.Count != 0))
+            {
+                keyword = Filter.Filters.Where(filter => filter.GetType() == typeof(KeywordFilter)).FirstOrDefault().Conditions[0].Value;
+            }
+
             string query = $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
-            return await searchRepository.GetAllResults(query);
+            return await searchRepository.GetAllResults(query, Filter.ParameterDictionary, keyword);
         }
 
         public async Task<List<string>> GetExperimentalMethod() =>
@@ -92,7 +105,13 @@ LEFT JOIN ion ON ion.id = pdb_ion.ion_id
         public async Task<List<string>> GetONZ() =>
             await searchRepository.GetONZ();
 
+        public async Task<List<string>> GetIons() =>
+            await searchRepository.GetIons();
+            
         public async Task<List<string>> GetMoleculeType() =>
             await searchRepository.GetMoleculeType();
+
+        public async Task<List<string>> GetWebbaDaSilva() =>
+           await searchRepository.GetWebbaDaSilva();
     }
 }

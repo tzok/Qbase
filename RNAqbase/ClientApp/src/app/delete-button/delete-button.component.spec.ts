@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SeqDialogComponent } from './seq-dialog.component';
+import { DeleteButtonComponent } from './delete-button.component';
 
-describe('SeqDialogComponent', () => {
-  let component: SeqDialogComponent;
-  let fixture: ComponentFixture<SeqDialogComponent>;
+describe('DeleteButtonComponent', () => {
+  let component: DeleteButtonComponent;
+  let fixture: ComponentFixture<DeleteButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SeqDialogComponent ]
+      declarations: [ DeleteButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SeqDialogComponent);
+    fixture = TestBed.createComponent(DeleteButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,7 +12,7 @@ namespace RNAqbase.Models.Search
             FieldInSQL = "COUNT(DISTINCT(t.id))";
             joinType = JoinType.Having;
         }
-        public override List<Condition> Conditions { get; set ; } = new List<Condition>();
+        public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
         public override string JoinConditions()
         {
@@ -20,30 +20,17 @@ namespace RNAqbase.Models.Search
             {
                 return "";
             }
+
             string query = "(";
             for (int i = 0; i < Conditions.Count; i++)
             {
-                if (Conditions[i].Operator == ">")
-                {
-                    query += $"({FieldInSQL} > {Conditions[i].Value})";
-                }
-                else if(Conditions[i].Operator == "<")
-                {
-                    query += $"({FieldInSQL} < {Conditions[i].Value})";
-                }
-                else if (Conditions[i].Operator == "=")
-                {
-                    query += $"({FieldInSQL} = {Conditions[i].Value})";
-                }
-                else if (Conditions[i].Operator == "{}")
-                {
-                    query += $"({FieldInSQL} BETWEEN {Conditions[i].Value.Split(",")[0]} AND {Conditions[i].Value.Split(",")[1]})";
-                }
+                query += $"({FieldInSQL} {Conditions[i].Operator} {Conditions[i].Value})";
                 if (i != Conditions.Count - 1)
                 {
-                    query += " OR ";
+                    query += " AND ";
                 }
             }
+
             return query + ")";
         }
     }

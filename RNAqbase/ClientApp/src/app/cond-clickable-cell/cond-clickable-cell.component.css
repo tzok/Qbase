@@ -1,26 +1,31 @@
-#parent{
+#parent {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-  height: fit-content;
   background-color: rgba(184, 224, 222, 0.4);
   border-radius: 15px 15px 15px 15px;
-  margin-right: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px;
   cursor: pointer;
 }
+  #parent.struct {
+    background-color: rgba(184, 224, 222, 0.4);
+  }
+
+  #parent.meta {
+    background-color: rgba(254, 234, 172, 0.35);
+  }
 
   #parent > div {
-    width: fit-content;
-    height: fit-content;
     padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
     user-select: none;
   }
 
-.clicked {
+.clicked.struct {
   background-color: rgba(72, 173, 169, 1) !important;
+}
+
+.clicked.meta {
+  background-color: rgba(239, 217, 99, 1) !important;
 }
 
   .clicked > div {

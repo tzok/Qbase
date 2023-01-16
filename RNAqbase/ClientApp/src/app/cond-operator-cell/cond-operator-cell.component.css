@@ -1,27 +1,44 @@
 #parent {
   display: flex;
-  align-items: center;
-  width: fit-content;
-  height: fit-content;
   padding: 5px;
+  position: relative;
 }
 
-#first {
-  padding: 5px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  width: fit-content;
-  background-color: rgba(72, 173, 169, 0.75);
+#operator {
+  padding: 8px;
+  padding-left: 6px;
+  padding-right: 6px;
   border-radius: 10px 0px 0px 10px;
-  height: 100%;
   color: white;
 }
 
-#second {
-  width: fit-content;
-  height: fit-content;
-  background-color: rgba(184, 224, 222, 0.4);
-  border-radius: 0px 10px 10px 0px;
+  #operator.struct {
+    background-color: rgba(72, 173, 169, 0.75) !important;
+  }
+
+  #operator.meta {
+    background-color: rgba(239, 200, 99, 0.75) !important;
+  }
+
+#content {
   padding: 8px;
-  margin-right: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0px 10px 10px 0px;
+}
+
+  #content.struct {
+    background-color: rgba(184, 224, 222, 0.4) !important;
+  }
+
+  #content.meta {
+    background-color: rgba(254, 234, 172, 0.35) !important;
+  }
+
+app-delete-button {
+  display: none;
+}
+
+#parent:hover app-delete-button {
+  display: block;
 }

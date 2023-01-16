@@ -8,13 +8,23 @@ import { DialogData } from '../dialog-data';
   styleUrls: ['./val-oper-dialog.component.css']
 })
 export class ValOperDialogComponent {
-  operators: string[];
+  value = '';
+  operator = '';
+
   constructor(
     public dialogRef: MatDialogRef<ValOperDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
+  onAddClick(): void {
+    this.data.conditions.push({ value: this.value, operator: this.operator });
+    this.dialogRef.close(this.data);
+  }
+
+  buttonState(): boolean {
+    return !((this.value.trim().length >= this.data.inputProperties.minLength) && (this.operator.length !== 0));
+  }
 }

@@ -30,6 +30,7 @@ export class StructureTableComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
+  defaultDisplayedColumn = 'pdbIdentifier';
   displayedColumns = [
     'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
     'experimentalMethod', 'quadruplexId', 'structure2D', 'structure3D', 'select'

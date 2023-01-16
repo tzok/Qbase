@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output, SimpleChanges, SimpleChange } from '@angular/core';
 import { CondCommPckt } from '../cond-comm-pckt';
+import { Condition } from '../condition';
 import { RowCommPckt } from '../row-comm-pckt';
 
 @Component({
@@ -8,8 +9,9 @@ import { RowCommPckt } from '../row-comm-pckt';
   styleUrls: ['./cond-clickable-cell.component.css']
 })
 export class CondClickableCellComponent {
-  @Input('name') attributeName: string;
-  @Input() content: string;
+  @Input('ID') attrID: string;
+  @Input() attrType: string;
+  @Input() condData: Condition;
   @Input() eventReceiver: RowCommPckt;
   @Output() clicked = new EventEmitter<CondCommPckt>();
   isClicked: boolean;
@@ -22,7 +24,7 @@ export class CondClickableCellComponent {
 
   ngOnInit() {
     this.isClicked = false;
-    if (this.content == 'any') {
+    if (this.condData.value == 'any') {
       this.clickEvent();
     }
   }
@@ -30,18 +32,21 @@ export class CondClickableCellComponent {
   eventRecv(pckt: RowCommPckt) {
     if (pckt.clickInvoker != '') {
       if (pckt.clickInvoker == 'row') {
-        if (pckt.eventReceiver == this.content) {
+        if (pckt.eventReceiver == this.condData.value) {
           this.isClicked = true;
+        }
+        else if (pckt.eventReceiver != this.condData.value) {
+          this.isClicked = false;
         }
       }
       else {
-        if ((pckt.eventReceiver == 'any') && (this.content == 'any')) {
+        if ((pckt.eventReceiver == 'any') && (this.condData.value == 'any')) {
           this.isClicked = false;
         }
-        else if ((pckt.clickInvoker == 'any') && (this.content != 'any')) {
+        else if ((pckt.clickInvoker == 'any') && (this.condData.value != 'any')) {
           this.isClicked = false;
         }
-        else if ((pckt.clickInvoker != this.content) && (pckt.typeOfRow == 'radioSelect')) {
+        else if ((pckt.clickInvoker != this.condData.value) && (pckt.typeOfRow == 'radioSelect')) {
           this.isClicked = false;
         }
       }
@@ -49,17 +54,22 @@ export class CondClickableCellComponent {
   }
 
   clickEvent() {
-    if (this.isClicked)
-    {
+    if (this.isClicked) {
       this.isClicked = false;
-      const pckt = <CondCommPckt>{clickInvoker: this.content, clicked: false};
+      const pckt = <CondCommPckt>{ clickInvoker: this.condData.value, clicked: false };
       this.clicked.emit(pckt);
     }
-    else
-    {
+    else {
       this.isClicked = true;
-      const pckt = <CondCommPckt> {clickInvoker: this.content, clicked: true};
+      const pckt = <CondCommPckt>{ clickInvoker: this.condData.value, clicked: true };
       this.clicked.emit(pckt);
     }
+  }
+
+  attrTypeCheck() {
+    if (this.attrType === 'meta')
+      return true;
+    else
+      return false;
   }
 }

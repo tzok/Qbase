@@ -30,11 +30,11 @@
                     <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">Assembly ID</th>
                     <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">Molecule</th>
                     <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">Experimental method</th>
-                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">Type (by no. of strands)</th>
-                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">No. of tetrads</th>
-                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">ONZM class</th>
-                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">Loop topology</th>
-                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle">Tetrad combination</th>
+                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'topologyBaseTableThere', page: 1}">Type (by no. of strands)</a></th>
+                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'topologyBaseTableTwo', page: 1}">No. of tetrads</a></th>
+                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'ONZMCoverage', page: 1}">ONZM class</a></th>
+                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'topologyBaseTableOne', page: 1}">Loop topology</a></th>
+                    <th class="nineColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'SilvaCoverage', page: 1}">Tetrad combination</a></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -140,8 +140,8 @@
                 <thead>
                   <tr>
                     <th class="fourColumnsStyle" style="text-align: center; vertical-align: middle">Tetrad pairs</th>
-                    <th class="fourColumnsStyle" style="text-align: center; vertical-align: middle">Twist [°]</th>
-                    <th class="fourColumnsStyle" style="text-align: center; vertical-align: middle">Rise [Å]</th>
+                    <th class="fourColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'TwistRise', page: 1}">Twist [°]</a></th>
+                    <th class="fourColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'TwistRise', page: 1}">Rise [Å]</a></th>
                     <th class="fourColumnsStyle" style="text-align: center; vertical-align: middle">Strand direction</th>
                   </tr>
                 </thead>
@@ -177,7 +177,7 @@
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Loop ID</th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Short sequence</th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Full sequence</th>
-                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Loop length</th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'LoopLength', page: 1}">Loop length</a></th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Loop type</th>
                   </tr>
                 </thead>
