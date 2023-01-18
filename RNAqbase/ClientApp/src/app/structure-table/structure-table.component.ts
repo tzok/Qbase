@@ -4,9 +4,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import { SaveFileDialogComponent } from '../save-file-dialog/save-file-dialog.component';
 import { Visualization3DComponent } from "../visualization3-d/visualization3-d.component";
 import { MatSelectChange } from "@angular/material/select";
 import { ActivatedRoute } from "@angular/router";
+import { saveAs } from "file-saver";
+import * as JSZip from 'jszip';
+
 
 @Component({
   selector: 'structure-table',
@@ -35,6 +39,7 @@ export class StructureTableComponent implements OnInit {
     'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Quadruplex ID'
   ];
   value: any;
+  checked: boolean;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog, private route: ActivatedRoute) {
   }
@@ -140,6 +145,50 @@ export class StructureTableComponent implements OnInit {
     }
 
     this.refreshTable(this.dataSource.filter);
+  }
+
+  openDialog(data: any) {
+    let dialogRef = this.dialog.open(SaveFileDialogComponent, { data: { checked: false } });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result != null) {
+          this.checked = result;
+          this.downloadZIP(data);
+        }
+      })
+  }
+
+  downloadZIP(data: any) {
+    var zip = new JSZip();
+    let structures = this.generateFile(data);
+
+    if (this.checked) {
+      data.forEach(row => {
+        this.http.get("/static/varna/" + row.pdbId + '-assembly-' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
+          .subscribe(data => {
+            zip.file("2d_structure_varna" + row.pdbId + ".svg", data);
+
+            this.http.get("/api/pdb/GetVisualization3dById?pdbid=" + row.pdbId + "&assembly=" + row.assemblyId, { responseType: "arraybuffer" })
+              .subscribe(data => {
+                zip.file("3d_structure" + row.pdbId + ".cif", data);
+              });
+          });
+      });
+    }
+
+    zip.file("structures" + ".csv", structures);
+    zip.generateAsync({ type: "blob" })
+      .then(blob => saveAs(blob, 'structures.zip'));
+  }
+
+  generateFile(data: any) {
+    const replacer = (key, value) => value === null ? '' : value;
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(';'));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    return new Blob([csvArray], { type: 'text/csv' })
   }
 }
 

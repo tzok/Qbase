@@ -52,6 +52,7 @@ import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { SnackbarDuplicateCondComponent } from './snackbar-duplicate-cond/snackbar-duplicate-cond.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SaveFileDialogComponent } from './save-file-dialog/save-file-dialog.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ValOperDialogComponent,
     WebbaDaSilvaDialogComponent,
     DeleteButtonComponent,
-    SnackbarDuplicateCondComponent
+    SnackbarDuplicateCondComponent,
+    SaveFileDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -145,7 +147,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     WebbaDaSilvaDialogComponent,
     ValueDialogComponent,
     ValOperDialogComponent,
-    SnackbarDuplicateCondComponent
+    SnackbarDuplicateCondComponent,
+    SaveFileDialogComponent
   ]
 })
 
