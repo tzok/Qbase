@@ -32,15 +32,15 @@ export class DialogChoice {
   }
 
   public static inputProperties: { [key: string]: DialogInput } = {
-    "authorName": { type: 'text', minLength: 1, maxLength: 220 },
-    "pdbID": { type: 'text', minLength: 1, maxLength: 4 },
-    "keyword": { type: 'text', minLength: 1, maxLength: 200 },
-    "gtractSeq": { type: 'text', minLength: 1, maxLength: 100 },
-    "noOfTetrads": { type: 'number', minLength: 1, maxLength: 100 },
-    "pdbDeposition": { type: 'date', minLength: 1, maxLength: 10 },
-    "loopLen": { type: 'number', minLength: 0, maxLength: 300 },
-    "seqOfTetrads": { type: 'text', minLength: 2, maxLength: 4 },
-    "seqOfQuad": { type: 'text', minLength: 1, maxLength: 200 }
+    "authorName": { type: 'text', min: 1, minLength: 1, maxLength: 220 },
+    "pdbID": { type: 'text', min: 1, minLength: 1, maxLength: 4 },
+    "keyword": { type: 'text', min: 1, minLength: 1, maxLength: 200 },
+    "gtractSeq": { type: 'text', min: 1, minLength: 1, maxLength: 100 },
+    "noOfTetrads": { type: 'number', min: 1, minLength: 1, maxLength: 100 },
+    "pdbDeposition": { type: 'date', min: 1, minLength: 1, maxLength: 10 },
+    "loopLen": { type: 'number', min: 1, minLength: 0, maxLength: 300 },
+    "seqOfTetrads": { type: 'text', min: 1, minLength: 2, maxLength: 4 },
+    "seqOfQuad": { type: 'text', min: 1, minLength: 1, maxLength: 200 }
   }
 
   public static decodedOperators = {
