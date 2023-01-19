@@ -29,7 +29,7 @@ export class ValueDialogComponent {
   }
 
   chooseOperator(attrId: string) : string{
-    if (attrId === 'seqseqOfTetrads')
+    if (attrId === 'seqOfTetrads')
       return "includes"
     else if (attrId === 'seqOfQuad')
       return "5\'->3\'";
