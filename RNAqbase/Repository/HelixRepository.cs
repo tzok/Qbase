@@ -16,8 +16,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<HelixReference> GetHelixReferenceById(int id)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
             {
                 connection.Open();
@@ -61,8 +60,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
-        {
-			using (SshClient)
+        {		
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -90,8 +88,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<List<HelixTable>> GetAllHelices()
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -132,8 +129,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<MemoryStream> GetHelix3dVisualization(int id)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
