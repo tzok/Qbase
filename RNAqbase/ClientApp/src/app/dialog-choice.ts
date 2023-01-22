@@ -33,7 +33,7 @@ export class DialogChoice {
 
   public static inputProperties: { [key: string]: DialogInput } = {
     "authorName": { type: 'text', min: 1, minLength: 1, maxLength: 220 },
-    "pdbID": { type: 'text', min: 1, minLength: 1, maxLength: 4 },
+    "pdbID": { type: 'text', min: 1, minLength: 2, maxLength: 4 },
     "keyword": { type: 'text', min: 1, minLength: 1, maxLength: 200 },
     "gtractSeq": { type: 'text', min: 1, minLength: 1, maxLength: 100 },
     "noOfTetrads": { type: 'number', min: 1, minLength: 1, maxLength: 100 },
