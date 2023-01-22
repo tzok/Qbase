@@ -20,11 +20,11 @@ export class ValOperDialogComponent {
   }
 
   onAddClick(): void {
-    this.data.conditions.push({ value: this.value, operator: this.operator });
+    this.data.conditions.push({ value: (!isNaN(Number(this.value.trim())) ? String(Number(this.value.trim())): this.value.trim()), operator: this.operator });
     this.dialogRef.close(this.data);
   }
 
   buttonState(): boolean {
-    return !((this.value.trim().length >= this.data.inputProperties.minLength) && (this.operator.length !== 0));
+    return !((this.value.trim().length >= this.data.inputProperties.minLength) && (this.operator.length !== 0) && (!isNaN(Number(this.value.trim())) ? (Number(this.value.trim()) >= this.data.inputProperties.min): true));
   }
 }
