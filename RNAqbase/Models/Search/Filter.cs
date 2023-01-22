@@ -16,14 +16,14 @@ namespace RNAqbase.Models.Search
         public abstract string Join();
         public string JoinConditions() 
         {
-            if (!isValidate())
+            if (!isValid())
             {
                 return "";
             }
             return Join();
         }
 
-        private bool isValidate()
+        private bool isValid()
         {
             if (Conditions.Count == 0 || (isAnyValue && Conditions.Where(x => x.Value == "any").ToList().Any())) 
             {
