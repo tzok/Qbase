@@ -12,13 +12,8 @@ namespace RNAqbase.Models.Search
             FieldInSQL = "author.name";
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
-        public override string JoinConditions()
+        public override string Join()
         {
-            if (Conditions.Count == 0)
-            {
-                return "";
-            }
-
             var authorLike = Conditions.Where(x => x.Operator == "=").ToList();
             var authorNotLike = Conditions.Where(x => x.Operator == "!=").ToList();
             string query = "(";

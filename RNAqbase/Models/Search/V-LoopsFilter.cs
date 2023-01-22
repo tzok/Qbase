@@ -8,15 +8,14 @@ namespace RNAqbase.Models.Search
 {
     public class V_LoopsFilter : Filter
     {
+        public V_LoopsFilter() 
+        {
+            isAnyValue = true;
+        }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
-        public override string JoinConditions()
+        public override string Join()
         {
-            if (Conditions.Count != 1 || Conditions.Where(x => x.Value == "any").ToList().Any())
-            {
-                return "";
-            }
-
             StringBuilder querySB = new StringBuilder(@"(SELECT COUNT(*) 
 FROM REGEXP_MATCHES((REGEXP_SPLIT_TO_ARRAY(q.dot_bracket, 
 '[.]*\\n[.]*'))[2],
