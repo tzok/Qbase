@@ -11,7 +11,7 @@ namespace RNAqbase.Models.Search
         {
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
-        public override string JoinConditions()
+        public override string Join()
         {
             return "";
         }

@@ -15,7 +15,7 @@ namespace RNAqbase.Models.Search
 
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
         
-        public override string JoinConditions()
+        public override string Join()
         {
             StringBuilder querySB = new StringBuilder(@"(SELECT CASE WHEN EXISTS (SELECT 
 COUNT(*)

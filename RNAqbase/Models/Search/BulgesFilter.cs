@@ -10,16 +10,12 @@ namespace RNAqbase.Models.Search
     {
         public BulgesFilter()
         {
+            isAnyValue = true;
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
-        public override string JoinConditions()
+        public override string Join()
         {
-            if (Conditions.Count == 0 || Conditions.Where(x => x.Value != "with bulges" && x.Value != "without bulges").ToList().Any())
-            {
-                return "";
-            }
-
             StringBuilder querySB = new StringBuilder(@"(SELECT COUNT(*)
 FROM quadruplex q2
 JOIN loop l on q2.id = l.quadruplex_id

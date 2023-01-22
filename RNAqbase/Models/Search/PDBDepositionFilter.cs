@@ -15,13 +15,8 @@ namespace RNAqbase.Models.Search
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
-        public override string JoinConditions()
+        public override string Join()
         {
-            if (Conditions.Count == 0)
-            {
-                return "";
-            }
-
             StringBuilder querySB = new StringBuilder($"(");
             for (int i = 0; i < Conditions.Count; i++)
             {

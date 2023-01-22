@@ -11,16 +11,12 @@ namespace RNAqbase.Models.Search
         {
             FieldInSQL = "max(q_view.chains)";
             joinType = JoinType.Having;
+            isAnyValue = true;
         }
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
 
-        public override string JoinConditions()
+        public override string Join()
         {
-            if (Conditions.Count == 0 || Conditions.Where(x => x.Value == "any").ToList().Any()) 
-            {
-                return "";
-            }
-
             foreach (var i in Conditions)
             {
                 if (i.Value == "unimolecular")
