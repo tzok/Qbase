@@ -16,13 +16,18 @@ namespace RNAqbase.Repository
 
 		public async Task<List<Statistics>> GetTopologyBaseTetradViewTableOne()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
 
 				return (await connection.QueryAsync<Statistics>(
 					@"
-					SELECT sequence,
+					SELECT
+					(select string_agg(a, '') 
+					from (
+					  select unnest(regexp_split_to_array(sequence, '')) as a 
+					  order by a) s) as sequence,
 					SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
 					SUM(CASE tv.molecule WHEN 'RNA' THEN 1 ELSE 0 END) AS RNA,
 					SUM(CASE tv.molecule WHEN 'Other' THEN 1 ELSE 0 END) AS Other,
@@ -30,7 +35,10 @@ namespace RNAqbase.Repository
 					FROM tetrad_view tv
 					JOIN quadruplex_view qv on tv.quadruplex_id = qv.id
 					WHERE qv.count > 1
-					GROUP BY sequence
+					GROUP BY (select string_agg(a, '') 
+					from (
+					  select unnest(regexp_split_to_array(sequence, '')) as a 
+					  order by a) s)
 					UNION ALL
 					SELECT 'Total',
 					SUM(CASE tv.molecule WHEN 'DNA' THEN 1 ELSE 0 END) AS DNA,
@@ -45,6 +53,7 @@ namespace RNAqbase.Repository
 
 		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableTwo()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -70,6 +79,7 @@ namespace RNAqbase.Repository
 
 		public async Task<List<Statistics>> GetTopologyBaseQuadruplexViewTableThere()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -95,6 +105,7 @@ namespace RNAqbase.Repository
 
 		public async Task<List<Statistics>> GetElTetradoTetradViewTableOne()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -124,6 +135,7 @@ WHERE qv.count > 1;")).ToList();
 
 		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableTwo()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -151,6 +163,7 @@ WHERE chains = 1;")).ToList();
 
 		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereA()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -178,6 +191,7 @@ WHERE chains = 2;")).ToList();
 
 		public async Task<List<Statistics>> GetElTetradoQuadruplexViewTableThereB()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -206,7 +220,7 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<HomePagePlot> GetCountOfComponents()
 		{
-			
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -229,6 +243,7 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<HomePagePlot> GetUpdateInformations()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -243,7 +258,7 @@ WHERE chains = 4;")).ToList();
 						left join quadruplex_growth_view q  on t.release_date = q.release_date
 						left join helix_growth_view h on t.release_date = h.release_date
 						left join structure_growth_view s on t.release_date = s.release_date
-						WHERE t.release_date = (select max(release_date) from tetrad_growth_view)
+						WHERE t.release_date = (select release_date from tetrad_growth_view order by release_date desc limit 1)
 						"));
 				
 			}
@@ -251,6 +266,7 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<List<Statistics>> ion_distribution_o_plus()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -272,6 +288,7 @@ WHERE chains = 4;")).ToList();
 		}
 		public async Task<List<Statistics>> ion_distribution_o_minus()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -293,6 +310,7 @@ WHERE chains = 4;")).ToList();
 		}
 		public async Task<List<Statistics>> ion_distribution_n_plus()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -315,6 +333,7 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<List<Statistics>> ion_distribution_n_minus()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -337,6 +356,7 @@ WHERE chains = 4;")).ToList();
 		
 		public async Task<List<Statistics>> ion_distribution_z_plus()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -358,6 +378,7 @@ WHERE chains = 4;")).ToList();
 		}
 		public async Task<List<Statistics>> ion_distribution_z_minus()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -380,6 +401,7 @@ WHERE chains = 4;")).ToList();
 
 		public async Task<List<Statistics>> gba_da_silva()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -396,6 +418,7 @@ WHERE chains = 4;")).ToList();
 		}
 		public async Task<List<Statistics>> loop_da_silva()
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -417,6 +440,46 @@ WHERE chains = 4;")).ToList();
 						GROUP BY q.loop_class, q_view.chains;")).ToList();
 			}
 		}
-		
+		public async Task<List<Statistics>> experimental_method()
+		{
+			using (SshClient)
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT DISTINCT experiment AS experimental_method, COUNT(*) as Total FROM PDB GROUP BY experiment;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> loop_progression_da_silva()
+		{
+			using (SshClient)
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT DISTINCT q.loop_progression, COUNT(*) as Total
+							FROM tetrad t
+							JOIN quadruplex q on q.id = t.quadruplex_id
+							WHERE q.loop_progression IS NOT NULL
+							GROUP BY loop_progression;")).ToList();
+			}
+		}
+		public async Task<List<Statistics>> onzm()
+		{
+			using (SshClient)
+			using (var connection = Connection)
+			{
+				connection.Open();
+
+				return (await connection.QueryAsync<Statistics>(
+					@"SELECT DISTINCT CASE 
+							WHEN SUBSTRING(onzm::TEXT, 2, 1) = 'a' THEN 'antiparallel'
+							WHEN SUBSTRING(onzm::TEXT, 2, 1) = 'p' THEN 'parallel'
+							ELSE 'hybrid' END AS onzm,
+							COUNT(*) as Total FROM quadruplex GROUP BY SUBSTRING(onzm::TEXT, 2, 1);")).ToList();
+			}
+		}
 	}
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RNAqbase.Repository;
 using RNAqbase.Services;
+using System;
 
 namespace RNAqbase
 {
@@ -19,7 +20,7 @@ namespace RNAqbase
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 			services.AddMemoryCache();
 			services.AddTransient<IQuadruplexService, QuadruplexService>();
 			services.AddTransient<ITetradRepository, TetradRepository>();
@@ -29,6 +30,8 @@ namespace RNAqbase
 			services.AddTransient<IHelixRepository, HelixRepository>();
 			services.AddTransient<IStatisticsService, StatisticsService>();
 			services.AddTransient<IStatisticsRepository, StatisticsRepository>();
+			services.AddTransient<ISearchRepository, SearchRepository>();
+			services.AddTransient<ISearchService, SearchService>();
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";

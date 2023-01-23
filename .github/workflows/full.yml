@@ -1,0 +1,46 @@
+name: Continuous Integration
+
+on:
+  push:
+    #branches: [ master ]
+  #pull_request:
+    #branches: [ master ]
+
+jobs:
+  build:
+    name: Build & Test All
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run: 
+        working-directory: RNAqbase
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 2.2.x
+    - name: Restore dependencies
+      working-directory: RNAqbase
+      run: dotnet restore
+    - name: Build C#
+      working-directory: RNAqbase
+      run: dotnet build --no-restore
+    - name: Test
+      working-directory: RNAqbase
+      run: dotnet test --no-build --verbosity normal
+      
+    #angular
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+    - name: Install dependencies
+      working-directory: RNAqbase/ClientApp
+      run: 
+        npm install --legacy-peer-deps
+    - name: Build Angular
+      working-directory: RNAqbase/ClientApp
+      run: |
+        npm install -g @angular/cli
+        ng build --prod
+    

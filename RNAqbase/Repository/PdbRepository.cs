@@ -16,6 +16,7 @@ namespace RNAqbase.Repository
 
 		public async Task<string> GetVisualizationByPdbId(string pdbId)
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -31,6 +32,7 @@ namespace RNAqbase.Repository
 		
 		public async Task<MemoryStream> GetVisualization3dByPdbId(string pdbId, int assembly)
 		{
+			using (SshClient)
 			using (var connection = Connection)
 			{
 				connection.Open();

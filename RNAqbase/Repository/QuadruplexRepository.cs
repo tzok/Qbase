@@ -25,8 +25,9 @@ namespace RNAqbase.Repository
 
         public async Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
                 return await connection.QueryAsync<int>
                 (@"
@@ -45,8 +46,9 @@ namespace RNAqbase.Repository
 
         public async Task<Quadruplex> GetQuadruplexById(int id)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
 
                 var quadruplex = await connection.QueryFirstAsync<Quadruplex>(
@@ -101,12 +103,13 @@ namespace RNAqbase.Repository
 
         public async Task<List<QuadruplexTable>> GetAllQuadruplexes()
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
 
                 return (await connection.QueryAsync<QuadruplexTable>(
-                    @"
+					@"
 						SELECT
 							MAX(q.id) AS Id,
 							q.loop_class as LoopTopology,
@@ -147,8 +150,9 @@ namespace RNAqbase.Repository
 
         public async Task<IEnumerable<Ions>> GetIons(int id)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
                 return await connection.QueryAsync<Ions>(
                     @"
@@ -165,8 +169,9 @@ namespace RNAqbase.Repository
 
         public async Task<List<Structure>> GetAllStructures(string query)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
                 IEnumerable<Structure> structures = await connection.QueryAsync<Structure>(
                     @"
@@ -211,8 +216,9 @@ namespace RNAqbase.Repository
 
         public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
 
                 return await connection.QueryAsync<Quadruplex>(
@@ -253,8 +259,9 @@ namespace RNAqbase.Repository
 
         public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
 
                 return await connection.QueryAsync<NucleotidesChiValues>(
@@ -283,8 +290,9 @@ namespace RNAqbase.Repository
 
         public async Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
 
                 return await connection.QueryAsync<QuadruplexLoops>(
@@ -306,8 +314,9 @@ namespace RNAqbase.Repository
 
         public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
         {
-            using (var connection = Connection)
-            {
+			using (SshClient)
+			using (var connection = Connection)
+			{
                 connection.Open();
                 var coordinates1Query = await connection.QueryAsync<string>
                 (@" 

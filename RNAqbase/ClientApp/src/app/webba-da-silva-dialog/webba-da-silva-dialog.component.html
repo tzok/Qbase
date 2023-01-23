@@ -1,0 +1,15 @@
+<div id="parent">
+  <h1 mat-dialog-title>{{data.attrName}}</h1>
+  <div mat-dialog-content>
+    <p>Chose condition:</p>
+    <div class="formDialog">
+      <mat-checkbox *ngFor="let condition of conditions" [(ngModel)]="selectedConditions[condition]" disableRipple>
+          {{condition}}
+      </mat-checkbox>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button class="primary" (click)="onAddClick()" [disabled]="buttonState()">Add</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  </div>
+</div>

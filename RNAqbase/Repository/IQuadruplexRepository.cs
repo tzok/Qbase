@@ -17,7 +17,5 @@ namespace RNAqbase.Repository
         Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id);
         Task<IEnumerable<Ions>> GetIons(int id);
 
-
-
 	}
 }

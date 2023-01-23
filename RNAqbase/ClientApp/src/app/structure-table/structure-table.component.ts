@@ -1,12 +1,16 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {VisualizationDialogComponent} from '../visualization-dialog/visualization-dialog.component';
-import {Visualization3DComponent} from "../visualization3-d/visualization3-d.component";
-import {MatSelectChange} from "@angular/material/select";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { VisualizationDialogComponent } from '../visualization-dialog/visualization-dialog.component';
+import { SaveFileDialogComponent } from '../save-file-dialog/save-file-dialog.component';
+import { Visualization3DComponent } from "../visualization3-d/visualization3-d.component";
+import { MatSelectChange } from "@angular/material/select";
+import { ActivatedRoute } from "@angular/router";
+import { saveAs } from "file-saver";
+import * as JSZip from 'jszip';
+
 
 @Component({
   selector: 'structure-table',
@@ -26,6 +30,7 @@ export class StructureTableComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
+  defaultDisplayedColumn = 'pdbIdentifier';
   displayedColumns = [
     'pdbIdentifier', 'pdbDeposition', 'assemblyId', 'molecule',
     'experimentalMethod', 'quadruplexId', 'structure2D', 'structure3D', 'select'
@@ -34,6 +39,7 @@ export class StructureTableComponent implements OnInit {
     'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule', 'Experimental method', 'Quadruplex ID'
   ];
   value: any;
+  checked: boolean;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private dialog: MatDialog, private route: ActivatedRoute) {
   }
@@ -44,7 +50,7 @@ export class StructureTableComponent implements OnInit {
         this.query = params.get('query');
       }
       this.http.get<Structure[]>(this.baseUrl + 'api/Quadruplex/GetStructures',
-        {'params': new HttpParams().set('query', this.query)}).subscribe(result => {
+        { 'params': new HttpParams().set('query', this.query) }).subscribe(result => {
           this.dataSource = new MatTableDataSource(result);
           for (let val of result) {
             val.quadruplex_id = Array.from(new Set(val.quadruplex_id.split(',')))
@@ -70,7 +76,7 @@ export class StructureTableComponent implements OnInit {
           this.areButtonsHidden = false;
           this.filteredDataLength = this.dataSource.data.length;
         },
-        error => console.error(error))
+          error => console.error(error))
     });
   }
 
@@ -103,7 +109,7 @@ export class StructureTableComponent implements OnInit {
 
   showStructure(type: any, id: any) {
     let dialogRef = this.dialog.open(VisualizationDialogComponent, {
-      data: {type: type, id: id},
+      data: { type: type, id: id },
     });
   }
 
@@ -139,6 +145,50 @@ export class StructureTableComponent implements OnInit {
     }
 
     this.refreshTable(this.dataSource.filter);
+  }
+
+  openDialog(data: any) {
+    let dialogRef = this.dialog.open(SaveFileDialogComponent, { data: { checked: false } });
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if (result != null) {
+          this.checked = result;
+          this.downloadZIP(data);
+        }
+      })
+  }
+
+  downloadZIP(data: any) {
+    var zip = new JSZip();
+    let structures = this.generateFile(data);
+
+    if (this.checked) {
+      data.forEach(row => {
+        this.http.get("/static/varna/" + row.pdbId + '-assembly-' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
+          .subscribe(data => {
+            zip.file("2d_structure_varna" + row.pdbId + ".svg", data);
+
+            this.http.get("/api/pdb/GetVisualization3dById?pdbid=" + row.pdbId + "&assembly=" + row.assemblyId, { responseType: "arraybuffer" })
+              .subscribe(data => {
+                zip.file("3d_structure" + row.pdbId + ".cif", data);
+              });
+          });
+      });
+    }
+
+    zip.file("structures" + ".csv", structures);
+    zip.generateAsync({ type: "blob" })
+      .then(blob => saveAs(blob, 'structures.zip'));
+  }
+
+  generateFile(data: any) {
+    const replacer = (key, value) => value === null ? '' : value;
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(';'));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    return new Blob([csvArray], { type: 'text/csv' })
   }
 }
 

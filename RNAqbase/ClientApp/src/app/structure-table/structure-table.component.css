@@ -78,7 +78,7 @@ a {
   margin: 5px;
   border-radius: 5px;
   background-color: #45A29E;
-  color: white;
+  color: white !important;
 }
 .inputtext {
   display: inline-block;

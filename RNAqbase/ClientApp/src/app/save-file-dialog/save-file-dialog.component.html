@@ -1,0 +1,10 @@
+<div id="parent">
+  <h1 mat-dialog-title>Save data</h1>
+  <div>
+    <mat-checkbox class="formDialog" [(ngModel)]="data.checked">With pictures</mat-checkbox>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="data.checked" class="primary">Ok</button>
+  </div>
+</div>

@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {HttpClient} from '@angular/common/http';
-import {SelectionModel} from '@angular/cdk/collections';
-import {DomSanitizer} from "@angular/platform-browser";
-import {MatDialog} from "@angular/material/dialog";
-import {MatSelectChange} from "@angular/material/select";
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+import { SelectionModel } from '@angular/cdk/collections';
+import { DomSanitizer } from "@angular/platform-browser";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSelectChange } from "@angular/material/select";
 
 
 @Component({
@@ -22,6 +22,7 @@ export class TetradTabelComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  defaultDisplayedColumn = 'pdbId';
   displayedColumns = ['id', 'quadruplexId', 'pdbId', "pdbDeposition", 'assemblyId', 'molecule', 'experiment',
     'sequence', 'ion', 'ion_charge', 'onzClass', 'tetradCombination', 'select'];
   columnNames = ['Tetrad ID', 'Quadruplex ID', 'PDB ID', 'PDB Deposition', 'Assembly ID', 'Molecule',
@@ -48,7 +49,7 @@ export class TetradTabelComponent implements OnInit {
         val.quadruplexId = 'Q' + val.quadruplexId.toString();
       }
 
-      this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || data.id.toString().toUpperCase().includes(filter.toUpperCase());
+      this.dataSource.filterPredicate = (data: Tetrad, filter: string) => !filter || (data.pdbId != null && data.pdbId.toString().toUpperCase().includes(filter.toUpperCase()));
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.areButtonsHidden = false;

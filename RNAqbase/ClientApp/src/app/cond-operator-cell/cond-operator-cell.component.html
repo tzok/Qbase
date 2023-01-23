@@ -1,0 +1,5 @@
+<div id="parent">
+  <div id="operator" [innerHTML]="encodedOperator" [ngClass]="attrType"></div>
+  <div id="content" [ngClass]="attrType">{{condData.value}}</div>
+  <app-delete-button (buttonClickEvent)="deleteClicked($event)"></app-delete-button>
+</div>
