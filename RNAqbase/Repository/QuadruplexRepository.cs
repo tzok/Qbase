@@ -24,8 +24,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -45,8 +44,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<Quadruplex> GetQuadruplexById(int id)
-        {
-			using (SshClient)
+        {		
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -102,8 +100,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<List<QuadruplexTable>> GetAllQuadruplexes()
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -149,8 +146,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<IEnumerable<Ions>> GetIons(int id)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -168,8 +164,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<List<Structure>> GetAllStructures(string query)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -215,8 +210,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -258,8 +252,7 @@ namespace RNAqbase.Repository
 
 
         public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
-        {
-			using (SshClient)
+        {		
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -289,8 +282,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
@@ -313,8 +305,7 @@ namespace RNAqbase.Repository
 
 
         public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
-        {
-			using (SshClient)
+        {			
 			using (var connection = Connection)
 			{
                 connection.Open();
