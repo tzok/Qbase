@@ -25,9 +25,11 @@ namespace RNAqbase.Repository
             using (var connection = Connection)
             {
                 connection.Open();
+                IEnumerable<QuadruplexTable> quadruplexes = await connection.QueryAsync<QuadruplexTable>(query, parameters);
+
                 if (keyword == "" || keyword.Trim() == "" || keyword.Trim().Length == 0) 
                 {
-                    return (await connection.QueryAsync<QuadruplexTable>(query, parameters)).ToList();
+                    return quadruplexes.ToList();
                 }
 
                 Process p = new Process();
@@ -40,7 +42,7 @@ namespace RNAqbase.Repository
                 p.WaitForExit();
                 List<string> pdbIds = output.Trim().Split('\n').ToList();
 
-                return (await connection.QueryAsync<QuadruplexTable>(query, parameters))
+                return quadruplexes
                     .Where(quadruplex => pdbIds.Contains(quadruplex.PdbId))
                     .OrderBy(quadruplex =>
                         (pdbIds.IndexOf(quadruplex.PdbId), quadruplex.AssemblyId)
