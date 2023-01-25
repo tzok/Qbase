@@ -64,7 +64,7 @@ namespace RNAqbase.Repository
             using (var connection = Connection)
             {
                 connection.Open();
-                return (await connection.QueryAsync<string>("SELECT DISTINCT onz FROM tetrad WHERE onz IS NOT NULL;")).ToList();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT onz FROM tetrad WHERE onz IS NOT NULL ORDER BY onz;")).ToList();
             }
         }
         public async Task<List<string>> GetMoleculeType()
@@ -91,7 +91,7 @@ namespace RNAqbase.Repository
             using (var connection = Connection)
             {
                 connection.Open();
-                return (await connection.QueryAsync<string>("SELECT DISTINCT name FROM Ion;")).ToList();
+                return (await connection.QueryAsync<string>("SELECT DISTINCT name FROM Ion ORDER BY name;")).ToList();
             }
         }
     }
