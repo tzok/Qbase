@@ -24,8 +24,8 @@ namespace RNAqbase.Models.Search
 
                 for (int i = 0; i < authorNotLike.Count; i++)
                 {
-                    query += $"({FieldInSQL} NOT LIKE @{ParameterDictionary.Count},%)";
-                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value}");
+                    query += $"({FieldInSQL} NOT LIKE @{ParameterDictionary.Count})";
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value},%");
 
                     if (i != authorNotLike.Count - 1)
                     {
@@ -42,8 +42,8 @@ namespace RNAqbase.Models.Search
 
                 for (int i = 0; i < authorLike.Count; i++)
                 {
-                    query += $"({FieldInSQL} LIKE @{ParameterDictionary.Count},%)";
-                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value}");
+                    query += $"({FieldInSQL} LIKE @{ParameterDictionary.Count})";
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value},%");
 
                     if (i != authorLike.Count - 1)
                     {
