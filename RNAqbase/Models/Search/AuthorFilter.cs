@@ -16,37 +16,45 @@ namespace RNAqbase.Models.Search
         {
             var authorLike = Conditions.Where(x => x.Operator == "=").ToList();
             var authorNotLike = Conditions.Where(x => x.Operator == "!=").ToList();
-            string query = "(";
+            string query = "";
 
             if (authorNotLike.Any())
             {
-                query += $"{FieldInSQL} NOT IN (@{ParameterDictionary.Count}";
-                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[0].Value}");
+                query += "(";
 
-                for (int i = 1; i < authorNotLike.Count; i++)
+                for (int i = 0; i < authorNotLike.Count; i++)
                 {
-                    query += $", @{ParameterDictionary.Count}";
+                    query += $"({FieldInSQL} NOT LIKE @{ParameterDictionary.Count},%)";
                     ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value}");
+
+                    if (i != authorNotLike.Count - 1)
+                    {
+                        query += " AND ";
+                    }
                 }
+
+                query += ")";
             }
 
             if (authorLike.Any())
             {
-                if(authorNotLike.Any())
+                query += "(";
+
+                for (int i = 0; i < authorLike.Count; i++)
                 {
-                    query += ") AND ";
+                    query += $"({FieldInSQL} LIKE @{ParameterDictionary.Count},%)";
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value}");
+
+                    if (i != authorLike.Count - 1)
+                    {
+                        query += " OR ";
+                    }
                 }
 
-                query += $"{FieldInSQL} IN (@{ParameterDictionary.Count}";
-                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[0].Value}");
-                for (int i = 1; i < authorLike.Count; i++)
-                {
-                    query += $", \"@{ParameterDictionary.Count}\"";
-                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value}");
-                }
+                query += ")";
             }
 
-            return query + "))";
+            return query;
         }
     }
 }
