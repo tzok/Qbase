@@ -16,8 +16,7 @@ namespace RNAqbase.Repository
 		public TetradRepository(IConfiguration configuration) : base(configuration)
 		{}
 		public async Task<TetradDescription> FindById(int id)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -50,8 +49,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<TetradTable>> FindAll()
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -84,8 +82,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<int>> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -99,8 +96,7 @@ namespace RNAqbase.Repository
 		}
 		
 		public async Task<TetradNucleotides> GetTetradNucleotides(int id)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -134,8 +130,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -150,8 +145,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameQuadruplex(int id)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -177,8 +171,7 @@ namespace RNAqbase.Repository
 		}
 		
 		public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameHelix(int id)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -207,8 +200,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<MemoryStream> GetTetrad3dVisualization(int tetradId)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -237,8 +229,7 @@ namespace RNAqbase.Repository
 		
 		
 		public async Task<IEnumerable<Ions_tetrad>> GetIons(int id)
-		{
-			using (SshClient)
+		{			
 			using (var connection = Connection)
 			{
 				connection.Open();

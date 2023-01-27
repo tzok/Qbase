@@ -15,9 +15,8 @@ namespace RNAqbase.Repository
         {
         }
 
-        public async Task<List<QuadruplexTable>> GetAllResults(string query, Dictionary<string, object> parameters)
-        {
-            using (SshClient)
+        public async Task<List<QuadruplexTable>> GetAllResults(string query, Dictionary<string, object> parameters, string keyword)
+        {            
             using (var connection = Connection)
             {
                 connection.Open();
@@ -26,8 +25,7 @@ namespace RNAqbase.Repository
 		}
 
         public async Task<List<string>> GetExperimentalMethod() 
-        {
-            using (SshClient)
+        {            
             using (var connection = Connection)
             {
                 connection.Open();
@@ -36,8 +34,7 @@ namespace RNAqbase.Repository
         }
 
         public async Task<List<string>> GetONZ()
-        {
-            using (SshClient)
+        {            
             using (var connection = Connection)
             {
                 connection.Open();
@@ -45,8 +42,7 @@ namespace RNAqbase.Repository
             }
         }
         public async Task<List<string>> GetMoleculeType()
-        {
-            using (SshClient)
+        {         
             using (var connection = Connection)
             {
                 connection.Open();
