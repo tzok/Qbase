@@ -164,13 +164,13 @@ export class StructureTableComponent implements OnInit {
     zip.file("structures" + ".csv", structures);
     if (this.checked) {
       data.forEach(row => {
-        this.http.get("https://onquadro.cs.put.poznan.pl/static/varna/7zqs-assembly-1.svg", { responseType: "arraybuffer" })
+        this.http.get("/static/varna/" + row.pdbId + '-assembly-' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
           .subscribe(data => {
-            zip.file("2d_structure_varna" + '7zqs' + ".svg", data);
+            zip.file("2d_structure_varna" + row.pdbId + ".svg", data);
 
-            this.http.get("https://onquadro.cs.put.poznan.pl/api/pdb/GetVisualization3dById?pdbid=7zqs&assembly=1", { responseType: "arraybuffer" })
+            this.http.get("/api/pdb/GetVisualization3dById?pdbid=" + row.pdbId + "&assembly=" + row.assemblyId, { responseType: "arraybuffer" })
               .subscribe(data => {
-                zip.file("3d_structure" + '7zqs' + ".cif", data);
+                zip.file("3d_structure" + row.pdbId + ".cif", data);
                 zip.generateAsync({ type: "blob" })
                   .then(blob => saveAs(blob, 'structures.zip'));
               });
