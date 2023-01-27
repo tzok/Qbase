@@ -29,9 +29,9 @@ namespace RNAqbase.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetStructures(string query)
+        public async Task<IActionResult> GetStructures()
         {
-            return Ok(await quadruplexService.GetAllStructures(query));
+            return Ok(await quadruplexService.GetAllStructures());
         }
 
         [HttpGet("[action]")]

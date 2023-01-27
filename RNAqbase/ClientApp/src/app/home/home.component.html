@@ -50,17 +50,6 @@
         </mat-card-content>
       </mat-card>
       <br />
-      <mat-card class="center">
-        <mat-card-content>
-          <h5>Quick database search</h5>
-          <form class="form-inline" #searchForm="ngForm" (ngSubmit)="search(searchForm.value)">
-            <label for="query">Enter a keyword (e.g., organism, author name) to find the associated quadruplex structure(s): </label>
-            <input type="text" class="form-control" [(ngModel)]="query" id="query" placeholder="Ex. v-loop, human" name="query" />
-            <button type="submit" class="button" [disabled]="!query">Search</button>
-          </form>
-        </mat-card-content>
-      </mat-card>
-      <br />
       <mat-card>
         <mat-card-content>
           <p style="text-align: left">

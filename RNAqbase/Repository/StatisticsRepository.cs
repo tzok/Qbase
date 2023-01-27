@@ -440,7 +440,7 @@ WHERE chains = 4;")).ToList();
 				connection.Open();
 
 				return (await connection.QueryAsync<Statistics>(
-					@"SELECT DISTINCT q.loop_progression, COUNT(*) as Total
+					@"SELECT DISTINCT q.loop_progression AS Type, COUNT(*) as Total
 							FROM tetrad t
 							JOIN quadruplex q on q.id = t.quadruplex_id
 							WHERE q.loop_progression IS NOT NULL

@@ -127,10 +127,6 @@ export class HomeComponent implements OnInit {
   wrong_email() {
     this.email_added = false;
   }
-
-  search(form: any) {
-    this.router.navigate(["/structures"], { queryParams: { query: form.query } });
-  }
 }
 
 interface componentsCount {

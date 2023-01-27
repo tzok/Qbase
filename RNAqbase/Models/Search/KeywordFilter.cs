@@ -13,9 +13,9 @@ namespace RNAqbase.Models.Search
         public override List<Condition> Conditions { get; set; } = new List<Condition>();
         public override string Join()
         {
-            return "";
+            string querySB = $"(citation.title ILIKE @{ParameterDictionary.Count} OR citation.abstract ILIKE @{ParameterDictionary.Count} OR p.title ILIKE @{ParameterDictionary.Count})";
+            ParameterDictionary.Add($"{ParameterDictionary.Count}", $"%{Conditions[0].Value}%");
+            return querySB;
         }
-
-        
     }
 }
