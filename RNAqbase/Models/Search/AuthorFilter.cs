@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RNAqbase.Models.Search
@@ -16,45 +17,47 @@ namespace RNAqbase.Models.Search
         {
             var authorLike = Conditions.Where(x => x.Operator == "=").ToList();
             var authorNotLike = Conditions.Where(x => x.Operator == "!=").ToList();
-            string query = "";
+            StringBuilder querySB = new StringBuilder();
 
             if (authorNotLike.Any())
             {
-                query += "(";
+                querySB.Append("(");
 
                 for (int i = 0; i < authorNotLike.Count; i++)
                 {
-                    query += $"({FieldInSQL} NOT LIKE @{ParameterDictionary.Count})";
+                    querySB.Append($"({FieldInSQL} NOT LIKE @{ParameterDictionary.Count})");
                     ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value},%");
 
                     if (i != authorNotLike.Count - 1)
                     {
-                        query += " AND ";
+                        querySB.Append(" AND ");
                     }
                 }
-
-                query += ")";
+                querySB.Append(")");
             }
 
             if (authorLike.Any())
             {
-                query += "(";
+                if (authorNotLike.Any()) 
+                {
+                    querySB.Append(" AND ");
+                }
+                querySB.Append("(");
 
                 for (int i = 0; i < authorLike.Count; i++)
                 {
-                    query += $"({FieldInSQL} LIKE @{ParameterDictionary.Count})";
+                    querySB.Append($"({FieldInSQL} LIKE @{ParameterDictionary.Count})");
                     ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value},%");
 
                     if (i != authorLike.Count - 1)
                     {
-                        query += " OR ";
+                        querySB.Append(" OR ");
                     }
                 }
-
-                query += ")";
+                querySB.Append(")");
             }
 
-            return query;
+            return querySB.ToString();
         }
     }
 }
