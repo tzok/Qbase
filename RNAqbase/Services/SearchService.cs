@@ -58,11 +58,10 @@ LEFT JOIN citation_author author ON author.citation_id = citation.id
         {
             Filter.ParameterDictionary.Clear();
             bool isFirst = true;
-            string keyword = "";
             StringBuilder queryToHavingSB = new StringBuilder("");
             if (Filter.Filters == null) 
             {
-                return await searchRepository.GetAllResults($"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1)", Filter.ParameterDictionary, "");
+                return await searchRepository.GetAllResults($"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1)", Filter.ParameterDictionary);
             }
             foreach (Filter filter in Filter.Filters)
             {
@@ -90,13 +89,8 @@ LEFT JOIN citation_author author ON author.citation_id = citation.id
                 }
             }
 
-            if (Filter.Filters.Any(filter => filter.GetType() == typeof(KeywordFilter) && filter.Conditions.Count != 0))
-            {
-                keyword = Filter.Filters.Where(filter => filter.GetType() == typeof(KeywordFilter)).FirstOrDefault().Conditions[0].Value;
-            }
-
             string query = $"{querySB.ToString()}GROUP BY q.id HAVING (COUNT(t.id) > 1){queryToHavingSB.ToString()};";
-            return await searchRepository.GetAllResults(query, Filter.ParameterDictionary, keyword);
+            return await searchRepository.GetAllResults(query, Filter.ParameterDictionary);
         }
 
         public async Task<List<string>> GetExperimentalMethod() =>

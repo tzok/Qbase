@@ -16,11 +16,8 @@ namespace RNAqbase.Repository
 {
     public class QuadruplexRepository : RepositoryBase, IQuadruplexRepository
     {
-        private readonly string searchScriptPath;
-
         public QuadruplexRepository(IConfiguration configuration) : base(configuration)
         {
-            searchScriptPath = configuration.GetValue<string>("SearchScriptPath");
         }
 
         public async Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
@@ -167,7 +164,7 @@ namespace RNAqbase.Repository
             }
         }
 
-        public async Task<List<Structure>> GetAllStructures(string query)
+        public async Task<List<Structure>> GetAllStructures()
         {
 			using (SshClient)
 			using (var connection = Connection)
@@ -191,26 +188,7 @@ namespace RNAqbase.Repository
 						GROUP BY p.identifier, p.assembly
 						order by p.identifier desc");
 
-                if (query == null || query.Trim() == "null" || query.Trim().Length == 0)
-                {
-                    return structures.ToList();
-                }
-
-                Process p = new Process();
-                p.StartInfo.FileName = searchScriptPath;
-                p.StartInfo.Arguments = query;
-                p.StartInfo.UseShellExecute = false;
-                p.StartInfo.RedirectStandardOutput = true;
-                p.Start();
-                string output = p.StandardOutput.ReadToEnd();
-                p.WaitForExit();
-                List<string> pdbIds = output.Trim().Split('\n').ToList();
-
-                return structures
-                    .Where(structure => pdbIds.Contains(structure.PdbId))
-                    .OrderBy(structure =>
-                        (pdbIds.IndexOf(structure.PdbId), structure.AssemblyId)
-                    ).ToList();
+                return structures.ToList();
             }
         }
 
