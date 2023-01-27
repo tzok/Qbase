@@ -161,7 +161,7 @@ export class StructureTableComponent implements OnInit {
   downloadZIP(data: any) {
     var zip = new JSZip();
     let structures = this.generateFile(data);
-
+    zip.file("structures" + ".csv", structures);
     if (this.checked) {
       data.forEach(row => {
         this.http.get("/static/varna/" + row.pdbId + '-assembly-' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
@@ -171,14 +171,16 @@ export class StructureTableComponent implements OnInit {
             this.http.get("/api/pdb/GetVisualization3dById?pdbid=" + row.pdbId + "&assembly=" + row.assemblyId, { responseType: "arraybuffer" })
               .subscribe(data => {
                 zip.file("3d_structure" + row.pdbId + ".cif", data);
+                zip.generateAsync({ type: "blob" })
+                  .then(blob => saveAs(blob, 'structures.zip'));
               });
           });
       });
     }
-
-    zip.file("structures" + ".csv", structures);
-    zip.generateAsync({ type: "blob" })
-      .then(blob => saveAs(blob, 'structures.zip'));
+    else {
+      zip.generateAsync({ type: "blob" })
+        .then(blob => saveAs(blob, 'structures.zip'));
+    }
   }
 
   generateFile(data: any) {

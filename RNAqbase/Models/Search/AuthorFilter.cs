@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RNAqbase.Models.Search
@@ -16,37 +17,47 @@ namespace RNAqbase.Models.Search
         {
             var authorLike = Conditions.Where(x => x.Operator == "=").ToList();
             var authorNotLike = Conditions.Where(x => x.Operator == "!=").ToList();
-            string query = "(";
+            StringBuilder querySB = new StringBuilder();
 
             if (authorNotLike.Any())
             {
-                query += $"{FieldInSQL} NOT IN (@{ParameterDictionary.Count}";
-                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[0].Value}");
+                querySB.Append("(");
 
-                for (int i = 1; i < authorNotLike.Count; i++)
+                for (int i = 0; i < authorNotLike.Count; i++)
                 {
-                    query += $", @{ParameterDictionary.Count}";
-                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value}");
+                    querySB.Append($"({FieldInSQL} NOT LIKE @{ParameterDictionary.Count})");
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorNotLike[i].Value},%");
+
+                    if (i != authorNotLike.Count - 1)
+                    {
+                        querySB.Append(" AND ");
+                    }
                 }
+                querySB.Append(")");
             }
 
             if (authorLike.Any())
             {
-                if(authorNotLike.Any())
+                if (authorNotLike.Any()) 
                 {
-                    query += ") AND ";
+                    querySB.Append(" AND ");
                 }
+                querySB.Append("(");
 
-                query += $"{FieldInSQL} IN (@{ParameterDictionary.Count}";
-                ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[0].Value}");
-                for (int i = 1; i < authorLike.Count; i++)
+                for (int i = 0; i < authorLike.Count; i++)
                 {
-                    query += $", \"@{ParameterDictionary.Count}\"";
-                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value}");
+                    querySB.Append($"({FieldInSQL} LIKE @{ParameterDictionary.Count})");
+                    ParameterDictionary.Add($"{ParameterDictionary.Count}", $"{authorLike[i].Value},%");
+
+                    if (i != authorLike.Count - 1)
+                    {
+                        querySB.Append(" OR ");
+                    }
                 }
+                querySB.Append(")");
             }
 
-            return query + "))";
+            return querySB.ToString();
         }
     }
 }

@@ -16,31 +16,13 @@ namespace RNAqbase.Models.Search
 
         public override string Join()
         {
-            StringBuilder querySB = new StringBuilder(@"(SELECT COUNT(*) 
-FROM REGEXP_MATCHES((REGEXP_SPLIT_TO_ARRAY(q.dot_bracket, 
-'[.]*\\n[.]*'))[2],
-'([[\(\)\[\]\{\}\<\>A-Za-z]+)', 'g')) ");
-            if (Conditions.Where(x => x.Value == "with V-Loops").ToList().Any())
+            StringBuilder querySB = new StringBuilder();
+            if (Conditions.Where(x => x.Value == "without V-Loops").ToList().Any())
             {
-                querySB.Append("!= ");
-            }
-            else
-            {
-                querySB.Append("= ");
+                querySB.Append("NOT");
             }
 
-            querySB.Append(@"(SELECT(4 + (SELECT
-((SELECT COUNT(*) FROM REGEXP_MATCHES((REGEXP_SPLIT_TO_ARRAY(q.dot_bracket,
-'[.]*\\n[.]*'))[2],
-'(?<![.-])([.]+)(?![.-])', 'g')) 
-- 
-(SELECT COUNT(*)
-FROM quadruplex q2
-JOIN loop l on q2.id = l.quadruplex_id
-JOIN loop_nucleotide ln on l.id = ln.loop_id
-JOIN nucleotide n on ln.nucleotide_id = n.id
-WHERE q2.id = q.id
-GROUP BY l.id)))))");
+            querySB.Append("(is_v_loops(q.dot_bracket, q.id))");
             return querySB.ToString();
         }
     }
