@@ -17,7 +17,7 @@ namespace RNAqbase.Models.Search
         public override string Join()
         {
             StringBuilder querySB = new StringBuilder();
-            if (Conditions[0].Value == "with bulges")
+            if (Conditions[0].Value == "without bulges")
             {
                 querySB.Append("NOT");
             }
