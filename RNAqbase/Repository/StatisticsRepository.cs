@@ -411,7 +411,7 @@ WHERE chains = 4;")).ToList();
 							count(*) as Total,
 							loop_class
 						FROM quadruplex 
-						where loop_class not in ('n/a') 
+						where loop_class IS NOT NULL
 						group by loop_class
 						UNION
 						SELECT
@@ -419,7 +419,7 @@ WHERE chains = 4;")).ToList();
 							q.loop_class as loop_class
 						FROM QUADRUPLEX q
 						JOIN QUADRUPLEX_VIEW q_view ON q.id = q_view.id
-						where q.loop_class in ('n/a') and q_view.chains in ('1')
+						where q.loop_class IS NULL and q_view.chains in ('1')
 						GROUP BY q.loop_class, q_view.chains;")).ToList();
 			}
 		}
