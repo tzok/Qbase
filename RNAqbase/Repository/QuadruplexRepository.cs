@@ -160,7 +160,7 @@ namespace RNAqbase.Repository
             }
         }
 
-        public async Task<List<Structure>> GetAllStructures(string query)
+        public async Task<List<Structure>> GetAllStructures()
         {			
 			using (var connection = Connection)
 			{

@@ -15,7 +15,7 @@ namespace RNAqbase.Repository
         {
         }
 
-        public async Task<List<QuadruplexTable>> GetAllResults(string query, Dictionary<string, object> parameters, string keyword)
+        public async Task<List<QuadruplexTable>> GetAllResults(string query, Dictionary<string, object> parameters)
         {            
             using (var connection = Connection)
             {
