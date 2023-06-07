@@ -16,4 +16,6 @@ RUN dotnet publish -c Release
 
 CMD ["dotnet", "bin/Release/netcoreapp2.2/RNAqbase.dll"]
 
+EXPOSE 80
+
 #ENV ASPNETCORE_ENVIRONMENT=Development
