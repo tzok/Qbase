@@ -164,7 +164,7 @@ export class StructureTableComponent implements OnInit {
     zip.file("structures" + ".csv", structures);
     if (this.checked) {
       data.forEach(row => {
-        this.http.get("/static/varna/" + row.pdbId + '-assembly-' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
+        this.http.get("/static/varna/" + row.pdbId + '-assembly' + row.assemblyId + ".svg", { responseType: "arraybuffer" })
           .subscribe(data => {
             zip.file("2d_structure_varna" + row.pdbId + ".svg", data);
 

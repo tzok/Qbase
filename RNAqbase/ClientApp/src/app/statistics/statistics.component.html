@@ -1,1134 +1,1112 @@
-<div style="  background: #F0F0F0; height: 100%">
-<div class="container" *ngIf="topologyBaseTableOne" >
-  <main>
-    <div class="text-rectangle">
-      <h2>Statistics</h2>
-    </div>
-    <br>
+<div style="background: #f0f0f0; height: 100%">
+  <div class="container" *ngIf="topologyBaseTableOne">
+    <main>
+      <div class="text-rectangle">
+        <h2>Statistics</h2>
+      </div>
+      <br />
 
-    <mat-card-content>
-      <mat-card>
-    <div>
-      <mat-tab-group mat-align-tabs="center" [selectedIndex]="page">
-        <mat-tab label="Tetrad-related data statistics">
-          <br>
+      <mat-card-content>
+        <mat-card>
+          <div>
+            <mat-tab-group mat-align-tabs="center" [selectedIndex]="page">
+              <mat-tab label="Tetrad-related data statistics">
+                <br />
 
-          <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 30px">
-            <mat-label>Select</mat-label>
-            <mat-select [(value)]="selected" disableOptionCentering panelClass="myPanelClass">
-              <mat-option value="topologyBaseTableOne">Tetrads by sequence & molecule type</mat-option>
-              <mat-option value="ELTetradoableOne">ONZ class coverage</mat-option>
-              <mat-option value="ONZChiValues">Chi angle value distribution</mat-option>
-              <mat-option value="ONZIon">Ion distribution</mat-option>
-              <mat-option value="Planarity">Planarity value distribution in the tetrad set</mat-option>
-              <mat-option value="loop_progression_da_silva">Loop progression Webba da Silva</mat-option>
-            </mat-select>
-          </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 30px">
+                  <mat-label>Select</mat-label>
+                  <mat-select [(value)]="selected" disableOptionCentering panelClass="myPanelClass">
+                    <mat-option value="topologyBaseTableOne">Tetrads by sequence & molecule type</mat-option>
+                    <mat-option value="ELTetradoableOne">ONZ class coverage</mat-option>
+                    <mat-option value="ONZChiValues">Chi angle value distribution</mat-option>
+                    <mat-option value="ONZIon">Ion distribution</mat-option>
+                    <mat-option value="Planarity">Planarity value distribution in the tetrad set</mat-option>
+                    <mat-option value="loop_progression_da_silva">Loop progression Webba da Silva</mat-option>
+                  </mat-select>
+                </mat-form-field>
 
-          <!-- Number of tetrads by sequence and molecule type START -->
-          <div *ngIf="selected == 'topologyBaseTableOne'">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>Number of tetrads by sequence and molecule type<p></b>
-                  <br>
+                <!-- Number of tetrads by sequence and molecule type START -->
+                <div *ngIf="selected == 'topologyBaseTableOne'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b
+                          ><p>Number of tetrads by sequence and molecule type</p>
+                          <p></p
+                        ></b>
+                        <br />
+                      </div>
+                      <br />
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/number_of_tetrads_by_sequence_and_molecule_type.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/number_of_tetrads_by_sequence_and_molecule_type.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="topologyBaseTableOne">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Sequence</th>
+                                  <th style="text-align: center; vertical-align: middle">DNA</th>
+                                  <th style="text-align: center; vertical-align: middle">RNA</th>
+                                  <th style="text-align: center; vertical-align: middle">Other</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of topologyBaseTableOne">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.sequence }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.dna }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.rna }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.other }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
                 </div>
-                <br>
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/number_of_tetrads_by_sequence_and_molecule_type.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px" frameBorder="0" src="onquadro_plots/number_of_tetrads_by_sequence_and_molecule_type.html"></iframe>
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="topologyBaseTableOne">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Sequence</th>
-                            <th style="text-align: center; vertical-align: middle;">DNA</th>
-                            <th style="text-align: center; vertical-align: middle;">RNA</th>
-                            <th style="text-align: center; vertical-align: middle;">Other</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of topologyBaseTableOne">
-                            <td style="text-align: center; vertical-align: middle;">{{t.sequence}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.dna}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.rna}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.other}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
+                <!-- Number of tetrads by sequence and molecule type END -->
+                <!-- ONZ class coverage by uni-, bi- and tetramolecular tetrad START -->
 
-              </mat-card>
-            </mat-card-content>
+                <div *ngIf="selected == 'ELTetradoableOne' && ELTetradoableOne">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>ONZ class coverage by uni-, bi- and tetramolecular tetrads</p></b>
+                        <br />
+                      </div>
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ONZ_class_coverage_by_uni_bi_and_tetramolecular_tetrad.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ONZ_class_coverage_by_uni_bi_and_tetramolecular_tetrad.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ELTetradoableOne">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">ONZ</th>
+                                  <th style="text-align: center; vertical-align: middle">Unimolecular</th>
+                                  <th style="text-align: center; vertical-align: middle">Bimolecular</th>
+                                  <th style="text-align: center; vertical-align: middle">Tetramolecular</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ELTetradoableOne">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.onz }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.unimolecular }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.bimolecular }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.tetramolecular }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- ONZ class coverage by uni-, bi- and tetramolecular tetrad END -->
+                <!--ONZChiValues START -->
+                <div *ngIf="selected == 'ONZChiValues'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>O+ class coverage by anti/sin chi angle values</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/chi_value_o_plus.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/chi_value_o_plus.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>O- class coverage by anti/sin chi angle values</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/chi_value_o_minus.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/chi_value_o_minus.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>N+ class coverage by anti/sin chi angle values</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/chi_value_n_plus.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/chi_value_n_plus.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>N- class coverage by anti/sin chi angle values</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/chi_value_n_minus.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/chi_value_n_minus.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Z+ class coverage by anti/sin chi angle values</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/chi_value_z_plus.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/chi_value_z_plus.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Z- class coverage by anti/sin chi angle values</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/chi_value_z_minus.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/chi_value_z_minus.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+                <!-- ONZChiValues END -->
+                <!--ONZIon START -->
+                <div *ngIf="selected == 'ONZIon'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>O+ class coverage by ions</b></p>
+                        </div>
+                      </div>
+
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_o_plus_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_o_plus_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_o_plus_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_o_plus_treemap.html"></iframe>
+                        </mat-tab>
+
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ion_o_plus_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr style="font-weight: normal">
+                                  <th style="text-align: center; vertical-align: middle">Ion</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ion_o_plus_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>O- class coverage by ions</b></p>
+                        </div>
+                      </div>
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_o_minus_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_o_minus_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_o_minus_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_o_minus_treemap.html"></iframe>
+                        </mat-tab>
+
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ion_o_minus_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr style="font-weight: normal">
+                                  <th style="text-align: center; vertical-align: middle">Ion</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ion_o_minus_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>N+ class coverage by ions</b></p>
+                        </div>
+                      </div>
+
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_n_plus_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_n_plus_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_n_plus_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_n_plus_treemap.html"></iframe>
+                        </mat-tab>
+
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ion_n_plus_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr style="font-weight: normal">
+                                  <th style="text-align: center; vertical-align: middle">Ion</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ion_n_plus_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>N- class coverage by ions</b></p>
+                        </div>
+                      </div>
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_n_minus_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_n_minus_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_n_minus_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_n_minus_treemap.html"></iframe>
+                        </mat-tab>
+
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ion_n_minus_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr style="font-weight: normal">
+                                  <th style="text-align: center; vertical-align: middle">Ion</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ion_n_minus_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Z+ class coverage by ions</b></p>
+                        </div>
+                      </div>
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_ion_z_plus_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_ion_z_plus_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_ion_z_plus_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_ion_z_plus_treemap.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ion_z_plus_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr style="font-weight: normal">
+                                  <th style="text-align: center; vertical-align: middle">Ion</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ion_z_plus_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Z- class coverage by ions</b></p>
+                        </div>
+                      </div>
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_ion_z_minus_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_ion_z_minus_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ion_ion_z_minus_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ion_ion_z_minus_treemap.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ion_z_minus_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr style="font-weight: normal">
+                                  <th style="text-align: center; vertical-align: middle">Ion</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ion_z_minus_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.ion }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+                <!-- ONZIon END -->
+                <!--Planarity START -->
+                <div *ngIf="selected == 'Planarity'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Planarity value distribution in the tetrad set</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/planarity.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/planarity.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+                <!-- Planarity END -->
+                <!-- Loop progression Webba da Silva START -->
+                <div *ngIf="selected == 'loop_progression_da_silva'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>Number of tetrads by loop progression type</p></b>
+                        <br />
+                      </div>
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/loop_progression_da_silva.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/loop_progression_da_silva.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="loop_progression_da_silva_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table" style="font-weight: normal">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Type</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of loop_progression_da_silva_table">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.loop_progression_da_silva }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+                <!-- Loop progression Webba da Silva END -->
+              </mat-tab>
+
+              <mat-tab label="Quadruplex-related data statistics">
+                <br />
+                <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 30px">
+                  <mat-label>Select</mat-label>
+                  <mat-select [(value)]="selected2" disableOptionCentering panelClass="myPanelClass">
+                    <mat-option value="topologyBaseTableTwo">Quadruplexes by the number of constituent tetrads</mat-option>
+                    <mat-option value="topologyBaseTableThere">Quadruplexes by the number of constituent chains</mat-option>
+                    <mat-option value="ONZMCoverage">ONZM class coverage</mat-option>
+                    <mat-option value="SilvaCoverage">Webba da Silva class coverage</mat-option>
+                    <mat-option value="LoopLength">Loop length distribution by strand directionality</mat-option>
+                    <mat-option value="TwistRise">Twist & rise value distribution</mat-option>
+                    <mat-option value="experimental_method">Quadruplexes by type of experimental method</mat-option>
+                    <mat-option value="onzm">Quadruplexes by ONZM type</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <!-- Number of quadruplexes composed of 2–12 tetrads START-->
+                <div *ngIf="selected2 == 'topologyBaseTableTwo' && topologyBaseTableTwo">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>Quadruplexes by the number of constituent tetrads</p></b>
+                        <br />
+                      </div>
+
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/number_of_quadruplexes_composed_of_2_12_tetrads.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/number_of_quadruplexes_composed_of_2_12_tetrads.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="topologyBaseTableTwo">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Number of tetrads</th>
+                                  <th style="text-align: center; vertical-align: middle">DNA</th>
+                                  <th style="text-align: center; vertical-align: middle">RNA</th>
+                                  <th style="text-align: center; vertical-align: middle">Other</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of topologyBaseTableTwo">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.numberOfTetrads }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.dna }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.rna }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.other }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- Number of quadruplexes composed of 2–12 tetrads END -->
+                <!-- Number of uni-, bi- and tetramolecular quadruplexes START -->
+
+                <div *ngIf="selected2 == 'topologyBaseTableThere' && topologyBaseTableThere">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>Quadruplexes by the number of constituent chains</p></b>
+                        <br />
+                      </div>
+
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/number_of_uni_bi_and_tetramolecular_quadruplexes.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/number_of_uni_bi_and_tetramolecular_quadruplexes.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="topologyBaseTableThere">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Chains</th>
+                                  <th style="text-align: center; vertical-align: middle">DNA</th>
+                                  <th style="text-align: center; vertical-align: middle">RNA</th>
+                                  <th style="text-align: center; vertical-align: middle">Other</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of topologyBaseTableThere">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.chains }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.dna }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.rna }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.other }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- Number of uni-, bi- and tetramolecular quadruplexes END -->
+                <!-- ONZM class coverage by unimolecular quadruplexes START -->
+
+                <div *ngIf="selected2 == 'ONZMCoverage' && ELTetradoableTwo && ELTetradoableThereA && ELTetradoableThereB">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>ONZM class coverage by unimolecular quadruplexes</p></b>
+                        <br />
+                      </div>
+
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ONZM_class_coverage_by_unimolecular_quadruplexes.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ONZM_class_coverage_by_unimolecular_quadruplexes.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ELTetradoableTwo">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">ONZM</th>
+                                  <th style="text-align: center; vertical-align: middle">+</th>
+                                  <th style="text-align: center; vertical-align: middle">-</th>
+                                  <th style="text-align: center; vertical-align: middle">*</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ELTetradoableTwo">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.onzm }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.plus }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.minus }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.star }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <p><b> ONZM class coverage by bimolecular quadruplexes</b></p>
+                        <br />
+                      </div>
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ONZM_class_coverage_by_bimolecular_quadruplexes.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ONZM_class_coverage_by_bimolecular_quadruplexes.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ELTetradoableThereA">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">ONZM</th>
+                                  <th style="text-align: center; vertical-align: middle">+</th>
+                                  <th style="text-align: center; vertical-align: middle">-</th>
+                                  <th style="text-align: center; vertical-align: middle">*</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ELTetradoableThereA">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.onzm }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.plus }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.minus }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.star }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <p><b>ONZM class coverage by tetramolecular quadruplexes</b></p>
+                        <br />
+                      </div>
+
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/ONZM_class_coverage_by_tetramolecular_quadruplexes.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/ONZM_class_coverage_by_tetramolecular_quadruplexes.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="ELTetradoableThereB">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">ONZM</th>
+                                  <th style="text-align: center; vertical-align: middle">+</th>
+                                  <th style="text-align: center; vertical-align: middle">-</th>
+                                  <th style="text-align: center; vertical-align: middle">*</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of ELTetradoableThereB">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.onzm }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.plus }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.minus }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.star }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- ONZM class coverage by tetramolecular quadruplexes END -->
+                <!--The Webba da Silva class distribution based on glycosidic bond angles (GBA) START -->
+
+                <div *ngIf="selected2 == 'SilvaCoverage'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>The Webba da Silva class distribution based on glycosidic bond angles (GBA)</b></p>
+                        </div>
+                      </div>
+
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/GBA_da_Silva_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/GBA_da_Silva_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/GBA_da_Silva_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/GBA_da_Silva_treemap.html"></iframe>
+                        </mat-tab>
+
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="gba_da_silva_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">GBA Class</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of gba_da_silva_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.gba_class }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>The Webba da Silva class distribution based on loop topology</b></p>
+                        </div>
+                      </div>
+
+                      <mat-tab-group mat-align-tabs="center">
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/loop_da_Silva_pie.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/loop_da_Silva_pie.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Treemap">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/loop_da_Silva_treemap.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/loop_da_Silva_treemap.html"></iframe>
+                        </mat-tab>
+
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="loop_da_silva_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Loop Class</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of loop_da_silva_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.loop_class }}</td>
+                                  <td style="text-align: center; vertical-align: middle">{{ t.total }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- The Webba da Silva classes distribution based on loops END -->
+                <!-- Loop length depending on strand direction START -->
+
+                <div *ngIf="selected2 == 'LoopLength'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Loop length distribution</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/loop_length.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/loop_length.html"></iframe>
+                    </mat-card>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Lateral loop length distribution</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/Loop_length_by_lateral.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/Loop_length_by_lateral.html"></iframe>
+                    </mat-card>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Propeller loop length distribution</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/Loop_length_by_propeller.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/Loop_length_by_propeller.html"></iframe>
+                    </mat-card>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Diagonal loop length distribution</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/Loop_length_by_diagonal.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/Loop_length_by_diagonal.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+                <!-- Loop length depending on strand direction END -->
+                <!--Rise START -->
+                <div *ngIf="selected2 == 'TwistRise'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Rise value distribution</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/rise.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/rise.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="row">
+                        <div class="col-lg-10 col-sm-6">
+                          <p><b>Twist value distribution</b></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                        <a class="mat-button" href="onquadro_plots/twist.html" download="plot.html">Save plot</a>
+                      </div>
+                      <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/twist.html"></iframe>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+                <!-- Twist END -->
+                <!-- Quadruplexes by type of experimental method START -->
+
+                <div *ngIf="selected2 == 'experimental_method'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>Quadruplexes by type of experimental method</p></b>
+                        <br />
+                      </div>
+
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/experimental_method.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/experimental_method.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="experimental_method_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Method</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of experimental_method_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.experimental_method }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- Quadruplexes by type of experimental method END -->
+                <!-- Quadruplexes by ONZM type START -->
+
+                <div *ngIf="selected2 == 'onzm'">
+                  <mat-card-content>
+                    <mat-card>
+                      <div class="col-lg-10 col-sm-6">
+                        <b><p>Quadruplexes by ONZM type</p></b>
+                        <br />
+                      </div>
+
+                      <mat-tab-group>
+                        <mat-tab label="Pie Chart">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" href="onquadro_plots/onzm.html" download="plot.html">Save plot</a>
+                          </div>
+                          <iframe style="width: 95%; height: 800px" frameBorder="0" src="onquadro_plots/onzm.html"></iframe>
+                        </mat-tab>
+                        <mat-tab label="Tabular Data">
+                          <div class="col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
+                            <a class="mat-button" csvLink [data]="onzm_table">Save table</a>
+                          </div>
+                          <br />
+                          <div class="col responsive-table">
+                            <table class="table" style="border: 1px solid black">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center; vertical-align: middle">Type</th>
+                                  <th style="text-align: center; vertical-align: middle">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let t of onzm_table" style="font-weight: normal">
+                                  <td style="text-align: center; vertical-align: middle">{{ t.onzm }}</td>
+                                  <td style="text-align: center; vertical-align: middle">
+                                    <b> {{ t.total }}</b>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    </mat-card>
+                  </mat-card-content>
+                </div>
+
+                <!-- Quadruplexes by ONZM type END -->
+              </mat-tab>
+            </mat-tab-group>
           </div>
-          <!-- Number of tetrads by sequence and molecule type END -->
-          <!-- ONZ class coverage by uni-, bi- and tetramolecular tetrad START -->
-
-          <div *ngIf="selected == 'ELTetradoableOne' && ELTetradoableOne">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>ONZ class coverage by uni-, bi- and tetramolecular tetrads</p></b>
-                  <br>
-                </div>
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ONZ_class_coverage_by_uni_bi_and_tetramolecular_tetrad.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ONZ_class_coverage_by_uni_bi_and_tetramolecular_tetrad.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ELTetradoableOne">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">ONZ</th>
-                            <th style="text-align: center; vertical-align: middle;">Unimolecular</th>
-                            <th style="text-align: center; vertical-align: middle;">Bimolecular</th>
-                            <th style="text-align: center; vertical-align: middle;">Tetramolecular</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ELTetradoableOne">
-                            <td style="text-align: center; vertical-align: middle;">{{t.onz}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.unimolecular}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.bimolecular}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.tetramolecular}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- ONZ class coverage by uni-, bi- and tetramolecular tetrad END -->
-          <!--ONZChiValues START -->
-          <div *ngIf="selected == 'ONZChiValues'">
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>O+ class coverage by anti/sin chi angle values</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/chi_value_o_plus.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/chi_value_o_plus.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>O- class coverage by anti/sin chi angle values</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/chi_value_o_minus.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/chi_value_o_minus.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>N+ class coverage by anti/sin chi angle values</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/chi_value_n_plus.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/chi_value_n_plus.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>N- class coverage by anti/sin chi angle values</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/chi_value_n_minus.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/chi_value_n_minus.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Z+ class coverage by anti/sin chi angle values</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/chi_value_z_plus.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/chi_value_z_plus.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Z- class coverage by anti/sin chi angle values</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/chi_value_z_minus.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/chi_value_z_minus.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-          </div>
-          <!-- ONZChiValues END -->
-          <!--ONZIon START -->
-          <div *ngIf="selected == 'ONZIon'">
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>O+ class coverage by ions</b></p>
-                  </div>
-                </div>
-
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_o_plus_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_o_plus_pie.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_o_plus_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_o_plus_treemap.html"></iframe>
-                  </mat-tab>
-
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ion_o_plus_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr style="font-weight: normal">
-                            <th style="text-align: center; vertical-align: middle;">Ion</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ion_o_plus_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>O- class coverage by ions</b></p>
-                  </div>
-                </div>
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_o_minus_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_o_minus_pie.html"></iframe>
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_o_minus_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_o_minus_treemap.html"></iframe>
-                  </mat-tab>
-
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ion_o_minus_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr style="font-weight: normal">
-                            <th style="text-align: center; vertical-align: middle;">Ion</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ion_o_minus_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-
-                </mat-tab-group>
-
-
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>N+ class coverage by ions</b></p>
-                  </div>
-                </div>
-
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_n_plus_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_n_plus_pie.html"></iframe>
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_n_plus_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_n_plus_treemap.html"></iframe>
-                  </mat-tab>
-
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ion_n_plus_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr style="font-weight: normal">
-                            <th style="text-align: center; vertical-align: middle;">Ion</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ion_n_plus_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>N- class coverage by ions</b></p>
-                  </div>
-                </div>
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_n_minus_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_n_minus_pie.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_n_minus_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_n_minus_treemap.html"></iframe>
-                  </mat-tab>
-
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ion_n_minus_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr style="font-weight: normal">
-                            <th style="text-align: center; vertical-align: middle;">Ion</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ion_n_minus_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Z+ class coverage by ions</b></p>
-                  </div>
-                </div>
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_ion_z_plus_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_ion_z_plus_pie.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_ion_z_plus_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_ion_z_plus_treemap.html"></iframe>
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ion_z_plus_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr style="font-weight: normal">
-                            <th style="text-align: center; vertical-align: middle;">Ion</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ion_z_plus_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-              </mat-card>
-            </mat-card-content>
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Z- class coverage by ions</b></p>
-                  </div>
-                </div>
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_ion_z_minus_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_ion_z_minus_pie.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ion_ion_z_minus_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ion_ion_z_minus_treemap.html"></iframe>
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ion_z_minus_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr style="font-weight: normal">
-                            <th style="text-align: center; vertical-align: middle;">Ion</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ion_z_minus_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.ion}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-          </div>
-          <!-- ONZIon END -->
-          <!--Planarity START -->
-          <div *ngIf="selected == 'Planarity'">
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Planarity value distribution in the tetrad set</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/planarity.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/planarity.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-          </div>
-          <!-- Planarity END -->
-          <!-- Loop progression Webba da Silva START -->
-          <div *ngIf="selected == 'loop_progression_da_silva'">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>Number of tetrads by loop progression type</p></b>
-                  <br>
-                </div>
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/loop_progression_da_silva.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/loop_progression_da_silva.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="loop_progression_da_silva_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table" style="font-weight: normal">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Type</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of loop_progression_da_silva_table">
-                            <td style="text-align: center; vertical-align: middle;">{{t.loop_progression_da_silva}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-          </div>
-          <!-- Loop progression Webba da Silva END -->
-
-        </mat-tab>
-
-
-
-        <mat-tab label="Quadruplex-related data statistics">
-          <br>
-          <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 30px">
-            <mat-label>Select</mat-label>
-            <mat-select [(value)]="selected2" disableOptionCentering panelClass="myPanelClass">
-              <mat-option value="topologyBaseTableTwo">Quadruplexes by the number of constituent tetrads</mat-option>
-              <mat-option value="topologyBaseTableThere">Quadruplexes by the number of constituent chains</mat-option>
-              <mat-option value="ONZMCoverage">ONZM class coverage</mat-option>
-              <mat-option value="SilvaCoverage">Webba da Silva class coverage</mat-option>
-              <mat-option value="LoopLength">Loop length distribution by strand directionality</mat-option>
-              <mat-option value="TwistRise">Twist & rise value distribution</mat-option>
-              <mat-option value="experimental_method">Quadruplexes by type of experimental method</mat-option>
-              <mat-option value="onzm">Quadruplexes by ONZM type</mat-option>
-
-            </mat-select>
-          </mat-form-field>
-
-          <!-- Number of quadruplexes composed of 2–12 tetrads START-->
-          <div *ngIf="selected2 == 'topologyBaseTableTwo' && topologyBaseTableTwo">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>Quadruplexes by the number of constituent tetrads</p></b>
-                  <br>
-                </div>
-
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/number_of_quadruplexes_composed_of_2_12_tetrads.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/number_of_quadruplexes_composed_of_2_12_tetrads.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="topologyBaseTableTwo">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Number of tetrads</th>
-                            <th style="text-align: center; vertical-align: middle;">DNA</th>
-                            <th style="text-align: center; vertical-align: middle;">RNA</th>
-                            <th style="text-align: center; vertical-align: middle;">Other</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of topologyBaseTableTwo">
-                            <td style="text-align: center; vertical-align: middle;">{{t.numberOfTetrads}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.dna}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.rna}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.other}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- Number of quadruplexes composed of 2–12 tetrads END -->
-          <!-- Number of uni-, bi- and tetramolecular quadruplexes START -->
-
-          <div *ngIf="selected2 == 'topologyBaseTableThere' && topologyBaseTableThere">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>Quadruplexes by the number of constituent chains</p></b>
-                  <br>
-                </div>
-
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/number_of_uni_bi_and_tetramolecular_quadruplexes.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/number_of_uni_bi_and_tetramolecular_quadruplexes.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="topologyBaseTableThere">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Chains</th>
-                            <th style="text-align: center; vertical-align: middle;">DNA</th>
-                            <th style="text-align: center; vertical-align: middle;">RNA</th>
-                            <th style="text-align: center; vertical-align: middle;">Other</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of topologyBaseTableThere">
-                            <td style="text-align: center; vertical-align: middle;">{{t.chains}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.dna}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.rna}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.other}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- Number of uni-, bi- and tetramolecular quadruplexes END -->
-          <!-- ONZM class coverage by unimolecular quadruplexes START -->
-
-          <div *ngIf="selected2 == 'ONZMCoverage' && ELTetradoableTwo && ELTetradoableThereA && ELTetradoableThereB">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>ONZM class coverage by unimolecular quadruplexes</p></b>
-                  <br>
-                </div>
-
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ONZM_class_coverage_by_unimolecular_quadruplexes.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ONZM_class_coverage_by_unimolecular_quadruplexes.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ELTetradoableTwo">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">ONZM</th>
-                            <th style="text-align: center; vertical-align: middle;">+</th>
-                            <th style="text-align: center; vertical-align: middle;">-</th>
-                            <th style="text-align: center; vertical-align: middle;">*</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ELTetradoableTwo">
-                            <td style="text-align: center; vertical-align: middle;">{{t.onzm}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.plus}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.minus}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.star}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <p> <b> ONZM class coverage by bimolecular quadruplexes</b></p>
-                  <br>
-                </div>
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ONZM_class_coverage_by_bimolecular_quadruplexes.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ONZM_class_coverage_by_bimolecular_quadruplexes.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ELTetradoableThereA">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">ONZM</th>
-                            <th style="text-align: center; vertical-align: middle;">+</th>
-                            <th style="text-align: center; vertical-align: middle;">-</th>
-                            <th style="text-align: center; vertical-align: middle;">*</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ELTetradoableThereA">
-                            <td style="text-align: center; vertical-align: middle;">{{t.onzm}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.plus}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.minus}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.star}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-              </mat-card>
-            </mat-card-content>
-
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <p> <b>ONZM class coverage by tetramolecular quadruplexes</b></p>
-                  <br>
-                </div>
-
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/ONZM_class_coverage_by_tetramolecular_quadruplexes.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/ONZM_class_coverage_by_tetramolecular_quadruplexes.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="ELTetradoableThereB">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">ONZM</th>
-                            <th style="text-align: center; vertical-align: middle;">+</th>
-                            <th style="text-align: center; vertical-align: middle;">-</th>
-                            <th style="text-align: center; vertical-align: middle;">*</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of ELTetradoableThereB">
-                            <td style="text-align: center; vertical-align: middle;">{{t.onzm}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.plus}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.minus}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.star}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- ONZM class coverage by tetramolecular quadruplexes END -->
-          <!--The Webba da Silva class distribution based on glycosidic bond angles (GBA) START -->
-
-          <div *ngIf="selected2 == 'SilvaCoverage'">
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>The Webba da Silva class distribution based on glycosidic bond angles (GBA)</b></p>
-                  </div>
-                </div>
-
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/GBA_da_Silva_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/GBA_da_Silva_pie.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/GBA_da_Silva_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/GBA_da_Silva_treemap.html"></iframe>
-                  </mat-tab>
-
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="gba_da_silva_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">GBA Class</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of gba_da_silva_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.gba_class}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-
-              </mat-card>
-            </mat-card-content>
-
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>The Webba da Silva class distribution based on loop topology</b></p>
-                  </div>
-                </div>
-
-                <mat-tab-group mat-align-tabs="center">
-                  <mat-tab label="Pie Chart">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/loop_da_Silva_pie.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/loop_da_Silva_pie.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Treemap">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/loop_da_Silva_treemap.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/loop_da_Silva_treemap.html"></iframe>
-                  </mat-tab>
-
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="loop_da_silva_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Loop Class</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of loop_da_silva_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.loop_class}}</td>
-                            <td style="text-align: center; vertical-align: middle;">{{t.total}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-
-
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- The Webba da Silva classes distribution based on loops END -->
-          <!-- Loop length depending on strand direction START -->
-
-          <div *ngIf="selected2 == 'LoopLength'">
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Loop length distribution</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/loop_length.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/loop_length.html"></iframe>
-              </mat-card>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Lateral loop length distribution</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/Loop_length_by_lateral.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/Loop_length_by_lateral.html"></iframe>
-              </mat-card>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Propeller loop length distribution</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/Loop_length_by_propeller.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/Loop_length_by_propeller.html"></iframe>
-              </mat-card>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Diagonal loop length distribution</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/Loop_length_by_diagonal.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/Loop_length_by_diagonal.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-          </div>
-          <!-- Loop length depending on strand direction END -->
-          <!--Rise START -->
-          <div *ngIf="selected2 == 'TwistRise'">
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Rise value distribution</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/rise.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/rise.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-
-            <mat-card-content>
-              <mat-card>
-                <div class="row">
-                  <div class="col-lg-10 col-sm-6">
-                    <p> <b>Twist value distribution</b></p>
-                  </div>
-                </div>
-                <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                  <a class="mat-button" href="onquadro_plots/twist.html" download="plot.html">Save plot</a>
-                </div>
-                <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/twist.html"></iframe>
-              </mat-card>
-            </mat-card-content>
-          </div>
-          <!-- Twist END -->
-          <!-- Quadruplexes by type of experimental method START -->
-
-          <div *ngIf="selected2 == 'experimental_method'">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>Quadruplexes by type of experimental method</p></b>
-                  <br>
-                </div>
-
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/experimental_method.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/experimental_method.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="experimental_method_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Method</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of experimental_method_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.experimental_method}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- Quadruplexes by type of experimental method END -->
-          <!-- Quadruplexes by ONZM type START -->
-
-          <div *ngIf="selected2 == 'onzm'">
-            <mat-card-content>
-              <mat-card>
-                <div class="col-lg-10 col-sm-6">
-                  <b><p>Quadruplexes by ONZM type</p></b>
-                  <br>
-                </div>
-
-                <mat-tab-group>
-                  <mat-tab label="Pie Chart">
-
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" href="onquadro_plots/onzm.html" download="plot.html">Save plot</a>
-                    </div>
-                    <iframe style="width:95%; height:800px " frameBorder="0" src="onquadro_plots/onzm.html"></iframe>
-
-                  </mat-tab>
-                  <mat-tab label="Tabular Data">
-                    <div class=" col-lg-2 col-sm-6 saveDataButton" style="float: right; margin-top: 10px">
-                      <a class="mat-button" csvLink [data]="onzm_table">Save table</a>
-                    </div>
-                    <br>
-                    <div class="col responsive-table">
-                      <table class="table" style="border:1px solid black;">
-                        <thead>
-                          <tr>
-                            <th style="text-align: center; vertical-align: middle;">Type</th>
-                            <th style="text-align: center; vertical-align: middle;">Total</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let t of onzm_table" style="font-weight: normal">
-                            <td style="text-align: center; vertical-align: middle;">{{t.onzm}}</td>
-                            <td style="text-align: center; vertical-align: middle;"><b> {{t.total}}</b></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </mat-tab>
-                </mat-tab-group>
-              </mat-card>
-            </mat-card-content>
-          </div>
-
-          <!-- Quadruplexes by ONZM type END -->
-
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-      </mat-card>
-    </mat-card-content>
-
-
-  </main>
-</div>
+        </mat-card>
+      </mat-card-content>
+    </main>
+  </div>
 </div>

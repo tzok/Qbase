@@ -28,7 +28,7 @@
                   </mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
               </mat-table>
               <div class="buttonRow">
                 <app-button [label]="buttonLabelReset" (buttonClickedEvent)="rsEvent($event)"></app-button>

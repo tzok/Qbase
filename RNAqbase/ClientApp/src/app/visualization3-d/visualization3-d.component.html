@@ -1,19 +1,17 @@
 <form>
   <mat-form-field appearance="fill">
     <mat-label>Structure type</mat-label>
-    <mat-select [(ngModel)]="selectedValue" disableOptionCentering name="type" placeholder="type"
-                (selectionChange)="ChangeType($event.value)">
+    <mat-select [(ngModel)]="selectedValue" disableOptionCentering name="type" placeholder="type" (selectionChange)="ChangeType($event.value)">
       <mat-option *ngFor="let type of types" [value]="type.value">
-        {{type.viewValue}}
+        {{ type.viewValue }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field appearance="fill" style="margin-left: 20px;">
+  <mat-form-field appearance="fill" style="margin-left: 20px">
     <mat-label>Coloring</mat-label>
-    <mat-select [(ngModel)]="selectedValue" disableOptionCentering name="coloring" placeholder="coloring"
-                (selectionChange)="ChangeColoring($event.value)">
+    <mat-select [(ngModel)]="selectedValue" disableOptionCentering name="coloring" placeholder="coloring" (selectionChange)="ChangeColoring($event.value)">
       <mat-option *ngFor="let color of coloring" [value]="color.value">
-        {{color.viewValue}}
+        {{ color.viewValue }}
       </mat-option>
     </mat-select>
   </mat-form-field>

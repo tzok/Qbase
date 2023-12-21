@@ -27,10 +27,10 @@
                     <th style="text-align: center; vertical-align: middle">Quadruplex ID</th>
                     <th style="text-align: center; vertical-align: middle">PDB ID</th>
                     <th style="text-align: center; vertical-align: middle">Assembly ID</th>
-                    <th style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'topologyBaseTableOne', page: 0}">Molecule</a></th>
+                    <th style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{ filter: 'topologyBaseTableOne', page: 0 }">Molecule</a></th>
                     <th style="text-align: center; vertical-align: middle">Experimental method</th>
-                    <th style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'Planarity', page: 0}">Planarity [Å]</a></th>
-                    <th style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'ELTetradoableOne', page: 0}">ONZ class</a></th>
+                    <th style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{ filter: 'Planarity', page: 0 }">Planarity [Å]</a></th>
+                    <th style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{ filter: 'ELTetradoableOne', page: 0 }">ONZ class</a></th>
                     <th style="text-align: center; vertical-align: middle">Tetrad combination</th>
                   </tr>
                 </thead>
@@ -44,7 +44,7 @@
                     </td>
                     <td style="text-align: center; vertical-align: middle">
                       <a class="hasTooltip" target="_blank" rel="noopener noreferrer" href="https://www.rcsb.org/structure/{{ data.pdbIdentifier }}"
-                        >{{ data.pdbIdentifier }}<span> <img src="static/pymol/{{ data.pdbIdentifier }}-assembly-{{ data.assemblyId }}.png" width="200" height="150" alt="" /> </span>
+                        >{{ data.pdbIdentifier }}<span> <img src="static/pymol/{{ data.pdbIdentifier }}-assembly{{ data.assemblyId }}.png" width="200" height="150" alt="" /> </span>
                       </a>
                     </td>
                     <td style="text-align: center; vertical-align: middle">{{ data.assemblyId }}</td>
@@ -104,7 +104,7 @@
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Number</th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Symbol</th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Full name</th>
-                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'ONZChiValues', page: 0}">Chi angle (value) [°]</a></th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{ filter: 'ONZChiValues', page: 0 }">Chi angle (value) [°]</a></th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Chi angle (type)</th>
                   </tr>
                 </thead>
@@ -129,7 +129,7 @@
               <table class="table" style="border: 1px solid black">
                 <thead>
                   <tr>
-                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{filter : 'ONZIon', page: 0}"> Ion</a></th>
+                    <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle"><a matTooltip="See statistics" [routerLink]="['/statistics']" [queryParams]="{ filter: 'ONZIon', page: 0 }"> Ion</a></th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Ionic charge</th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Symbol</th>
                     <th class="fiveColumnsStyle" style="text-align: center; vertical-align: middle">Full name</th>
