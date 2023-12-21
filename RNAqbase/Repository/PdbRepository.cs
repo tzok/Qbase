@@ -15,7 +15,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<string> GetVisualizationByPdbId(string pdbId)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -23,31 +23,27 @@ namespace RNAqbase.Repository
 					(@"
 					SELECT visualization_2d
 					FROM pdb
-					WHERE identifier = @PdbId;", new {PdbId = pdbId});
+					WHERE identifier = @PdbId;", new { PdbId = pdbId });
 
 				return result.FirstOrDefault();
 			}
 		}
-		
+
 		public async Task<MemoryStream> GetVisualization3dByPdbId(string pdbId, int assembly)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
-				var result = await connection.QueryAsync<string>
+				var result = await connection.QueryFirstAsync<string>
 				(@"
-					select coordinates 
-					from pdb 
-					join nucleotide on pdb.id = nucleotide.pdb_id 
-					where pdb.identifier = @PdbId and assembly  = @Assembly", new {PdbId = pdbId, Assembly=assembly});
+					SELECT coordinates 
+					FROM pdb 
+					WHERE pdb.identifier = @PdbId and assembly  = @Assembly", new { PdbId = pdbId, Assembly = assembly });
 
-				var coordinates = new CoordinatesPdb();
-				coordinates.Coordinates = result.ToArray();
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);
-				writer.Write(coordinates.CoordinatesAsString);
+				writer.Write(result);
 				writer.Flush();
-			
 				stream.Position = 0;
 				return stream;
 			}

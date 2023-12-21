@@ -14,9 +14,9 @@ namespace RNAqbase.Repository
 	{
 
 		public TetradRepository(IConfiguration configuration) : base(configuration)
-		{}
+		{ }
 		public async Task<TetradDescription> FindById(int id)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -49,7 +49,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<TetradTable>> FindAll()
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -82,7 +82,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<int>> GetOtherTetradsInTheSameQuadruplex(int tetradId, int quadruplexId)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -91,12 +91,12 @@ namespace RNAqbase.Repository
 					SELECT id
 					FROM tetrad
 					WHERE quadruplex_id = @QuadruplexId 
-						AND id <> @TetradId;", new {QuadruplexId = quadruplexId, TetradId = tetradId});
+						AND id <> @TetradId;", new { QuadruplexId = quadruplexId, TetradId = tetradId });
 			}
 		}
-		
+
 		public async Task<TetradNucleotides> GetTetradNucleotides(int id)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -130,7 +130,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<int>> GetOtherTetradsInTheSamePdb(int tetradId, int pdbId)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -145,7 +145,7 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameQuadruplex(int id)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -169,9 +169,9 @@ namespace RNAqbase.Repository
 	                ORDER BY t.id;", new { QuadruplexId = id });
 			}
 		}
-		
+
 		public async Task<IEnumerable<TetradReference>> FindAllTetradsInTheSameHelix(int id)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -200,36 +200,28 @@ namespace RNAqbase.Repository
 		}
 
 		public async Task<MemoryStream> GetTetrad3dVisualization(int tetradId)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
-				var coordinates = await connection.QueryFirstAsync<Coordinates>
+				var coordinates = await connection.QueryFirstAsync<string>
 				(@"
-					SELECT 
-						n1.coordinates as c1,
-						n2.coordinates as c2,
-						n3.coordinates as c3,
-						n4.coordinates as c4
-					FROM tetrad t
-						JOIN nucleotide n1 on t.nt1_id = n1.id
-						JOIN nucleotide n2 on t.nt2_id = n2.id
-						JOIN nucleotide n3 on t.nt3_id = n3.id
-						JOIN nucleotide n4 on t.nt4_id = n4.id
-					WHERE t.id = @Id;", new { Id = tetradId });
+					SELECT coordinates
+					FROM tetrad
+					WHERE id = @Id;", new { Id = tetradId });
 
 				var stream = new MemoryStream();
 				var writer = new StreamWriter(stream);
-				writer.Write(coordinates.CoordinatesAsString);
+				writer.Write(coordinates);
 				writer.Flush();
 				stream.Position = 0;
 				return stream;
 			}
 		}
-		
-		
+
+
 		public async Task<IEnumerable<Ions_tetrad>> GetIons(int id)
-		{			
+		{
 			using (var connection = Connection)
 			{
 				connection.Open();
@@ -251,7 +243,7 @@ namespace RNAqbase.Repository
 	where t.id = @id
 	group by ion.name, ion.charge, nucleotide.short_name, nucleotide.full_name
 
-						", new {id = id});
+						", new { id = id });
 			}
 		}
 	}

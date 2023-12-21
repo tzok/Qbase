@@ -9,20 +9,20 @@ using RNAqbase.Models;
 
 namespace RNAqbase.Repository
 {
-    public class HelixRepository : RepositoryBase, IHelixRepository
-    {
-        public HelixRepository(IConfiguration configuration) : base(configuration)
-        {
-        }
+	public class HelixRepository : RepositoryBase, IHelixRepository
+	{
+		public HelixRepository(IConfiguration configuration) : base(configuration)
+		{
+		}
 
-        public async Task<HelixReference> GetHelixReferenceById(int id)
-        {			
+		public async Task<HelixReference> GetHelixReferenceById(int id)
+		{
 			using (var connection = Connection)
-            {
-                connection.Open();
+			{
+				connection.Open();
 
-                var helix = await connection.QueryFirstAsync<HelixReference>(
-                    (@"
+				var helix = await connection.QueryFirstAsync<HelixReference>(
+						(@"
                         SELECT DISTINCT ON(h.id)
 						h.id AS Id,     
 						h.dot_bracket AS Dot_bracket,
@@ -53,20 +53,20 @@ namespace RNAqbase.Repository
 					JOIN PDB p ON n1.pdb_id = p.id
 					where h.id = @HelixId
 					GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, p.title, n1.molecule, p.experiment"),
-                    new {HelixId = id});
+						new { HelixId = id });
 
-                return helix;
-            }
-        }
+				return helix;
+			}
+		}
 
-        public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
-        {		
+		public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                return await connection.QueryAsync<NucleotidesChiValues>(
-                    (@"
+				return await connection.QueryAsync<NucleotidesChiValues>(
+						(@"
 						SELECT t.id as tetrad_id,
 						n1.chi as n1_chi, 
 						n2.chi as n2_chi, 
@@ -83,18 +83,18 @@ namespace RNAqbase.Repository
 						JOIN nucleotide n3 on t.nt3_id = n3.id
 						JOIN nucleotide n4 on t.nt4_id = n4.id
 						WHERE hq.helix_id = @HelixId"),
-                    new {HelixId = id});
-            }
-        }
+						new { HelixId = id });
+			}
+		}
 
-        public async Task<List<HelixTable>> GetAllHelices()
-        {			
+		public async Task<List<HelixTable>> GetAllHelices()
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                return (await connection.QueryAsync<HelixTable>(
-                    @"SELECT DISTINCT ON(h.id)
+				return (await connection.QueryAsync<HelixTable>(
+						@"SELECT DISTINCT ON(h.id)
 							h.id AS Id,       
     						string_agg(DISTINCT(q.id)::text, ',') as QuadruplexesIds,
 							p.identifier AS PdbId,
@@ -125,84 +125,28 @@ namespace RNAqbase.Repository
 						GROUP BY h.id, p.identifier, n1.pdb_id, p.assembly, n1.molecule, p.experiment
 						order by h.id;
                         ")).ToList();
-            }
-        }
+			}
+		}
 
-        public async Task<MemoryStream> GetHelix3dVisualization(int id)
-        {			
+		public async Task<MemoryStream> GetHelix3dVisualization(int helixId)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
-                var coordinates1Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n1.coordinates
-					FROM tetrad t
-							JOIN nucleotide n1 on t.nt1_id = n1.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
-                    new {id = id});
+				connection.Open();
+				var coordinates = await connection.QueryFirstAsync<string>
+				(@" 
+					SELECT coordinates
+					FROM helix
+					WHERE id = @id;",
+						new { id = helixId });
 
-                var coordinates2Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n2.coordinates
-					FROM tetrad t
-							JOIN nucleotide n2 on t.nt2_id = n2.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
-                    new {id = id});
-
-                var coordinates3Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n3.coordinates
-					FROM tetrad t
-							JOIN nucleotide n3 on t.nt3_id = n3.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
-                    new {id = id});
-
-                var coordinates4Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n4.coordinates
-					FROM tetrad t
-							JOIN nucleotide n4 on t.nt4_id = n4.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-						join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-					where quadruplex.id IN (select quadruplex_id from helix_quadruplex where helix_id = @id))",
-                    new {id = id});
-
-
-                var loopNucleotideCoordinates = await connection.QueryAsync<string>
-                (@" 
-					select coordinates from nucleotide where id IN 
-					(select nucleotide_id from loop
-					join loop_nucleotide on loop.id = loop_nucleotide.loop_id
-					where loop.quadruplex_id in (select quadruplex_id from helix_quadruplex where helix_id = @id))",
-                    new {id = id});
-
-
-                var coordinates = new CoordinatesQuadruplex();
-
-                coordinates.C1 = coordinates1Query.ToArray();
-                coordinates.C2 = coordinates2Query.ToArray();
-                coordinates.C3 = coordinates3Query.ToArray();
-                coordinates.C4 = coordinates4Query.ToArray();
-                coordinates.LoopNucleotideCoordinates = loopNucleotideCoordinates.ToArray();
-
-                var stream = new MemoryStream();
-                var writer = new StreamWriter(stream);
-                writer.Write(coordinates.CoordinatesAsString);
-                writer.Flush();
-
-                stream.Position = 0;
-                return stream;
-            }
-        }
-    }
+				var stream = new MemoryStream();
+				var writer = new StreamWriter(stream);
+				writer.Write(coordinates);
+				writer.Flush();
+				stream.Position = 0;
+				return stream;
+			}
+		}
+	}
 }

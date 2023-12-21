@@ -14,40 +14,40 @@ using RNAqbase.Models;
 
 namespace RNAqbase.Repository
 {
-    public class QuadruplexRepository : RepositoryBase, IQuadruplexRepository
-    {
-        public QuadruplexRepository(IConfiguration configuration) : base(configuration)
-        {
-        }
+	public class QuadruplexRepository : RepositoryBase, IQuadruplexRepository
+	{
+		public QuadruplexRepository(IConfiguration configuration) : base(configuration)
+		{
+		}
 
-        public async Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
-        {			
+		public async Task<IEnumerable<int>> GetQuadruplexesByPdbId(int pdbId, int quadruplexId)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
-                return await connection.QueryAsync<int>
-                (@"
+				connection.Open();
+				return await connection.QueryAsync<int>
+				(@"
 					SELECT DISTINCT(t.quadruplex_id)
 					FROM tetrad t
 						JOIN nucleotide n on t.nt1_id=n.id
 					WHERE n.pdb_id=@PdbId
 						AND t.quadruplex_id <> @QuadruplexId;",
-                    new
-                    {
-                        QuadruplexId = quadruplexId,
-                        PdbId = pdbId
-                    });
-            }
-        }
+						new
+						{
+							QuadruplexId = quadruplexId,
+							PdbId = pdbId
+						});
+			}
+		}
 
-        public async Task<Quadruplex> GetQuadruplexById(int id)
-        {		
+		public async Task<Quadruplex> GetQuadruplexById(int id)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                var quadruplex = await connection.QueryFirstAsync<Quadruplex>(
-                    @"
+				var quadruplex = await connection.QueryFirstAsync<Quadruplex>(
+						@"
 						SELECT DISTINCT ON (q.id)
 							q.id AS Id,
 							CONCAT(q.onzm, q.subtype) AS OnzmClass,
@@ -81,29 +81,29 @@ namespace RNAqbase.Repository
 						JOIN PDB p ON n1.pdb_id = p.id
 						WHERE q.id = @QuadruplexId
 						GROUP BY q.id, q.onzm, p.identifier, p.title, n1.pdb_id, p.assembly, n1.molecule, p.experiment;",
-                    new {QuadruplexId = id});
+						new { QuadruplexId = id });
 
-                var ids = await connection.QueryAsync<int>(
-                    @"
+				var ids = await connection.QueryAsync<int>(
+						@"
 					SELECT t.id
 					FROM QUADRUPLEX q
 					JOIN TETRAD t ON q.id = t.quadruplex_id
 					WHERE  q.id = @QuadruplexId",
-                    new {QuadruplexId = id});
+						new { QuadruplexId = id });
 
-                quadruplex.Tetrads = ids.ToList();
-                return quadruplex;
-            }
-        }
+				quadruplex.Tetrads = ids.ToList();
+				return quadruplex;
+			}
+		}
 
-        public async Task<List<QuadruplexTable>> GetAllQuadruplexes()
-        {			
+		public async Task<List<QuadruplexTable>> GetAllQuadruplexes()
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                return (await connection.QueryAsync<QuadruplexTable>(
-					@"
+				return (await connection.QueryAsync<QuadruplexTable>(
+	@"
 						SELECT
 							MAX(q.id) AS Id,
 							q.loop_class as LoopTopology,
@@ -139,16 +139,16 @@ namespace RNAqbase.Repository
 						LEFT JOIN ion ON ion.id = pdb_ion.ion_id
 						GROUP BY q.id
 						HAVING COUNT(t.id) > 1")).ToList();
-            }
-        }
+			}
+		}
 
-        public async Task<IEnumerable<Ions>> GetIons(int id)
-        {			
+		public async Task<IEnumerable<Ions>> GetIons(int id)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
-                return await connection.QueryAsync<Ions>(
-                    @"
+				connection.Open();
+				return await connection.QueryAsync<Ions>(
+						@"
 						SELECT 
 							ion.name as Ion,
 						      ion.charge as Ion_charge,
@@ -156,17 +156,17 @@ namespace RNAqbase.Repository
 						FROM ion
 						JOIN pdb_ion on ion.id = pdb_ion.ion_id
 						WHERE pdb_ion.pdb_id = @id
-						", new {id = id});
-            }
-        }
+						", new { id = id });
+			}
+		}
 
-        public async Task<List<Structure>> GetAllStructures()
-        {			
+		public async Task<List<Structure>> GetAllStructures()
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
-                IEnumerable<Structure> structures = await connection.QueryAsync<Structure>(
-                    @"
+				connection.Open();
+				IEnumerable<Structure> structures = await connection.QueryAsync<Structure>(
+						@"
 						SELECT
 						string_agg(CAST(q.id AS TEXT), ',') as Quadruplex_id,
 						p.identifier AS PdbId,
@@ -183,18 +183,18 @@ namespace RNAqbase.Repository
 						GROUP BY p.identifier, p.assembly
 						order by p.identifier desc");
 
-                return structures.ToList();
-            }
-        }
+				return structures.ToList();
+			}
+		}
 
-        public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id)
-        {			
+		public async Task<IEnumerable<Quadruplex>> FindAllQuadruplexInTheHelix(int id)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                return await connection.QueryAsync<Quadruplex>(
-                    @"
+				return await connection.QueryAsync<Quadruplex>(
+						@"
 						SELECT
 							MAX(q.id) AS Id,
 							CONCAT(MAX(q.onzm), MAX(q.subtype)) AS OnzmClass,
@@ -224,19 +224,19 @@ namespace RNAqbase.Repository
 						join helix_quadruplex hq on hq.quadruplex_id = q.id
 						join helix on helix.id = hq.helix_id
 						where helix.id = @HelixId
-						GROUP BY q.id;", new {helixId = id});
-            }
-        }
+						GROUP BY q.id;", new { helixId = id });
+			}
+		}
 
 
-        public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
-        {		
+		public async Task<IEnumerable<NucleotidesChiValues>> GetNucleotideChiValues(int id)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                return await connection.QueryAsync<NucleotidesChiValues>(
-                    (@"
+				return await connection.QueryAsync<NucleotidesChiValues>(
+						(@"
 						SELECT 
 						t.id as tetrad_id,
 						n1.chi as n1_chi, 
@@ -255,18 +255,18 @@ namespace RNAqbase.Repository
 						WHERE t.id in (SELECT id
 										FROM tetrad
 										WHERE quadruplex_id = @Id)"),
-                    new {Id = id});
-            }
-        }
+						new { Id = id });
+			}
+		}
 
-        public async Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id)
-        {			
+		public async Task<IEnumerable<QuadruplexLoops>> GetQuadruplexLoops(int id)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
+				connection.Open();
 
-                return await connection.QueryAsync<QuadruplexLoops>(
-                    (@"
+				return await connection.QueryAsync<QuadruplexLoops>(
+						(@"
 						SELECT 
 						STRING_AGG(COALESCE(n.short_name, ''), '') AS Short_sequence,
 						STRING_AGG(COALESCE(n.full_name, ''), ', ') AS Full_sequence,
@@ -277,84 +277,30 @@ namespace RNAqbase.Repository
 						JOIN nucleotide n on ln.nucleotide_id = n.id
 						WHERE q.id = @Id
 						GROUP BY l.id"),
-                    new {Id = id});
-            }
-        }
+						new { Id = id });
+			}
+		}
 
 
-        public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
-        {			
+		public async Task<MemoryStream> GetQuadruplex3dVisualization(int quadruplexId)
+		{
 			using (var connection = Connection)
 			{
-                connection.Open();
-                var coordinates1Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n1.coordinates
-					FROM tetrad t
-						JOIN nucleotide n1 on t.nt1_id = n1.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-			where quadruplex.id = @id) ",
-                    new {id = quadruplexId});
+				connection.Open();
+				var coordinates = await connection.QueryFirstAsync<string>
+				(@" 
+					SELECT coordinates
+					FROM quadruplex
+					WHERE id = @id;",
+						new { id = quadruplexId });
 
-                var coordinates2Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n2.coordinates
-					FROM tetrad t
-						JOIN nucleotide n2 on t.nt2_id = n2.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-			where quadruplex.id = @id) ",
-                    new {id = quadruplexId});
-
-                var coordinates3Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n3.coordinates
-					FROM tetrad t
-						JOIN nucleotide n3 on t.nt3_id = n3.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-			where quadruplex.id = @id) ",
-                    new {id = quadruplexId});
-
-                var coordinates4Query = await connection.QueryAsync<string>
-                (@" 
-					SELECT 
-						n4.coordinates
-					FROM tetrad t
-						JOIN nucleotide n4 on t.nt4_id = n4.id
-					WHERE t.id IN (select tetrad.Id from quadruplex
-			join tetrad on quadruplex.Id = tetrad.quadruplex_id 
-			where quadruplex.id = @id) ",
-                    new {id = quadruplexId});
-
-                var coordinatesLoop = await connection.QueryAsync<string>
-                (@" 
-					SELECT coordinates from nucleotide where id IN 
-					(select nucleotide_id from loop
-					join loop_nucleotide on loop.id = loop_nucleotide.loop_id
-					where loop.quadruplex_id = @id);",
-                    new {id = quadruplexId});
-
-                var coordinates = new CoordinatesQuadruplex();
-
-                coordinates.C1 = coordinates1Query.ToArray();
-                coordinates.C2 = coordinates2Query.ToArray();
-                coordinates.C3 = coordinates3Query.ToArray();
-                coordinates.C4 = coordinates4Query.ToArray();
-                coordinates.LoopNucleotideCoordinates = coordinatesLoop.ToArray();
-
-                var stream = new MemoryStream();
-                var writer = new StreamWriter(stream);
-                writer.Write(coordinates.CoordinatesAsString);
-                writer.Flush();
-
-                stream.Position = 0;
-                return stream;
-            }
-        }
-    }
+				var stream = new MemoryStream();
+				var writer = new StreamWriter(stream);
+				writer.Write(coordinates);
+				writer.Flush();
+				stream.Position = 0;
+				return stream;
+			}
+		}
+	}
 }
